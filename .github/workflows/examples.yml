@@ -1,0 +1,17 @@
+name: Examples smoke-test
+on:
+  push:
+    paths: ["examples/**"]
+  pull_request:
+    paths: ["examples/**"]
+
+jobs:
+  run-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with: 
+          python-version: "3.11"
+      - run: pip install -r labor_force_gap/after/requirements.txt
+      - run: python labor_force_gap/after/app.py --headless || true

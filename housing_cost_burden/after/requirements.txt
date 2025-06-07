@@ -1,0 +1,1 @@
+pymapgis @ git+https://github.com/pymapgis/core.git@main
