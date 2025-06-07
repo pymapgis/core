@@ -1,6 +1,7 @@
 """
 American Community Survey downloader (county-level) – first cut.
 """
+
 from __future__ import annotations
 
 import os
@@ -12,6 +13,7 @@ from .cache import get as cached_get
 
 _API = "https://api.census.gov/data/{year}/acs/acs5"
 _KEY = os.getenv("CENSUS_API_KEY")  # optional
+
 
 def get_county_table(
     year: int,

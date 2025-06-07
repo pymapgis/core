@@ -1,6 +1,7 @@
 """
 TIGER/Cartographic-Boundary helpers (county polygons).
 """
+
 from __future__ import annotations
 
 from pathlib import Path
