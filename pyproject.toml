@@ -1,10 +1,28 @@
 [tool.poetry]
 name = "pymapgis"
 version = "0.1.0"
-description = "Modern GIS toolkit"
+description = "Modern GIS toolkit for Python - Simplifying geospatial workflows with built-in data sources, intelligent caching, and fluent APIs"
 authors = ["Nicholas Karlson <nicholaskarlson@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/pymapgis/core"
+repository = "https://github.com/pymapgis/core"
+documentation = "https://pymapgis.github.io/core/"
+keywords = ["gis", "geospatial", "mapping", "census", "visualization", "geography"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
 packages = [{ include = "pymapgis" }]
 
 [tool.poetry.dependencies]
