@@ -1,33 +1,28 @@
-[project]
+[tool.poetry]
 name = "pymapgis"
 version = "0.1.0"
 description = "Modern GIS toolkit"
-authors = [
-    {name = "Nicholas Karlson",email = "nicholaskarlson@gmail.com"}
-]
-license = {text = "MIT"}
+authors = ["Nicholas Karlson <nicholaskarlson@gmail.com>"]
+license = "MIT"
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-    "geopandas (>=1.1.0,<2.0.0)",
-    "fsspec (>=2025.5.1,<2026.0.0)",
-    "leafmap (>=0.47.2,<0.48.0)",
-    "pydantic-settings (>=2.9.1,<3.0.0)",
-]
-
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+packages = [{ include = "pymapgis" }]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
+geopandas = "^1.1"
+fsspec = "^2025.5"
+leafmap = "^0.47.2"
+pydantic-settings = "^2.9.1"
+# (add rasterio later, once the click conflict is solved)
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.4.0"
-pytest-cov = "^6.1.1"
-ruff = "^0.11.13"
-black = "^25.1.0"
-mypy = "^1.16.0"
-pre-commit = "^4.2.0"
+pytest = "^8.4"
+pytest-cov = "^6.1"
+ruff = "^0.11"
+black = "^25.1"
+mypy = "^1.16"
+pre-commit = "^4.2"
 
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"
