@@ -1,14 +1,18 @@
 name: CI
 on: [push, pull_request]
-permissions:          
+
+permissions:
   contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
-        with: {python-version: "3.11"}
+        with:
+          python-version: "3.12"
       - run: pip install poetry
+      
       - run: poetry install --only main --no-interaction
       - run: poetry run pytest -q
