@@ -1,19 +1,14 @@
-[project]
+# pyproject.toml  (top of file)
+
+[tool.poetry]              # ← change this line
 name = "pymapgis"
 version = "0.1.0"
 description = "Modern GIS toolkit"
-authors = [
-    {name = "Nicholas Karlson",email = "nicholaskarlson@gmail.com"}
-]
-license = {text = "MIT"}
+authors = ["Nicholas Karlson <nicholaskarlson@gmail.com>"]
+license = "MIT"
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-    "geopandas (>=1.1.0,<2.0.0)",
-    "fsspec (>=2025.5.1,<2026.0.0)",
-    "leafmap (>=0.47.2,<0.48.0)",
-    "pydantic-settings (>=2.9.1,<3.0.0)",
-]
+packages = [{ include = "pymapgis" }]   # ← tells Poetry to install your code
+
 
 
 [build-system]
