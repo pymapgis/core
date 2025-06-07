@@ -15,6 +15,7 @@ leafmap = "^0.47.2"
 pydantic-settings = "^2.9.1"
 # (add rasterio later, once the click conflict is solved)
 requests-cache = "^1.2.1"
+pandas = "^2.3.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4"

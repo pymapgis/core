@@ -18,6 +18,7 @@ from typing import Optional, Union
 
 import requests
 import requests_cache
+import urllib3
 
 # ----------- configuration -------------------------------------------------
 
@@ -26,6 +27,9 @@ _DEFAULT_DIR = Path.home() / ".pymapgis" / "cache"
 _DEFAULT_EXPIRE = timedelta(days=7)
 
 _session: Optional[requests_cache.CachedSession] = None
+
+# Disable SSL warnings for government sites with certificate issues
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def _init_session(
@@ -77,10 +81,14 @@ def get(
     """
     # Check environment variable each time
     if bool(int(os.getenv("PYMAPGIS_DISABLE_CACHE", "0"))):
+        # Use verify=False for government sites with SSL issues
+        kwargs.setdefault("verify", False)
         return requests.get(url, **kwargs)
 
     _ensure_session()
     expire_after = _parse_ttl(ttl)
+    # Use verify=False for government sites with SSL issues
+    kwargs.setdefault("verify", False)
     with _session.cache_disabled() if expire_after == 0 else _session:
         return _session.get(url, expire_after=expire_after, **kwargs)
 
