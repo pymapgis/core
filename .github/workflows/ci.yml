@@ -15,4 +15,4 @@ jobs:
       - run: pip install poetry
       
       - run: poetry install --with dev --no-interaction
-      - run: poetry run pytest -q
+      - run: poetry run pytest -q || [ $? -eq 5 ]
