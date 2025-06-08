@@ -4,7 +4,7 @@ from pathlib import Path # Existing import
 # from typing import Union # Not strictly needed for Python 3.10+ type hints like `|`
 
 from .io import read
-from .cache import _init_session, clear as clear_cache
+from .cache import _init_session, clear as clear_cache, stats, purge
 from .acs import get_county_table
 from .tiger import counties
 from .plotting import choropleth
@@ -42,6 +42,8 @@ __all__ = [
     "read",
     "set_cache",
     "clear_cache",
+    "stats",
+    "purge",
     "get_county_table",
     "counties",
     "choropleth",
