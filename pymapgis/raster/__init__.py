@@ -1,8 +1,163 @@
 import xarray as xr
 import rioxarray # Imported for the .rio accessor, used by xarray.DataArray
-from typing import Union, Hashable
+from typing import Union, Hashable, Dict, Any
+import xarray_multiscale
+import zarr # Though not directly used in the function, good to have for context if users handle zarr.Group directly
 
-__all__ = ["reproject", "normalized_difference"]
+
+__all__ = ["reproject", "normalized_difference", "lazy_windowed_read_zarr"]
+
+def lazy_windowed_read_zarr(
+    store_path_or_url: str,
+    window: Dict[str, int],
+    level: Union[str, int],
+    consolidated: bool = True,
+    multiscale_group_name: str = "",
+    axis_order: str = "YX",
+) -> xr.DataArray:
+    """
+    Lazily reads a window of data from a specific level of a Zarr multiscale pyramid.
+
+    This function opens a Zarr store, accesses its multiscale representation,
+    selects the specified scale level, and then extracts a defined window
+    (region of interest) from that level. The data access is lazy, meaning
+    actual data I/O occurs only when the returned DataArray is computed or accessed.
+
+    Args:
+        store_path_or_url (str): Path or URL to the Zarr store.
+        window (Dict[str, int]): A dictionary specifying the window to read.
+            Expected keys are 'x' (x-coordinate of the top-left corner),
+            'y' (y-coordinate of the top-left corner), 'width' (width of the
+            window), and 'height' (height of the window). Coordinates are
+            typically in pixel units of the specified level.
+        level (Union[str, int]): The scale level to read from. This can be an
+            integer index (e.g., 0 for the highest resolution) or a string path
+            name if the multiscale metadata defines named levels (e.g., "0", "1").
+        consolidated (bool, optional): Whether the Zarr store's metadata is
+            consolidated. Defaults to True, which is common for performance.
+            Passed to `xarray.open_zarr`.
+        multiscale_group_name (str, optional): The name or path of the group within
+            the Zarr store that contains the multiscale metadata (e.g., 'multiscales.DTYPE_0').
+            If empty (default), it assumes the root of the Zarr store is the
+            multiscale dataset or contains the necessary metadata for xarray_multiscale
+            to find the data.
+        axis_order (str, optional): The axis order convention used by xarray_multiscale
+            to interpret the dimensions of the arrays in the pyramid.
+            Defaults to "YX". Common alternatives could be "CYX", "TCYX", etc.
+            This tells `xarray_multiscale.multiscale` how to map dimension names
+            like 'x' and 'y' to array dimensions.
+
+    Returns:
+        xr.DataArray: An xarray.DataArray representing the selected window from
+            the specified scale level. The array is lazy-loaded.
+
+    Raises:
+        KeyError: If the specified window keys ('x', 'y', 'width', 'height') are
+            not in the `window` dictionary, or if the selected level does not
+            contain dimensions 'x' and 'y' for slicing.
+        IndexError: If the window coordinates are outside the bounds of the data
+            at the selected level.
+        Exception: Can also raise exceptions from `xarray.open_zarr` or
+            `xarray_multiscale.multiscale` if the store is invalid, not a
+            multiscale pyramid, or the level does not exist.
+
+    Example:
+        >>> # Assuming a Zarr store 'my_image.zarr' with a multiscale pyramid
+        >>> window_to_read = {'x': 100, 'y': 200, 'width': 50, 'height': 50}
+        >>> # data_chunk = lazy_windowed_read_zarr('my_image.zarr', window_to_read, level=0)
+        >>> # print(data_chunk) # This will show the DataArray structure
+        >>> # actual_data = data_chunk.compute() # This triggers data loading
+    """
+    if not all(k in window for k in ['x', 'y', 'width', 'height']):
+        raise KeyError("Window dictionary must contain 'x', 'y', 'width', and 'height' keys.")
+
+    # Open the Zarr store. group='' means root for multiscale.
+    # If multiscale_group_name is provided, it's used as the group path.
+    zarr_group_path = multiscale_group_name if multiscale_group_name else None
+    ds = xr.open_zarr(store_path_or_url, consolidated=consolidated, group=zarr_group_path)
+
+    # Access the multiscale pyramid.
+    # The `name_pattern_type` argument for xarray_multiscale.multiscale might be 'regex' or 'glob'.
+    # Default is often fine if levels are named '0', '1', ... or paths like 's0', 's1', ...
+    # The `array_raw_name_pattern` might be needed if data variables are not standard.
+    # For OME-Zarr, the data is typically in a dataset named by its level path e.g. "0".
+    # xarray_multiscale is designed to handle OME-Zarr NGFF spec v0.4+
+    # The `datasets` field in .zattrs for NGFF specifies paths to arrays.
+    # If `ds` itself is the multiscale dataset (e.g. from `xr.open_mfdataset` on pyramid levels)
+    # then `xarray_multiscale.multiscale(ds, ...)` is correct.
+    # If `ds` is the root and multiscale metadata is in `ds.attrs['multiscales']` (OME-NGFF),
+    # then `xarray_multiscale.multiscale(ds, ...)` should also work.
+
+    # The 'type' argument to multiscale specifies the axis interpretation.
+    # Using a simple string like "YX" might require xarray_multiscale to have it registered,
+    # or it might directly interpret it. ITK_IMAGE_DIMS is a safer constant if available/applicable.
+    # However, xarray_multiscale documentation suggests 'type' can be a string like "spatial"
+    # or an instance of an `AxisType` subclass. For simplicity and common use,
+    # we'll assume the dimensions are named 'x' and 'y' in the arrays.
+    try:
+        multi_scale_pyramid = xarray_multiscale.multiscale(
+            ds,
+            xarray_multiscale.reducers.windowed_mean(preserve_dtype=True), # Default reducer
+            axis_order=axis_order
+        )
+    except Exception as e:
+        # If ds itself is one level of a pyramid, or not a multiscale dataset as expected
+        # xarray_multiscale might fail.
+        # Provide more context if it fails.
+        raise Exception(
+            f"Failed to interpret '{store_path_or_url}' (group: {zarr_group_path}) as a multiscale pyramid "
+            f"with axis_order '{axis_order}'. Ensure it's a valid OME-NGFF multiscale dataset "
+            f"or compatible structure. Original error: {e}"
+        ) from e
+
+    # Select the specified level. `level` can be an int or string.
+    # `multi_scale_pyramid` is a list of xr.DataArray, one for each level.
+    # Or, if using newer xarray-multiscale with named scales, it could be a dict.
+    # The API of xarray_multiscale.multiscale returns a list of DataArrays.
+    try:
+        if isinstance(level, str) and not level.isdigit():
+             # This case is tricky. xarray_multiscale returns a list of DataArrays.
+             # If levels are named like "s0", "s1", this simple indexing won't work.
+             # For OME-ZARR, levels are typically indexed 0, 1, 2...
+             # The `datasets` attribute in .zattrs lists paths like "0", "1", "2".
+             # `xarray.open_zarr` with `group=''` on an OME-Zarr root might return a Dataset
+             # where `ds.attrs['multiscales']` exists.
+             # `xarray_multiscale.multiscale(ds, ...)` then returns a list of xr.DataArrays.
+             # We will assume `level` as integer index for this list.
+             # If string "0", "1" etc are passed, convert to int.
+            raise ValueError(f"Level '{level}' is a non-integer string. Please use integer index for levels.")
+
+        level_idx = int(level)
+        data_at_level = multi_scale_pyramid[level_idx]
+    except IndexError:
+        raise IndexError(
+            f"Level {level} is out of bounds. Available levels: {len(multi_scale_pyramid)} (0 to {len(multi_scale_pyramid)-1})."
+        ) from None
+    except ValueError as e: # Handles non-integer string level
+        raise ValueError(f"Invalid level specified: {level}. Must be an integer or a string representing an integer. Error: {e}")
+
+
+    # Select the window using .isel for integer-based slicing.
+    # Assumes dimensions are named 'x' and 'y' in the DataArray at the selected level.
+    # This is a common convention for 2D spatial data.
+    try:
+        x_slice = slice(window['x'], window['x'] + window['width'])
+        y_slice = slice(window['y'], window['y'] + window['height'])
+
+        # Check if 'x' and 'y' are dimensions in the data_at_level
+        if 'x' not in data_at_level.dims or 'y' not in data_at_level.dims:
+            raise KeyError(f"Dimensions 'x' and/or 'y' not found in DataArray at level {level}. "
+                           f"Available dimensions: {data_at_level.dims}. "
+                           f"Ensure 'axis_order' ('{axis_order}') correctly maps to these dimensions.")
+
+        windowed_data = data_at_level.isel(x=x_slice, y=y_slice)
+    except KeyError as e: # Handles missing 'x', 'y', 'width', 'height' from window dict (already checked) or missing dims
+        raise KeyError(f"Failed to slice window. Ensure 'x' and 'y' are valid dimension names in the selected level's DataArray. Original error: {e}")
+    except IndexError as e: # Handles slice out of bounds
+        raise IndexError(f"Window {window} is out of bounds for level {level} with shape {data_at_level.shape}. Original error: {e}")
+
+    return windowed_data
+
 
 def reproject(data_array: xr.DataArray, target_crs: Union[str, int], **kwargs) -> xr.DataArray:
     """Reprojects an xarray.DataArray to a new Coordinate Reference System (CRS).
