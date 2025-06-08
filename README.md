@@ -1,11 +1,14 @@
 # PyMapGIS
 
-[![PyPI version](https://badge.fury.io/py/pymapgis.svg)](https://badge.fury.io/py/pymapgis)
+[![PyPI version](https://badge.fury.io/py/pymapgis.svg)](https://pypi.org/project/pymapgis/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/pymapgis/core/workflows/CI/badge.svg)](https://github.com/pymapgis/core/actions)
+[![Documentation](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://pymapgis.github.io/core/)
 
 **Modern GIS toolkit for Python** - Simplifying geospatial workflows with built-in data sources, intelligent caching, and fluent APIs.
+
+🎉 **[Now available on PyPI!](https://pypi.org/project/pymapgis/)** Install with `pip install pymapgis`
 
 ## 🚀 Quick Start
 
@@ -89,9 +92,11 @@ poetry install
 
 ## 📚 Documentation
 
-- **[API Reference](https://pymapgis.github.io/core/)**
-- **[Examples Repository](https://github.com/pymapgis/examples)**
-- **[Contributing Guide](CONTRIBUTING.md)**
+- **[📖 User Guide](docs/user-guide.md)** - Complete tutorial and usage guide
+- **[🔧 API Reference](docs/api-reference.md)** - Detailed API documentation
+- **[💡 Examples](docs/examples.md)** - Real-world usage examples
+- **[🚀 Quick Start](docs/quickstart.md)** - Get up and running in 5 minutes
+- **[🤝 Contributing Guide](CONTRIBUTING.md)** - How to contribute to PyMapGIS
 
 ## 🤝 Contributing
 
