@@ -1,8 +1,12 @@
 import geopandas
 from typing import Union
 from shapely.geometry.base import BaseGeometry
+from .geoarrow_utils import geodataframe_to_geoarrow, geoarrow_to_geodataframe
 
-__all__ = ["buffer", "clip", "overlay", "spatial_join"]
+__all__ = [
+    "buffer", "clip", "overlay", "spatial_join",
+    "geodataframe_to_geoarrow", "geoarrow_to_geodataframe"
+]
 
 def buffer(gdf: geopandas.GeoDataFrame, distance: float, **kwargs) -> geopandas.GeoDataFrame:
   """Creates buffer polygons around geometries in a GeoDataFrame.

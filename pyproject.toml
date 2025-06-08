@@ -44,6 +44,17 @@ fastapi = ">=0.100.0"
 uvicorn = {extras = ["standard"], version = ">=0.23.0"}
 rio-tiler = ">=5.0,<6.0"
 fastapi-mvt = ">=0.3.0"
+geoarrow-py = "^0.1.0" # Adjust version as per latest stable, assuming ^0.1.0 for now
+networkx = "^3.0" # Using version 3.x for modern NetworkX features
+pdal = "^2.5" # Common version, but user might need Conda for full install
+pydeck = "^0.8.0" # For deck.gl visualizations
+kafka-python = { version = "^2.0.2", optional = true } # For Kafka streaming
+paho-mqtt = { version = "^1.6.1", optional = true }    # For MQTT streaming
+
+[tool.poetry.extras]
+kafka = ["kafka-python"]
+mqtt = ["paho-mqtt"]
+streaming = ["kafka-python", "paho-mqtt"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4"
@@ -52,6 +63,8 @@ ruff = "^0.11"
 black = "^25.1"
 mypy = "^1.16"
 pre-commit = "^4.2"
+xarray-multiscale = "^0.3.0" # For multiscale Zarr testing
+zarr = "^2.17.0"             # For Zarr array manipulation in tests
 
 [build-system]
 requires = ["poetry-core>=1.9.0"]

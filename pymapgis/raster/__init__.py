@@ -3,9 +3,97 @@ import rioxarray # Imported for the .rio accessor, used by xarray.DataArray
 from typing import Union, Hashable, Dict, Any
 import xarray_multiscale
 import zarr # Though not directly used in the function, good to have for context if users handle zarr.Group directly
+import numpy as np # Added for np.datetime64 and other numpy uses
+from typing import List # Added for List type hint
 
 
-__all__ = ["reproject", "normalized_difference", "lazy_windowed_read_zarr"]
+__all__ = [
+    "reproject", "normalized_difference", "lazy_windowed_read_zarr",
+    "create_spatiotemporal_cube"
+]
+
+def create_spatiotemporal_cube(
+    data_arrays: List[xr.DataArray],
+    times: List[np.datetime64],
+    time_dim_name: str = "time"
+) -> xr.DataArray:
+    """
+    Creates a spatio-temporal cube by concatenating a list of 2D spatial DataArrays
+    along a new time dimension.
+
+    All input DataArrays are expected to have the same spatial dimensions,
+    coordinates (except for the new time dimension), and CRS. The CRS from the
+    first DataArray will be assigned to the resulting cube.
+
+    Args:
+        data_arrays (List[xr.DataArray]): A list of 2D xarray.DataArray objects.
+            Each DataArray represents a spatial slice at a specific time.
+            They must all have identical spatial coordinates and dimensions (e.g., 'y', 'x').
+        times (List[np.datetime64]): A list of NumPy datetime64 objects, corresponding
+            to the time of each DataArray in `data_arrays`. Must be the same
+            length as `data_arrays`.
+        time_dim_name (str): Name for the new time dimension. Defaults to "time".
+
+    Returns:
+        xr.DataArray: A 3D xarray.DataArray (time, y, x) representing the
+                      spatio-temporal cube. The 'time' coordinate will be populated
+                      from the `times` list.
+
+    Raises:
+        ValueError: If `data_arrays` is empty, if `times` length doesn't match
+                    `data_arrays` length, if DataArrays are not 2D, or if their
+                    spatial dimensions/coordinates do not align.
+    """
+    if not data_arrays:
+        raise ValueError("Input 'data_arrays' list cannot be empty.")
+    if len(data_arrays) != len(times):
+        raise ValueError("Length of 'data_arrays' and 'times' must be the same.")
+    if not all(isinstance(da, xr.DataArray) for da in data_arrays):
+        raise TypeError("All items in 'data_arrays' must be xarray.DataArray objects.")
+    if not all(da.ndim == 2 for da in data_arrays):
+        raise ValueError("All DataArrays in 'data_arrays' must be 2-dimensional (spatial slices).")
+
+    # Check spatial dimension alignment using the first DataArray as reference
+    first_da = data_arrays[0]
+    ref_dims = first_da.dims
+    ref_coords_y = first_da.coords[ref_dims[0]] # Assuming first dim is 'y'
+    ref_coords_x = first_da.coords[ref_dims[1]] # Assuming second dim is 'x'
+
+    for i, da in enumerate(data_arrays[1:]):
+        if da.dims != ref_dims:
+            raise ValueError(
+                f"Spatial dimensions of DataArray at index {i+1} ({da.dims}) "
+                f"do not match reference DataArray ({ref_dims})."
+            )
+        if not da.coords[ref_dims[0]].equals(ref_coords_y) or \
+           not da.coords[ref_dims[1]].equals(ref_coords_x):
+            raise ValueError(
+                f"Spatial coordinates of DataArray at index {i+1} "
+                "do not match reference DataArray."
+            )
+
+    # Expand each 2D DataArray with a time dimension and coordinate
+    # Then concatenate them along this new time dimension
+    # Ensure the time coordinate has the correct name
+    expanded_das = [
+        da.expand_dims({time_dim_name: [t]}) for da, t in zip(data_arrays, times)
+    ]
+
+    # Concatenate along the new time dimension
+    spatiotemporal_cube = xr.concat(expanded_das, dim=time_dim_name)
+
+    # Preserve CRS from the first data array (rioxarray convention)
+    if hasattr(first_da, 'rio') and first_da.rio.crs:
+        spatiotemporal_cube = spatiotemporal_cube.rio.write_crs(first_da.rio.crs)
+        # Ensure spatial dimensions are correctly named for rio accessor
+        # This depends on how the original DAs were created. Assuming they are e.g. ('y', 'x')
+        # If they have names like 'latitude', 'longitude', ensure rio can find them.
+        # Usually, if the coordinates are named e.g. 'y', 'x', rio works fine.
+        # If not, one might need: spatiotemporal_cube.rio.set_spatial_dims(x_dim=ref_dims[1], y_dim=ref_dims[0], inplace=True)
+
+
+    return spatiotemporal_cube
+
 
 def lazy_windowed_read_zarr(
     store_path_or_url: str,

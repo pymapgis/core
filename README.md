@@ -35,11 +35,19 @@ acs.plot.choropleth(
 
 ## ✨ Key Features
 
-- **🔗 Built-in Data Sources**: Census ACS, TIGER/Line, and more
-- **⚡ Smart Caching**: Automatic HTTP caching with TTL support
-- **🗺️ Interactive Maps**: Beautiful visualizations with Leaflet
-- **🧹 Clean APIs**: Fluent, pandas-like interface
-- **🔧 Extensible**: Plugin architecture for custom data sources
+- **🔗 Built-in Data Sources**: Access to Census ACS, TIGER/Line, and various file formats.
+- **⚡ Smart Caching**: Automatic HTTP caching with TTL support for faster data retrieval.
+- **🐼 Rich Data Model**: Leverages GeoPandas for vector data, Xarray for raster data, NumPy for point clouds.
+- **🗺️ Interactive Visualization**: Create interactive maps with Leaflet (via `explore` and `plot_interactive`) and 3D visualizations with deck.gl (for point clouds and spatio-temporal cubes).
+- **☁️ Cloud-Native Raster Access**: Efficient windowed reading of multi-resolution Zarr pyramids.
+- **🏹 GeoArrow Support**: Convert GeoDataFrames to/from Apache Arrow tables with GeoArrow encoding for interoperability.
+- **🌐 Network Analysis**: Basic shortest path and isochrone analysis on street-like networks.
+- **☁️ Point Cloud Processing**: Read LAS/LAZ files and access point data and metadata using PDAL.
+- **🌊 Streaming Connectors**: Basic connectors for Kafka and MQTT for real-time data ingestion (requires optional dependencies).
+- **🔧 Extensible**: Plugin architecture for custom data sources and future extensions.
+- **🤝 Integrations**: Conceptual outline for QGIS plugin integration, enhancing desktop GIS workflows.
+- **🧹 Clean APIs**: Designed for a fluent, pandas-like user experience.
+
 
 ## 📊 Supported Data Sources
 
@@ -97,6 +105,28 @@ poetry install
 - **[💡 Examples](docs/examples.md)** - Real-world usage examples
 - **[🚀 Quick Start](docs/quickstart.md)** - Get up and running in 5 minutes
 - **[🤝 Contributing Guide](CONTRIBUTING.md)** - How to contribute to PyMapGIS
+
+### Building Documentation Locally
+
+The documentation is built using MkDocs with the Material theme.
+
+1.  **Install dependencies:**
+    ```bash
+    pip install -r docs/requirements.txt
+    ```
+
+2.  **Build and serve the documentation:**
+    ```bash
+    mkdocs serve
+    ```
+    This will start a local development server, typically at `http://127.0.0.1:8000/`. Changes to the documentation source files will be automatically rebuilt.
+
+3.  **Build static site:**
+    To build the static HTML site (e.g., for deployment):
+    ```bash
+    mkdocs build
+    ```
+    The output will be in the `site/` directory.
 
 ## 🤝 Contributing
 

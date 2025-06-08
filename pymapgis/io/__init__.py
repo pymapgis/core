@@ -6,9 +6,12 @@ import fsspec
 from pymapgis.settings import settings
 import xarray as xr
 import rioxarray # Imported for side-effects and direct use
+import numpy as np
+from pymapgis.pointcloud import read_point_cloud as pmg_read_point_cloud
+from pymapgis.pointcloud import get_point_cloud_points as pmg_get_point_cloud_points
 
 # Define a more comprehensive return type for the read function
-ReadReturnType = Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset]
+ReadReturnType = Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset, np.ndarray]
 
 def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
     """
@@ -34,6 +37,12 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
           This can affect calculations if not handled explicitly.
     • .nc (NetCDF): → `xarray.Dataset` (via `xr.open_dataset`)
 
+    Point Cloud formats:
+    • .las / .laz (ASPRS LAS/LAZ): → `np.ndarray` (structured NumPy array via PDAL)
+        - Returns a structured array where fields correspond to dimensions
+          (e.g., 'X', 'Y', 'Z', 'Intensity').
+        - PDAL installation is required (see PyMapGIS documentation).
+
     Args:
         uri (str): Path or URL to the file.
         x (str, optional): Column name for longitude if reading a CSV to GeoDataFrame.
@@ -56,7 +65,7 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
               `group`, `decode_times`.
 
     Returns:
-        Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset]:
+        Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset, np.ndarray]:
         The data read from the file, in its most appropriate geospatial type.
 
     Raises:
@@ -112,7 +121,7 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
 
         elif suffix == ".csv":
             # For pandas, using fs.open() to get a file-like object is efficient
-            with fs.open(uri, "rt", encoding=kw.pop("encoding", "utf-8")) as f:
+            with fs.open(uri, "rt", encoding=kw.pop("encoding", "utf-8")) as f: # type: ignore
                 df = pd.read_csv(f, **kw)
             if {x, y}.issubset(df.columns):
                 gdf = gpd.GeoDataFrame(
@@ -122,6 +131,13 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
                 )
                 return gdf
             return df
+
+        elif suffix in {".las", ".laz"}:
+            # For point clouds, PDAL typically works best with local file paths.
+            # The cached_file_path from fsspec should provide this.
+            # kwargs for read_point_cloud can be passed via **kw
+            pdal_pipeline = pmg_read_point_cloud(cached_file_path, **kw)
+            return pmg_get_point_cloud_points(pdal_pipeline)
 
         else:
             raise ValueError(f"Unsupported format: {suffix} for URI: {uri}")

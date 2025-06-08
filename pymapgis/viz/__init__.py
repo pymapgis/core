@@ -1,9 +1,17 @@
 import leafmap.leafmap as leafmap # Common import pattern for leafmap
 import geopandas as gpd
 import xarray as xr
-from typing import Union
+from typing import Union, Optional # Added Optional
+import numpy as np # Added for type hints if needed by deckgl utils
+import pydeck # Added for type hints if needed by deckgl utils
 
-__all__ = ["explore", "plot_interactive"]
+# Import from deckgl_utils
+from .deckgl_utils import view_3d_cube, view_point_cloud_3d
+
+__all__ = [
+    "explore", "plot_interactive", "map",  # Existing
+    "view_3d_cube", "view_point_cloud_3d"  # New deck.gl utils
+]
 
 def explore(
     data: Union[gpd.GeoDataFrame, xr.DataArray, xr.Dataset],
@@ -81,6 +89,7 @@ def plot_interactive(
 ) -> leafmap.Map:
     """
     Adds a GeoDataFrame, xarray DataArray, or xarray Dataset to an interactive Leafmap map.
+    Also available as ``.map()``.
 
     This function is similar to `explore`, but it does not automatically display the map.
     It allows for adding multiple layers to a map instance before displaying it.
@@ -120,3 +129,6 @@ def plot_interactive(
         )
 
     return m
+
+# Alias for plot_interactive
+map = plot_interactive

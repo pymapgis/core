@@ -1,142 +1,190 @@
-import os
-import tempfile
 import pytest
 import numpy as np
-import laspy # For creating test LAS files
+import os
+import tempfile
+import json
 
-from pymapgis.pointcloud import read_las
+# Attempt to import pdal, skip tests if not available
+try:
+    import pdal
+    PDAL_AVAILABLE = True
+except ImportError:
+    PDAL_AVAILABLE = False
 
-# Define known point data to be written to the test LAS file
-# Using a simple set of coordinates and intensities
-# laspy requires scaled and offset values for X, Y, Z if not using raw integers.
-# For simplicity, we'll use integer coordinates that don't require scaling for this test.
-# PDAL will read them as scaled floats by default if scale/offset are 0.01/0,
-# or as integers if scale/offset are 1.0/0. We'll aim for integer representation.
-# For laspy, header.scales = [1.0, 1.0, 1.0] and header.offsets = [0.0, 0.0, 0.0]
-# will mean that the integer values we store are the actual coordinate values.
-TEST_POINTS_DATA = {
-    'X': np.array([100, 200, 300], dtype=np.int32),
-    'Y': np.array([1000, 2000, 3000], dtype=np.int32),
-    'Z': np.array([10, 20, 30], dtype=np.int32),
-    'intensity': np.array([1, 2, 3], dtype=np.uint16),
-    'return_number': np.array([1, 1, 1], dtype=np.uint8), # Example field
-    'number_of_returns': np.array([1, 1, 1], dtype=np.uint8) # Example field
-}
-# For laspy point_format_id 0, only X, Y, Z, intensity, return_number, number_of_returns,
-# classification, scan_angle_rank, user_data, point_source_id are typically standard.
-# We'll use a simple point format. laspy defaults to point format 3 if not specified,
-# which includes GPS time and RGB. Let's use point format 0 or 1 for simplicity.
+# Imports from pymapgis
+from pymapgis.pointcloud import (
+    read_point_cloud,
+    get_point_cloud_metadata,
+    get_point_cloud_points,
+    get_point_cloud_srs,
+    create_las_from_numpy # Helper to create test files
+)
+from pymapgis.io import read as pmg_io_read # For testing the main read() integration
 
-@pytest.fixture(scope="module") # Use module scope for efficiency if file creation is slow
-def valid_las_file_path():
-    """Creates a temporary, valid LAS file with known points."""
-    with tempfile.NamedTemporaryFile(suffix=".las", delete=False) as tmpfile:
-        las_path = tmpfile.name
+# Skip all tests in this module if PDAL is not available
+pytestmark = pytest.mark.skipif(not PDAL_AVAILABLE, reason="PDAL library not found, skipping point cloud tests.")
 
-    # Create a new LAS file with laspy
-    # Using LAS version 1.2 and Point Format 0 for simplicity
-    header = laspy.LasHeader(version="1.2", point_format=laspy.PointFormat(0))
-    header.scales = np.array([1.0, 1.0, 1.0]) # Store X, Y, Z as raw integers
-    header.offsets = np.array([0.0, 0.0, 0.0])
+# Define known point data for creating test LAS file
+# Using a simple set of coordinates and common attributes
+TEST_POINTS_NP_ARRAY = np.array([
+    (100, 1000, 10, 1, 1, 1), # X, Y, Z, Intensity, ReturnNumber, NumberOfReturns
+    (200, 2000, 20, 2, 1, 1),
+    (300, 3000, 30, 3, 1, 1)
+], dtype=[('X', np.float64), ('Y', np.float64), ('Z', np.float64),
+          ('Intensity', np.uint16), ('ReturnNumber', np.uint8), ('NumberOfReturns', np.uint8)])
 
-    # Populate the header with some basic information (optional but good practice)
-    header.point_count = len(TEST_POINTS_DATA['X'])
-    # Min/max values should be calculated from the data
-    header.x_min, header.y_min, header.z_min = TEST_POINTS_DATA['X'].min(), TEST_POINTS_DATA['Y'].min(), TEST_POINTS_DATA['Z'].min()
-    header.x_max, header.y_max, header.z_max = TEST_POINTS_DATA['X'].max(), TEST_POINTS_DATA['Y'].max(), TEST_POINTS_DATA['Z'].max()
-
-    las = laspy.LasData(header)
-
-    las.X = TEST_POINTS_DATA['X']
-    las.Y = TEST_POINTS_DATA['Y']
-    las.Z = TEST_POINTS_DATA['Z']
-    las.intensity = TEST_POINTS_DATA['intensity']
-    las.return_number = TEST_POINTS_DATA['return_number']
-    las.number_of_returns = TEST_POINTS_DATA['number_of_returns']
-    # Other fields for point format 0 will be default (0)
-
-    las.write(las_path)
-
-    yield las_path
-
-    os.remove(las_path) # Cleanup the file
+# Define a sample WKT SRS for testing
+SAMPLE_SRS_WKT = 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]]'
 
 
 @pytest.fixture(scope="module")
-def invalid_las_file_path():
-    """Creates a temporary, invalid (empty) LAS file."""
+def las_file_path_fixture():
+    """Creates a temporary LAS file with known points and SRS for testing."""
     with tempfile.NamedTemporaryFile(suffix=".las", delete=False) as tmpfile:
-        invalid_path = tmpfile.name
-    # Create an empty file
-    open(invalid_path, 'w').close()
+        las_path = tmpfile.name
 
-    yield invalid_path
+    create_las_from_numpy(TEST_POINTS_NP_ARRAY, las_path, srs_wkt=SAMPLE_SRS_WKT)
 
-    os.remove(invalid_path)
+    yield las_path
+
+    os.remove(las_path) # Cleanup
+
+@pytest.fixture(scope="module")
+def laz_file_path_fixture():
+    """Creates a temporary LAZ file. For now, just re-uses LAS creation logic.
+    PDAL's writers.las can write .laz if filename ends with .laz and LAZ driver is available.
+    """
+    with tempfile.NamedTemporaryFile(suffix=".laz", delete=False) as tmpfile:
+        laz_path = tmpfile.name
+
+    # Note: This assumes PDAL installation includes LAZ support for writing.
+    # If not, this fixture might fail to create a compressed LAZ.
+    # For robust testing, one might need a pre-existing small LAZ file.
+    try:
+        create_las_from_numpy(TEST_POINTS_NP_ARRAY, laz_path, srs_wkt=SAMPLE_SRS_WKT)
+        laz_created = True
+    except RuntimeError as e:
+        # PDAL might not have LAZ support compiled in for writing in all environments
+        print(f"Could not create LAZ file for testing, PDAL error: {e}. Skipping LAZ-specific write test.")
+        laz_created = False
+        # To ensure tests can run, we might yield None or raise SkipTest if LAZ is critical
+        # For now, let the test that uses it handle the potential missing file.
+        # yield None
+        # For the purpose of this test, if LAZ cannot be created, we can't test LAZ reading.
+        # So, if it fails, we'll yield the path anyway and let read test fail, or skip.
+        # A better approach for CI would be to have a tiny pre-made LAZ file.
+
+    if laz_created:
+        yield laz_path
+        os.remove(laz_path)
+    else:
+        # If LAZ creation failed, skip tests that require it.
+        # This is tricky in a fixture. Better to handle in the test itself or use a marker.
+        yield None # Test using this fixture should check for None
+
+# --- Tests for pymapgis.pointcloud functions ---
+
+def test_read_point_cloud_las(las_file_path_fixture):
+    pipeline = read_point_cloud(las_file_path_fixture)
+    assert isinstance(pipeline, pdal.Pipeline)
+    assert pipeline.executed
+    points = pipeline.arrays[0]
+    assert len(points) == len(TEST_POINTS_NP_ARRAY)
+
+def test_read_point_cloud_laz(laz_file_path_fixture):
+    if laz_file_path_fixture is None:
+        pytest.skip("LAZ file could not be created for testing (PDAL LAZ writer likely unavailable).")
+
+    pipeline = read_point_cloud(laz_file_path_fixture)
+    assert isinstance(pipeline, pdal.Pipeline)
+    assert pipeline.executed
+    points = pipeline.arrays[0]
+    assert len(points) == len(TEST_POINTS_NP_ARRAY)
+
+def test_get_point_cloud_points(las_file_path_fixture):
+    pipeline = read_point_cloud(las_file_path_fixture)
+    points_array = get_point_cloud_points(pipeline)
+
+    assert isinstance(points_array, np.ndarray)
+    assert len(points_array) == len(TEST_POINTS_NP_ARRAY)
+
+    # Check field names (PDAL might change case or add underscores)
+    # Common names: X, Y, Z, Intensity, ReturnNumber, NumberOfReturns
+    # Let's compare with the original dtype names, accounting for case.
+    original_names_lower = {name.lower() for name in TEST_POINTS_NP_ARRAY.dtype.names}
+    output_names_lower = {name.lower() for name in points_array.dtype.names}
+    assert original_names_lower.issubset(output_names_lower)
+
+    # Check actual values for X, Y, Z
+    np.testing.assert_allclose(points_array['X'], TEST_POINTS_NP_ARRAY['X'])
+    np.testing.assert_allclose(points_array['Y'], TEST_POINTS_NP_ARRAY['Y'])
+    np.testing.assert_allclose(points_array['Z'], TEST_POINTS_NP_ARRAY['Z'])
+    np.testing.assert_array_equal(points_array['Intensity'], TEST_POINTS_NP_ARRAY['Intensity'])
 
 
-def test_read_las_valid_file(valid_las_file_path):
-    """Tests reading a valid LAS file with known content."""
-    arrays = read_las(valid_las_file_path)
+def test_get_point_cloud_metadata(las_file_path_fixture):
+    pipeline = read_point_cloud(las_file_path_fixture)
+    metadata = get_point_cloud_metadata(pipeline)
 
-    assert arrays is not None, "Result from read_las should not be None"
-    assert isinstance(arrays, list), "Result should be a list"
-    assert len(arrays) > 0, "Result list should not be empty"
+    assert isinstance(metadata, dict)
+    assert 'quickinfo' in metadata
+    assert 'schema' in metadata # pipeline.schema
+    assert 'srs_wkt' in metadata
+    assert SAMPLE_SRS_WKT in metadata['srs_wkt'] # Check if our WKT is present
 
-    point_data_array = arrays[0]
-    assert isinstance(point_data_array, np.ndarray), "Items in result list should be NumPy arrays"
-
-    # Check for expected fields (PDAL might rename or use specific casing)
-    # Common PDAL dimension names for LAS: X, Y, Z, Intensity, ReturnNumber, NumberOfReturns
-    # Classification, ScanAngleRank (or ScanAngle), UserData, PointSourceId, GpsTime
-    # The exact names depend on the PDAL reader and the LAS point format.
-    # For Point Format 0, we expect at least X, Y, Z, Intensity, ReturnNumber, NumberOfReturns.
-    expected_fields = ['X', 'Y', 'Z', 'Intensity', 'ReturnNumber', 'NumberOfReturns']
-    for field in expected_fields:
-        assert field in point_data_array.dtype.names, f"Field '{field}' not found in output array"
-
-    # Assert data content matches the known values
-    # PDAL applies scale and offset. Since we set scale=1, offset=0, values should match.
-    # If las.X, las.Y, las.Z were stored as floats, direct comparison is fine.
-    # If stored as scaled integers, PDAL reader output is typically float.
-    # Our TEST_POINTS_DATA used np.int32 for X,Y,Z and laspy stored them as such with scale 1.0.
-    # PDAL's readers.las will output them as float64 by default if no scale/offset transform is applied
-    # in the PDAL pipeline itself, or if the file indicates they are floats (not our case).
-    # However, if the LAS header indicates scale=1, offset=0, PDAL might output integers or floats.
-    # Let's check the dtype from PDAL and compare accordingly.
-
-    # For X, Y, Z (coordinates)
-    np.testing.assert_array_almost_equal(point_data_array['X'], TEST_POINTS_DATA['X'], decimal=1,
-                                         err_msg="X coordinates mismatch")
-    np.testing.assert_array_almost_equal(point_data_array['Y'], TEST_POINTS_DATA['Y'], decimal=1,
-                                         err_msg="Y coordinates mismatch")
-    np.testing.assert_array_almost_equal(point_data_array['Z'], TEST_POINTS_DATA['Z'], decimal=1,
-                                         err_msg="Z coordinates mismatch")
-
-    # For other attributes (usually integers or specific types)
-    np.testing.assert_array_equal(point_data_array['Intensity'], TEST_POINTS_DATA['intensity'],
-                                  err_msg="Intensity values mismatch")
-    np.testing.assert_array_equal(point_data_array['ReturnNumber'], TEST_POINTS_DATA['return_number'],
-                                  err_msg="ReturnNumber values mismatch")
-    np.testing.assert_array_equal(point_data_array['NumberOfReturns'], TEST_POINTS_DATA['number_of_returns'],
-                                  err_msg="NumberOfReturns values mismatch")
-
-    assert len(point_data_array) == len(TEST_POINTS_DATA['X']), "Number of points mismatch"
+    # Example: Check point count from metadata if available
+    # This depends on PDAL version and how metadata is structured.
+    # 'count' is often in pipeline.quickinfo['readers.las']['num_points']
+    if metadata.get('quickinfo') and metadata['quickinfo'].get('num_points'):
+      assert metadata['quickinfo']['num_points'] == len(TEST_POINTS_NP_ARRAY)
 
 
-def test_read_las_non_existent_file():
-    """Tests reading a non-existent LAS file."""
-    non_existent_path = "this_file_does_not_exist_ever.las"
-    with pytest.raises(FileNotFoundError, match=f"The LAS/LAZ file was not found: {non_existent_path}"):
-        read_las(non_existent_path)
+def test_get_point_cloud_srs(las_file_path_fixture):
+    pipeline = read_point_cloud(las_file_path_fixture)
+    srs_wkt = get_point_cloud_srs(pipeline)
+
+    assert isinstance(srs_wkt, str)
+    assert len(srs_wkt) > 0
+    # A loose check for WGS 84, as exact WKT string can vary slightly
+    assert "WGS 84" in srs_wkt
+    assert "6326" in srs_wkt # EPSG code for WGS84 datum
+
+# --- Test for pmg.io.read() integration ---
+
+def test_pmg_io_read_las(las_file_path_fixture):
+    points_array = pmg_io_read(las_file_path_fixture)
+
+    assert isinstance(points_array, np.ndarray)
+    assert len(points_array) == len(TEST_POINTS_NP_ARRAY)
+    original_names_lower = {name.lower() for name in TEST_POINTS_NP_ARRAY.dtype.names}
+    output_names_lower = {name.lower() for name in points_array.dtype.names}
+    assert original_names_lower.issubset(output_names_lower)
+
+    np.testing.assert_allclose(points_array['X'], TEST_POINTS_NP_ARRAY['X'])
+
+def test_pmg_io_read_laz(laz_file_path_fixture):
+    if laz_file_path_fixture is None:
+        pytest.skip("LAZ file could not be created for testing.")
+
+    points_array = pmg_io_read(laz_file_path_fixture) # Should use the LAZ file
+
+    assert isinstance(points_array, np.ndarray)
+    assert len(points_array) == len(TEST_POINTS_NP_ARRAY)
+    np.testing.assert_allclose(points_array['X'], TEST_POINTS_NP_ARRAY['X'])
 
 
-def test_read_las_invalid_file(invalid_las_file_path):
-    """Tests reading an invalid (e.g., empty) LAS file."""
-    # PDAL errors are typically wrapped in RuntimeError by the read_las function
-    with pytest.raises(RuntimeError, match="PDAL pipeline execution failed"):
-        read_las(invalid_las_file_path)
+# --- Test error handling ---
+def test_read_point_cloud_non_existent_file():
+    with pytest.raises(RuntimeError, match="PDAL pipeline execution failed"): # PDAL raises RuntimeError for file not found
+        read_point_cloud("this_file_should_not_exist.las")
 
-# To run these tests:
-# Ensure pymapgis is in PYTHONPATH
-# pytest tests/test_pointcloud.py
+def test_create_las_from_numpy_errors():
+    # Test invalid array type
+    with pytest.raises(TypeError, match="points_array must be a NumPy structured array"):
+        create_las_from_numpy(np.array([1,2,3]), "test.las")
+
+    # Test invalid output filename
+    with pytest.raises(ValueError, match="output_filepath must end with .las"):
+        create_las_from_numpy(TEST_POINTS_NP_ARRAY, "test.txt")
+
+```
