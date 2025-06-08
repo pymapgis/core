@@ -72,7 +72,11 @@ nav:
   - Quickstart: quickstart.md
   - User Guide: user-guide.md
   - API Reference: api-reference.md
-  - Examples: examples.md
+  - Examples: # This becomes a section
+    - Overview: examples.md # Main examples page
+    - TIGER/Line Visualization: examples/tiger_line_visualization/README.md
+    - Local File Interaction: examples/local_file_interaction/README.md
+    - Simulated Data: examples/simulated_data_example/README.md
   - Cookbook:
     - 'Site Selection': cookbook/site_selection.md
     - 'Sentinel-2 NDVI': cookbook/sentinel2_ndvi.md

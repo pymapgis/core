@@ -409,3 +409,124 @@ all_states = pd.concat(results.values(), ignore_index=True)
 - **[🚀 Quick Start](quickstart.md)** - Get started in 5 minutes
 
 **Happy mapping with PyMapGIS!** 🗺️✨
+
+
+## 📂 More Examples
+
+The following examples provide more targeted demonstrations of PyMapGIS features and can be found in the `examples/` directory of the repository.
+
+### Visualizing TIGER/Line Roads
+
+This example demonstrates how to load and visualize TIGER/Line data, specifically roads, for a selected county. It showcases fetching data using the `tiger://` URL scheme and plotting linear features.
+
+[Details and Code](./examples/tiger_line_visualization/README.md)
+
+```python
+import pymapgis as pmg
+
+# Load road data for Los Angeles County, CA (State FIPS: 06, County FIPS: 037)
+# RTTYP is the route type (e.g., 'M' for Motorway, 'S' for State road, 'C' for County road)
+roads = pmg.read("tiger://roads?year=2022&state=06&county=037")
+
+# Create an interactive line plot of the roads, colored by their type
+# The 'RTTYP' column provides road classifications
+roads.plot.line(
+    column="RTTYP",
+    title="Roads in Los Angeles County by Type (2022)",
+    legend=True,
+    tooltip=["FULLNAME", "RTTYP"]  # Show road name and type on hover
+).show()
+```
+
+### Interacting with Local Geospatial Files
+
+This example shows how to load a local GeoJSON file, combine it with Census data (TIGER/Line county boundaries), perform a spatial join, and visualize the result. It highlights the use of `file://` URLs and basic spatial analysis.
+
+[Details and Code](./examples/local_file_interaction/README.md)
+
+```python
+import pymapgis as pmg
+import matplotlib.pyplot as plt # Typically imported by pymapgis.plot, but good for explicit show()
+
+# Load points of interest from a local GeoJSON file
+# Ensure 'sample_data.geojson' is in the same directory or provide the correct path
+local_pois = pmg.read("file://sample_data.geojson")
+
+# Load county boundaries for California (State FIPS: 06)
+counties = pmg.read("tiger://county?year=2022&state=06")
+
+# Filter for Los Angeles County
+la_county = counties[counties["NAME"] == "Los Angeles"]
+
+# Perform a spatial join to find POIs within Los Angeles County
+# This also transfers attributes from la_county to the POIs if needed
+pois_in_la = local_pois.sjoin(la_county, how="inner", predicate="within")
+
+# Create a base map of LA County's boundary
+ax = la_county.plot.boundary(edgecolor="black", figsize=(10, 10))
+
+# Plot the points of interest on the same map
+# Style points by 'amenity' and add tooltips
+pois_in_la.plot.scatter(
+    ax=ax,
+    column="amenity",
+    legend=True,
+    tooltip=["name", "amenity"]
+)
+
+ax.set_title("Points of Interest in Los Angeles County")
+plt.show() # Ensure the plot is displayed
+```
+
+### Generating and Visualizing Simulated Geospatial Data
+
+This example demonstrates creating a GeoDataFrame with simulated point data (random coordinates and attributes) and then visualizing it using PyMapGIS plotting capabilities. This is useful for testing or creating reproducible examples without external data dependencies.
+
+[Details and Code](./examples/simulated_data_example/README.md)
+
+```python
+import pymapgis as pmg
+import geopandas as gpd
+import numpy as np
+import pandas as pd
+from shapely.geometry import Point
+
+# --- 1. Generate Simulated Data ---
+num_points = 50
+
+# Generate random coordinates (e.g., within Los Angeles County bounds)
+np.random.seed(42) # for reproducibility
+lats = np.random.uniform(33.7, 34.3, num_points)
+lons = np.random.uniform(-118.8, -117.8, num_points)
+
+# Generate random attribute data
+temperatures = np.random.uniform(15, 30, num_points) # Degrees Celsius
+humidity = np.random.uniform(30, 70, num_points)    # Percentage
+
+# Create Shapely Point objects
+geometry = [Point(lon, lat) for lon, lat in zip(lons, lats)]
+
+# Create a GeoDataFrame
+simulated_gdf = gpd.GeoDataFrame({
+    'temperature': temperatures,
+    'humidity': humidity,
+    'geometry': geometry
+}, crs="EPSG:4326")
+
+# --- 2. Display Data Information (Optional) ---
+print("Simulated GeoDataFrame (First 5 rows):")
+print(simulated_gdf.head())
+print(f"\nCRS: {simulated_gdf.crs}")
+
+# --- 3. Visualize Data using PyMapGIS ---
+# Create a scatter plot, color points by temperature
+# Tooltips will show temperature and humidity on hover
+simulated_gdf.plot.scatter(
+    column="temperature",
+    cmap="coolwarm", # Color map for temperature
+    legend=True,
+    title="Simulated Environmental Data Points",
+    tooltip=['temperature', 'humidity'],
+    figsize=(10, 8)
+).show()
+```
