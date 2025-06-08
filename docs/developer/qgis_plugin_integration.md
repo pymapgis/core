@@ -243,25 +243,82 @@ class PymapgisPlugin:
 
 ## Dependency Management for PyMapGIS in QGIS
 
-This is the most significant challenge.
-- **QGIS Python Environment:** QGIS ships with its own Python environment. This environment might not include PyMapGIS or its specific dependencies (GeoPandas, Xarray, PDAL, NetworkX, etc.) at compatible versions.
-- **Strategies:**
-    1.  **User Installation (Recommended for initial phase):**
-        *   Provide clear instructions for users on how to install PyMapGIS and its dependencies into the Python environment used by their QGIS installation.
-        *   Some QGIS versions (especially those bundled with OSGeo4W on Windows or newer standalone installers) might have a `pip` command accessible via their Python console or a shell environment.
-        *   Example command might be: `python3 -m pip install pymapgis[all]` (if QGIS Python is accessible as `python3`).
-        *   This places the burden on the user but is often the most practical approach for complex dependencies.
-    2.  **Using an Existing Conda/Venv Environment:**
-        *   The plugin could try to configure `sys.path` at runtime to point to an external Python environment where PyMapGIS is installed.
-        *   This is risky due to potential library conflicts (e.g., Qt, GDAL) between the QGIS environment and the external one.
-    3.  **Bundling (Very Complex):**
-        *   Attempting to bundle PyMapGIS and its dependencies with the plugin is generally not feasible or recommended due to the size and complexity of libraries like GeoPandas, GDAL, etc.
-    4.  **Calling PyMapGIS as a Subprocess:**
-        *   The plugin executes PyMapGIS operations in a separate Python process (from a known environment).
-        *   Data is exchanged via files (e.g., GeoJSON, GeoPackage for vector; GeoTIFF for raster) or standard streams.
-        *   This avoids Python environment conflicts but adds overhead and complexity in data transfer and user experience.
+This is a critical aspect for the plugin to function correctly. The PyMapGIS library and its core dependencies must be available to the Python interpreter used by QGIS.
 
-**Recommendation:** Start with clear instructions for users to install PyMapGIS into their QGIS Python environment if possible, or guide them on setting up a compatible environment that QGIS can be made aware of (e.g., by modifying `PYTHONPATH` before launching QGIS, though this is advanced).
+- **QGIS Python Environment:** QGIS typically ships with its own isolated Python environment. This environment might not initially include PyMapGIS or all its necessary dependencies (e.g., `geopandas`, `xarray`, `rioxarray`, `networkx`, `pydal`).
+
+- **Strategies for Installation:**
+
+    1.  **User Installation (Recommended):**
+        This is the most common and practical approach. Users need to install PyMapGIS and its dependencies directly into the Python environment that their QGIS installation uses.
+
+        *   **Core Requirement:** Ensure `pymapgis`, `geopandas`, `xarray`, and critically `rioxarray` (for raster functionality) are installed.
+        *   **General Installation:** The command `python -m pip install pymapgis[all]` is recommended to get all core features. If you need raster support, ensure `rioxarray` is also installed: `python -m pip install rioxarray`.
+
+        *   **Identifying the QGIS Python:**
+            *   Open QGIS.
+            *   Go to `Plugins` -> `Python Console`.
+            *   Run:
+                ```python
+                import sys
+                print(sys.executable)
+                print(sys.version)
+                ```
+                This will show the path to the Python interpreter QGIS is using and its version.
+
+        *   **Installation Methods by QGIS Setup:**
+
+            *   **QGIS with OSGeo4W Shell (Windows):**
+                *   Open the "OSGeo4W Shell" that corresponds to your QGIS installation.
+                *   It's crucial to use the shell associated with the correct QGIS version if you have multiple.
+                *   Sometimes, you might need to initialize the Python environment first (e.g., by running `py3_env.bat` or similar, if present).
+                *   Execute:
+                    ```bash
+                    python -m pip install pymapgis[all] rioxarray
+                    ```
+                    (Or `python3 -m pip ...` if `python` points to Python 2 in older OSGeo4W versions).
+
+            *   **QGIS Standalone Installers (Windows, macOS, Linux):**
+                *   These installers often bundle their Python environment.
+                *   **Windows:** Look for a Python-related shortcut in the Start Menu folder for QGIS, or a `python.exe` within the QGIS installation directory (e.g., `C:\Program Files\QGIS <Version>\bin\python.exe`). You might be able to run `python.exe -m pip install ...`.
+                *   **macOS:** The Python interpreter is usually located within the QGIS application bundle (e.g., `/Applications/QGIS.app/Contents/MacOS/bin/python3`). You can use this full path:
+                    ```bash
+                    /Applications/QGIS.app/Contents/MacOS/bin/python3 -m pip install pymapgis[all] rioxarray
+                    ```
+                *   **Linux:** The Python interpreter is typically in the `bin` directory of your QGIS installation (e.g., `/usr/bin/qgis` might be a launcher, but the Python could be `/usr/bin/python3` if QGIS uses the system Python, or within a specific QGIS directory like `/opt/qgis/bin/python3`).
+                *   **Using QGIS Python Console for `pip` (if direct shell access is difficult):**
+                    Some QGIS versions allow `pip` execution from the QGIS Python Console:
+                    ```python
+                    import pip
+                    # Ensure you have the correct packages, especially rioxarray for raster
+                    pip.main(['install', 'pymapgis[all]', 'rioxarray'])
+                    # Or for a specific package:
+                    # pip.main(['install', 'packagename'])
+                    ```
+                    You might need to restart QGIS after installation.
+
+        *   **General Advice:**
+            *   **Check QGIS & Python Versions:** Ensure compatibility between PyMapGIS, its dependencies, and the Python version used by QGIS (typically Python 3.x).
+            *   **`rioxarray` is Key for Rasters:** The PyMapGIS QGIS plugin uses `rioxarray` to save `xarray.DataArray` objects as temporary GeoTIFF files before loading them into QGIS. If `rioxarray` is not present, raster loading will fail.
+            *   **Test Installation:** After attempting installation, open the QGIS Python Console and type `import pymapgis`, `import geopandas`, `import xarray`, `import rioxarray`. If these commands run without error, the installation was likely successful.
+
+    2.  **Modifying `PYTHONPATH` (Advanced):**
+        *   For advanced users, setting the `PYTHONPATH` environment variable *before* launching QGIS to include the path to a directory containing PyMapGIS (and its dependencies) can work.
+        *   **Example:** If PyMapGIS is in `/home/user/my_python_libs/lib/python3.9/site-packages`, you could set `PYTHONPATH=/home/user/my_python_libs/lib/python3.9/site-packages:$PYTHONPATH`.
+        *   **Risks:** This method is prone to library conflicts (e.g., different versions of Qt, GDAL, or other shared libraries between the QGIS environment and the external Python environment). It should be used with caution and is generally a last resort.
+
+    3.  **Using an Existing Conda/Venv Environment (Very Advanced & Risky):**
+        *   Pointing QGIS to use a Python interpreter from a custom Conda or virtual environment is possible but highly complex and can lead to instability due to mismatched core libraries (Qt, GDAL, etc.). This is generally not recommended unless you are an expert in QGIS builds and Python environment management.
+
+    4.  **Bundling (Not Feasible):**
+        *   Bundling PyMapGIS and its extensive dependencies (like GDAL, which GeoPandas relies on) within the plugin itself is not practical due to size, complexity, and licensing.
+
+    5.  **Calling PyMapGIS as a Subprocess (Alternative):**
+        *   This involves the plugin running PyMapGIS operations in a separate, independent Python process. Data is exchanged via files.
+        *   **Pros:** Avoids Python environment conflicts entirely.
+        *   **Cons:** Adds complexity to the plugin (managing subprocesses, file I/O for data exchange) and can be slower. This is not implemented in the current version of the plugin.
+
+**Recommendation:** The **User Installation** method (Strategy 1) is strongly recommended. Users should install PyMapGIS and its dependencies, especially `rioxarray`, into the Python environment utilized by their QGIS installation.
 
 ## Proof-of-Concept Snippet (Illustrative)
 
