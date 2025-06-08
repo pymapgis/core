@@ -60,6 +60,10 @@ data.plot.choropleth(
     <h3>💡 <a href="examples.html">Examples</a></h3>
     <p>Real-world examples and use cases with complete, runnable code.</p>
   </div>
+  <div class="doc-card">
+    <h3>🧑‍💻 <a href="developer/index.html">Developer Docs</a></h3>
+    <p>Information for contributors: architecture, setup, and extending PyMapGIS.</p>
+  </div>
 </div>
 
 ---
@@ -135,6 +139,7 @@ poetry install
 - **[Issues](https://github.com/pymapgis/core/issues)** - Bug reports and feature requests
 - **[Discussions](https://github.com/pymapgis/core/discussions)** - Community Q&A
 - **[Contributing Guide](https://github.com/pymapgis/core/blob/main/CONTRIBUTING.md)** - How to contribute
+- **[Developer Documentation](developer/index.md)** - For contributors and those extending PyMapGIS.
 
 ---
 
