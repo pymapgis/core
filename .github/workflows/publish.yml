@@ -33,7 +33,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     
-    # This is the corrected block that will fix the error
+    # This block is required to match your PyPI trusted publisher settings.
     environment:
       name: pypi
       url: https://pypi.org/p/pymapgis
