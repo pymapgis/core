@@ -1,4 +1,8 @@
 import geopandas
+from typing import Union
+from shapely.geometry.base import BaseGeometry
+
+__all__ = ["buffer", "clip", "overlay", "spatial_join"]
 
 def buffer(gdf: geopandas.GeoDataFrame, distance: float, **kwargs) -> geopandas.GeoDataFrame:
   """Creates buffer polygons around geometries in a GeoDataFrame.
@@ -17,3 +21,76 @@ def buffer(gdf: geopandas.GeoDataFrame, distance: float, **kwargs) -> geopandas.
   new_gdf = gdf.copy()
   new_gdf.geometry = buffered_geometries
   return new_gdf
+
+def clip(gdf: geopandas.GeoDataFrame, mask_geometry: Union[geopandas.GeoDataFrame, BaseGeometry]) -> geopandas.GeoDataFrame:
+  """Clips a GeoDataFrame to the boundaries of a mask geometry.
+
+  Args:
+      gdf (geopandas.GeoDataFrame): The GeoDataFrame to be clipped.
+      mask_geometry (Union[geopandas.GeoDataFrame, BaseGeometry]): The geometry used for clipping.
+          This can be another GeoDataFrame or a Shapely geometry object.
+
+  Returns:
+      geopandas.GeoDataFrame: A new GeoDataFrame containing the geometries clipped to the mask.
+  """
+  return gdf.clip(mask_geometry)
+
+def overlay(
+    gdf1: geopandas.GeoDataFrame,
+    gdf2: geopandas.GeoDataFrame,
+    how: str = 'intersection',
+    **kwargs
+) -> geopandas.GeoDataFrame:
+  """Performs a spatial overlay between two GeoDataFrames.
+
+  Args:
+      gdf1 (geopandas.GeoDataFrame): The left GeoDataFrame.
+      gdf2 (geopandas.GeoDataFrame): The right GeoDataFrame.
+      how (str): The type of overlay to perform. Supported values are:
+          'intersection', 'union', 'identity', 'symmetric_difference',
+          'difference'. Defaults to 'intersection'.
+      **kwargs: Additional arguments to be passed to GeoPandas' overlay method.
+
+  Returns:
+      geopandas.GeoDataFrame: A new GeoDataFrame with the result of the overlay operation.
+  """
+  if how not in ['intersection', 'union', 'identity', 'symmetric_difference', 'difference']:
+      raise ValueError(
+          f"Unsupported overlay type: {how}. Must be one of "
+          "['intersection', 'union', 'identity', 'symmetric_difference', 'difference']"
+      )
+  return gdf1.overlay(gdf2, how=how, **kwargs)
+
+def spatial_join(
+    left_gdf: geopandas.GeoDataFrame,
+    right_gdf: geopandas.GeoDataFrame,
+    op: str = 'intersects',
+    how: str = 'inner',
+    **kwargs
+) -> geopandas.GeoDataFrame:
+  """Performs a spatial join between two GeoDataFrames.
+
+  Args:
+      left_gdf (geopandas.GeoDataFrame): The left GeoDataFrame.
+      right_gdf (geopandas.GeoDataFrame): The right GeoDataFrame.
+      op (str): The spatial predicate to use for the join. Supported values are:
+          'intersects', 'contains', 'within'. Defaults to 'intersects'.
+          This corresponds to the 'predicate' argument in geopandas.sjoin.
+      how (str): The type of join to perform. Supported values are:
+          'left', 'right', 'inner'. Defaults to 'inner'.
+      **kwargs: Additional arguments to be passed to geopandas.sjoin method.
+
+  Returns:
+      geopandas.GeoDataFrame: A new GeoDataFrame with the result of the spatial join.
+  """
+  if op not in ['intersects', 'contains', 'within']:
+      raise ValueError(
+          f"Unsupported predicate operation: {op}. Must be one of "
+          "['intersects', 'contains', 'within']"
+      )
+  if how not in ['left', 'right', 'inner']:
+      raise ValueError(
+          f"Unsupported join type: {how}. Must be one of "
+          "['left', 'right', 'inner']"
+      )
+  return geopandas.sjoin(left_gdf, right_gdf, how=how, predicate=op, **kwargs)

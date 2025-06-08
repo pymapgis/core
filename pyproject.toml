@@ -34,6 +34,16 @@ pydantic-settings = "^2.9.1"
 # (add rasterio later, once the click conflict is solved)
 requests-cache = "^1.2.1"
 pandas = "^2.3.0"
+aiohttp = "^3.9.0"
+pyarrow = "^14.0.0"
+xarray = "^2023.6.0"
+rioxarray = "^0.14.0"
+netcdf4 = "^1.6.0"
+typer = {extras = ["all"], version = ">=0.9.0"}
+fastapi = ">=0.100.0"
+uvicorn = {extras = ["standard"], version = ">=0.23.0"}
+rio-tiler = ">=5.0,<6.0"
+fastapi-mvt = ">=0.3.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4"
@@ -46,3 +56,6 @@ pre-commit = "^4.2"
 [build-system]
 requires = ["poetry-core>=1.9.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+pymapgis = "pymapgis.cli:app"
