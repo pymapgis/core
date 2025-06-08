@@ -33,21 +33,60 @@ acs.plot.choropleth(
 ).show()
 ```
 
-## ✨ Key Features
+## ✨ Key Features Summary
 
-- **🔗 Built-in Data Sources**: Access to Census ACS, TIGER/Line, and various file formats.
-- **⚡ Smart Caching**: Automatic HTTP caching with TTL support for faster data retrieval.
-- **🐼 Rich Data Model**: Leverages GeoPandas for vector data, Xarray for raster data, NumPy for point clouds.
-- **🗺️ Interactive Visualization**: Create interactive maps with Leaflet (via `explore` and `plot_interactive`) and 3D visualizations with deck.gl (for point clouds and spatio-temporal cubes).
-- **☁️ Cloud-Native Raster Access**: Efficient windowed reading of multi-resolution Zarr pyramids.
-- **🏹 GeoArrow Support**: Convert GeoDataFrames to/from Apache Arrow tables with GeoArrow encoding for interoperability.
-- **🌐 Network Analysis**: Basic shortest path and isochrone analysis on street-like networks.
-- **☁️ Point Cloud Processing**: Read LAS/LAZ files and access point data and metadata using PDAL.
-- **🌊 Streaming Connectors**: Basic connectors for Kafka and MQTT for real-time data ingestion (requires optional dependencies).
-- **🔧 Extensible**: Plugin architecture for custom data sources and future extensions.
-- **🤝 Integrations**: Conceptual outline for QGIS plugin integration, enhancing desktop GIS workflows.
-- **🧹 Clean APIs**: Designed for a fluent, pandas-like user experience.
+- **Universal IO**: Simplified data loading and saving for various geospatial formats.
+- **Vector/Raster Accessors**: Intuitive `vector` and `raster` accessors for GeoDataFrames and Xarray DataArrays/Datasets.
+- **Interactive Maps**: Support for creating interactive maps using Leafmap and deck.gl.
+- **Cloud-Native Raster**: Efficient access to cloud-optimized raster data (e.g., COG, Zarr).
+- **GeoArrow**: Integration with Apache Arrow for efficient data exchange and in-memory analytics.
+- **Network Analysis Basics**: Fundamental tools for shortest path and isochrone calculations.
+- **Point Cloud Basics**: Support for reading and processing point cloud data (LAS/LAZ via PDAL).
+- **Streaming Connectors**: Basic integration with streaming platforms like Kafka and MQTT.
+- **Cache Management**: Robust caching mechanisms for improved performance and offline access, with CLI controls.
+- **Plugin System Basics**: Core infrastructure for extending PyMapGIS with custom plugins.
+- **CLI Tools**: Command-line interface for common tasks (`info`, `doctor`, `cache`, `rio`).
 
+## 📝 Project Status and Roadmap
+
+PyMapGIS is being developed in phases. Here's an overview of our progress and future plans:
+
+### **Phase 1: Core MVP (v0.1) - Status: Complete**
+- Basic Package Structure & Configuration: Implemented.
+- Core Data Model (GeoPandas, Xarray): Implemented.
+- Universal `pmg.read()` and `pmg.write()`: Implemented.
+- Vector Accessor (`.vector`): Implemented.
+- Raster Accessor (`.raster`): Implemented.
+- Basic TIGER/Line Provider: Implemented.
+- Basic Census ACS Provider: Implemented.
+- HTTP Caching (`requests-cache`): Implemented.
+- Initial CLI (`pymapgis info`): Implemented.
+- Documentation (MkDocs, initial content): Implemented.
+- Testing Framework (Pytest): Implemented.
+- CI/CD (GitHub Actions): Implemented.
+
+### **Phase 2: Enhancements & Community (v0.2) - Status: Largely Complete**
+- Interactive Mapping (Leafmap integration): Implemented.
+- Cache Management (CLI and API): Implemented.
+- Plugin System: Implemented (core registry and interfaces). Cookiecutter template outline available, full template in progress.
+- Enhanced CLI: `pymapgis doctor` (Implemented), `pymapgis plugin list` (Implemented). Full plugin management CLI is planned.
+- Expanded Data Source Support (e.g., more file types, initial remote sources beyond Census/TIGER): Implemented.
+- User Guide and Examples: Implemented.
+
+### **Phase 3: Advanced Capabilities - Status: In Progress & Experimental**
+- Cloud-Native Analysis (Lazy windowed Zarr): Implemented.
+- GeoArrow DataFrames: Implemented.
+- Network Analysis (Shortest path, Isochrones): Implemented. Advanced algorithms like Contraction Hierarchies are planned for future performance enhancements.
+- Point Cloud Support (LAS/LAZ via PDAL): Implemented.
+- 3D & Time Streaming Sensor Ingestion (Spatio-temporal cubes, deck.gl, Kafka/MQTT): Implemented (core components).
+- QGIS Plugin: Initial structure present. Full functionality requires significant development.
+
+### **Features Requiring Further Development / Future Focus:**
+- **QGIS Plugin**: Full development and integration to provide a seamless experience within QGIS.
+- **Advanced Network Analysis**: Implementation of Contraction Hierarchies and other advanced algorithms for improved performance and capabilities.
+- **Plugin Ecosystem**: Finalizing cookiecutter templates for plugin development and potentially expanding plugin management CLI tools to foster a vibrant community.
+- **Enhanced Streaming Capabilities**: Broader support for different streaming protocols and more robust error handling.
+- **Comprehensive Point Cloud Processing**: Adding more advanced point cloud analysis and manipulation features.
 
 ## 📊 Supported Data Sources
 
