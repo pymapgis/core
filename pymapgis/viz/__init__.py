@@ -22,9 +22,19 @@ def explore(
             - DataArray/Dataset: Will be added as a raster layer.
         m (leafmap.Map, optional): An existing leafmap.Map instance to add the layer to.
             If None, a new map is created. Defaults to None.
-        **kwargs: Additional keyword arguments to be passed to the respective
-            leafmap add method (`add_gdf` for GeoDataFrames, `add_raster` for xarray objects).
-            Common kwargs include `layer_name`, `style`, `cmap`, `vmin`, `vmax`, etc.
+        **kwargs: Additional keyword arguments passed to the underlying `leafmap` add method.
+            - For `gpd.GeoDataFrame` (uses `m.add_gdf()`):
+                Common kwargs include `layer_name` (str), `style` (dict for styling vector
+                features, e.g., `{'color': 'red', 'fillOpacity': 0.5}`), `hover_style` (dict),
+                `popup` (list of column names to show in popup), `tooltip` (str or list).
+            - For `xr.DataArray` or `xr.Dataset` (uses `m.add_raster()`):
+                Common kwargs include `layer_name` (str), `bands` (list of band indices or
+                names, e.g., `[3, 2, 1]` for RGB from a multiband raster if using integer band numbers,
+                or `['B4', 'B3', 'B2']` if bands have names), `cmap` (str, colormap name),
+                `vmin` (float), `vmax` (float), `nodata` (float, value to treat as nodata).
+                Note: For xarray objects, ensure they have CRS information (accessible via `data.rio.crs`).
+                If CRS is missing, visualization might be incorrect or fail. A warning is printed
+                if `data.rio.crs` is not found on a DataArray.
 
     Returns:
         leafmap.Map: The leafmap.Map instance with the added layer.
@@ -42,17 +52,15 @@ def explore(
         # For xarray, add_raster is the method.
         # Ensure data has CRS if it's a raster, leafmap might require it.
         # rioxarray typically adds a .rio accessor with crs info.
-        if isinstance(data, xr.DataArray) and data.rio.crs is None :
-            if not (hasattr(data, 'rio') and data.rio.crs):
-                 print("Warning: xarray.DataArray does not have CRS information via data.rio.crs. Visualization may be incorrect.")
+        if isinstance(data, xr.DataArray):
+            has_rio = hasattr(data, 'rio')
+            if not has_rio or getattr(data.rio, 'crs', None) is None:
+                print("Warning: xarray.DataArray does not have CRS information (e.g., via data.rio.crs). Visualization may be incorrect or map extent may not set properly.")
         elif isinstance(data, xr.Dataset):
-            # For Datasets, a specific data variable might need to be chosen by the user via kwargs
-            # or leafmap handles it by picking the first suitable one.
-            # Or, user might need to pass specific bands/variables if not handled by add_raster's kwargs.
-            # We assume add_raster handles Dataset appropriately or user uses kwargs.
-            # Example: m.add_raster(dataset, bands=['B4', 'B3', 'B2'])
-            pass # No explicit check for dataset's CRS here, assume leafmap handles or user provides via kwargs
-
+            # For xarray.Dataset, CRS check is more complex as it can be per variable.
+            # We rely on leafmap to handle this or the user to ensure variables being plotted have CRS.
+            # A general note is in the main docstring.
+            pass
         m.add_raster(data, **kwargs)
     else:
         raise TypeError(
@@ -81,8 +89,10 @@ def plot_interactive(
         data (Union[gpd.GeoDataFrame, xr.DataArray, xr.Dataset]): The geospatial data to add.
         m (leafmap.Map, optional): An existing leafmap.Map instance to add the layer to.
             If None, a new map is created. Defaults to None.
-        **kwargs: Additional keyword arguments to be passed to the respective
-            leafmap add method (`add_gdf` or `add_raster`).
+        **kwargs: Additional keyword arguments passed to the underlying `leafmap` add method.
+            Refer to the `explore` function's docstring for common `**kwargs` for
+            `add_gdf` (for GeoDataFrames) and `add_raster` (for xarray objects).
+            Ensure xarray objects have CRS information.
 
     Returns:
         leafmap.Map: The leafmap.Map instance with the added layer.
@@ -95,9 +105,13 @@ def plot_interactive(
     if isinstance(data, gpd.GeoDataFrame):
         m.add_gdf(data, **kwargs)
     elif isinstance(data, (xr.DataArray, xr.Dataset)):
-        if isinstance(data, xr.DataArray) and data.rio.crs is None :
-             if not (hasattr(data, 'rio') and data.rio.crs):
-                print("Warning: xarray.DataArray does not have CRS information via data.rio.crs. Visualization may be incorrect.")
+        if isinstance(data, xr.DataArray):
+            has_rio = hasattr(data, 'rio')
+            if not has_rio or getattr(data.rio, 'crs', None) is None:
+                print("Warning: xarray.DataArray does not have CRS information (e.g., via data.rio.crs). Visualization may be incorrect or map extent may not set properly.")
+        elif isinstance(data, xr.Dataset):
+            # For xarray.Dataset, CRS check is more complex. See note in 'explore' function.
+            pass
         m.add_raster(data, **kwargs)
     else:
         raise TypeError(

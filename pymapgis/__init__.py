@@ -3,7 +3,7 @@ __version__ = "0.0.0-dev0"
 from pathlib import Path # Existing import
 # from typing import Union # Not strictly needed for Python 3.10+ type hints like `|`
 
-from .io import read as read
+from .io import read
 from .cache import _init_session, clear as clear_cache
 from .acs import get_county_table
 from .tiger import counties

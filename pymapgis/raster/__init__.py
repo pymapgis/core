@@ -16,7 +16,9 @@ def reproject(data_array: xr.DataArray, target_crs: Union[str, int], **kwargs) -
             EPSG code (e.g., 4326), a WKT string, or any other format accepted
             by `rioxarray.reproject`.
         **kwargs: Additional keyword arguments to pass to `data_array.rio.reproject()`.
-            This can include parameters like `resolution`, `resampling`, `nodata`, etc.
+            Common examples include `resolution` (e.g., `resolution=10.0` or
+            `resolution=(10.0, 10.0)`), `resampling` (from `rioxarray.enums.Resampling`,
+            e.g., `resampling=Resampling.bilinear`), and `nodata` (e.g., `nodata=0`).
 
     Returns:
         xr.DataArray: A new DataArray reprojected to the target CRS.
@@ -35,26 +37,36 @@ def normalized_difference(
 ) -> xr.DataArray:
     """Computes the normalized difference between two bands of a raster.
 
-    The formula is (band1 - band2) / (band1 + band2).
+    The formula is `(band1 - band2) / (band1 + band2)`.
     This is commonly used for indices like NDVI (Normalized Difference Vegetation Index).
 
     Args:
         array (Union[xr.DataArray, xr.Dataset]): The input raster data.
-            - If xr.DataArray: Assumes a multi-band DataArray where bands are
-              selectable along a 'band' coordinate/dimension using `band1` and `band2` values.
-            - If xr.Dataset: Assumes `band1` and `band2` are string keys for
-              DataArrays (variables) within the Dataset.
-        band1 (Hashable): Identifier for the first band. This can be a band name
-            (e.g., 'red' or 4 for band number if using integer band names) if `array` is a DataArray
-            with a 'band' coordinate, or a variable name (str) if `array` is a Dataset.
-        band2 (Hashable): Identifier for the second band. Similar to `band1`.
+            - If `xr.DataArray`: Assumes a multi-band DataArray. `band1` and `band2`
+              are used to select data along the 'band' coordinate/dimension
+              (e.g., `array.sel(band=band1)`).
+            - If `xr.Dataset`: Assumes `band1` and `band2` are string names of
+              `xr.DataArray` variables within the Dataset (e.g., `array[band1]`).
+        band1 (Hashable): Identifier for the first band.
+            - For `xr.DataArray`: A value present in the 'band' coordinate
+              (e.g., 'red', 'nir', or an integer band number like 4).
+            - For `xr.Dataset`: The string name of the DataArray variable
+              (e.g., "B4", "SR_B5").
+        band2 (Hashable): Identifier for the second band, similar to `band1`.
 
     Returns:
         xr.DataArray: A DataArray containing the computed normalized difference.
-                      The result will have the same spatial dimensions as the input bands.
+            The result will have the same spatial dimensions as the input bands.
+            - Division by zero (`band1` + `band2` == 0) will result in `np.inf`
+              (or `-np.inf`) if the numerator is non-zero, and `np.nan` if the
+              numerator is also zero, following standard xarray/numpy arithmetic.
+            - NaNs in the input bands will propagate to the output; for example,
+              if a pixel in `band1` is NaN, the corresponding output pixel
+              will also be NaN.
 
     Raises:
-        ValueError: If the input array type is not supported, or if bands cannot be selected.
+        ValueError: If the input array type is not supported, or if specified
+            bands cannot be selected/found.
         TypeError: If band data cannot be subtracted or added (e.g. non-numeric).
     """
     b1: xr.DataArray

@@ -72,6 +72,12 @@ def info():
         rio_version = "Not found"
     typer.echo(f"  rasterio CLI (rio): {rio_version}")
 
+    typer.echo("\nNotes:")
+    typer.echo("  - Compatibility: Typer (used by this CLI) and Rasterio (a core dependency via rioxarray) both use 'click'.")
+    typer.echo("    If you encounter issues related to 'click' versions, ensuring your environment uses compatible versions,")
+    typer.echo("    or reinstalling packages in a fresh environment, might be necessary. Poetry usually handles this,")
+    typer.echo("    but complex environments can sometimes surface these issues.")
+
 
 # --- Cache Subcommand ---
 cache_app = typer.Typer(name="cache", help="Manage PyMapGIS cache.", no_args_is_help=True)

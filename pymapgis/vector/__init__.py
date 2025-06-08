@@ -11,8 +11,8 @@ def buffer(gdf: geopandas.GeoDataFrame, distance: float, **kwargs) -> geopandas.
       gdf (geopandas.GeoDataFrame): The input GeoDataFrame.
       distance (float): The buffer distance. The units of the distance
           are assumed to be the same as the CRS of the gdf.
-      **kwargs: Additional arguments to be passed to GeoPandas' buffer method
-          (e.g., resolution, cap_style, join_style).
+      **kwargs: Additional arguments to be passed to GeoPandas' `buffer` method
+          (e.g., `resolution`, `cap_style`, `join_style`).
 
   Returns:
       geopandas.GeoDataFrame: A new GeoDataFrame with the buffered geometries.
@@ -29,11 +29,13 @@ def clip(gdf: geopandas.GeoDataFrame, mask_geometry: Union[geopandas.GeoDataFram
       gdf (geopandas.GeoDataFrame): The GeoDataFrame to be clipped.
       mask_geometry (Union[geopandas.GeoDataFrame, BaseGeometry]): The geometry used for clipping.
           This can be another GeoDataFrame or a Shapely geometry object.
+      **kwargs: Additional arguments to be passed to GeoPandas' `clip` method
+          (e.g., `keep_geom_type`).
 
   Returns:
       geopandas.GeoDataFrame: A new GeoDataFrame containing the geometries clipped to the mask.
   """
-  return gdf.clip(mask_geometry)
+  return gdf.clip(mask_geometry, **kwargs)
 
 def overlay(
     gdf1: geopandas.GeoDataFrame,
@@ -49,7 +51,8 @@ def overlay(
       how (str): The type of overlay to perform. Supported values are:
           'intersection', 'union', 'identity', 'symmetric_difference',
           'difference'. Defaults to 'intersection'.
-      **kwargs: Additional arguments to be passed to GeoPandas' overlay method.
+      **kwargs: Additional arguments to be passed to GeoPandas' `overlay` method
+          (e.g., `keep_geom_type`).
 
   Returns:
       geopandas.GeoDataFrame: A new GeoDataFrame with the result of the overlay operation.
@@ -78,7 +81,8 @@ def spatial_join(
           This corresponds to the 'predicate' argument in geopandas.sjoin.
       how (str): The type of join to perform. Supported values are:
           'left', 'right', 'inner'. Defaults to 'inner'.
-      **kwargs: Additional arguments to be passed to geopandas.sjoin method.
+      **kwargs: Additional arguments to be passed to `geopandas.sjoin` method
+          (e.g., `lsuffix`, `rsuffix`).
 
   Returns:
       geopandas.GeoDataFrame: A new GeoDataFrame with the result of the spatial join.

@@ -70,7 +70,7 @@ async def get_raster_tile(layer_name: str, z: int, x: int, y: int,
             return Response(content, media_type="image/png")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing raster tile: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate raster tile for {layer_name} at {z}/{x}/{y}. Error: {str(e)}")
 
 
 @_app.get("/xyz/{layer_name}/{z}/{x}/{y}.mvt", tags=["Vector Tiles"])
@@ -95,7 +95,7 @@ async def get_vector_tile(layer_name: str, z: int, x: int, y: int):
         return Response(content, media_type="application/vnd.mapbox-vector-tile")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error processing vector tile: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to generate vector tile for {layer_name} at {z}/{x}/{y}. Error: {str(e)}")
 
 
 @_app.get("/", response_class=HTMLResponse, tags=["Viewer"])
@@ -203,8 +203,12 @@ def serve(
     if isinstance(data_source, str):
         # Try to read it to determine type
         try:
-            # A simple way to check: try reading as vector, then as raster if that fails or based on suffix.
-            # This is basic; a more robust type inference or explicit type hint might be better.
+            # Type inference for string data_source:
+            # This is currently a basic suffix-based approach.
+            # Future improvements could include more robust methods like:
+            #  - MIME type checking if the string is a URL.
+            #  - Attempting to read with multiple libraries (e.g., try rasterio, then geopandas)
+            #    for ambiguous file types or files without standard suffixes.
             file_suffix = data_source.split('.')[-1].lower()
             if file_suffix in ['shp', 'geojson', 'gpkg', 'parquet', 'geoparquet']:
                  _tile_server_data_source = pymapgis.read(data_source)
@@ -234,7 +238,7 @@ def serve(
                      raise ValueError(f"Unsupported file type or unable to infer service type for: {data_source}")
 
         except Exception as e:
-            raise ValueError(f"Could not read or infer type of data_source string '{data_source}': {e}")
+            raise ValueError(f"Could not read or infer type of data_source string '{data_source}'. Ensure it's a valid path/URL to a supported file format. Original error: {e}")
 
     elif isinstance(data_source, gpd.GeoDataFrame):
         _tile_server_data_source = data_source
@@ -252,15 +256,38 @@ def serve(
         raise TypeError(f"Unsupported data_source type: {type(data_source)}")
 
     if _service_type == "raster" and not isinstance(_tile_server_data_source, str):
-        print("Error: Raster service type selected, but data source is not a file path. For Phase 1, please provide a path to a COG file for raster serving.")
-        # Or, try to make it work with MemoryFile if it's an xarray object.
-        # This is a point of complexity mentioned in the plan.
-        # For now, the raster endpoint will raise an error if it's not a string path.
-        # To make it explicit here:
+        # For future enhancement to support in-memory xarray objects for raster tiles:
+        # This would likely involve using rio_tiler.io.MemoryFile.
+        # Example sketch:
+        # from rio_tiler.io import MemoryFile # Add to imports
+        # # Assuming _tile_server_data_source is an xr.DataArray or xr.Dataset
+        # if isinstance(_tile_server_data_source, (xr.DataArray, xr.Dataset)):
+        #     try:
+        #         # Ensure it has CRS and necessary spatial information
+        #         if not (hasattr(_tile_server_data_source, 'rio') and _tile_server_data_source.rio.crs):
+        #             raise ValueError("In-memory xarray object must have CRS for COG conversion.")
+        #         cog_bytes = _tile_server_data_source.rio.to_cog() # Or .write_cog() depending on xarray/rioxarray version
+        #         # Then use this cog_bytes with MemoryFile in the get_raster_tile endpoint:
+        #         # In get_raster_tile:
+        #         # if isinstance(_tile_server_data_source, bytes): # (after adjusting global type)
+        #         #    with MemoryFile(_tile_server_data_source) as memfile:
+        #         #        with RioTilerReader(memfile.name) as src:
+        #         #             # ... proceed ...
+        #         # This approach requires that the xarray object can be successfully converted to a COG in memory.
+        #         print("Developer note: In-memory xarray to COG conversion for serving would happen here.")
+        #     except Exception as e:
+        #         raise NotImplementedError(f"Failed to prepare in-memory xarray for raster serving: {e}")
+        # else: # Original error for non-string, non-xarray types for raster
         raise NotImplementedError("Serving in-memory xarray objects as raster tiles is not yet fully supported. Please provide a file path (e.g., COG).")
 
 
-    # Filter routes based on service type
+    # Dynamically prune FastAPI routes to only expose endpoints relevant to the selected service_type.
+    # This approach modifies the global _app.routes list directly.
+    # For more complex applications or if finer-grained control is needed, alternative FastAPI patterns
+    # such as using APIRouters for different functionalities (e.g., one for raster, one for vector)
+    # and conditionally including them in the main app, or using FastAPI's dependency injection system
+    # to enable/disable routes or features, might be more conventional and maintainable.
+    # However, for the current scope (single active layer type per server instance), this direct pruning is straightforward.
     active_routes = []
     for route in _app.routes:
         if isinstance(route, APIRoute):

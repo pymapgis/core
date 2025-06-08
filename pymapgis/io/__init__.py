@@ -14,17 +14,56 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
     """
     Universal reader:
 
+    Reads various geospatial and tabular file formats, attempting to infer the
+    correct library and return type. Supports local paths and remote URLs
+    (e.g., HTTP, S3) via fsspec, with local caching.
+
     Vector formats:
-    • .shp / .geojson / .gpkg     → GeoDataFrame via GeoPandas (gpd.read_file)
-    • .parquet / .geoparquet    → GeoDataFrame via GeoPandas (gpd.read_parquet)
-    • .csv with lon/lat cols      → GeoDataFrame; else plain DataFrame
+    • .shp / .geojson / .gpkg: → GeoDataFrame (via `gpd.read_file`)
+    • .parquet / .geoparquet: → GeoDataFrame (via `gpd.read_parquet`)
+    • .csv with lon/lat cols: → GeoDataFrame (from `pd.read_csv`, then `gpd.GeoDataFrame`)
+        - If a CSV is converted to a GeoDataFrame, the default CRS applied is
+          "EPSG:4326" unless overridden by `kw['crs']`.
+    • .csv without lon/lat:   → DataFrame (via `pd.read_csv`)
+
 
     Raster formats:
-    • .tif / .tiff / .cog (GeoTIFF/COG) → xarray.DataArray via rioxarray.open_rasterio
-    • .nc (NetCDF)                      → xarray.Dataset via xarray.open_dataset
+    • .tif / .tiff / .cog (GeoTIFF/COG): → `xarray.DataArray` (via `rioxarray.open_rasterio`)
+        - Note: `rioxarray.open_rasterio` defaults to `masked=True`, which means
+          nodata values in the raster are represented as `np.nan` in the DataArray.
+          This can affect calculations if not handled explicitly.
+    • .nc (NetCDF): → `xarray.Dataset` (via `xr.open_dataset`)
 
-    Supports local paths and remote URLs (e.g., HTTP, HTTPS) via fsspec, with caching.
-    The cache directory is configured via pymapgis.settings.
+    Args:
+        uri (str): Path or URL to the file.
+        x (str, optional): Column name for longitude if reading a CSV to GeoDataFrame.
+            Defaults to "longitude".
+        y (str, optional): Column name for latitude if reading a CSV to GeoDataFrame.
+            Defaults to "latitude".
+        **kw: Additional keyword arguments passed to the underlying reading function.
+            Common uses include:
+            - For CSVs: `crs` (e.g., `crs="EPSG:32632"`) to set the CRS if converting
+              to a GeoDataFrame. Other `pd.read_csv` arguments like `sep`, `header`,
+              `encoding` are also valid.
+            - For COGs/GeoTIFFs: `chunks` (e.g., `chunks={'x': 256, 'y': 256}`) for
+              dask-backed lazy loading, `overview_level` to read a specific overview.
+              Other `rioxarray.open_rasterio` arguments like `band`, `masked`
+              are also valid.
+            - For general vector files (`gpd.read_file`): `engine` (e.g., `engine="pyogrio"`),
+              `layer`, `bbox`.
+            - For NetCDF files (`xr.open_dataset`): `engine` (e.g., `engine="h5netcdf"`),
+              `group`, `decode_times`.
+
+    Returns:
+        Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset]:
+        The data read from the file, in its most appropriate geospatial type.
+
+    Raises:
+        ValueError: If the file format is unsupported.
+        FileNotFoundError: If the file at the URI is not found.
+        IOError: For other reading-related errors.
+
+    The cache directory is configured via `pymapgis.settings.cache_dir`.
     """
 
     storage_options = fsspec.utils.infer_storage_options(uri)
@@ -89,4 +128,4 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
     except FileNotFoundError:
         raise FileNotFoundError(f"File not found at URI: {uri}")
     except Exception as e:
-        raise IOError(f"Error reading {uri} (suffix {suffix}): {e}")
+        raise IOError(f"Failed to read {uri} with format {suffix}. Original error: {e}")
