@@ -20,7 +20,7 @@ try:
 except ImportError as e:
     # This allows the CLI to be somewhat functional for --help even if pymapgis isn't fully installed/found,
     # though commands relying on its modules will fail.
-    print(f"Warning: Could not import pymapgis modules: {e}. Some CLI features might not work.", file=sys.stderr)
+    print(f"Warning: Could not import pymapgis modules: {e}.\nCertain CLI features might be unavailable.", file=sys.stderr)
     # Define dummy versions/settings for basic CLI functionality if pymapgis is not found
     class DummySettings:
         cache_dir = "pymapgis not found"
@@ -78,10 +78,9 @@ def info():
     typer.echo(f"  rasterio CLI (rio): {rio_version}")
 
     typer.echo("\nNotes:")
-    typer.echo("  - Compatibility: Typer (used by this CLI) and Rasterio (a core dependency via rioxarray) both use 'click'.")
-    typer.echo("    If you encounter issues related to 'click' versions, ensuring your environment uses compatible versions,")
-    typer.echo("    or reinstalling packages in a fresh environment, might be necessary. Poetry usually handles this,")
-    typer.echo("    but complex environments can sometimes surface these issues.")
+    typer.echo("  - Compatibility: Typer (CLI) & Rasterio (core dep) both use 'click'.")
+    typer.echo("    Version conflicts can arise. Ensure compatible versions or use a")
+    typer.echo("    fresh environment. Poetry helps, but issues can still occur.")
 
 
 @app.command(name="doctor")
@@ -112,9 +111,9 @@ def doctor_command():
     # --- Python Packages ---
     typer.echo(typer.style("\n--- Python Packages ---", fg=typer.colors.BRIGHT_BLUE, bold=True))
     deps_to_check = [
-        "geopandas", "xarray", "rioxarray", "rasterio", "shapely", "fiona", "pyproj",
-        "leafmap", "fsspec", "pandas", "typer", "pydantic", "pydantic-settings",
-        "requests", "requests-cache"
+        "geopandas", "xarray", "rioxarray", "rasterio", "shapely",
+        "fiona", "pyproj", "leafmap", "fsspec", "pandas", "typer",
+        "pydantic", "pydantic-settings", "requests", "requests-cache"
     ]
     for dep in deps_to_check:
         version = get_package_version(dep)
@@ -165,6 +164,12 @@ def doctor_command():
     val_gdal_data = gdal_data if gdal_data else "Typically managed by Conda/GDAL install"
     print_check("GDAL_DATA", val_gdal_data, status_gdal_data, color_gdal_data)
 
+    gdal_version_env = os.getenv("GDAL_VERSION")
+    status_gdal_version, color_gdal_version = ("SET", ok_color) if gdal_version_env else ("NOT SET", warning_color)
+    val_gdal_version = (gdal_version_env if gdal_version_env
+                        else "If set, overrides GDAL version detected by libraries")
+    print_check("GDAL_VERSION (env)", val_gdal_version, status_gdal_version, color_gdal_version)
+
     # --- rio CLI status ---
     typer.echo(typer.style("\n--- CLI Tools ---", fg=typer.colors.BRIGHT_BLUE, bold=True))
     rio_path = shutil.which('rio')
@@ -172,14 +177,16 @@ def doctor_command():
     rio_status, rio_color = "NOT FOUND", error_color
     if rio_path:
         try:
-            rio_version_out = subprocess.run([rio_path, '--version'], capture_output=True, text=True, check=True, timeout=5)
-            rio_version = f"Found at {rio_path}, Version: {rio_version_out.stdout.strip()}"
+            rio_version_out = subprocess.run(
+                [rio_path, '--version'], capture_output=True, text=True, check=True, timeout=5
+            )
+            rio_version = f"Found: {rio_path}, Version: {rio_version_out.stdout.strip()}"
             rio_status, rio_color = "OK", ok_color
         except subprocess.TimeoutExpired:
-            rio_version = f"Found at {rio_path}, but version check timed out."
+            rio_version = f"Found: {rio_path}, but version check timed out."
             rio_status, rio_color = "WARNING", warning_color
         except subprocess.CalledProcessError as e:
-            rio_version = f"Found at {rio_path}, but version check failed: {e.stderr.strip()}"
+            rio_version = f"Found: {rio_path}, version check failed: {e.stderr.strip()}"
             rio_status, rio_color = "WARNING", warning_color
         except Exception as e:
             rio_version = f"Found at {rio_path}, error during version check: {e}"
@@ -191,8 +198,11 @@ def doctor_command():
     if issues_found == 0:
         typer.secho("PyMapGIS environment looks healthy!", fg=ok_color, bold=True)
     else:
-        typer.secho(f"Found {issues_found} potential issue(s). Please review the items marked WARNING or ERROR.", fg=warning_color, bold=True)
-    typer.echo("Note: 'NOT SET' for PROJ_LIB/GDAL_DATA is often normal if using Conda environments.")
+        typer.secho(
+            f"Found {issues_found} potential issue(s). Review items marked WARNING or ERROR.",
+            fg=warning_color, bold=True
+        )
+    typer.echo("Note: 'NOT SET' for PROJ_LIB/GDAL_DATA is often normal in Conda envs.")
 
 
 # --- Cache Subcommand ---
@@ -283,7 +293,10 @@ def _list_plugins_by_group(group_name: str, loader_func: callable, verbose: bool
 
 @plugin_app.command(name="list")
 def plugin_list_command(
-    verbose: Annotated[bool, typer.Option("--verbose", "-v", help="Show more plugin details, like module origin.")] = False
+    verbose: Annotated[
+        bool,
+        typer.Option("--verbose", "-v", help="Show more plugin details (e.g., module origin).")
+    ] = False
 ):
     """
     Lists all discovered PyMapGIS plugins by group.
@@ -292,7 +305,10 @@ def plugin_list_command(
 
     # Check if plugin functions are available (i.e., if pymapgis.plugins was imported)
     if 'load_driver_plugins' not in globals():
-        typer.secho("Plugin system is unavailable. This might be due to an incomplete PyMapGIS installation.", fg=typer.colors.RED, err=True)
+        typer.secho(
+            "Plugin system unavailable. PyMapGIS might be incompletely installed.",
+            fg=typer.colors.RED, err=True
+        )
         raise typer.Exit(code=1)
 
     _list_plugins_by_group(f"Drivers ({PYMAPGIS_DRIVERS_GROUP})", load_driver_plugins, verbose)

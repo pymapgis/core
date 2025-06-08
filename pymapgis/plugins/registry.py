@@ -6,13 +6,16 @@ Plugins are registered using setuptools entry points under specific group names.
 """
 import importlib.metadata
 import logging
-from typing import Dict, List, Type, Any
+from typing import Dict, List, Type, Any, TypeVar
 
 from pymapgis.plugins.interfaces import (
     PymapgisDriver,
     PymapgisAlgorithm,
     PymapgisVizBackend,
 )
+
+# TypeVar for generic plugin types
+_PluginType = TypeVar("_PluginType")
 
 # Logger setup
 logger = logging.getLogger(__name__)
@@ -22,7 +25,7 @@ PYMAPGIS_DRIVERS_GROUP = "pymapgis.drivers"
 PYMAPGIS_ALGORITHMS_GROUP = "pymapgis.algorithms"
 PYMAPGIS_VIZ_BACKENDS_GROUP = "pymapgis.viz_backends"
 
-def load_plugins(group_name: str, base_class: Type) -> Dict[str, Type]:
+def load_plugins(group_name: str, base_class: Type[_PluginType]) -> Dict[str, Type[_PluginType]]:
     """
     Load plugins registered under a specific entry point group.
 
@@ -34,7 +37,7 @@ def load_plugins(group_name: str, base_class: Type) -> Dict[str, Type]:
         A dictionary mapping plugin names (from entry_point.name) to
         the loaded plugin classes.
     """
-    plugins: Dict[str, Type] = {}
+    plugins: Dict[str, Type[_PluginType]] = {}
 
     try:
         # For Python 3.10+ and importlib_metadata >= 3.6.0, .select is preferred
@@ -43,18 +46,18 @@ def load_plugins(group_name: str, base_class: Type) -> Dict[str, Type]:
         # without needing a very recent importlib_metadata backport,
         # we can use the older way of accessing entry points.
         all_entry_points = importlib.metadata.entry_points()
-        # The .get(group_name, []) is important if the group might not exist.
-        # If using importlib.metadata.entry_points(group=group_name), it might raise KeyError if group doesn't exist.
-        # However, the spec for entry_points(group=...) is that it should return an empty sequence if not found.
-        # Let's assume the modern behavior of entry_points(group=...) or ensure a fallback.
+        # Using .get(group_name, []) on the result of all entry_points() is a fallback.
+        # For specific groups, importlib.metadata.entry_points(group=group_name)
+        # should return an empty sequence if the group doesn't exist (modern behavior).
+        # This code handles both new and older importlib_metadata versions.
 
         # Python 3.10+ / importlib_metadata 3.9.0+ way:
-        if hasattr(importlib.metadata, "SelectableGroups"): # Heuristic for new API
-             eps = importlib.metadata.entry_points(group=group_name)
-        else: # Older way for Python < 3.10 or older importlib_metadata
-            eps = all_entry_points.get(group_name, []) # type: ignore
+        if hasattr(importlib.metadata, "SelectableGroups"):  # Heuristic for new API
+            eps = importlib.metadata.entry_points(group=group_name)
+        else:  # Older way for Python < 3.10 or older importlib_metadata
+            eps = all_entry_points.get(group_name, [])  # type: ignore
 
-    except Exception as e: # Catch potential issues with entry_points() itself
+    except Exception as e:  # Catch potential issues with entry_points() itself
         logger.error(f"Could not retrieve entry points for group '{group_name}': {e}")
         return plugins
 
@@ -95,12 +98,12 @@ def load_plugins(group_name: str, base_class: Type) -> Dict[str, Type]:
 # Specific loader functions
 def load_driver_plugins() -> Dict[str, Type[PymapgisDriver]]:
     """Load all registered PymapgisDriver plugins."""
-    return load_plugins(PYMAPGIS_DRIVERS_GROUP, PymapgisDriver) # type: ignore
+    return load_plugins(PYMAPGIS_DRIVERS_GROUP, PymapgisDriver)
 
 def load_algorithm_plugins() -> Dict[str, Type[PymapgisAlgorithm]]:
     """Load all registered PymapgisAlgorithm plugins."""
-    return load_plugins(PYMAPGIS_ALGORITHMS_GROUP, PymapgisAlgorithm) # type: ignore
+    return load_plugins(PYMAPGIS_ALGORITHMS_GROUP, PymapgisAlgorithm)
 
 def load_viz_backend_plugins() -> Dict[str, Type[PymapgisVizBackend]]:
     """Load all registered PymapgisVizBackend plugins."""
-    return load_plugins(PYMAPGIS_VIZ_BACKENDS_GROUP, PymapgisVizBackend) # type: ignore
+    return load_plugins(PYMAPGIS_VIZ_BACKENDS_GROUP, PymapgisVizBackend)
