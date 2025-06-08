@@ -51,6 +51,7 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
               are also valid.
             - For general vector files (`gpd.read_file`): `engine` (e.g., `engine="pyogrio"`),
               `layer`, `bbox`.
+            - For Parquet files (`gpd.read_parquet`): e.g., `columns=['geometry', 'attribute1']`.
             - For NetCDF files (`xr.open_dataset`): `engine` (e.g., `engine="h5netcdf"`),
               `group`, `decode_times`.
 

@@ -29,8 +29,9 @@ def clip(gdf: geopandas.GeoDataFrame, mask_geometry: Union[geopandas.GeoDataFram
       gdf (geopandas.GeoDataFrame): The GeoDataFrame to be clipped.
       mask_geometry (Union[geopandas.GeoDataFrame, BaseGeometry]): The geometry used for clipping.
           This can be another GeoDataFrame or a Shapely geometry object.
-      **kwargs: Additional arguments to be passed to GeoPandas' `clip` method
-          (e.g., `keep_geom_type`).
+      **kwargs: Additional arguments to be passed to GeoPandas' `clip` method.
+          Common kwargs include `keep_geom_type` (boolean) to control whether
+          to return only geometries of the same type as the input.
 
   Returns:
       geopandas.GeoDataFrame: A new GeoDataFrame containing the geometries clipped to the mask.
@@ -44,6 +45,9 @@ def overlay(
     **kwargs
 ) -> geopandas.GeoDataFrame:
   """Performs a spatial overlay between two GeoDataFrames.
+
+  Note: Both GeoDataFrames should ideally be in the same CRS. Geopandas will
+  raise an error if they are not.
 
   Args:
       gdf1 (geopandas.GeoDataFrame): The left GeoDataFrame.
@@ -72,6 +76,9 @@ def spatial_join(
     **kwargs
 ) -> geopandas.GeoDataFrame:
   """Performs a spatial join between two GeoDataFrames.
+
+  Note: Both GeoDataFrames should ideally be in the same CRS for meaningful
+  results. Geopandas will raise an error if they are not compatible.
 
   Args:
       left_gdf (geopandas.GeoDataFrame): The left GeoDataFrame.
