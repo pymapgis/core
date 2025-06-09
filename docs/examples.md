@@ -392,7 +392,7 @@ results = {}
 
 for state_fips in states_to_analyze:
     state_data = pmg.read(
-        f"census://acs/acs5?year=2022&geography=county&state={state_fips}&variables=B19013_001E"
+        f"census://acs/acs5?year={year}&geography=county&state={state_fips}&variables=B19013_001E"
     )
     results[state_fips] = state_data
 
@@ -529,4 +529,85 @@ simulated_gdf.plot.scatter(
     tooltip=['temperature', 'humidity'],
     figsize=(10, 8)
 ).show()
+```
+
+
+### Interactive Mapping with Leafmap
+
+This example showcases how to load geospatial data (e.g., US States from TIGER/Line) and render an interactive choropleth map using PyMapGIS's Leafmap integration. It demonstrates creating tooltips and customizing map appearance.
+
+[Details and Code](./examples/interactive_mapping_leafmap/README.md)
+
+```python
+import pymapgis as pmg
+
+# Load US states data
+states = pmg.read("tiger://states?year=2022&variables=ALAND")
+states['ALAND'] = pmg.pd.to_numeric(states['ALAND'], errors='coerce')
+
+# Create an interactive choropleth map of land area
+states.plot.choropleth(
+    column="ALAND",
+    tooltip=["NAME", "ALAND"],
+    cmap="viridis",
+    legend_name="Land Area (sq. meters)",
+    title="US States by Land Area (2022)"
+).show() # In a script, this might save to HTML or open in browser
+```
+
+### Managing PyMapGIS Cache (API & CLI)
+
+This example demonstrates how to inspect and manage the PyMapGIS data cache. It covers using the Python API to get cache path, size, list items, and clear the cache. It also lists the corresponding CLI commands for these operations.
+
+[Details and Code](./examples/cache_management_example/README.md)
+
+```python
+import pymapgis as pmg
+
+# --- API Usage ---
+# Get cache directory
+print(f"Cache directory: {pmg.cache.get_cache_dir()}")
+
+# Make a sample request to add to cache
+_ = pmg.read("tiger://rails?year=2022")
+
+# List cached items
+print("Cached items:")
+for url, details in pmg.cache.list_cache().items():
+    print(f"- {url} ({details['size_hr']})")
+
+# Clear the cache
+# pmg.cache.clear_cache()
+# print("Cache cleared.")
+
+# --- CLI Commands (for reference) ---
+# pymapgis cache path
+# pymapgis cache list
+# pymapgis cache clear
+```
+
+### Listing Available Plugins (API & CLI)
+
+This example shows how to discover available plugins in PyMapGIS. It uses the plugin registry API to list registered plugins and also mentions the `pymapgis plugin list` CLI command.
+
+[Details and Code](./examples/plugin_system_example/README.md)
+
+```python
+from pymapgis.plugins import plugin_registry # Or appropriate import
+
+# --- API Usage ---
+try:
+    plugins = plugin_registry.list_plugins()
+    if plugins:
+        print("Available plugins:")
+        for name in plugins: # Or iterate items if it's a dict
+            print(f"- {name}")
+    else:
+        print("No plugins found.")
+except Exception as e:
+    print(f"Error listing plugins: {e}")
+
+
+# --- CLI Command (for reference) ---
+# pymapgis plugin list
 ```
