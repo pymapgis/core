@@ -10,6 +10,8 @@ Real-world examples and use cases for PyMapGIS. Each example includes complete c
 4. [🗺️ Multi-Scale Mapping](#️-multi-scale-mapping)
 5. [📈 Time Series Analysis](#-time-series-analysis)
 6. [🔄 Data Integration](#-data-integration)
+7. [📂 More Examples](#-more-examples)
+    * [Phase 3 Feature Examples](#phase-3-feature-examples)
 
 ## 🏠 Housing Analysis
 
@@ -531,7 +533,6 @@ simulated_gdf.plot.scatter(
 ).show()
 ```
 
-
 ### Interactive Mapping with Leafmap
 
 This example showcases how to load geospatial data (e.g., US States from TIGER/Line) and render an interactive choropleth map using PyMapGIS's Leafmap integration. It demonstrates creating tooltips and customizing map appearance.
@@ -611,3 +612,29 @@ except Exception as e:
 # --- CLI Command (for reference) ---
 # pymapgis plugin list
 ```
+
+## Phase 3 Feature Examples
+
+These examples highlight new features and capabilities introduced as part of Phase 3 development.
+
+### [Cloud-Native Zarr Analysis](examples/cloud_native_zarr/README.md)
+Demonstrates accessing and performing simple analysis (mean/max temperature) on a publicly available ERA5 Zarr dataset hosted on AWS S3, showcasing lazy windowed reading.
+
+### [GeoArrow DataFrames](examples/geoarrow_example/README.md)
+Shows how to load a GeoParquet file into a GeoDataFrame that leverages GeoArrow-backed data structures for efficient in-memory representation and performs simple spatial and attribute filtering.
+
+### [Advanced Network Analysis (Shortest Path & Isochrones)](examples/network_analysis_advanced/README.md)
+Illustrates downloading a street network using `osmnx`, calculating the shortest path between two points, and generating isochrone polygons (reachability areas) from a central point.
+
+### [Basic Point Cloud Operations (LAS/LAZ)](examples/point_cloud_basic/README.md)
+Aims to demonstrate loading and basic inspection (metadata, point count, sample points) of LAS/LAZ point cloud files using PDAL. (Note: Currently faces environment setup challenges for PDAL.)
+
+---
+
+## 🔗 Next Steps
+
+- **[📖 User Guide](user-guide.md)** - Comprehensive tutorials and concepts
+- **[🔧 API Reference](api-reference.md)** - Detailed function documentation
+- **[🚀 Quick Start](quickstart.md)** - Get started in 5 minutes
+
+**Happy mapping with PyMapGIS!** 🗺️✨
