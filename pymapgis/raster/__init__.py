@@ -159,43 +159,51 @@ def lazy_windowed_read_zarr(
     if not all(k in window for k in ['x', 'y', 'width', 'height']):
         raise KeyError("Window dictionary must contain 'x', 'y', 'width', and 'height' keys.")
 
-    # Open the Zarr store. group='' means root for multiscale.
+    # Open the Zarr store. For multiscale stores, we need to handle the structure carefully
     # If multiscale_group_name is provided, it's used as the group path.
     zarr_group_path = multiscale_group_name if multiscale_group_name else None
-    ds = xr.open_zarr(store_path_or_url, consolidated=consolidated, group=zarr_group_path)
 
-    # Access the multiscale pyramid.
-    # The `name_pattern_type` argument for xarray_multiscale.multiscale might be 'regex' or 'glob'.
-    # Default is often fine if levels are named '0', '1', ... or paths like 's0', 's1', ...
-    # The `array_raw_name_pattern` might be needed if data variables are not standard.
-    # For OME-Zarr, the data is typically in a dataset named by its level path e.g. "0".
-    # xarray_multiscale is designed to handle OME-Zarr NGFF spec v0.4+
-    # The `datasets` field in .zattrs for NGFF specifies paths to arrays.
-    # If `ds` itself is the multiscale dataset (e.g. from `xr.open_mfdataset` on pyramid levels)
-    # then `xarray_multiscale.multiscale(ds, ...)` is correct.
-    # If `ds` is the root and multiscale metadata is in `ds.attrs['multiscales']` (OME-NGFF),
-    # then `xarray_multiscale.multiscale(ds, ...)` should also work.
+    # For multiscale zarr stores, we'll open the zarr group and access individual levels
+    import zarr as zarr_lib
 
-    # The 'type' argument to multiscale specifies the axis interpretation.
-    # Using a simple string like "YX" might require xarray_multiscale to have it registered,
-    # or it might directly interpret it. ITK_IMAGE_DIMS is a safer constant if available/applicable.
-    # However, xarray_multiscale documentation suggests 'type' can be a string like "spatial"
-    # or an instance of an `AxisType` subclass. For simplicity and common use,
-    # we'll assume the dimensions are named 'x' and 'y' in the arrays.
     try:
-        multi_scale_pyramid = xarray_multiscale.multiscale(
-            ds,
-            xarray_multiscale.reducers.windowed_mean(preserve_dtype=True), # Default reducer
-            axis_order=axis_order
-        )
+        zarr_store = zarr_lib.open_group(store_path_or_url, mode='r')
+        if zarr_group_path:
+            zarr_store = zarr_store[zarr_group_path]
+
+        # Get the multiscale metadata to understand the structure
+        multiscale_metadata = zarr_store.attrs.get('multiscales', [])
+        if not multiscale_metadata:
+            raise ValueError("No multiscale metadata found in zarr store")
+
+        # Get the datasets (levels) from the first multiscale entry
+        datasets = multiscale_metadata[0].get('datasets', [])
+        if not datasets:
+            raise ValueError("No datasets found in multiscale metadata")
+
+        # Create a list of DataArrays for each level
+        multi_scale_pyramid = []
+        for dataset_info in datasets:
+            level_path = dataset_info['path']
+            zarr_array = zarr_store[level_path]
+
+            # Convert to xarray DataArray with proper dimensions and keep it lazy
+            dims = zarr_array.attrs.get('_ARRAY_DIMENSIONS', [f'dim_{i}' for i in range(zarr_array.ndim)])
+            # Use dask to keep the array lazy
+            import dask.array as da_dask
+            dask_array = da_dask.from_zarr(zarr_array)
+            da = xr.DataArray(dask_array, dims=dims)
+            multi_scale_pyramid.append(da)
+
+    except KeyError as e:
+        # If zarr group path doesn't exist, raise PathNotFoundError as expected by tests
+        import zarr.errors
+        raise zarr.errors.PathNotFoundError(f"Group '{zarr_group_path}' not found in zarr store") from e
     except Exception as e:
-        # If ds itself is one level of a pyramid, or not a multiscale dataset as expected
-        # xarray_multiscale might fail.
-        # Provide more context if it fails.
+        # If zarr store access fails, provide more context
         raise Exception(
-            f"Failed to interpret '{store_path_or_url}' (group: {zarr_group_path}) as a multiscale pyramid "
-            f"with axis_order '{axis_order}'. Ensure it's a valid OME-NGFF multiscale dataset "
-            f"or compatible structure. Original error: {e}"
+            f"Failed to interpret '{store_path_or_url}' (group: {zarr_group_path}) as a multiscale pyramid. "
+            f"Ensure it's a valid OME-NGFF multiscale dataset or compatible structure. Original error: {e}"
         ) from e
 
     # Select the specified level. `level` can be an int or string.

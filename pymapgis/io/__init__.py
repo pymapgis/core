@@ -13,7 +13,7 @@ from pymapgis.pointcloud import get_point_cloud_points as pmg_get_point_cloud_po
 # Define a more comprehensive return type for the read function
 ReadReturnType = Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset, np.ndarray]
 
-def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
+def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw) -> ReadReturnType:
     """
     Universal reader:
 
@@ -44,7 +44,7 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
         - PDAL installation is required (see PyMapGIS documentation).
 
     Args:
-        uri (str): Path or URL to the file.
+        uri (Union[str, Path]): Path or URL to the file.
         x (str, optional): Column name for longitude if reading a CSV to GeoDataFrame.
             Defaults to "longitude".
         y (str, optional): Column name for latitude if reading a CSV to GeoDataFrame.
@@ -76,13 +76,20 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
     The cache directory is configured via `pymapgis.settings.cache_dir`.
     """
 
+    # Convert Path objects to strings for fsspec compatibility
+    if isinstance(uri, Path):
+        uri = str(uri)
+
     storage_options = fsspec.utils.infer_storage_options(uri)
     protocol = storage_options.get("protocol", "file")
-    cache_fs_path = str(settings.cache_dir)
 
+    # For local files, use direct file access without caching
     if protocol == "file":
-        fs = fsspec.filesystem("filecache", cache_storage=cache_fs_path)
+        cached_file_path = uri
+        suffix = Path(uri).suffix.lower()
     else:
+        # For remote files, use fsspec caching
+        cache_fs_path = str(settings.cache_dir)
         fs = fsspec.filesystem(
             "filecache",
             target_protocol=protocol,
@@ -90,17 +97,15 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
             cache_storage=cache_fs_path
         )
 
-    path_for_suffix = uri
-    if fsspec.utils.get_protocol(uri) != "file":
         path_for_suffix = storage_options['path']
-    suffix = Path(path_for_suffix).suffix.lower()
+        suffix = Path(path_for_suffix).suffix.lower()
 
-    try:
         # Ensure file is cached and get local path
-        # This is used for libraries that primarily expect file paths
         with fs.open(uri, "rb"): # Open and close to ensure it's cached
             pass
         cached_file_path = fs.get_mapper(uri).root
+
+    try:
 
         if suffix in {".shp", ".geojson", ".gpkg", ".parquet", ".geoparquet"}:
             if suffix in {".shp", ".geojson", ".gpkg"}:
@@ -120,9 +125,15 @@ def read(uri: str, *, x="longitude", y="latitude", **kw) -> ReadReturnType:
             return xr.open_dataset(cached_file_path, **kw)
 
         elif suffix == ".csv":
-            # For pandas, using fs.open() to get a file-like object is efficient
-            with fs.open(uri, "rt", encoding=kw.pop("encoding", "utf-8")) as f: # type: ignore
-                df = pd.read_csv(f, **kw)
+            # Handle CSV files differently for local vs remote
+            if protocol == "file":
+                # For local files, read directly
+                df = pd.read_csv(cached_file_path, encoding=kw.pop("encoding", "utf-8"), **kw)
+            else:
+                # For remote files, use fs.open() to get a file-like object
+                with fs.open(uri, "rt", encoding=kw.pop("encoding", "utf-8")) as f: # type: ignore
+                    df = pd.read_csv(f, **kw)
+
             if {x, y}.issubset(df.columns):
                 gdf = gpd.GeoDataFrame(
                     df,

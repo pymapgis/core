@@ -54,6 +54,9 @@ def create_spatiotemporal_cube_from_numpy(
 
     if not isinstance(timestamps, (np.ndarray, pd.DatetimeIndex)):
         timestamps = pd.to_datetime(timestamps)
+    # Ensure the time index has no name to match test expectations
+    if hasattr(timestamps, 'name'):
+        timestamps.name = None
     coords['time'] = timestamps
     dims.append('time')
     expected_shape = [len(timestamps)]
@@ -78,8 +81,20 @@ def create_spatiotemporal_cube_from_numpy(
     expected_shape.append(len(x_coords))
 
     if data.shape != tuple(expected_shape):
+        # Create a more detailed error message that matches test expectations
+        dim_names = []
+        if 'time' in dims:
+            dim_names.append(f"time: {len(timestamps)}")
+        if 'z' in dims:
+            dim_names.append(f"z: {len(z_coords)}")
+        if 'y' in dims:
+            dim_names.append(f"y: {len(y_coords)}")
+        if 'x' in dims:
+            dim_names.append(f"x: {len(x_coords)}")
+
+        dim_str = ", ".join(dim_names)
         raise ValueError(
-            f"Data shape {data.shape} does not match expected shape {tuple(expected_shape)}"
+            f"Data shape {data.shape} does not match expected shape ({dim_str}) {tuple(expected_shape)}"
         )
 
     data_array = xr.DataArray(

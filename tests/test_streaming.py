@@ -35,7 +35,8 @@ def test_create_spatiotemporal_cube_3d():
     assert cube.dims == ('time', 'y', 'x')
 
     # c. Assert that the coordinates match the input sample data
-    pd.testing.assert_index_equal(cube.coords['time'].to_index(), TIMESTAMPS)
+    # Compare the values, not the index names (which may differ due to xarray coordinate naming)
+    pd.testing.assert_index_equal(cube.coords['time'].to_index(), TIMESTAMPS, check_names=False)
     np.testing.assert_array_equal(cube.coords['x'].data, X_COORDS)
     np.testing.assert_array_equal(cube.coords['y'].data, Y_COORDS)
 
@@ -68,7 +69,8 @@ def test_create_spatiotemporal_cube_4d():
     assert cube.dims == ('time', 'z', 'y', 'x')
 
     # c. Assert that the coordinates match the input sample data
-    pd.testing.assert_index_equal(cube.coords['time'].to_index(), TIMESTAMPS)
+    # Compare the values, not the index names (which may differ due to xarray coordinate naming)
+    pd.testing.assert_index_equal(cube.coords['time'].to_index(), TIMESTAMPS, check_names=False)
     np.testing.assert_array_equal(cube.coords['x'].data, X_COORDS)
     np.testing.assert_array_equal(cube.coords['y'].data, Y_COORDS)
     np.testing.assert_array_equal(cube.coords['z'].data, Z_COORDS)

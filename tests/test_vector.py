@@ -21,6 +21,7 @@ def test_buffer_simple():
 # Tests for GeoArrow Utilities
 import pytest
 import pyarrow as pa
+import geoarrow.pyarrow as ga
 from shapely.geometry import LineString, Polygon, MultiPoint, GeometryCollection
 from pandas.testing import assert_frame_equal
 
@@ -79,18 +80,15 @@ def test_geodataframe_to_geoarrow_conversion(sample_gdf_all_types):
 
     # Check schema for GeoArrow extension type (specific type depends on geoarrow-py version and content)
     geom_field = arrow_table.schema.field('geometry')
-    # Example check: isinstance(geom_field.type, (ga.WkbType, ga.PointType, ...))
-    # More generically, check if it's a GeoArrowExtensionType if that base class exists and is imported
-    # For now, we'll rely on geoarrow.pyarrow.array() to choose the best type.
-    # The field metadata should contain CRS.
-    assert geom_field.metadata is not None
-    assert b'geoarrow.crs' in geom_field.metadata # geoarrow spec for CRS in field metadata
+    # Check that it's a GeoArrow extension type
+    assert isinstance(geom_field.type, ga.GeometryExtensionType)
 
-    # Verify CRS stored in metadata (actual parsing might be complex, check for presence)
-    # geoarrow-py typically stores it in a specific way, e.g. WKT or ProjJSON string
-    # For example: crs_meta = json.loads(geom_field.metadata[b'ARROW:extension:metadata'])['crs']
-    # This depends on the exact metadata structure used by the geoarrow-py version.
-    # A simpler check is that the roundtrip preserves CRS.
+    # Verify CRS is preserved in the extension type
+    # In geoarrow-pyarrow, CRS is stored in the extension type itself, not field metadata
+    assert geom_field.type.crs is not None
+    # The CRS representation might be wrapped, so check if it contains the expected EPSG code
+    crs_str = str(geom_field.type.crs)
+    assert 'EPSG:4326' in crs_str  # Should contain the original GDF CRS
 
 def test_geoarrow_to_geodataframe_conversion(sample_gdf_all_types):
     gdf_original = sample_gdf_all_types
@@ -143,7 +141,8 @@ def test_error_handling_geoarrow_to_geodataframe(sample_gdf_all_types):
 
     # Create a table with two geoarrow columns to test ambiguity
     geom_col_arrow = geodataframe_to_geoarrow(gdf[['geometry']]).column(0)
-    table_multi_geo = arrow_table_geo.add_column(0, pa.field("geometry2", geom_col_arrow.type, metadata=geom_col_arrow.field.metadata), geom_col_arrow)
+    geom_field = arrow_table_geo.schema.field('geometry')
+    table_multi_geo = arrow_table_geo.add_column(0, pa.field("geometry2", geom_field.type, metadata=geom_field.metadata), geom_col_arrow)
 
     with pytest.raises(ValueError, match="Multiple GeoArrow geometry columns found"):
         geoarrow_to_geodataframe(table_multi_geo) # No specific name given

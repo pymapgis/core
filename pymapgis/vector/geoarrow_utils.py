@@ -45,6 +45,9 @@ def geodataframe_to_geoarrow(gdf: gpd.GeoDataFrame) -> pa.Table:
     # For the geometry column, it typically converts to WKB by default if not explicitly handled.
     # We want to leverage geoarrow-py's specific encoding which might be more type-aware.
 
+
+
+    # Use the column-by-column approach since ga.to_table() doesn't exist in current geoarrow API
     # Create a list of pyarrow arrays for each column
     arrow_arrays = []
     column_names = []
@@ -53,42 +56,34 @@ def geodataframe_to_geoarrow(gdf: gpd.GeoDataFrame) -> pa.Table:
         if col_name == geometry_col_name:
             # Use geoarrow-py to convert the geometry series to a GeoArrow extension array
             # This automatically handles various geometry types and CRS.
-            geo_array = ga.array(gdf[geometry_col_name])
-            arrow_arrays.append(geo_array)
+            try:
+                geo_array = ga.array(gdf[geometry_col_name])
+                # Ensure CRS is preserved if the GeoDataFrame has one
+                if gdf.crs is not None:
+                    geo_array = ga.with_crs(geo_array, gdf.crs)
+                arrow_arrays.append(geo_array)
+            except Exception as e:
+                raise RuntimeError(
+                    f"Failed to convert geometry column '{geometry_col_name}' to GeoArrow array. "
+                    f"Original error: {e}"
+                ) from e
         else:
             # For non-geometry columns, convert using pyarrow from_pandas
-            # This handles standard pandas Series to pyarrow Array conversion.
-            # Need to handle potential index issues if gdf has a non-default index.
-            # pa.Table.from_pandas preserves index by default, which we might not want directly in the table structure here.
-            # Let's convert column by column to avoid index propagation into table columns.
-            arrow_arrays.append(pa.Array.from_pandas(gdf[col_name]))
+            try:
+                arrow_arrays.append(pa.Array.from_pandas(gdf[col_name]))
+            except Exception as e:
+                raise RuntimeError(
+                    f"Failed to convert column '{col_name}' to PyArrow array. "
+                    f"Original error: {e}"
+                ) from e
         column_names.append(col_name)
 
     # Create the PyArrow Table from the arrays and names
-    arrow_table = pa.Table.from_arrays(arrow_arrays, names=column_names)
-
-    # Alternative using Table.from_pandas and then replacing geometry column:
-    # temp_table = pa.Table.from_pandas(gdf, preserve_index=False)
-    # geom_array = ga.array(gdf[geometry_col_name])
-    # geom_field_idx = temp_table.schema.get_field_index(geometry_col_name)
-    # arrow_table = temp_table.set_column(geom_field_idx, pa.field(geometry_col_name, geom_array.type), geom_array)
-    # This seems more robust for metadata preservation from pandas.
-
-    # Let's refine using the `geoarrow.pyarrow.to_table` which is designed for this.
-    # This should correctly handle geometry and other columns.
-    # It uses `geopandas.to_arrow()` internally but ensures GeoArrow extension types.
-
-    # The `geoarrow.pyarrow.to_table` function is the most direct way.
-    # It should handle the conversion including CRS.
     try:
-        arrow_table = ga.to_table(gdf)
+        arrow_table = pa.Table.from_arrays(arrow_arrays, names=column_names)
     except Exception as e:
-        # Fallback or error reporting if direct to_table fails (e.g. very old geoarrow-py version)
-        # For now, assume to_table is available and works as expected.
-        # If `to_table` is not available or has issues, the column-by-column approach above is an alternative.
         raise RuntimeError(
-            "Failed to convert GeoDataFrame to GeoArrow Table using ga.to_table(). "
-            "Ensure geoarrow-py is correctly installed and the GeoDataFrame is valid. "
+            "Failed to create PyArrow Table from arrays. "
             f"Original error: {e}"
         ) from e
 
@@ -128,7 +123,7 @@ def geoarrow_to_geodataframe(arrow_table: pa.Table, geometry_col_name: Optional[
 
     # Auto-detect geometry column if not specified
     if geometry_col_name is None:
-        geo_cols = [field.name for field in arrow_table.schema if isinstance(field.type, ga.GeoArrowExtensionType)]
+        geo_cols = [field.name for field in arrow_table.schema if isinstance(field.type, ga.GeometryExtensionType)]
         if not geo_cols:
             raise ValueError("No GeoArrow geometry column found in the Table. Please ensure one exists or specify 'geometry_col_name'.")
         if len(geo_cols) > 1:
@@ -142,7 +137,7 @@ def geoarrow_to_geodataframe(arrow_table: pa.Table, geometry_col_name: Optional[
 
     # Check if the specified (or detected) column is indeed a GeoArrow type
     geom_field = arrow_table.schema.field(geometry_col_name)
-    if not isinstance(geom_field.type, ga.GeoArrowExtensionType):
+    if not isinstance(geom_field.type, ga.GeometryExtensionType):
         raise ValueError(
             f"Column '{geometry_col_name}' is not a GeoArrow extension type. "
             f"Found type: {geom_field.type}. Cannot convert to GeoDataFrame geometry."
