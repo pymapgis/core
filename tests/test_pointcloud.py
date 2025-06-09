@@ -186,5 +186,3 @@ def test_create_las_from_numpy_errors():
     # Test invalid output filename
     with pytest.raises(ValueError, match="output_filepath must end with .las"):
         create_las_from_numpy(TEST_POINTS_NP_ARRAY, "test.txt")
-
-```

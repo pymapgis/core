@@ -30,6 +30,7 @@ except ImportError:
 
 __all__ = [
     "create_spatiotemporal_cube_from_numpy", # Renamed for clarity
+    "create_spatiotemporal_cube", # Alias for backward compatibility
     "connect_kafka_consumer",
     "connect_mqtt_client"
 ]
@@ -85,6 +86,10 @@ def create_spatiotemporal_cube_from_numpy(
         data, coords=coords, dims=dims, name=variable_name, attrs=attrs if attrs else {}
     )
     return data_array
+
+
+# Alias for backward compatibility
+create_spatiotemporal_cube = create_spatiotemporal_cube_from_numpy
 
 
 def connect_kafka_consumer(
@@ -211,5 +216,3 @@ def connect_mqtt_client(
         raise RuntimeError(f"Failed to connect MQTT client to {broker_address}:{port}. Error: {e}")
 
     return client
-
-```

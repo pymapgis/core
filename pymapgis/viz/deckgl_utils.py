@@ -17,6 +17,7 @@ import pydeck
 import xarray as xr
 import numpy as np
 import pandas as pd
+from typing import Optional
 
 # Define a default map style for deck.gl visualizations
 DEFAULT_MAP_STYLE = 'mapbox://styles/mapbox/light-v9'
@@ -296,5 +297,3 @@ def view_point_cloud_3d(
         tooltip={"text": "X: {X}\nY: {Y}\nZ: {Z}"} # Basic tooltip
     )
     return deck_view
-
-```

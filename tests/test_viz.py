@@ -135,5 +135,3 @@ def test_view_point_cloud_3d_errors():
     invalid_points = np.array([(1,2)], dtype=[('A', int), ('B', int)])
     with pytest.raises(ValueError, match="Input points array must have 'X', 'Y', 'Z' fields"):
         view_point_cloud_3d(invalid_points)
-
-```

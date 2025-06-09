@@ -13,7 +13,7 @@ from .plotting import choropleth
 from .vector import buffer, clip, overlay, spatial_join
 from .raster import reproject, normalized_difference
 from .viz import explore, plot_interactive
-from .serve import serve # Exposing the serve function at the top level
+# from .serve import serve # Exposing the serve function at the top level - temporarily disabled due to missing fastapi-mvt
 
 
 def set_cache(dir_: Path | str | None = None, *, ttl_days: int = 7) -> None: # Python 3.10+ type hint
@@ -56,7 +56,7 @@ __all__ = [
     "normalized_difference",
     "explore",
     "plot_interactive",
-    "serve",
+    # "serve", # temporarily disabled
     # Package version
     "__version__",
 ]

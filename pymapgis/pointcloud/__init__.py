@@ -17,9 +17,16 @@ If you have installed PDAL via Conda, ensure the Python environment running
 PyMapGIS has access to the `pdal` Python bindings installed by Conda.
 """
 import json
-import numpy as np
-import pdal # Import PDAL Python bindings
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
+
+try:
+    import numpy as np
+    import pdal  # Import PDAL Python bindings
+    PDAL_AVAILABLE = True
+except ImportError:
+    PDAL_AVAILABLE = False
+    np = None
+    pdal = None
 
 __all__ = [
     "read_point_cloud",
@@ -29,7 +36,7 @@ __all__ = [
     "create_las_from_numpy" # Added for testing
 ]
 
-def read_point_cloud(filepath: str, **kwargs: Any) -> pdal.Pipeline:
+def read_point_cloud(filepath: str, **kwargs: Any) -> Any:
     """
     Reads a point cloud file (e.g., LAS, LAZ) using a PDAL pipeline.
 
@@ -50,7 +57,12 @@ def read_point_cloud(filepath: str, **kwargs: Any) -> pdal.Pipeline:
         RuntimeError: If PDAL fails to read the file or execute the pipeline.
                       This often indicates an issue with the file, PDAL installation,
                       or driver availability.
+        ImportError: If PDAL is not available.
     """
+    if not PDAL_AVAILABLE:
+        raise ImportError(
+            "PDAL is not available. Install it with: poetry install --extras pointcloud"
+        )
     pipeline_stages = [
         {
             "type": "readers.las", # Default reader, PDAL auto-detects LAZ as well
@@ -78,7 +90,7 @@ def read_point_cloud(filepath: str, **kwargs: Any) -> pdal.Pipeline:
 
     return pipeline
 
-def get_point_cloud_metadata(pipeline: pdal.Pipeline) -> Dict[str, Any]:
+def get_point_cloud_metadata(pipeline: Any) -> Dict[str, Any]:
     """
     Extracts metadata from an executed PDAL pipeline.
 
@@ -90,6 +102,10 @@ def get_point_cloud_metadata(pipeline: pdal.Pipeline) -> Dict[str, Any]:
                         information like point counts, schema, spatial reference, etc.
                         The exact content depends on the PDAL version and the source file.
     """
+    if not PDAL_AVAILABLE:
+        raise ImportError(
+            "PDAL is not available. Install it with: poetry install --extras pointcloud"
+        )
     if not isinstance(pipeline, pdal.Pipeline):
         raise TypeError("Input must be an executed pdal.Pipeline object.")
 
@@ -132,7 +148,7 @@ def get_point_cloud_metadata(pipeline: pdal.Pipeline) -> Dict[str, Any]:
     return metadata
 
 
-def get_point_cloud_points(pipeline: pdal.Pipeline) -> np.ndarray:
+def get_point_cloud_points(pipeline: Any) -> Any:
     """
     Extracts points as a NumPy structured array from an executed PDAL pipeline.
 
@@ -153,7 +169,7 @@ def get_point_cloud_points(pipeline: pdal.Pipeline) -> np.ndarray:
 
     return pipeline.arrays[0] # PDAL pipelines typically return one array
 
-def get_point_cloud_srs(pipeline: pdal.Pipeline) -> str:
+def get_point_cloud_srs(pipeline: Any) -> str:
     """
     Extracts Spatial Reference System (SRS) information from an executed PDAL pipeline.
 
@@ -209,7 +225,7 @@ def get_point_cloud_srs(pipeline: pdal.Pipeline) -> str:
 
 # Helper function for creating a dummy LAS file for testing purposes
 def create_las_from_numpy(
-    points_array: np.ndarray,
+    points_array: Any,
     output_filepath: str,
     srs_wkt: Optional[str] = None
 ) -> None:
@@ -259,5 +275,3 @@ def create_las_from_numpy(
             f"PDAL pipeline failed to create LAS file '{output_filepath}'. "
             f"Ensure PDAL is correctly installed. Original error: {e}"
         ) from e
-
-```

@@ -238,5 +238,3 @@ if __name__ == '__main__':
         print(f"An error occurred during the example run: {e}")
         import traceback
         traceback.print_exc()
-
-```

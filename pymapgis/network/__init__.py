@@ -278,5 +278,3 @@ def generate_isochrone(
     isochrone_gdf = gpd.GeoDataFrame({'geometry': [isochrone_polygon]}, crs="EPSG:4326")
 
     return isochrone_gdf
-
-```
