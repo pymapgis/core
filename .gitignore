@@ -133,7 +133,7 @@ custom_cache/
 test_simple.py
 
 # Example data files - exclude large downloaded/generated files
-examples/*/data/
+examples/*/data/*
 *.zip
 *.shp
 *.dbf
