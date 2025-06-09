@@ -1,0 +1,150 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "ROUTE_001",
+        "name": "Trans-Pacific Main Line",
+        "origin_port": "PORT_LA",
+        "destination_region": "Asia",
+        "annual_volume_teu": 4200000,
+        "avg_transit_days": 14,
+        "frequency_per_week": 12,
+        "vessel_capacity_avg": 18000,
+        "route_reliability": 0.87
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.2437, 33.7367],
+          [-130.0000, 35.0000],
+          [-150.0000, 38.0000],
+          [140.0000, 35.0000],
+          [139.6917, 35.6895]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "ROUTE_002",
+        "name": "Pacific Northwest Express",
+        "origin_port": "PORT_SEA",
+        "destination_region": "Asia",
+        "annual_volume_teu": 2800000,
+        "avg_transit_days": 12,
+        "frequency_per_week": 8,
+        "vessel_capacity_avg": 16000,
+        "route_reliability": 0.89
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.3328, 47.6062],
+          [-135.0000, 50.0000],
+          [-155.0000, 52.0000],
+          [145.0000, 40.0000],
+          [139.6917, 35.6895]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "ROUTE_003",
+        "name": "California-Europe Service",
+        "origin_port": "PORT_OAK",
+        "destination_region": "Europe",
+        "annual_volume_teu": 1800000,
+        "avg_transit_days": 28,
+        "frequency_per_week": 4,
+        "vessel_capacity_avg": 14000,
+        "route_reliability": 0.82
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2711, 37.8044],
+          [-140.0000, 40.0000],
+          [-160.0000, 45.0000],
+          [-30.0000, 60.0000],
+          [0.0000, 55.0000],
+          [4.9041, 52.3676]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "ROUTE_004",
+        "name": "Gulf Coast Container Line",
+        "origin_port": "PORT_HOU",
+        "destination_region": "South America",
+        "annual_volume_teu": 1600000,
+        "avg_transit_days": 18,
+        "frequency_per_week": 6,
+        "vessel_capacity_avg": 12000,
+        "route_reliability": 0.85
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-95.3698, 29.7604],
+          [-90.0000, 25.0000],
+          [-85.0000, 15.0000],
+          [-75.0000, 5.0000],
+          [-65.0000, -10.0000],
+          [-58.3816, -34.6037]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "ROUTE_005",
+        "name": "North American Coastal",
+        "origin_port": "PORT_VAN",
+        "destination_region": "US West Coast",
+        "annual_volume_teu": 950000,
+        "avg_transit_days": 3,
+        "frequency_per_week": 14,
+        "vessel_capacity_avg": 8000,
+        "route_reliability": 0.93
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-123.1207, 49.2827],
+          [-122.3328, 47.6062],
+          [-122.2711, 37.8044],
+          [-118.2437, 33.7367],
+          [-117.1611, 32.7157]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "ROUTE_006",
+        "name": "Intra-California Service",
+        "origin_port": "PORT_LA",
+        "destination_region": "California Ports",
+        "annual_volume_teu": 650000,
+        "avg_transit_days": 1,
+        "frequency_per_week": 21,
+        "vessel_capacity_avg": 5000,
+        "route_reliability": 0.95
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.2437, 33.7367],
+          [-118.1937, 33.7701],
+          [-122.2711, 37.8044],
+          [-117.1611, 32.7157]
+        ]
+      }
+    }
+  ]
+}

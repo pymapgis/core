@@ -52,6 +52,7 @@ kafka-python = { version = "^2.0.2", optional = true } # For Kafka streaming
 paho-mqtt = { version = "^1.6.1", optional = true }    # For MQTT streaming
 toml = "^0.10.2"
 geoarrow-pyarrow = "^0.2.0"
+seaborn = "^0.13.2"
 
 [tool.poetry.extras]
 kafka = ["kafka-python"]

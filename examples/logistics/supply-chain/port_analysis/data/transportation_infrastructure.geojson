@@ -1,0 +1,189 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "RAIL_001",
+        "name": "BNSF Railway - Southern California",
+        "type": "rail",
+        "capacity_teu_per_day": 15000,
+        "current_utilization": 0.78,
+        "connected_ports": ["PORT_LA", "PORT_LB"],
+        "maintenance_status": "good",
+        "expansion_planned": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.2437, 33.7367],
+          [-118.1937, 33.7701],
+          [-117.9000, 34.0000],
+          [-117.5000, 34.2000],
+          [-117.0000, 34.5000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "RAIL_002",
+        "name": "Union Pacific - Bay Area",
+        "type": "rail",
+        "capacity_teu_per_day": 12000,
+        "current_utilization": 0.65,
+        "connected_ports": ["PORT_OAK"],
+        "maintenance_status": "excellent",
+        "expansion_planned": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2711, 37.8044],
+          [-122.0000, 37.9000],
+          [-121.5000, 38.0000],
+          [-121.0000, 38.2000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "RAIL_003",
+        "name": "BNSF Railway - Pacific Northwest",
+        "type": "rail",
+        "capacity_teu_per_day": 10000,
+        "current_utilization": 0.72,
+        "connected_ports": ["PORT_SEA", "PORT_TAC"],
+        "maintenance_status": "good",
+        "expansion_planned": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.3328, 47.6062],
+          [-122.4783, 47.2529],
+          [-122.0000, 47.0000],
+          [-121.5000, 46.8000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "HWY_001",
+        "name": "Interstate 710 - Port Access",
+        "type": "highway",
+        "capacity_trucks_per_day": 25000,
+        "current_utilization": 0.85,
+        "connected_ports": ["PORT_LA", "PORT_LB"],
+        "maintenance_status": "fair",
+        "expansion_planned": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.2437, 33.7367],
+          [-118.1937, 33.7701],
+          [-118.1500, 33.8500],
+          [-118.1000, 34.0000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "HWY_002",
+        "name": "Interstate 880 - Oakland Access",
+        "type": "highway",
+        "capacity_trucks_per_day": 18000,
+        "current_utilization": 0.68,
+        "connected_ports": ["PORT_OAK"],
+        "maintenance_status": "good",
+        "expansion_planned": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2711, 37.8044],
+          [-122.2500, 37.7500],
+          [-122.2000, 37.7000],
+          [-122.1500, 37.6500]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "HWY_003",
+        "name": "Interstate 5 - Seattle Port Access",
+        "type": "highway",
+        "capacity_trucks_per_day": 20000,
+        "current_utilization": 0.75,
+        "connected_ports": ["PORT_SEA"],
+        "maintenance_status": "excellent",
+        "expansion_planned": false
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.3328, 47.6062],
+          [-122.3000, 47.5500],
+          [-122.2500, 47.5000],
+          [-122.2000, 47.4500]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "TERM_001",
+        "name": "APM Terminal - Los Angeles",
+        "type": "terminal",
+        "capacity_teu_per_year": 3200000,
+        "current_utilization": 0.82,
+        "connected_ports": ["PORT_LA"],
+        "maintenance_status": "good",
+        "expansion_planned": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2537, 33.7267]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "TERM_002",
+        "name": "TraPac Terminal - Oakland",
+        "type": "terminal",
+        "capacity_teu_per_year": 1800000,
+        "current_utilization": 0.75,
+        "connected_ports": ["PORT_OAK"],
+        "maintenance_status": "excellent",
+        "expansion_planned": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2811, 37.7944]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "infra_id": "TERM_003",
+        "name": "Husky Terminal - Tacoma",
+        "type": "terminal",
+        "capacity_teu_per_year": 1500000,
+        "current_utilization": 0.70,
+        "connected_ports": ["PORT_TAC"],
+        "maintenance_status": "good",
+        "expansion_planned": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.4883, 47.2429]
+      }
+    }
+  ]
+}

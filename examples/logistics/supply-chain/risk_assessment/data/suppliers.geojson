@@ -1,0 +1,233 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_001",
+        "name": "Pacific Electronics Manufacturing",
+        "country": "USA",
+        "state": "California",
+        "supplier_type": "electronics",
+        "annual_volume": 15000000,
+        "lead_time_days": 14,
+        "quality_rating": 4.8,
+        "financial_stability": "excellent",
+        "backup_suppliers": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.8863, 37.3382]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_002",
+        "name": "Shenzhen Tech Components",
+        "country": "China",
+        "state": "Guangdong",
+        "supplier_type": "electronics",
+        "annual_volume": 25000000,
+        "lead_time_days": 35,
+        "quality_rating": 4.5,
+        "financial_stability": "good",
+        "backup_suppliers": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.0579, 22.5431]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_003",
+        "name": "Mexico Automotive Parts",
+        "country": "Mexico",
+        "state": "Nuevo León",
+        "supplier_type": "automotive",
+        "annual_volume": 8500000,
+        "lead_time_days": 21,
+        "quality_rating": 4.2,
+        "financial_stability": "good",
+        "backup_suppliers": 3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-100.3161, 25.6866]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_004",
+        "name": "German Precision Engineering",
+        "country": "Germany",
+        "state": "Bavaria",
+        "supplier_type": "machinery",
+        "annual_volume": 12000000,
+        "lead_time_days": 28,
+        "quality_rating": 4.9,
+        "financial_stability": "excellent",
+        "backup_suppliers": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.5820, 48.1351]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_005",
+        "name": "Vietnam Textile Manufacturing",
+        "country": "Vietnam",
+        "state": "Ho Chi Minh",
+        "supplier_type": "textiles",
+        "annual_volume": 6800000,
+        "lead_time_days": 42,
+        "quality_rating": 4.1,
+        "financial_stability": "fair",
+        "backup_suppliers": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [106.6297, 10.8231]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_006",
+        "name": "Japanese Advanced Materials",
+        "country": "Japan",
+        "state": "Tokyo",
+        "supplier_type": "materials",
+        "annual_volume": 18000000,
+        "lead_time_days": 25,
+        "quality_rating": 4.7,
+        "financial_stability": "excellent",
+        "backup_suppliers": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [139.6503, 35.6762]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_007",
+        "name": "Brazilian Raw Materials",
+        "country": "Brazil",
+        "state": "São Paulo",
+        "supplier_type": "raw_materials",
+        "annual_volume": 22000000,
+        "lead_time_days": 38,
+        "quality_rating": 4.3,
+        "financial_stability": "good",
+        "backup_suppliers": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-46.6333, -23.5505]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_008",
+        "name": "Indian Software Services",
+        "country": "India",
+        "state": "Karnataka",
+        "supplier_type": "services",
+        "annual_volume": 9500000,
+        "lead_time_days": 15,
+        "quality_rating": 4.4,
+        "financial_stability": "good",
+        "backup_suppliers": 4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [77.5946, 12.9716]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_009",
+        "name": "Canadian Lumber Co",
+        "country": "Canada",
+        "state": "British Columbia",
+        "supplier_type": "materials",
+        "annual_volume": 14500000,
+        "lead_time_days": 18,
+        "quality_rating": 4.6,
+        "financial_stability": "excellent",
+        "backup_suppliers": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.1207, 49.2827]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_010",
+        "name": "South Korean Electronics",
+        "country": "South Korea",
+        "state": "Seoul",
+        "supplier_type": "electronics",
+        "annual_volume": 28000000,
+        "lead_time_days": 30,
+        "quality_rating": 4.8,
+        "financial_stability": "excellent",
+        "backup_suppliers": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [126.9780, 37.5665]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_011",
+        "name": "Italian Design Components",
+        "country": "Italy",
+        "state": "Lombardy",
+        "supplier_type": "design",
+        "annual_volume": 7200000,
+        "lead_time_days": 32,
+        "quality_rating": 4.9,
+        "financial_stability": "good",
+        "backup_suppliers": 2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.1900, 45.4642]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "supplier_id": "SUP_012",
+        "name": "Australian Mining Supplies",
+        "country": "Australia",
+        "state": "Western Australia",
+        "supplier_type": "raw_materials",
+        "annual_volume": 19500000,
+        "lead_time_days": 45,
+        "quality_rating": 4.4,
+        "financial_stability": "excellent",
+        "backup_suppliers": 1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.8605, -31.9505]
+      }
+    }
+  ]
+}
