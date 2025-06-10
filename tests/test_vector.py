@@ -1,29 +1,11 @@
-import geopandas
-from shapely.geometry import Point
-from pymapgis.vector import buffer
-
-def test_buffer_simple():
-    """Tests the buffer function with a simple Point geometry."""
-    # Create a simple GeoDataFrame
-    data = {'id': [1], 'geometry': [Point(0, 0)]}
-    gdf = geopandas.GeoDataFrame(data, crs="EPSG:4326")
-
-    # Call the buffer function
-    result = buffer(gdf, distance=10)
-
-    # Assertions
-    assert isinstance(result, geopandas.GeoDataFrame)
-    assert not result.empty
-    assert result.geometry.iloc[0].geom_type == 'Polygon'
-    assert result.crs == gdf.crs
-
-
-# Tests for GeoArrow Utilities
 import pytest
 import pyarrow as pa
 import geoarrow.pyarrow as ga
-from shapely.geometry import LineString, Polygon, MultiPoint, GeometryCollection
+import geopandas
+from shapely.geometry import Point, LineString, Polygon, MultiPoint, GeometryCollection
 from pandas.testing import assert_frame_equal
+from pymapgis.vector import buffer
+from pymapgis.vector.geoarrow_utils import geodataframe_to_geoarrow, geoarrow_to_geodataframe
 
 # Conditional import for older geopandas versions
 try:
@@ -42,7 +24,20 @@ except ImportError:
         assert left.geometry.equals(right.geometry).all(), "Geometry values mismatch"
 
 
-from pymapgis.vector.geoarrow_utils import geodataframe_to_geoarrow, geoarrow_to_geodataframe
+def test_buffer_simple():
+    """Tests the buffer function with a simple Point geometry."""
+    # Create a simple GeoDataFrame
+    data = {'id': [1], 'geometry': [Point(0, 0)]}
+    gdf = geopandas.GeoDataFrame(data, crs="EPSG:4326")
+
+    # Call the buffer function
+    result = buffer(gdf, distance=10)
+
+    # Assertions
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert not result.empty
+    assert result.geometry.iloc[0].geom_type == 'Polygon'
+    assert result.crs == gdf.crs
 
 @pytest.fixture
 def sample_gdf_all_types():
