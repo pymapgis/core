@@ -115,6 +115,9 @@ def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw) -> ReadRet
                 return gpd.read_file(cached_file_path, **kw)
             elif suffix in {".parquet", ".geoparquet"}:
                 return gpd.read_parquet(cached_file_path, **kw)
+            else:
+                # This should never be reached due to the outer condition, but helps with type checking
+                raise ValueError(f"Unsupported vector format: {suffix}")
 
         elif suffix in {".tif", ".tiff", ".cog"}:
             # rioxarray.open_rasterio typically returns a DataArray.

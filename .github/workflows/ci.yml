@@ -33,3 +33,15 @@ jobs:
       # Only lint core files that are part of CI tests
       - run: poetry run ruff check tests/test_ci_core.py tennessee_counties_qgis/test_tennessee_simple.py examples/arkansas_counties_qgis/test_arkansas_simple.py pymapgis/
       - run: poetry run black --check tests/test_ci_core.py tennessee_counties_qgis/test_tennessee_simple.py examples/arkansas_counties_qgis/test_arkansas_simple.py pymapgis/
+
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+      - run: pip install poetry
+      - run: poetry install --with dev --no-interaction
+      # Run type checking on core package and CI test files using mypy.ini configuration
+      - run: poetry run mypy pymapgis/ tests/test_ci_core.py
