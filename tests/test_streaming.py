@@ -23,7 +23,8 @@ try:
 except ImportError:
     PAHO_MQTT_AVAILABLE = False
     class actual_mqtt: # type: ignore
-        class Client: pass
+        class Client:
+            pass
 
 # Helper to conditionally skip tests
 skip_if_kafka_unavailable = pytest.mark.skipif(not KAFKA_AVAILABLE, reason="kafka-python library not found.")

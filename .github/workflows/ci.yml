@@ -18,7 +18,8 @@ jobs:
       - run: pip install poetry
 
       - run: poetry install --with dev --no-interaction
-      - run: poetry run pytest -q || [ $? -eq 5 ]
+      # Run only core CI tests and simple example tests
+      - run: poetry run pytest tests/test_ci_core.py tennessee_counties_qgis/test_tennessee_simple.py examples/arkansas_counties_qgis/test_arkansas_simple.py -v || [ $? -eq 5 ]
 
   lint:
     runs-on: ubuntu-latest

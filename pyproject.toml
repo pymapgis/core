@@ -74,6 +74,13 @@ xarray-multiscale = "^0.3.0" # For multiscale Zarr testing
 testpaths = ["tests", "examples", "tennessee_counties_qgis"]
 python_files = ["test_*.py"]
 python_functions = ["test_*"]
+# Markers for different test categories
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "optional_deps: marks tests that require optional dependencies",
+    "ci_skip: marks tests to skip in CI environments"
+]
 zarr = "^2.17.0"             # For Zarr array manipulation in tests
 
 [build-system]
