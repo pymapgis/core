@@ -7,9 +7,10 @@ import numpy as np
 import xarray as xr
 import zarr
 import pytest
+import pandas as pd
 import dask.array as da # For checking if it's a dask array
 
-from pymapgis.raster import lazy_windowed_read_zarr
+from pymapgis.raster import lazy_windowed_read_zarr, create_spatiotemporal_cube
 
 
 @pytest.fixture
@@ -279,8 +280,6 @@ def test_lazy_windowed_read_zarr_3d_cyx(ome_zarr_store_path_3d_cyx):
 
 
 # Tests for SpatioTemporal Cube creation
-from pymapgis.raster import create_spatiotemporal_cube
-import pandas as pd # For creating datetime objects for testing
 
 def test_create_spatiotemporal_cube_valid():
     """Tests successful creation of a spatiotemporal cube."""

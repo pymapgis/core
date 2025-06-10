@@ -2,8 +2,32 @@ import pytest
 import numpy as np
 import pandas as pd
 import xarray as xr
+from unittest.mock import patch, MagicMock
 
-from pymapgis.streaming import create_spatiotemporal_cube
+from pymapgis.streaming import create_spatiotemporal_cube, connect_kafka_consumer, connect_mqtt_client
+
+# Attempt to import Kafka and MQTT related components for type hinting and mocking
+try:
+    from kafka import KafkaConsumer as ActualKafkaConsumer # Alias to avoid name clash with mock
+    from kafka.errors import NoBrokersAvailable as ActualNoBrokersAvailable
+    KAFKA_AVAILABLE = True
+except ImportError:
+    KAFKA_AVAILABLE = False
+    # Define dummy classes if kafka-python is not installed, for tests to be skippable
+    class ActualKafkaConsumer: pass # type: ignore
+    class ActualNoBrokersAvailable(Exception): pass # type: ignore
+
+try:
+    import paho.mqtt.client as actual_mqtt
+    PAHO_MQTT_AVAILABLE = True
+except ImportError:
+    PAHO_MQTT_AVAILABLE = False
+    class actual_mqtt: # type: ignore
+        class Client: pass
+
+# Helper to conditionally skip tests
+skip_if_kafka_unavailable = pytest.mark.skipif(not KAFKA_AVAILABLE, reason="kafka-python library not found.")
+skip_if_mqtt_unavailable = pytest.mark.skipif(not PAHO_MQTT_AVAILABLE, reason="paho-mqtt library not found.")
 
 # Sample data for testing
 TIMESTAMPS = pd.to_datetime(['2023-01-01T00:00:00', '2023-01-01T01:00:00', '2023-01-01T02:00:00'])
@@ -165,33 +189,6 @@ def test_input_types_conversion():
 # pytest tests/test_streaming.py
 
 # --- Tests for Kafka and MQTT Connectors ---
-from unittest.mock import patch, MagicMock
-
-# Attempt to import Kafka and MQTT related components for type hinting and mocking
-try:
-    from kafka import KafkaConsumer as ActualKafkaConsumer # Alias to avoid name clash with mock
-    from kafka.errors import NoBrokersAvailable as ActualNoBrokersAvailable
-    KAFKA_AVAILABLE = True
-except ImportError:
-    KAFKA_AVAILABLE = False
-    # Define dummy classes if kafka-python is not installed, for tests to be skippable
-    class ActualKafkaConsumer: pass # type: ignore
-    class ActualNoBrokersAvailable(Exception): pass # type: ignore
-
-try:
-    import paho.mqtt.client as actual_mqtt
-    PAHO_MQTT_AVAILABLE = True
-except ImportError:
-    PAHO_MQTT_AVAILABLE = False
-    class actual_mqtt: # type: ignore
-        class Client: pass
-
-# Import functions to test from pymapgis.streaming
-from pymapgis.streaming import connect_kafka_consumer, connect_mqtt_client
-
-# Helper to conditionally skip tests
-skip_if_kafka_unavailable = pytest.mark.skipif(not KAFKA_AVAILABLE, reason="kafka-python library not found.")
-skip_if_mqtt_unavailable = pytest.mark.skipif(not PAHO_MQTT_AVAILABLE, reason="paho-mqtt library not found.")
 
 
 @skip_if_kafka_unavailable

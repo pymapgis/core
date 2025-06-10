@@ -1,5 +1,10 @@
+import subprocess
+import sys
+import os
+import pytest
 import pandas as pd
-from pymapgis import get_county_table
+import geopandas as gpd
+from pymapgis import get_county_table, counties
 
 
 def test_acs_smoke():
@@ -14,20 +19,11 @@ def test_acs_smoke():
 
 def test_counties_smoke():
     """Test county shapefile download with SSL fix."""
-    import geopandas as gpd
-    from pymapgis import counties
-
     gdf = counties(2022, "20m")
     assert isinstance(gdf, gpd.GeoDataFrame)
     # join key must be present
     assert "GEOID" in gdf.columns
     assert len(gdf) > 3000  # Should have all US counties
-
-
-import subprocess
-import sys
-import os
-import pytest
 
 # Define the path to the examples directory
 EXAMPLES_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "docs", "examples")
