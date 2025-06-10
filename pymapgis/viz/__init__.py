@@ -8,6 +8,9 @@ import pydeck  # Added for type hints if needed by deckgl utils
 # Import from deckgl_utils
 from .deckgl_utils import view_3d_cube, view_point_cloud_3d
 
+# Import accessors to register them
+from .accessors import PmgVizAccessor
+
 __all__ = [
     "explore",
     "plot_interactive",

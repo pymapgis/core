@@ -6,7 +6,7 @@ enabling convenient access to PyMapGIS raster operations.
 """
 
 import xarray as xr
-from typing import Union, Hashable
+from typing import Union, Hashable, Optional
 
 
 @xr.register_dataarray_accessor("pmg")
@@ -93,6 +93,71 @@ class PmgRasterAccessor:
 
         return _normalized_difference(self._obj, band1, band2)
 
+    def explore(self, m=None, **kwargs):
+        """
+        Interactively explore the DataArray on a Leafmap map.
+
+        This method creates a new map (or uses an existing one if provided) and adds
+        the DataArray as a raster layer. The map is optimized for quick exploration
+        with sensible defaults.
+
+        Args:
+            m: An existing leafmap.Map instance to add the layer to.
+                If None, a new map is created. Defaults to None.
+            **kwargs: Additional keyword arguments passed to leafmap's add_raster() method.
+                Common kwargs include:
+                - layer_name (str): Name for the layer
+                - colormap (str): Colormap for raster visualization
+                - vmin/vmax (float): Value range for colormap
+                - opacity (float): Layer opacity (0-1)
+
+        Returns:
+            leafmap.Map: The leafmap.Map instance with the added layer.
+
+        Examples:
+            >>> # Quick exploration with defaults
+            >>> raster.pmg.explore()
+            >>>
+            >>> # With custom colormap
+            >>> raster.pmg.explore(colormap='viridis', opacity=0.7)
+        """
+        # Import here to avoid circular imports
+        from ..viz import explore as _explore
+
+        return _explore(self._obj, m=m, **kwargs)
+
+    def map(self, m=None, **kwargs):
+        """
+        Add the DataArray to an interactive Leafmap map for building complex visualizations.
+
+        This method is similar to explore() but is designed for building more complex maps
+        by adding multiple layers. It does not automatically display the map, allowing for
+        further customization before display.
+
+        Args:
+            m: An existing leafmap.Map instance to add the layer to.
+                If None, a new map is created. Defaults to None.
+            **kwargs: Additional keyword arguments passed to leafmap's add_raster() method.
+                Refer to the explore() method's docstring for common kwargs.
+
+        Returns:
+            leafmap.Map: The leafmap.Map instance with the added layer.
+
+        Examples:
+            >>> # Create a map for further customization
+            >>> m = raster.pmg.map(layer_name="Elevation")
+            >>> m.add_basemap("Satellite")
+            >>>
+            >>> # Add multiple raster layers
+            >>> m = raster1.pmg.map(layer_name="Layer 1")
+            >>> m = raster2.pmg.map(m=m, layer_name="Layer 2")
+            >>> m  # Display the map
+        """
+        # Import here to avoid circular imports
+        from ..viz import plot_interactive as _plot_interactive
+
+        return _plot_interactive(self._obj, m=m, **kwargs)
+
 
 @xr.register_dataset_accessor("pmg")
 class PmgDatasetAccessor:
@@ -145,3 +210,68 @@ class PmgDatasetAccessor:
         from . import normalized_difference as _normalized_difference
 
         return _normalized_difference(self._obj, band1, band2)
+
+    def explore(self, m=None, **kwargs):
+        """
+        Interactively explore the Dataset on a Leafmap map.
+
+        This method creates a new map (or uses an existing one if provided) and adds
+        the Dataset as a raster layer. The map is optimized for quick exploration
+        with sensible defaults.
+
+        Args:
+            m: An existing leafmap.Map instance to add the layer to.
+                If None, a new map is created. Defaults to None.
+            **kwargs: Additional keyword arguments passed to leafmap's add_raster() method.
+                Common kwargs include:
+                - layer_name (str): Name for the layer
+                - colormap (str): Colormap for raster visualization
+                - vmin/vmax (float): Value range for colormap
+                - opacity (float): Layer opacity (0-1)
+
+        Returns:
+            leafmap.Map: The leafmap.Map instance with the added layer.
+
+        Examples:
+            >>> # Quick exploration with defaults
+            >>> dataset.pmg.explore()
+            >>>
+            >>> # With custom colormap
+            >>> dataset.pmg.explore(colormap='plasma', opacity=0.8)
+        """
+        # Import here to avoid circular imports
+        from ..viz import explore as _explore
+
+        return _explore(self._obj, m=m, **kwargs)
+
+    def map(self, m=None, **kwargs):
+        """
+        Add the Dataset to an interactive Leafmap map for building complex visualizations.
+
+        This method is similar to explore() but is designed for building more complex maps
+        by adding multiple layers. It does not automatically display the map, allowing for
+        further customization before display.
+
+        Args:
+            m: An existing leafmap.Map instance to add the layer to.
+                If None, a new map is created. Defaults to None.
+            **kwargs: Additional keyword arguments passed to leafmap's add_raster() method.
+                Refer to the explore() method's docstring for common kwargs.
+
+        Returns:
+            leafmap.Map: The leafmap.Map instance with the added layer.
+
+        Examples:
+            >>> # Create a map for further customization
+            >>> m = dataset.pmg.map(layer_name="Climate Data")
+            >>> m.add_basemap("Terrain")
+            >>>
+            >>> # Add multiple datasets
+            >>> m = dataset1.pmg.map(layer_name="Temperature")
+            >>> m = dataset2.pmg.map(m=m, layer_name="Precipitation")
+            >>> m  # Display the map
+        """
+        # Import here to avoid circular imports
+        from ..viz import plot_interactive as _plot_interactive
+
+        return _plot_interactive(self._obj, m=m, **kwargs)

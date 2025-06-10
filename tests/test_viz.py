@@ -2,7 +2,9 @@ import pytest
 import numpy as np
 import xarray as xr
 import pandas as pd
-from unittest.mock import patch
+import geopandas as gpd
+from shapely.geometry import Point, Polygon
+from unittest.mock import patch, MagicMock
 
 # Attempt to import pydeck, skip tests if not available
 try:
@@ -10,6 +12,23 @@ try:
     PYDECK_AVAILABLE = importlib.util.find_spec("pydeck") is not None
 except ImportError:
     PYDECK_AVAILABLE = False
+
+# Attempt to import leafmap, skip tests if not available
+try:
+    import leafmap.leafmap as leafmap
+    LEAFMAP_AVAILABLE = True
+except ImportError:
+    LEAFMAP_AVAILABLE = False
+    # Create a mock leafmap for testing
+    class MockLeafmap:
+        class Map:
+            def __init__(self, **kwargs):
+                pass
+            def add_gdf(self, *args, **kwargs):
+                pass
+            def add_raster(self, *args, **kwargs):
+                pass
+    leafmap = MockLeafmap()
 
 # Conditional import of the functions to test
 if PYDECK_AVAILABLE:
@@ -134,3 +153,410 @@ def test_view_point_cloud_3d_errors():
     invalid_points = np.array([(1,2)], dtype=[('A', int), ('B', int)])
     with pytest.raises(ValueError, match="Input points array must have 'X', 'Y', 'Z' fields"):
         view_point_cloud_3d(invalid_points)
+
+
+# Tests for Core Visualization Functions (Phase 1 - Part 3)
+
+@pytest.fixture
+def sample_geodataframe():
+    """Create a sample GeoDataFrame for testing."""
+    # Create sample points
+    points = [Point(0, 0), Point(1, 1), Point(2, 2)]
+    data = {'id': [1, 2, 3], 'value': [10, 20, 30]}
+    gdf = gpd.GeoDataFrame(data, geometry=points, crs="EPSG:4326")
+    return gdf
+
+
+@pytest.fixture
+def sample_raster_dataarray():
+    """Create a sample raster DataArray for testing."""
+    # Create sample raster data
+    data = np.random.rand(3, 4).astype(np.float32)
+    x_coords = np.array([0.0, 1.0, 2.0, 3.0])
+    y_coords = np.array([2.0, 1.0, 0.0])
+
+    da = xr.DataArray(
+        data,
+        coords={'y': y_coords, 'x': x_coords},
+        dims=['y', 'x'],
+        name='test_raster'
+    )
+
+    # Add CRS using rioxarray if available
+    try:
+        import rioxarray
+        da = da.rio.write_crs("EPSG:4326")
+    except ImportError:
+        pass
+
+    return da
+
+
+@pytest.fixture
+def sample_dataset():
+    """Create a sample Dataset for testing."""
+    # Create sample data
+    temp_data = np.random.rand(2, 3).astype(np.float32)
+    precip_data = np.random.rand(2, 3).astype(np.float32)
+
+    x_coords = np.array([0.0, 1.0, 2.0])
+    y_coords = np.array([1.0, 0.0])
+
+    temp_da = xr.DataArray(
+        temp_data,
+        coords={'y': y_coords, 'x': x_coords},
+        dims=['y', 'x'],
+        name='temperature'
+    )
+
+    precip_da = xr.DataArray(
+        precip_data,
+        coords={'y': y_coords, 'x': x_coords},
+        dims=['y', 'x'],
+        name='precipitation'
+    )
+
+    ds = xr.Dataset({'temperature': temp_da, 'precipitation': precip_da})
+
+    # Add CRS if rioxarray is available
+    try:
+        import rioxarray
+        ds = ds.rio.write_crs("EPSG:4326")
+    except ImportError:
+        pass
+
+    return ds
+
+
+# Tests for standalone visualization functions
+
+@patch('leafmap.leafmap.Map')
+def test_explore_geodataframe(MockMap, sample_geodataframe):
+    """Test explore function with GeoDataFrame."""
+    from pymapgis.viz import explore
+
+    # Create mock map instance
+    mock_map = MagicMock()
+    MockMap.return_value = mock_map
+
+    gdf = sample_geodataframe
+
+    # Test basic explore
+    result = explore(gdf)
+
+    # Check that Map was created
+    MockMap.assert_called_once()
+
+    # Check that add_gdf was called
+    mock_map.add_gdf.assert_called_once_with(gdf)
+
+    # Check return value
+    assert result == mock_map
+
+
+@patch('leafmap.leafmap.Map')
+def test_explore_dataarray(MockMap, sample_raster_dataarray):
+    """Test explore function with DataArray."""
+    from pymapgis.viz import explore
+
+    # Create mock map instance
+    mock_map = MagicMock()
+    MockMap.return_value = mock_map
+
+    da = sample_raster_dataarray
+
+    # Test basic explore
+    result = explore(da)
+
+    # Check that Map was created
+    MockMap.assert_called_once()
+
+    # Check that add_raster was called
+    mock_map.add_raster.assert_called_once_with(da)
+
+    # Check return value
+    assert result == mock_map
+
+
+@patch('leafmap.leafmap.Map')
+def test_plot_interactive_geodataframe(MockMap, sample_geodataframe):
+    """Test plot_interactive function with GeoDataFrame."""
+    from pymapgis.viz import plot_interactive
+
+    # Create mock map instance
+    mock_map = MagicMock()
+    MockMap.return_value = mock_map
+
+    gdf = sample_geodataframe
+
+    # Test basic plot_interactive
+    result = plot_interactive(gdf)
+
+    # Check that Map was created
+    MockMap.assert_called_once()
+
+    # Check that add_gdf was called
+    mock_map.add_gdf.assert_called_once_with(gdf)
+
+    # Check return value
+    assert result == mock_map
+
+
+@patch('leafmap.leafmap.Map')
+def test_plot_interactive_with_existing_map(MockMap, sample_geodataframe):
+    """Test plot_interactive function with existing map."""
+    from pymapgis.viz import plot_interactive
+
+    # Create mock map instance
+    existing_map = MagicMock()
+
+    gdf = sample_geodataframe
+
+    # Test with existing map
+    result = plot_interactive(gdf, m=existing_map)
+
+    # Check that Map was NOT created (using existing)
+    MockMap.assert_not_called()
+
+    # Check that add_gdf was called on existing map
+    existing_map.add_gdf.assert_called_once_with(gdf)
+
+    # Check return value
+    assert result == existing_map
+
+
+def test_explore_errors():
+    """Test error handling in explore function."""
+    from pymapgis.viz import explore
+
+    # Test with unsupported data type
+    with pytest.raises(TypeError, match="Unsupported data type"):
+        explore("not_a_geodataframe")
+
+    # Test with numpy array
+    with pytest.raises(TypeError, match="Unsupported data type"):
+        explore(np.array([[1, 2], [3, 4]]))
+
+
+# Tests for accessor functionality
+
+def test_geodataframe_accessor_registration(sample_geodataframe):
+    """Test that the .pmg accessor is properly registered for GeoDataFrame."""
+    gdf = sample_geodataframe
+
+    # Check that .pmg accessor exists
+    assert hasattr(gdf, 'pmg')
+
+    # Check that accessor has expected methods
+    assert hasattr(gdf.pmg, 'explore')
+    assert hasattr(gdf.pmg, 'map')
+
+
+@patch('pymapgis.viz.explore')
+def test_geodataframe_accessor_explore(mock_explore, sample_geodataframe):
+    """Test GeoDataFrame .pmg.explore() accessor method."""
+    gdf = sample_geodataframe
+
+    # Mock the return value
+    mock_map = MagicMock()
+    mock_explore.return_value = mock_map
+
+    # Test accessor method
+    result = gdf.pmg.explore(layer_name="Test Layer")
+
+    # Check that underlying function was called correctly
+    mock_explore.assert_called_once_with(gdf, m=None, layer_name="Test Layer")
+
+    # Check return value
+    assert result == mock_map
+
+
+@patch('pymapgis.viz.plot_interactive')
+def test_geodataframe_accessor_map(mock_plot_interactive, sample_geodataframe):
+    """Test GeoDataFrame .pmg.map() accessor method."""
+    gdf = sample_geodataframe
+
+    # Mock the return value
+    mock_map = MagicMock()
+    mock_plot_interactive.return_value = mock_map
+
+    # Test accessor method
+    result = gdf.pmg.map(layer_name="Test Layer")
+
+    # Check that underlying function was called correctly
+    mock_plot_interactive.assert_called_once_with(gdf, m=None, layer_name="Test Layer")
+
+    # Check return value
+    assert result == mock_map
+
+
+def test_dataarray_accessor_visualization(sample_raster_dataarray):
+    """Test that DataArray .pmg accessor has visualization methods."""
+    da = sample_raster_dataarray
+
+    # Check that .pmg accessor exists
+    assert hasattr(da, 'pmg')
+
+    # Check that accessor has visualization methods
+    assert hasattr(da.pmg, 'explore')
+    assert hasattr(da.pmg, 'map')
+
+
+def test_dataset_accessor_visualization(sample_dataset):
+    """Test that Dataset .pmg accessor has visualization methods."""
+    ds = sample_dataset
+
+    # Check that .pmg accessor exists
+    assert hasattr(ds, 'pmg')
+
+    # Check that accessor has visualization methods
+    assert hasattr(ds.pmg, 'explore')
+    assert hasattr(ds.pmg, 'map')
+
+
+# Integration tests
+
+@patch('pymapgis.viz.explore')
+def test_dataarray_accessor_explore_integration(mock_explore, sample_raster_dataarray):
+    """Test DataArray .pmg.explore() integration."""
+    da = sample_raster_dataarray
+
+    # Mock the return value
+    mock_map = MagicMock()
+    mock_explore.return_value = mock_map
+
+    # Test accessor method
+    result = da.pmg.explore(colormap="viridis", opacity=0.7)
+
+    # Check that underlying function was called correctly
+    mock_explore.assert_called_once_with(da, m=None, colormap="viridis", opacity=0.7)
+
+    # Check return value
+    assert result == mock_map
+
+
+@patch('pymapgis.viz.plot_interactive')
+def test_dataset_accessor_map_integration(mock_plot_interactive, sample_dataset):
+    """Test Dataset .pmg.map() integration."""
+    ds = sample_dataset
+
+    # Mock the return value
+    mock_map = MagicMock()
+    mock_plot_interactive.return_value = mock_map
+
+    # Test accessor method
+    result = ds.pmg.map(layer_name="Climate Data")
+
+    # Check that underlying function was called correctly
+    mock_plot_interactive.assert_called_once_with(ds, m=None, layer_name="Climate Data")
+
+    # Check return value
+    assert result == mock_map
+
+
+def test_real_world_workflow_simulation():
+    """Test a realistic workflow using the visualization accessors."""
+    # Create realistic sample data
+
+    # Vector data (counties)
+    counties_geom = [
+        Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]),
+        Polygon([(1, 0), (2, 0), (2, 1), (1, 1)]),
+        Polygon([(0, 1), (1, 1), (1, 2), (0, 2)])
+    ]
+    counties_data = {
+        'NAME': ['County A', 'County B', 'County C'],
+        'population': [10000, 15000, 8000],
+        'income': [50000, 60000, 45000]
+    }
+    counties = gpd.GeoDataFrame(counties_data, geometry=counties_geom, crs="EPSG:4326")
+
+    # Raster data (elevation)
+    elevation_data = np.array([[100, 150, 200],
+                               [120, 180, 220],
+                               [90, 140, 190]], dtype=np.float32)
+    x_coords = np.array([0.5, 1.0, 1.5])
+    y_coords = np.array([1.5, 1.0, 0.5])
+
+    elevation = xr.DataArray(
+        elevation_data,
+        coords={'y': y_coords, 'x': x_coords},
+        dims=['y', 'x'],
+        name='elevation'
+    )
+
+    # Test that accessors are available
+    assert hasattr(counties, 'pmg')
+    assert hasattr(elevation, 'pmg')
+
+    # Test that methods are available
+    assert hasattr(counties.pmg, 'explore')
+    assert hasattr(counties.pmg, 'map')
+    assert hasattr(elevation.pmg, 'explore')
+    assert hasattr(elevation.pmg, 'map')
+
+
+def test_accessor_method_signatures():
+    """Test that accessor methods have the correct signatures."""
+    # Create simple test data
+    points = [Point(0, 0), Point(1, 1)]
+    gdf = gpd.GeoDataFrame({'id': [1, 2]}, geometry=points, crs="EPSG:4326")
+
+    da = xr.DataArray(np.random.rand(2, 2), dims=['y', 'x'])
+
+    # Test that methods exist and are callable
+    assert callable(gdf.pmg.explore)
+    assert callable(gdf.pmg.map)
+    assert callable(da.pmg.explore)
+    assert callable(da.pmg.map)
+
+    # Test method signatures by checking they accept common parameters
+    import inspect
+
+    # Check GeoDataFrame methods
+    gdf_explore_sig = inspect.signature(gdf.pmg.explore)
+    assert 'm' in gdf_explore_sig.parameters
+
+    gdf_map_sig = inspect.signature(gdf.pmg.map)
+    assert 'm' in gdf_map_sig.parameters
+
+    # Check DataArray methods
+    da_explore_sig = inspect.signature(da.pmg.explore)
+    assert 'm' in da_explore_sig.parameters
+
+    da_map_sig = inspect.signature(da.pmg.map)
+    assert 'm' in da_map_sig.parameters
+
+
+# Performance and edge case tests
+
+def test_empty_geodataframe_visualization():
+    """Test visualization with empty GeoDataFrame."""
+    # Create empty GeoDataFrame
+    empty_gdf = gpd.GeoDataFrame(columns=['geometry'], crs="EPSG:4326")
+
+    # Test that accessor is still available
+    assert hasattr(empty_gdf, 'pmg')
+    assert hasattr(empty_gdf.pmg, 'explore')
+    assert hasattr(empty_gdf.pmg, 'map')
+
+
+def test_large_coordinate_values():
+    """Test visualization with large coordinate values (real-world coordinates)."""
+    # Create data with realistic geographic coordinates
+    points = [
+        Point(-122.4194, 37.7749),  # San Francisco
+        Point(-74.0060, 40.7128),   # New York
+        Point(-87.6298, 41.8781)    # Chicago
+    ]
+
+    gdf = gpd.GeoDataFrame(
+        {'city': ['SF', 'NYC', 'CHI'], 'population': [884000, 8400000, 2700000]},
+        geometry=points,
+        crs="EPSG:4326"
+    )
+
+    # Test that accessor works with realistic coordinates
+    assert hasattr(gdf, 'pmg')
+    assert hasattr(gdf.pmg, 'explore')
+    assert hasattr(gdf.pmg, 'map')
