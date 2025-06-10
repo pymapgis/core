@@ -4,7 +4,7 @@ import geoarrow.pyarrow as ga
 import geopandas
 from shapely.geometry import Point, LineString, Polygon, MultiPoint, GeometryCollection
 from pandas.testing import assert_frame_equal
-from pymapgis.vector import buffer
+from pymapgis.vector import buffer, clip, overlay, spatial_join
 from pymapgis.vector.geoarrow_utils import geodataframe_to_geoarrow, geoarrow_to_geodataframe
 
 # Conditional import for older geopandas versions
@@ -155,3 +155,394 @@ def test_geodataframe_to_geoarrow_invalid_input():
 def test_geoarrow_to_geodataframe_invalid_input():
     with pytest.raises(TypeError, match="Input must be a PyArrow Table"):
         geoarrow_to_geodataframe("not a pyarrow table")
+
+
+# ============================================================================
+# COMPREHENSIVE VECTOR OPERATIONS TESTS
+# ============================================================================
+
+@pytest.fixture
+def sample_points():
+    """Create a simple GeoDataFrame with points."""
+    data = {
+        'id': [1, 2, 3],
+        'name': ['Point A', 'Point B', 'Point C'],
+        'geometry': [Point(0, 0), Point(1, 1), Point(2, 2)]
+    }
+    return geopandas.GeoDataFrame(data, crs="EPSG:4326")
+
+
+@pytest.fixture
+def sample_polygons():
+    """Create a simple GeoDataFrame with polygons."""
+    data = {
+        'id': [1, 2],
+        'name': ['Poly A', 'Poly B'],
+        'geometry': [
+            Polygon([(0, 0), (2, 0), (2, 2), (0, 2)]),  # Square covering points 1 and 2
+            Polygon([(1.5, 1.5), (3, 1.5), (3, 3), (1.5, 3)])  # Square covering point 3
+        ]
+    }
+    return geopandas.GeoDataFrame(data, crs="EPSG:4326")
+
+
+@pytest.fixture
+def mask_polygon():
+    """Create a mask polygon for clipping tests."""
+    return Polygon([(0.5, 0.5), (1.5, 0.5), (1.5, 1.5), (0.5, 1.5)])
+
+
+# ============================================================================
+# CLIP FUNCTION TESTS
+# ============================================================================
+
+def test_clip_with_polygon_mask(sample_points, mask_polygon):
+    """Test clip function with a Shapely polygon mask."""
+    result = clip(sample_points, mask_polygon)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_points.crs
+    # Should only contain point B (1, 1) which is inside the mask
+    assert len(result) == 1
+    assert result.iloc[0]['name'] == 'Point B'
+
+
+def test_clip_with_geodataframe_mask(sample_points, sample_polygons):
+    """Test clip function with a GeoDataFrame mask."""
+    # Use first polygon as mask
+    mask_gdf = sample_polygons.iloc[[0]]
+    result = clip(sample_points, mask_gdf)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_points.crs
+    # Should contain points A and B which are inside the first polygon
+    assert len(result) == 2
+
+
+def test_clip_empty_result(sample_points):
+    """Test clip function that results in empty GeoDataFrame."""
+    # Create a mask that doesn't intersect with any points
+    mask = Polygon([(10, 10), (11, 10), (11, 11), (10, 11)])
+    result = clip(sample_points, mask)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert len(result) == 0
+    assert result.crs == sample_points.crs
+
+
+def test_clip_with_kwargs(sample_polygons, mask_polygon):
+    """Test clip function with additional kwargs."""
+    result = clip(sample_polygons, mask_polygon, keep_geom_type=True)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_polygons.crs
+
+
+# ============================================================================
+# OVERLAY FUNCTION TESTS
+# ============================================================================
+
+def test_overlay_intersection(sample_polygons):
+    """Test overlay function with intersection operation."""
+    # Create overlapping polygon
+    overlap_poly = Polygon([(1, 1), (3, 1), (3, 3), (1, 3)])
+    overlap_gdf = geopandas.GeoDataFrame(
+        {'id': [1], 'geometry': [overlap_poly]},
+        crs="EPSG:4326"
+    )
+
+    result = overlay(sample_polygons, overlap_gdf, how='intersection')
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_polygons.crs
+    assert len(result) >= 1  # Should have at least one intersection
+
+
+def test_overlay_union(sample_polygons):
+    """Test overlay function with union operation."""
+    # Create adjacent polygon
+    adjacent_poly = Polygon([(2, 0), (4, 0), (4, 2), (2, 2)])
+    adjacent_gdf = geopandas.GeoDataFrame(
+        {'id': [1], 'geometry': [adjacent_poly]},
+        crs="EPSG:4326"
+    )
+
+    result = overlay(sample_polygons, adjacent_gdf, how='union')
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_polygons.crs
+
+
+def test_overlay_difference(sample_polygons):
+    """Test overlay function with difference operation."""
+    # Create overlapping polygon
+    overlap_poly = Polygon([(1, 1), (3, 1), (3, 3), (1, 3)])
+    overlap_gdf = geopandas.GeoDataFrame(
+        {'id': [1], 'geometry': [overlap_poly]},
+        crs="EPSG:4326"
+    )
+
+    result = overlay(sample_polygons, overlap_gdf, how='difference')
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_polygons.crs
+
+
+def test_overlay_invalid_how():
+    """Test overlay function with invalid 'how' parameter."""
+    gdf1 = geopandas.GeoDataFrame({'geometry': [Point(0, 0)]}, crs="EPSG:4326")
+    gdf2 = geopandas.GeoDataFrame({'geometry': [Point(1, 1)]}, crs="EPSG:4326")
+
+    with pytest.raises(ValueError, match="Unsupported overlay type"):
+        overlay(gdf1, gdf2, how='invalid_operation')
+
+
+# ============================================================================
+# SPATIAL_JOIN FUNCTION TESTS
+# ============================================================================
+
+def test_spatial_join_intersects(sample_points, sample_polygons):
+    """Test spatial_join function with intersects predicate."""
+    result = spatial_join(sample_points, sample_polygons, op='intersects', how='inner')
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_points.crs
+    # Should have joined records where points intersect polygons
+    assert len(result) >= 1
+    # Check that join columns are present
+    assert 'id_left' in result.columns or 'id_right' in result.columns
+
+
+def test_spatial_join_contains(sample_polygons, sample_points):
+    """Test spatial_join function with contains predicate."""
+    result = spatial_join(sample_polygons, sample_points, op='contains', how='inner')
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_polygons.crs
+
+
+def test_spatial_join_within(sample_points, sample_polygons):
+    """Test spatial_join function with within predicate."""
+    result = spatial_join(sample_points, sample_polygons, op='within', how='inner')
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_points.crs
+
+
+def test_spatial_join_left_join(sample_points, sample_polygons):
+    """Test spatial_join function with left join."""
+    result = spatial_join(sample_points, sample_polygons, how='left')
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_points.crs
+    # Left join should preserve all points
+    assert len(result) >= len(sample_points)
+
+
+def test_spatial_join_invalid_op():
+    """Test spatial_join function with invalid predicate operation."""
+    gdf1 = geopandas.GeoDataFrame({'geometry': [Point(0, 0)]}, crs="EPSG:4326")
+    gdf2 = geopandas.GeoDataFrame({'geometry': [Point(1, 1)]}, crs="EPSG:4326")
+
+    with pytest.raises(ValueError, match="Unsupported predicate operation"):
+        spatial_join(gdf1, gdf2, op='invalid_predicate')
+
+
+def test_spatial_join_invalid_how():
+    """Test spatial_join function with invalid join type."""
+    gdf1 = geopandas.GeoDataFrame({'geometry': [Point(0, 0)]}, crs="EPSG:4326")
+    gdf2 = geopandas.GeoDataFrame({'geometry': [Point(1, 1)]}, crs="EPSG:4326")
+
+    with pytest.raises(ValueError, match="Unsupported join type"):
+        spatial_join(gdf1, gdf2, how='invalid_join')
+
+
+# ============================================================================
+# BUFFER FUNCTION TESTS (ADDITIONAL)
+# ============================================================================
+
+def test_buffer_with_kwargs(sample_points):
+    """Test buffer function with additional kwargs."""
+    result = buffer(sample_points, distance=1.0, resolution=16, cap_style=1)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_points.crs
+    assert all(result.geometry.geom_type == 'Polygon')
+
+
+def test_buffer_zero_distance(sample_points):
+    """Test buffer function with zero distance."""
+    result = buffer(sample_points, distance=0)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == sample_points.crs
+    # Zero buffer should return the original geometries
+    assert len(result) == len(sample_points)
+
+
+def test_buffer_negative_distance(sample_points):
+    """Test buffer function with negative distance."""
+    # Create a polygon to test negative buffer
+    poly_data = {
+        'id': [1],
+        'geometry': [Polygon([(0, 0), (2, 0), (2, 2), (0, 2)])]
+    }
+    poly_gdf = geopandas.GeoDataFrame(poly_data, crs="EPSG:4326")
+
+    result = buffer(poly_gdf, distance=-0.1)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == poly_gdf.crs
+
+
+def test_buffer_preserves_attributes(sample_points):
+    """Test that buffer function preserves non-geometry attributes."""
+    result = buffer(sample_points, distance=1.0)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert 'id' in result.columns
+    assert 'name' in result.columns
+    assert list(result['id']) == list(sample_points['id'])
+    assert list(result['name']) == list(sample_points['name'])
+
+
+# ============================================================================
+# ACCESSOR FUNCTIONALITY TESTS
+# ============================================================================
+
+def test_geodataframe_accessor_registration(sample_points):
+    """Test that the .pmg accessor is properly registered for GeoDataFrame."""
+    gdf = sample_points
+
+    # Check that .pmg accessor exists
+    assert hasattr(gdf, 'pmg')
+
+    # Check that accessor has expected vector methods
+    assert hasattr(gdf.pmg, 'buffer')
+    assert hasattr(gdf.pmg, 'clip')
+    assert hasattr(gdf.pmg, 'overlay')
+    assert hasattr(gdf.pmg, 'spatial_join')
+
+
+def test_accessor_buffer(sample_points):
+    """Test GeoDataFrame .pmg.buffer() accessor method."""
+    gdf = sample_points
+
+    # Test accessor method
+    result = gdf.pmg.buffer(1.0)
+
+    # Check that result is correct
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == gdf.crs
+    assert all(result.geometry.geom_type == 'Polygon')
+    assert len(result) == len(gdf)
+
+
+def test_accessor_clip(sample_points, mask_polygon):
+    """Test GeoDataFrame .pmg.clip() accessor method."""
+    gdf = sample_points
+
+    # Test accessor method
+    result = gdf.pmg.clip(mask_polygon)
+
+    # Check that result is correct
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == gdf.crs
+
+
+def test_accessor_overlay(sample_polygons):
+    """Test GeoDataFrame .pmg.overlay() accessor method."""
+    gdf = sample_polygons
+
+    # Create another GeoDataFrame for overlay
+    other_poly = Polygon([(1, 1), (3, 1), (3, 3), (1, 3)])
+    other_gdf = geopandas.GeoDataFrame(
+        {'id': [1], 'geometry': [other_poly]},
+        crs="EPSG:4326"
+    )
+
+    # Test accessor method
+    result = gdf.pmg.overlay(other_gdf, how='intersection')
+
+    # Check that result is correct
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == gdf.crs
+
+
+def test_accessor_spatial_join(sample_points, sample_polygons):
+    """Test GeoDataFrame .pmg.spatial_join() accessor method."""
+    points_gdf = sample_points
+    polygons_gdf = sample_polygons
+
+    # Test accessor method
+    result = points_gdf.pmg.spatial_join(polygons_gdf, op='intersects')
+
+    # Check that result is correct
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == points_gdf.crs
+
+
+def test_accessor_chaining(sample_points):
+    """Test chaining of accessor methods."""
+    gdf = sample_points
+
+    # Test chaining buffer and then another operation
+    buffered = gdf.pmg.buffer(1.0)
+
+    # Create a mask for clipping
+    mask = Polygon([(-0.5, -0.5), (1.5, -0.5), (1.5, 1.5), (-0.5, 1.5)])
+
+    # Chain operations
+    result = buffered.pmg.clip(mask)
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == gdf.crs
+
+
+# ============================================================================
+# INTEGRATION TESTS
+# ============================================================================
+
+def test_vector_operations_integration():
+    """Test integration of all vector operations in a realistic workflow."""
+    # Create test data
+    points = geopandas.GeoDataFrame({
+        'id': [1, 2, 3, 4],
+        'type': ['A', 'B', 'A', 'B'],
+        'geometry': [Point(0, 0), Point(1, 1), Point(2, 2), Point(3, 3)]
+    }, crs="EPSG:4326")
+
+    study_area = geopandas.GeoDataFrame({
+        'name': ['Study Area'],
+        'geometry': [Polygon([(0.5, 0.5), (2.5, 0.5), (2.5, 2.5), (0.5, 2.5)])]
+    }, crs="EPSG:4326")
+
+    # Workflow: buffer points, clip to study area, then spatial join
+    buffered_points = buffer(points, distance=0.3)
+    clipped_buffers = clip(buffered_points, study_area)
+    final_result = spatial_join(clipped_buffers, study_area, how='left')
+
+    assert isinstance(final_result, geopandas.GeoDataFrame)
+    assert final_result.crs == points.crs
+
+
+def test_vector_operations_with_accessor_integration():
+    """Test integration using accessor methods."""
+    # Create test data
+    points = geopandas.GeoDataFrame({
+        'id': [1, 2, 3],
+        'geometry': [Point(0, 0), Point(1, 1), Point(2, 2)]
+    }, crs="EPSG:4326")
+
+    study_area = geopandas.GeoDataFrame({
+        'name': ['Study Area'],
+        'geometry': [Polygon([(-0.5, -0.5), (2.5, -0.5), (2.5, 2.5), (-0.5, 2.5)])]
+    }, crs="EPSG:4326")
+
+    # Workflow using accessor methods
+    result = (points
+              .pmg.buffer(0.5)
+              .pmg.spatial_join(study_area, how='left'))
+
+    assert isinstance(result, geopandas.GeoDataFrame)
+    assert result.crs == points.crs

@@ -8,7 +8,8 @@ enabling convenient access to PyMapGIS visualization operations.
 import geopandas as gpd
 import pandas as pd
 import leafmap.leafmap as leafmap
-from typing import Optional
+from typing import Optional, Union
+from shapely.geometry.base import BaseGeometry
 
 
 @pd.api.extensions.register_dataframe_accessor("pmg")
@@ -16,7 +17,7 @@ class PmgVizAccessor:
     """
     PyMapGIS accessor for GeoDataFrame objects.
 
-    Provides convenient access to PyMapGIS visualization operations via the .pmg accessor.
+    Provides convenient access to PyMapGIS visualization and vector operations via the .pmg accessor.
 
     Examples:
         >>> import geopandas as gpd
@@ -31,6 +32,10 @@ class PmgVizAccessor:
         >>> # Build a map
         >>> m = gdf.pmg.map(layer_name="Counties")
         >>> m.add_basemap("OpenStreetMap")
+        >>>
+        >>> # Vector operations
+        >>> buffered = gdf.pmg.buffer(1000)
+        >>> clipped = gdf.pmg.clip(mask_geometry)
     """
 
     def __init__(self, gdf_obj: gpd.GeoDataFrame):
@@ -106,3 +111,117 @@ class PmgVizAccessor:
         from . import plot_interactive as _plot_interactive
 
         return _plot_interactive(self._obj, m=m, **kwargs)
+
+    # Vector operations
+    def buffer(self, distance: float, **kwargs) -> gpd.GeoDataFrame:
+        """
+        Create buffer polygons around geometries in the GeoDataFrame.
+
+        Args:
+            distance (float): The buffer distance. The units of the distance
+                are assumed to be the same as the CRS of the GeoDataFrame.
+            **kwargs: Additional arguments to be passed to GeoPandas' buffer method
+                (e.g., resolution, cap_style, join_style).
+
+        Returns:
+            gpd.GeoDataFrame: A new GeoDataFrame with the buffered geometries.
+
+        Examples:
+            >>> # Buffer by 1000 units (meters if in projected CRS)
+            >>> buffered = gdf.pmg.buffer(1000)
+            >>>
+            >>> # Buffer with custom parameters
+            >>> buffered = gdf.pmg.buffer(500, resolution=32, cap_style=1)
+        """
+        # Import here to avoid circular imports
+        from ..vector import buffer as _buffer
+        return _buffer(self._obj, distance, **kwargs)
+
+    def clip(
+        self,
+        mask_geometry: Union[gpd.GeoDataFrame, BaseGeometry],
+        **kwargs,
+    ) -> gpd.GeoDataFrame:
+        """
+        Clip the GeoDataFrame to the boundaries of a mask geometry.
+
+        Args:
+            mask_geometry (Union[gpd.GeoDataFrame, BaseGeometry]): The geometry used for clipping.
+                This can be another GeoDataFrame or a Shapely geometry object.
+            **kwargs: Additional arguments to be passed to GeoPandas' clip method.
+
+        Returns:
+            gpd.GeoDataFrame: A new GeoDataFrame containing the geometries clipped to the mask.
+
+        Examples:
+            >>> # Clip to a polygon boundary
+            >>> clipped = gdf.pmg.clip(boundary_polygon)
+            >>>
+            >>> # Clip to another GeoDataFrame
+            >>> clipped = gdf.pmg.clip(study_area_gdf)
+        """
+        # Import here to avoid circular imports
+        from ..vector import clip as _clip
+        return _clip(self._obj, mask_geometry, **kwargs)
+
+    def overlay(
+        self,
+        other: gpd.GeoDataFrame,
+        how: str = "intersection",
+        **kwargs,
+    ) -> gpd.GeoDataFrame:
+        """
+        Perform a spatial overlay with another GeoDataFrame.
+
+        Args:
+            other (gpd.GeoDataFrame): The other GeoDataFrame to overlay with.
+            how (str): The type of overlay to perform. Supported values are:
+                'intersection', 'union', 'identity', 'symmetric_difference',
+                'difference'. Defaults to 'intersection'.
+            **kwargs: Additional arguments to be passed to GeoPandas' overlay method.
+
+        Returns:
+            gpd.GeoDataFrame: A new GeoDataFrame with the result of the overlay operation.
+
+        Examples:
+            >>> # Find intersection with another layer
+            >>> intersection = gdf.pmg.overlay(other_gdf, how='intersection')
+            >>>
+            >>> # Find difference (areas in gdf but not in other)
+            >>> difference = gdf.pmg.overlay(other_gdf, how='difference')
+        """
+        # Import here to avoid circular imports
+        from ..vector import overlay as _overlay
+        return _overlay(self._obj, other, how=how, **kwargs)
+
+    def spatial_join(
+        self,
+        other: gpd.GeoDataFrame,
+        op: str = "intersects",
+        how: str = "inner",
+        **kwargs,
+    ) -> gpd.GeoDataFrame:
+        """
+        Perform a spatial join with another GeoDataFrame.
+
+        Args:
+            other (gpd.GeoDataFrame): The other GeoDataFrame to join with.
+            op (str): The spatial predicate to use for the join. Supported values are:
+                'intersects', 'contains', 'within'. Defaults to 'intersects'.
+            how (str): The type of join to perform. Supported values are:
+                'left', 'right', 'inner'. Defaults to 'inner'.
+            **kwargs: Additional arguments to be passed to geopandas.sjoin method.
+
+        Returns:
+            gpd.GeoDataFrame: A new GeoDataFrame with the result of the spatial join.
+
+        Examples:
+            >>> # Join points with polygons they intersect
+            >>> joined = points_gdf.pmg.spatial_join(polygons_gdf, op='intersects')
+            >>>
+            >>> # Left join to keep all original features
+            >>> joined = gdf.pmg.spatial_join(other_gdf, how='left')
+        """
+        # Import here to avoid circular imports
+        from ..vector import spatial_join as _spatial_join
+        return _spatial_join(self._obj, other, op=op, how=how, **kwargs)

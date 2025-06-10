@@ -3,6 +3,8 @@ from typing import Union
 from shapely.geometry.base import BaseGeometry
 from .geoarrow_utils import geodataframe_to_geoarrow, geoarrow_to_geodataframe
 
+
+
 __all__ = [
     "buffer",
     "clip",
