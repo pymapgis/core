@@ -2618,25 +2618,43 @@ files = [
 ]
 
 [[package]]
+name = "mercantile"
+version = "1.2.1"
+description = "Web mercator XYZ tile utilities"
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "mercantile-1.2.1-py3-none-any.whl", hash = "sha256:30f457a73ee88261aab787b7069d85961a5703bb09dc57a170190bc042cd023f"},
+    {file = "mercantile-1.2.1.tar.gz", hash = "sha256:fa3c6db15daffd58454ac198b31887519a19caccee3f9d63d17ae7ff61b3b56b"},
+]
+
+[package.dependencies]
+click = ">=3.0"
+
+[package.extras]
+dev = ["check-manifest"]
+test = ["hypothesis", "pytest"]
+
+[[package]]
 name = "morecantile"
-version = "4.2.0"
+version = "5.4.2"
 description = "Construct and use map tile grids (a.k.a TileMatrixSet / TMS)."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "morecantile-4.2.0-py3-none-any.whl", hash = "sha256:89b1189ab6ce0abefd2cb2c6864e24d1b9857c527fb0445ef2addb103ce4a406"},
-    {file = "morecantile-4.2.0.tar.gz", hash = "sha256:24b22f9558b5d1a3b0f146c514e3d283c1dfe49fb12fda7aae992b6fd8ff4410"},
+    {file = "morecantile-5.4.2-py3-none-any.whl", hash = "sha256:2f09ab980aa4ff519cd3891018d963e4a2c42e232f854b441137cc727359322d"},
+    {file = "morecantile-5.4.2.tar.gz", hash = "sha256:19b5a1550b2151e9abeffd348f987587f98b08cd7dce4af9362466fc74e3f3e6"},
 ]
 
 [package.dependencies]
 attrs = "*"
-cachetools = "*"
-pydantic = "*"
+pydantic = ">=2.0,<3.0"
 pyproj = ">=3.1,<4.0"
 
 [package.extras]
-dev = ["pre-commit"]
+dev = ["bump-my-version", "pre-commit"]
 docs = ["mkdocs", "mkdocs-material", "pygments"]
 rasterio = ["rasterio (>=1.2.1)"]
 test = ["mercantile", "pytest", "pytest-cov", "rasterio (>=1.2.1)"]
@@ -4509,21 +4527,20 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "rio-cogeo"
-version = "4.0.0"
+version = "5.4.1"
 description = "Cloud Optimized GeoTIFF (COGEO) creation plugin for rasterio"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "rio_cogeo-4.0.0-py3-none-any.whl", hash = "sha256:33e4743a7c8837b0be3600590dfd91cac833a27d3459ed1a83ea59f1dc97e7cb"},
-    {file = "rio_cogeo-4.0.0.tar.gz", hash = "sha256:b2fddd7ce76fa8435ac2dda9195a95d06bffe469c31566869111b636a5894eaf"},
+    {file = "rio_cogeo-5.4.1-py3-none-any.whl", hash = "sha256:7387f8e523759c694313158be99be0581a6d115862d3f764d553a42a8b2278f6"},
+    {file = "rio_cogeo-5.4.1.tar.gz", hash = "sha256:2d7de85e4d6655698f6eb871d9ea62d645a855dfcdfbae7dc4bd08ed892d555b"},
 ]
 
 [package.dependencies]
 click = ">=7.0"
-morecantile = ">=4.0,<5.0"
-numpy = ">=1.15,<2.0"
-pydantic = "*"
+morecantile = ">=5.0,<7.0"
+pydantic = ">=2.0,<3.0"
 rasterio = ">=1.3.3"
 
 [package.extras]
@@ -4533,14 +4550,14 @@ test = ["cogdumper", "pytest", "pytest-cov"]
 
 [[package]]
 name = "rio-tiler"
-version = "5.0.3"
+version = "6.8.0"
 description = "User friendly Rasterio plugin to read raster datasets."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "rio_tiler-5.0.3-py3-none-any.whl", hash = "sha256:5b19be51fd075ce1e3f24a6ff922ac29f80af469c58eeb529ece64eff094591e"},
-    {file = "rio_tiler-5.0.3.tar.gz", hash = "sha256:d66ec43dbb7153344b3c30baf882567bdaf249215a98caafc53d0158f7aff4a7"},
+    {file = "rio_tiler-6.8.0-py3-none-any.whl", hash = "sha256:f83cb6242f2a8f2e7d77bcbe157509228230df73914b66d4791f56877b55297b"},
+    {file = "rio_tiler-6.8.0.tar.gz", hash = "sha256:e52bd4dc5f984c707d3b0907c91b99c347f646bc017ad73dd888d156284ddfc7"},
 ]
 
 [package.dependencies]
@@ -4548,18 +4565,20 @@ attrs = "*"
 cachetools = "*"
 color-operations = "*"
 httpx = "*"
-morecantile = ">=4.0,<5.0"
+morecantile = ">=5.0,<6.0"
 numexpr = "*"
 numpy = "*"
-pydantic = "*"
+pydantic = ">=2.0,<3.0"
 pystac = ">=0.5.4"
 rasterio = ">=1.3.0"
 
 [package.extras]
-dev = ["pre-commit"]
+benchmark = ["pytest", "pytest-benchmark"]
+dev = ["bump-my-version", "pre-commit"]
 docs = ["mkdocs", "mkdocs-jupyter", "mkdocs-material", "nbconvert", "pygments"]
 s3 = ["boto3"]
-test = ["boto3", "pytest", "pytest-asyncio", "pytest-benchmark", "pytest-cov", "rioxarray", "xarray"]
+test = ["boto3", "pytest", "pytest-cov", "rioxarray", "xarray"]
+tilebench = ["pytest", "tilebench"]
 xarray = ["rioxarray", "xarray"]
 
 [[package]]
@@ -5844,4 +5863,4 @@ streaming = ["kafka-python", "paho-mqtt"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<3.13"
-content-hash = "e9432e74b96c18732c0fca828c8b0a343e4aa5dacf65faf3f91a356353750155"
+content-hash = "fb3bc3e4b325b29d5be211330f7f93b0bedc25d2689e7f653f269e1c7192eed2"

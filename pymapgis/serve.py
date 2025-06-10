@@ -36,6 +36,17 @@ try:
 except ImportError as e:
     print(f"Warning: rio-tiler not available: {e}", file=sys.stderr)
     RIO_TILER_AVAILABLE = False
+    # Create dummy classes for type hints
+    class RioTilerReader: pass
+    img_profiles = {}
+    def get_colormap(name): return {}
+except Exception as e:
+    print(f"Warning: rio-tiler compatibility issue: {e}", file=sys.stderr)
+    RIO_TILER_AVAILABLE = False
+    # Create dummy classes for type hints
+    class RioTilerReader: pass
+    img_profiles = {}
+    def get_colormap(name): return {}
 
 # Vector serving dependencies
 try:

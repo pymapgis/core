@@ -31,6 +31,7 @@ geopandas = "^1.1"
 fsspec = "^2025.5"
 leafmap = "^0.47.2"
 pydantic-settings = "^2.9.1"
+pydantic = "^2.0.0"
 # (add rasterio later, once the click conflict is solved)
 requests-cache = "^1.2.1"
 pandas = "^2.3.0"
@@ -42,7 +43,7 @@ netcdf4 = "^1.6.0"
 typer = {extras = ["all"], version = ">=0.9.0"}
 fastapi = ">=0.100.0"
 uvicorn = {extras = ["standard"], version = ">=0.23.0"}
-rio-tiler = ">=5.0,<6.0"
+rio-tiler = ">=6.0,<7.0"
 mapbox-vector-tile = "^2.1.0"
 mercantile = "^1.2.0"
 pyproj = "^3.4.0"
