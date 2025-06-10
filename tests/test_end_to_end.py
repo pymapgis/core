@@ -97,7 +97,7 @@ def test_geoarrow_example():
     script_dir = os.path.join(EXAMPLES_DIR, "geoarrow_example")
     expected_output = [
         "Original GeoDataFrame loaded",
-        "GeoDataFrame geometry is likely backed by GeoArrow",
+        "GeoDataFrame geometry array type is not the latest GeoArrow-backed type, but operations might still leverage Arrow",
         "Filtered GeoDataFrame (polygons with area > 0.5)",
         "Filtered GeoDataFrame (features with 'value' > 25)"
     ]

@@ -7,7 +7,25 @@ def demonstrate_geoarrow_functionality():
     Demonstrates loading data that might be GeoArrow-backed and performing
     simple operations.
     """
-    parquet_path = "docs/examples/geoarrow_example/sample_data.parquet"
+    import os
+
+    # Try multiple possible paths for the parquet file
+    possible_paths = [
+        "sample_data.parquet",  # When running from the script's directory
+        "docs/examples/geoarrow_example/sample_data.parquet",  # When running from repo root
+        os.path.join(os.path.dirname(__file__), "sample_data.parquet")  # Relative to script location
+    ]
+
+    parquet_path = None
+    for path in possible_paths:
+        if os.path.exists(path):
+            parquet_path = path
+            break
+
+    if parquet_path is None:
+        print("Error: sample_data.parquet not found in any expected location")
+        print("Please ensure 'sample_data.parquet' exists in the same directory and dependencies are installed.")
+        return
 
     print(f"Loading GeoParquet file: {parquet_path}")
     try:

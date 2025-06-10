@@ -56,7 +56,7 @@ def test_view_3d_cube(MockLayer, MockDeck, sample_xarray_cube):
     """Tests view_3d_cube function by checking if pydeck objects are called correctly."""
     cube = sample_xarray_cube
 
-    deck_obj = view_3d_cube(cube, time_index=0, colormap="plasma", cell_size=500)
+    view_3d_cube(cube, time_index=0, colormap="plasma", cell_size=500)
 
     # Assert Deck was called
     MockDeck.assert_called_once()
@@ -87,7 +87,7 @@ def test_view_point_cloud_3d(MockLayer, MockDeck, sample_point_cloud_array):
     """Tests view_point_cloud_3d by checking pydeck calls."""
     points = sample_point_cloud_array
 
-    deck_obj = view_point_cloud_3d(
+    view_point_cloud_3d(
         points,
         point_size=5,
         get_color='[Red, Green, Blue, 255]' # Use color from data
