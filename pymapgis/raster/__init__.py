@@ -6,6 +6,8 @@ import zarr  # Though not directly used in the function, good to have for contex
 import numpy as np  # Added for np.datetime64 and other numpy uses
 from typing import List  # Added for List type hint
 
+# Import accessor to register it
+from .accessor import PmgRasterAccessor
 
 __all__ = [
     "reproject",

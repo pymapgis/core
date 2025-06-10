@@ -9,8 +9,10 @@ import zarr
 import pytest
 import pandas as pd
 import dask.array as da # For checking if it's a dask array
+import rioxarray  # For CRS operations
 
-from pymapgis.raster import lazy_windowed_read_zarr, create_spatiotemporal_cube
+from pymapgis.raster import lazy_windowed_read_zarr, create_spatiotemporal_cube, reproject, normalized_difference
+import pymapgis as pmg  # For testing accessor
 
 
 @pytest.fixture
@@ -342,3 +344,424 @@ def test_create_spatiotemporal_cube_errors():
     # Non-DataArray object in list
     with pytest.raises(TypeError, match="All items in 'data_arrays' must be xarray.DataArray objects"):
         create_spatiotemporal_cube([da_a, "not_a_dataarray"], [np.datetime64('2023-01-01'), np.datetime64('2023-01-01')])
+
+
+# Tests for Core Raster Operations (Phase 1 - Part 2)
+
+@pytest.fixture
+def sample_raster_data():
+    """Create a sample raster DataArray with CRS for testing."""
+    # Create sample data (3x4 grid)
+    data = np.array([[1, 2, 3, 4],
+                     [5, 6, 7, 8],
+                     [9, 10, 11, 12]], dtype=np.float32)
+
+    # Create coordinates
+    x_coords = np.array([0.0, 1.0, 2.0, 3.0])
+    y_coords = np.array([3.0, 2.0, 1.0])
+
+    # Create DataArray
+    da = xr.DataArray(
+        data,
+        coords={'y': y_coords, 'x': x_coords},
+        dims=['y', 'x'],
+        name='test_raster'
+    )
+
+    # Add CRS using rioxarray
+    da = da.rio.write_crs("EPSG:4326")
+
+    return da
+
+
+@pytest.fixture
+def sample_multiband_data():
+    """Create a sample multi-band DataArray for testing normalized difference."""
+    # Create sample data for 3 bands (band, y, x)
+    nir_data = np.array([[0.8, 0.7, 0.9],
+                         [0.6, 0.8, 0.7]], dtype=np.float32)
+    red_data = np.array([[0.2, 0.3, 0.1],
+                         [0.4, 0.2, 0.3]], dtype=np.float32)
+    green_data = np.array([[0.3, 0.4, 0.2],
+                           [0.5, 0.3, 0.4]], dtype=np.float32)
+
+    # Stack bands
+    data = np.stack([red_data, green_data, nir_data], axis=0)  # Shape: (3, 2, 3)
+
+    # Create coordinates
+    x_coords = np.array([0.0, 1.0, 2.0])
+    y_coords = np.array([1.0, 0.0])
+    band_coords = ['red', 'green', 'nir']
+
+    # Create DataArray
+    da = xr.DataArray(
+        data,
+        coords={'band': band_coords, 'y': y_coords, 'x': x_coords},
+        dims=['band', 'y', 'x'],
+        name='multiband_raster'
+    )
+
+    # Add CRS
+    da = da.rio.write_crs("EPSG:4326")
+
+    return da
+
+
+@pytest.fixture
+def sample_dataset():
+    """Create a sample Dataset with separate band variables for testing."""
+    # Create sample data
+    nir_data = np.array([[0.8, 0.7], [0.6, 0.8]], dtype=np.float32)
+    red_data = np.array([[0.2, 0.3], [0.4, 0.2]], dtype=np.float32)
+
+    # Create coordinates
+    x_coords = np.array([0.0, 1.0])
+    y_coords = np.array([1.0, 0.0])
+
+    # Create DataArrays
+    nir_da = xr.DataArray(
+        nir_data,
+        coords={'y': y_coords, 'x': x_coords},
+        dims=['y', 'x'],
+        name='B5'
+    ).rio.write_crs("EPSG:4326")
+
+    red_da = xr.DataArray(
+        red_data,
+        coords={'y': y_coords, 'x': x_coords},
+        dims=['y', 'x'],
+        name='B4'
+    ).rio.write_crs("EPSG:4326")
+
+    # Create Dataset
+    ds = xr.Dataset({'B5': nir_da, 'B4': red_da})
+
+    return ds
+
+
+# Tests for reproject function
+
+def test_reproject_basic(sample_raster_data):
+    """Test basic reprojection functionality."""
+    original_data = sample_raster_data
+
+    # Test reprojection to Web Mercator
+    reprojected = reproject(original_data, "EPSG:3857")
+
+    # Check that result is a DataArray
+    assert isinstance(reprojected, xr.DataArray)
+
+    # Check that CRS has changed
+    assert reprojected.rio.crs.to_epsg() == 3857
+    assert original_data.rio.crs.to_epsg() == 4326
+
+    # Check that data is preserved (shape might change due to reprojection)
+    assert reprojected.name == original_data.name
+
+
+def test_reproject_with_kwargs(sample_raster_data):
+    """Test reprojection with additional keyword arguments."""
+    original_data = sample_raster_data
+
+    # Test reprojection with resolution parameter
+    reprojected = reproject(original_data, "EPSG:3857", resolution=1000.0)
+
+    # Check that result is a DataArray
+    assert isinstance(reprojected, xr.DataArray)
+
+    # Check that CRS has changed
+    assert reprojected.rio.crs.to_epsg() == 3857
+
+
+def test_reproject_errors(sample_raster_data):
+    """Test error handling in reproject function."""
+    # Create a DataArray with rio accessor but no CRS
+    data_no_crs = xr.DataArray(
+        sample_raster_data.values,
+        coords={'y': sample_raster_data.coords['y'], 'x': sample_raster_data.coords['x']},
+        dims=sample_raster_data.dims,
+        name='test_no_crs'
+    )
+    # This will have rio accessor but no CRS
+
+    # Test error when no CRS is defined
+    with pytest.raises(ValueError, match="Input DataArray must have a CRS defined"):
+        reproject(data_no_crs, "EPSG:3857")
+
+
+def test_reproject_different_crs_formats(sample_raster_data):
+    """Test reprojection with different CRS format inputs."""
+    original_data = sample_raster_data
+
+    # Test with EPSG integer
+    reprojected_int = reproject(original_data, 3857)
+    assert reprojected_int.rio.crs.to_epsg() == 3857
+
+    # Test with EPSG string
+    reprojected_str = reproject(original_data, "EPSG:3857")
+    assert reprojected_str.rio.crs.to_epsg() == 3857
+
+
+# Tests for normalized_difference function
+
+def test_normalized_difference_dataarray(sample_multiband_data):
+    """Test normalized difference calculation with DataArray."""
+    multiband_data = sample_multiband_data
+
+    # Calculate NDVI (NIR - Red) / (NIR + Red)
+    ndvi = normalized_difference(multiband_data, 'nir', 'red')
+
+    # Check that result is a DataArray
+    assert isinstance(ndvi, xr.DataArray)
+
+    # Check dimensions (should lose the band dimension)
+    assert 'band' not in ndvi.dims
+    assert 'y' in ndvi.dims and 'x' in ndvi.dims
+
+    # Check shape
+    expected_shape = (multiband_data.sizes['y'], multiband_data.sizes['x'])
+    assert ndvi.shape == expected_shape
+
+    # Manually calculate expected NDVI for verification
+    nir_band = multiband_data.sel(band='nir')
+    red_band = multiband_data.sel(band='red')
+    expected_ndvi = (nir_band - red_band) / (nir_band + red_band)
+
+    # Check that calculated values match expected
+    np.testing.assert_array_almost_equal(ndvi.values, expected_ndvi.values, decimal=6)
+
+
+def test_normalized_difference_dataset(sample_dataset):
+    """Test normalized difference calculation with Dataset."""
+    dataset = sample_dataset
+
+    # Calculate NDVI using band names from dataset
+    ndvi = normalized_difference(dataset, 'B5', 'B4')  # NIR, Red
+
+    # Check that result is a DataArray
+    assert isinstance(ndvi, xr.DataArray)
+
+    # Check dimensions
+    assert 'y' in ndvi.dims and 'x' in ndvi.dims
+
+    # Check shape
+    expected_shape = (dataset.sizes['y'], dataset.sizes['x'])
+    assert ndvi.shape == expected_shape
+
+    # Manually calculate expected NDVI
+    nir_band = dataset['B5']
+    red_band = dataset['B4']
+    expected_ndvi = (nir_band - red_band) / (nir_band + red_band)
+
+    # Check that calculated values match expected
+    np.testing.assert_array_almost_equal(ndvi.values, expected_ndvi.values, decimal=6)
+
+
+def test_normalized_difference_errors():
+    """Test error handling in normalized_difference function."""
+    # Test with unsupported input type
+    with pytest.raises(TypeError, match="Input 'array' must be an xr.DataArray or xr.Dataset"):
+        normalized_difference(np.array([[1, 2], [3, 4]]), 'band1', 'band2')
+
+    # Test with DataArray without band coordinate
+    data_no_band = xr.DataArray(np.random.rand(3, 4), dims=['y', 'x'])
+    with pytest.raises(ValueError, match="Input xr.DataArray must have a 'band' coordinate"):
+        normalized_difference(data_no_band, 'band1', 'band2')
+
+    # Test with DataArray with invalid band names
+    data_with_bands = xr.DataArray(
+        np.random.rand(2, 3, 4),
+        coords={'band': ['red', 'green'], 'y': [0, 1, 2], 'x': [0, 1, 2, 3]},
+        dims=['band', 'y', 'x']
+    )
+    with pytest.raises(ValueError, match="Band identifiers 'nir' or 'blue' not found"):
+        normalized_difference(data_with_bands, 'nir', 'blue')
+
+    # Test with Dataset with missing variables
+    dataset = xr.Dataset({
+        'B1': xr.DataArray(np.random.rand(2, 3), dims=['y', 'x']),
+        'B2': xr.DataArray(np.random.rand(2, 3), dims=['y', 'x'])
+    })
+    with pytest.raises(ValueError, match="Band 'B5' not found as a variable"):
+        normalized_difference(dataset, 'B5', 'B1')
+
+
+def test_normalized_difference_edge_cases(sample_multiband_data):
+    """Test edge cases for normalized_difference function."""
+    multiband_data = sample_multiband_data
+
+    # Test with integer band indices (if bands are numbered)
+    data_with_int_bands = multiband_data.copy()
+    data_with_int_bands = data_with_int_bands.assign_coords(band=[0, 1, 2])
+
+    ndvi = normalized_difference(data_with_int_bands, 2, 0)  # NIR (index 2), Red (index 0)
+    assert isinstance(ndvi, xr.DataArray)
+    assert ndvi.shape == (multiband_data.sizes['y'], multiband_data.sizes['x'])
+
+    # Test division by zero handling
+    # Create data where NIR + Red = 0 for some pixels
+    zero_sum_data = multiband_data.copy()
+    zero_sum_data.loc[dict(band='nir', y=1.0, x=0.0)] = 0.1
+    zero_sum_data.loc[dict(band='red', y=1.0, x=0.0)] = -0.1  # NIR + Red = 0
+
+    ndvi_with_zero = normalized_difference(zero_sum_data, 'nir', 'red')
+
+    # Check that division by zero results in inf or nan
+    assert np.isfinite(ndvi_with_zero.values).sum() < ndvi_with_zero.size or np.isinf(ndvi_with_zero.values).any()
+
+
+# Tests for xarray accessor functionality
+
+def test_dataarray_accessor_reproject(sample_raster_data):
+    """Test the .pmg.reproject() accessor method."""
+    original_data = sample_raster_data
+
+    # Test accessor method
+    reprojected = original_data.pmg.reproject("EPSG:3857")
+
+    # Check that result is a DataArray
+    assert isinstance(reprojected, xr.DataArray)
+
+    # Check that CRS has changed
+    assert reprojected.rio.crs.to_epsg() == 3857
+    assert original_data.rio.crs.to_epsg() == 4326
+
+    # Compare with standalone function
+    reprojected_standalone = reproject(original_data, "EPSG:3857")
+
+    # Results should be identical
+    np.testing.assert_array_equal(reprojected.values, reprojected_standalone.values)
+    assert reprojected.rio.crs == reprojected_standalone.rio.crs
+
+
+def test_dataarray_accessor_normalized_difference(sample_multiband_data):
+    """Test the .pmg.normalized_difference() accessor method."""
+    multiband_data = sample_multiband_data
+
+    # Test accessor method
+    ndvi_accessor = multiband_data.pmg.normalized_difference('nir', 'red')
+
+    # Check that result is a DataArray
+    assert isinstance(ndvi_accessor, xr.DataArray)
+
+    # Compare with standalone function
+    ndvi_standalone = normalized_difference(multiband_data, 'nir', 'red')
+
+    # Results should be identical
+    np.testing.assert_array_equal(ndvi_accessor.values, ndvi_standalone.values)
+
+
+def test_dataset_accessor_normalized_difference(sample_dataset):
+    """Test the .pmg.normalized_difference() accessor method for Dataset."""
+    dataset = sample_dataset
+
+    # Test accessor method
+    ndvi_accessor = dataset.pmg.normalized_difference('B5', 'B4')
+
+    # Check that result is a DataArray
+    assert isinstance(ndvi_accessor, xr.DataArray)
+
+    # Compare with standalone function
+    ndvi_standalone = normalized_difference(dataset, 'B5', 'B4')
+
+    # Results should be identical
+    np.testing.assert_array_equal(ndvi_accessor.values, ndvi_standalone.values)
+
+
+# Integration tests
+
+def test_accessor_registration():
+    """Test that the .pmg accessor is properly registered."""
+    # Create a simple DataArray
+    data = xr.DataArray(np.random.rand(3, 4), dims=['y', 'x'])
+
+    # Check that .pmg accessor exists
+    assert hasattr(data, 'pmg')
+
+    # Check that accessor has expected methods
+    assert hasattr(data.pmg, 'reproject')
+    assert hasattr(data.pmg, 'normalized_difference')
+
+    # Create a simple Dataset
+    dataset = xr.Dataset({'var1': data})
+
+    # Check that .pmg accessor exists for Dataset
+    assert hasattr(dataset, 'pmg')
+    assert hasattr(dataset.pmg, 'normalized_difference')
+
+
+def test_integration_with_pmg_read():
+    """Test integration with pmg.read() function (if available)."""
+    # This test would require actual raster files, so we'll create a mock scenario
+    # Create a sample raster-like DataArray that mimics what pmg.read() would return
+
+    # Create sample data that looks like a real raster
+    data = np.random.rand(10, 10).astype(np.float32)
+    x_coords = np.linspace(-180, 180, 10)
+    y_coords = np.linspace(-90, 90, 10)
+
+    raster = xr.DataArray(
+        data,
+        coords={'y': y_coords, 'x': x_coords},
+        dims=['y', 'x'],
+        name='sample_raster'
+    ).rio.write_crs("EPSG:4326")
+
+    # Test that we can use the accessor on this "read" data
+    assert hasattr(raster, 'pmg')
+
+    # Test reprojection
+    reprojected = raster.pmg.reproject("EPSG:3857")
+    assert reprojected.rio.crs.to_epsg() == 3857
+
+    # Test that the workflow works end-to-end
+    assert isinstance(reprojected, xr.DataArray)
+    assert reprojected.name == 'sample_raster'
+
+
+def test_real_world_ndvi_calculation():
+    """Test a realistic NDVI calculation scenario."""
+    # Create realistic Landsat-like data
+    # Typical Landsat 8 bands: Red (Band 4), NIR (Band 5)
+
+    # Create sample reflectance values (0-1 range)
+    red_values = np.array([[0.1, 0.15, 0.2],
+                           [0.12, 0.18, 0.22],
+                           [0.08, 0.14, 0.19]], dtype=np.float32)
+
+    nir_values = np.array([[0.4, 0.5, 0.6],
+                           [0.45, 0.55, 0.65],
+                           [0.35, 0.48, 0.58]], dtype=np.float32)
+
+    # Stack into multi-band array
+    bands_data = np.stack([red_values, nir_values], axis=0)
+
+    # Create coordinates
+    x_coords = np.array([100.0, 100.1, 100.2])  # Longitude
+    y_coords = np.array([40.2, 40.1, 40.0])     # Latitude
+    band_names = ['red', 'nir']
+
+    # Create DataArray
+    landsat_data = xr.DataArray(
+        bands_data,
+        coords={'band': band_names, 'y': y_coords, 'x': x_coords},
+        dims=['band', 'y', 'x'],
+        name='landsat_reflectance'
+    ).rio.write_crs("EPSG:4326")
+
+    # Calculate NDVI using accessor
+    ndvi = landsat_data.pmg.normalized_difference('nir', 'red')
+
+    # Verify NDVI properties
+    assert isinstance(ndvi, xr.DataArray)
+    assert ndvi.shape == (3, 3)  # Should match spatial dimensions
+
+    # NDVI should be in range [-1, 1], but for vegetation typically [0, 1]
+    assert np.all(ndvi.values >= -1) and np.all(ndvi.values <= 1)
+
+    # For our sample data (vegetation), NDVI should be positive
+    assert np.all(ndvi.values > 0)
+
+    # Manually verify one calculation
+    expected_ndvi_00 = (0.4 - 0.1) / (0.4 + 0.1)  # (NIR - Red) / (NIR + Red)
+    np.testing.assert_almost_equal(ndvi.values[0, 0], expected_ndvi_00, decimal=6)
