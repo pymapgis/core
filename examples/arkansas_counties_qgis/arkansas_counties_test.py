@@ -21,7 +21,7 @@ def test_data_files():
         print(f"   ⚠️  Data directory not found: {data_dir}")
         print("   ℹ️  This is expected in CI/CD environments where data/ is gitignored")
         print("   ✅ Data files test passed (skipped - no data directory)")
-        return True
+        return
 
     expected_files = [
         "arkansas_counties.gpkg",
@@ -51,7 +51,6 @@ def test_data_files():
         print(f"   ✅ Found {len(present_files)} data files")
 
     print("   ✅ Data files test passed")
-    return True
 
 def test_arkansas_counties_data():
     """Test the Arkansas counties GeoPackage."""
@@ -110,16 +109,16 @@ def test_arkansas_counties_data():
         sample_counties = gdf['NAME'].head(5).tolist()
         print(f"   📍 Sample counties: {', '.join(sample_counties)}")
 
-        return True
+        return
 
     except ImportError:
         print("   ⚠️  GeoPandas not available for testing")
         print("   ✅ Arkansas counties data test passed (skipped)")
-        return True
+        return
     except Exception as e:
         print(f"   ⚠️  Error loading Arkansas counties data: {e}")
         print("   ✅ Arkansas counties data test passed (skipped)")
-        return True
+        return
 
 def test_visualization_files():
     """Test that visualization files are valid."""
@@ -166,7 +165,6 @@ def test_visualization_files():
         print("   ⚠️  Interactive map not found")
 
     print("   ✅ Visualization files test passed")
-    return True
 
 def test_pymapgis_integration():
     """Test PyMapGIS integration."""
@@ -198,12 +196,12 @@ def test_pymapgis_integration():
         except ImportError:
             print("   ⚠️  GeoPandas not available for type checking")
 
-        return True
+        return
 
     except Exception as e:
         print(f"   ⚠️  PyMapGIS integration test failed: {e}")
         print("   ✅ PyMapGIS integration test passed (skipped)")
-        return True
+        return
 
 def test_qgis_script_structure():
     """Test that the QGIS script has proper structure."""
@@ -235,11 +233,9 @@ def test_qgis_script_structure():
     
     if missing_components:
         print(f"   ❌ Missing components: {missing_components}")
-        return False
+        assert False, f"Missing QGIS components: {missing_components}"
     else:
         print("   ✅ QGIS script has all required components")
-    
-    return True
 
 def main():
     """Run all tests."""

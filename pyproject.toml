@@ -68,6 +68,12 @@ black = "^25.1"
 mypy = "^1.16"
 pre-commit = "^4.2"
 xarray-multiscale = "^0.3.0" # For multiscale Zarr testing
+
+[tool.pytest.ini_options]
+# Configure pytest to run only proper test files
+testpaths = ["tests", "examples", "tennessee_counties_qgis"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
 zarr = "^2.17.0"             # For Zarr array manipulation in tests
 
 [build-system]

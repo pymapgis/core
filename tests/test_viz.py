@@ -2,19 +2,18 @@ import pytest
 import numpy as np
 import xarray as xr
 import pandas as pd
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 # Attempt to import pydeck, skip tests if not available
 try:
-    import pydeck
-    PYDECK_AVAILABLE = True
+    import importlib.util
+    PYDECK_AVAILABLE = importlib.util.find_spec("pydeck") is not None
 except ImportError:
     PYDECK_AVAILABLE = False
 
 # Conditional import of the functions to test
 if PYDECK_AVAILABLE:
     from pymapgis.viz.deckgl_utils import view_3d_cube, view_point_cloud_3d
-    from pymapgis.pointcloud import create_las_from_numpy # For point cloud test data
 else:
     # Define dummy functions if pydeck is not available, so tests can be defined but skipped
     def view_3d_cube(*args, **kwargs): pass
