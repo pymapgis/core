@@ -12,39 +12,60 @@ import shutil
 import importlib.metadata
 from typing_extensions import Annotated
 
-# Initialize global variables
-pymapgis = None
-settings = None
-stats_api = None
-clear_cache_api = None
-purge_cache_api = None
+# Initialize global variables with proper typing
+from typing import Any, Callable, Optional
+import types
+
+# Type definitions for better MyPy compatibility
+pymapgis_module: Optional[types.ModuleType] = None
+settings_obj: Any = None
+stats_api_func: Optional[Callable[[], dict[Any, Any]]] = None
+clear_cache_api_func: Optional[Callable[[], None]] = None
+purge_cache_api_func: Optional[Callable[[], None]] = None
+
+# Plugin functions
+load_driver_plugins: Optional[Callable[[], dict[str, Any]]] = None
+load_algorithm_plugins: Optional[Callable[[], dict[str, Any]]] = None
+load_viz_backend_plugins: Optional[Callable[[], dict[str, Any]]] = None
+PYMAPGIS_DRIVERS_GROUP = "pymapgis.drivers"
+PYMAPGIS_ALGORITHMS_GROUP = "pymapgis.algorithms"
+PYMAPGIS_VIZ_BACKENDS_GROUP = "pymapgis.viz_backends"
 
 # Try to import pymapgis modules
 try:
-    import pymapgis
-    from pymapgis.settings import settings
+    import pymapgis as _pymapgis
+    pymapgis_module = _pymapgis
+
+    from pymapgis.settings import settings as _settings
+    settings_obj = _settings
+
     from pymapgis.cache import (
-        stats as stats_api,
-        clear as clear_cache_api,
-        purge as purge_cache_api,
+        stats as _stats_api,
+        clear as _clear_cache_api,
+        purge as _purge_cache_api,
     )
+    stats_api_func = _stats_api
+    clear_cache_api_func = _clear_cache_api
+    purge_cache_api_func = _purge_cache_api
+
     try:
         from pymapgis.plugins import (
-            load_driver_plugins,
-            load_algorithm_plugins,
-            load_viz_backend_plugins,
-            PYMAPGIS_DRIVERS_GROUP,
-            PYMAPGIS_ALGORITHMS_GROUP,
-            PYMAPGIS_VIZ_BACKENDS_GROUP,
+            load_driver_plugins as _load_driver_plugins,
+            load_algorithm_plugins as _load_algorithm_plugins,
+            load_viz_backend_plugins as _load_viz_backend_plugins,
+            PYMAPGIS_DRIVERS_GROUP as _PYMAPGIS_DRIVERS_GROUP,
+            PYMAPGIS_ALGORITHMS_GROUP as _PYMAPGIS_ALGORITHMS_GROUP,
+            PYMAPGIS_VIZ_BACKENDS_GROUP as _PYMAPGIS_VIZ_BACKENDS_GROUP,
         )
+        load_driver_plugins = _load_driver_plugins
+        load_algorithm_plugins = _load_algorithm_plugins
+        load_viz_backend_plugins = _load_viz_backend_plugins
+        PYMAPGIS_DRIVERS_GROUP = _PYMAPGIS_DRIVERS_GROUP
+        PYMAPGIS_ALGORITHMS_GROUP = _PYMAPGIS_ALGORITHMS_GROUP
+        PYMAPGIS_VIZ_BACKENDS_GROUP = _PYMAPGIS_VIZ_BACKENDS_GROUP
     except ImportError:
-        # Plugins might not be available
-        load_driver_plugins = None
-        load_algorithm_plugins = None
-        load_viz_backend_plugins = None
-        PYMAPGIS_DRIVERS_GROUP = "pymapgis.drivers"
-        PYMAPGIS_ALGORITHMS_GROUP = "pymapgis.algorithms"
-        PYMAPGIS_VIZ_BACKENDS_GROUP = "pymapgis.viz_backends"
+        # Plugins might not be available - keep defaults
+        pass
 
 except ImportError as e:
     # This allows the CLI to be somewhat functional for --help even if pymapgis isn't fully installed
@@ -58,13 +79,13 @@ except ImportError as e:
         cache_dir = "pymapgis not found"
         default_crs = "pymapgis not found"
 
-    settings = DummySettings()
+    settings_obj = DummySettings()
 
     class DummyPymapgis:
         __version__ = "unknown"
         __file__ = "unknown"
 
-    pymapgis = DummyPymapgis()
+    pymapgis_module = DummyPymapgis()  # type: ignore
 
 
 app = typer.Typer(
@@ -88,7 +109,7 @@ def info():
     """
     Displays information about the PyMapGIS installation and its environment.
     """
-    global pymapgis, settings
+    global pymapgis_module, settings_obj
 
     typer.echo(
         typer.style(
@@ -97,20 +118,29 @@ def info():
     )
 
     typer.echo("\nPyMapGIS:")
-    typer.echo(f"  Version: {pymapgis.__version__}")
+    if pymapgis_module:
+        typer.echo(f"  Version: {pymapgis_module.__version__}")
+    else:
+        typer.echo("  Version: unknown")
 
     # Installation path
     try:
-        if hasattr(pymapgis, '__file__') and pymapgis.__file__ != "unknown":
-            install_path = os.path.dirname(pymapgis.__file__)
+        if (pymapgis_module and
+            hasattr(pymapgis_module, '__file__') and
+            pymapgis_module.__file__ != "unknown"):
+            install_path = os.path.dirname(pymapgis_module.__file__)
             typer.echo(f"  Installation Path: {install_path}")
         else:
             typer.echo("  Installation Path: Unknown")
-    except:
+    except (AttributeError, TypeError):
         typer.echo("  Installation Path: Unknown")
 
-    typer.echo(f"  Cache Directory: {settings.cache_dir}")
-    typer.echo(f"  Default CRS: {settings.default_crs}")
+    if settings_obj:
+        typer.echo(f"  Cache Directory: {settings_obj.cache_dir}")
+        typer.echo(f"  Default CRS: {settings_obj.default_crs}")
+    else:
+        typer.echo("  Cache Directory: Unknown")
+        typer.echo("  Default CRS: Unknown")
 
     typer.echo("\nSystem:")
     typer.echo(f"  Python Version: {sys.version.splitlines()[0]}")
@@ -156,7 +186,10 @@ def cache_dir_command():
     """
     Display the path to the cache directory.
     """
-    typer.echo(settings.cache_dir)
+    if settings_obj:
+        typer.echo(settings_obj.cache_dir)
+    else:
+        typer.echo("Cache directory not available")
 
 
 @cache_app.command(name="info")
@@ -170,35 +203,38 @@ def cache_info_command():
         )
     )
     try:
-        cache_stats = stats_api()
-        if not cache_stats:
-            typer.echo(
-                "Could not retrieve cache statistics. Cache might be disabled or not initialized."
-            )
-            return
-
-        for key, value in cache_stats.items():
-            friendly_key = key.replace("_", " ").title()
-            if isinstance(value, bool):
-                status = (
-                    typer.style("Enabled", fg=typer.colors.GREEN)
-                    if value
-                    else typer.style("Disabled", fg=typer.colors.RED)
+        if stats_api_func:
+            cache_stats = stats_api_func()
+            if not cache_stats:
+                typer.echo(
+                    "Could not retrieve cache statistics. Cache might be disabled or not initialized."
                 )
-                typer.echo(f"  {friendly_key}: {status}")
-            elif isinstance(value, (int, float)) and "bytes" in key:
-                # Convert bytes to human-readable format
-                if value > 1024 * 1024 * 1024:  # GB
-                    val_hr = f"{value / (1024**3):.2f} GB"
-                elif value > 1024 * 1024:  # MB
-                    val_hr = f"{value / (1024**2):.2f} MB"
-                elif value > 1024:  # KB
-                    val_hr = f"{value / 1024:.2f} KB"
+                return
+
+            for key, value in cache_stats.items():
+                friendly_key = key.replace("_", " ").title()
+                if isinstance(value, bool):
+                    status = (
+                        typer.style("Enabled", fg=typer.colors.GREEN)
+                        if value
+                        else typer.style("Disabled", fg=typer.colors.RED)
+                    )
+                    typer.echo(f"  {friendly_key}: {status}")
+                elif isinstance(value, (int, float)) and "bytes" in key:
+                    # Convert bytes to human-readable format
+                    if value > 1024 * 1024 * 1024:  # GB
+                        val_hr = f"{value / (1024**3):.2f} GB"
+                    elif value > 1024 * 1024:  # MB
+                        val_hr = f"{value / (1024**2):.2f} MB"
+                    elif value > 1024:  # KB
+                        val_hr = f"{value / 1024:.2f} KB"
+                    else:
+                        val_hr = f"{value} Bytes"
+                    typer.echo(f"  {friendly_key}: {val_hr} ({value} bytes)")
                 else:
-                    val_hr = f"{value} Bytes"
-                typer.echo(f"  {friendly_key}: {val_hr} ({value} bytes)")
-            else:
-                typer.echo(f"  {friendly_key}: {value if value is not None else 'N/A'}")
+                    typer.echo(f"  {friendly_key}: {value if value is not None else 'N/A'}")
+        else:
+            typer.echo("Cache statistics not available - cache module not loaded")
     except Exception as e:
         typer.secho(
             f"Error retrieving cache statistics: {e}", fg=typer.colors.RED, err=True
@@ -211,10 +247,13 @@ def cache_clear_command():
     Clears all PyMapGIS caches (requests and fsspec).
     """
     try:
-        clear_cache_api()
-        typer.secho(
-            "All PyMapGIS caches have been cleared successfully.", fg=typer.colors.GREEN
-        )
+        if clear_cache_api_func:
+            clear_cache_api_func()
+            typer.secho(
+                "All PyMapGIS caches have been cleared successfully.", fg=typer.colors.GREEN
+            )
+        else:
+            typer.secho("Cache clear function not available", fg=typer.colors.RED, err=True)
     except Exception as e:
         typer.secho(f"Error clearing caches: {e}", fg=typer.colors.RED, err=True)
 
@@ -225,11 +264,14 @@ def cache_purge_command():
     Purges expired entries from the requests-cache.
     """
     try:
-        purge_cache_api()
-        typer.secho(
-            "Expired entries purged from requests-cache successfully.",
-            fg=typer.colors.GREEN,
-        )
+        if purge_cache_api_func:
+            purge_cache_api_func()
+            typer.secho(
+                "Expired entries purged from requests-cache successfully.",
+                fg=typer.colors.GREEN,
+            )
+        else:
+            typer.secho("Cache purge function not available", fg=typer.colors.RED, err=True)
     except Exception as e:
         typer.secho(f"Error purging cache: {e}", fg=typer.colors.RED, err=True)
 
