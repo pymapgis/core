@@ -45,14 +45,16 @@ def clip(
 
     Args:
         gdf (geopandas.GeoDataFrame): The GeoDataFrame to be clipped.
-        mask_geometry (Union[geopandas.GeoDataFrame, BaseGeometry]): The geometry used for clipping.
-            This can be another GeoDataFrame or a Shapely geometry object.
+        mask_geometry (Union[geopandas.GeoDataFrame, BaseGeometry]): The geometry
+            used for clipping. This can be another GeoDataFrame or a Shapely
+            geometry object.
         **kwargs: Additional arguments to be passed to GeoPandas' `clip` method.
             Common kwargs include `keep_geom_type` (boolean) to control whether
             to return only geometries of the same type as the input.
 
     Returns:
-        geopandas.GeoDataFrame: A new GeoDataFrame containing the geometries clipped to the mask.
+        geopandas.GeoDataFrame: A new GeoDataFrame containing the geometries
+            clipped to the mask.
     """
     return gdf.clip(mask_geometry, **kwargs)
 
@@ -78,7 +80,8 @@ def overlay(
             (e.g., `keep_geom_type`).
 
     Returns:
-        geopandas.GeoDataFrame: A new GeoDataFrame with the result of the overlay operation.
+        geopandas.GeoDataFrame: A new GeoDataFrame with the result of the
+            overlay operation.
     """
     if how not in [
         "intersection",
@@ -89,7 +92,8 @@ def overlay(
     ]:
         raise ValueError(
             f"Unsupported overlay type: {how}. Must be one of "
-            "['intersection', 'union', 'identity', 'symmetric_difference', 'difference']"
+            "['intersection', 'union', 'identity', 'symmetric_difference', "
+            "'difference']"
         )
     return gdf1.overlay(gdf2, how=how, **kwargs)
 
@@ -118,7 +122,8 @@ def spatial_join(
             (e.g., `lsuffix`, `rsuffix`).
 
     Returns:
-        geopandas.GeoDataFrame: A new GeoDataFrame with the result of the spatial join.
+        geopandas.GeoDataFrame: A new GeoDataFrame with the result of the
+            spatial join.
     """
     if op not in ["intersects", "contains", "within"]:
         raise ValueError(
