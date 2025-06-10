@@ -1,21 +1,24 @@
 import xarray as xr
-import rioxarray # Imported for the .rio accessor, used by xarray.DataArray
+import rioxarray  # Imported for the .rio accessor, used by xarray.DataArray
 from typing import Union, Hashable, Dict, Any
 import xarray_multiscale
-import zarr # Though not directly used in the function, good to have for context if users handle zarr.Group directly
-import numpy as np # Added for np.datetime64 and other numpy uses
-from typing import List # Added for List type hint
+import zarr  # Though not directly used in the function, good to have for context if users handle zarr.Group directly
+import numpy as np  # Added for np.datetime64 and other numpy uses
+from typing import List  # Added for List type hint
 
 
 __all__ = [
-    "reproject", "normalized_difference", "lazy_windowed_read_zarr",
-    "create_spatiotemporal_cube"
+    "reproject",
+    "normalized_difference",
+    "lazy_windowed_read_zarr",
+    "create_spatiotemporal_cube",
 ]
+
 
 def create_spatiotemporal_cube(
     data_arrays: List[xr.DataArray],
     times: List[np.datetime64],
-    time_dim_name: str = "time"
+    time_dim_name: str = "time",
 ) -> xr.DataArray:
     """
     Creates a spatio-temporal cube by concatenating a list of 2D spatial DataArrays
@@ -51,13 +54,15 @@ def create_spatiotemporal_cube(
     if not all(isinstance(da, xr.DataArray) for da in data_arrays):
         raise TypeError("All items in 'data_arrays' must be xarray.DataArray objects.")
     if not all(da.ndim == 2 for da in data_arrays):
-        raise ValueError("All DataArrays in 'data_arrays' must be 2-dimensional (spatial slices).")
+        raise ValueError(
+            "All DataArrays in 'data_arrays' must be 2-dimensional (spatial slices)."
+        )
 
     # Check spatial dimension alignment using the first DataArray as reference
     first_da = data_arrays[0]
     ref_dims = first_da.dims
-    ref_coords_y = first_da.coords[ref_dims[0]] # Assuming first dim is 'y'
-    ref_coords_x = first_da.coords[ref_dims[1]] # Assuming second dim is 'x'
+    ref_coords_y = first_da.coords[ref_dims[0]]  # Assuming first dim is 'y'
+    ref_coords_x = first_da.coords[ref_dims[1]]  # Assuming second dim is 'x'
 
     for i, da in enumerate(data_arrays[1:]):
         if da.dims != ref_dims:
@@ -65,8 +70,9 @@ def create_spatiotemporal_cube(
                 f"Spatial dimensions of DataArray at index {i+1} ({da.dims}) "
                 f"do not match reference DataArray ({ref_dims})."
             )
-        if not da.coords[ref_dims[0]].equals(ref_coords_y) or \
-           not da.coords[ref_dims[1]].equals(ref_coords_x):
+        if not da.coords[ref_dims[0]].equals(ref_coords_y) or not da.coords[
+            ref_dims[1]
+        ].equals(ref_coords_x):
             raise ValueError(
                 f"Spatial coordinates of DataArray at index {i+1} "
                 "do not match reference DataArray."
@@ -83,14 +89,13 @@ def create_spatiotemporal_cube(
     spatiotemporal_cube = xr.concat(expanded_das, dim=time_dim_name)
 
     # Preserve CRS from the first data array (rioxarray convention)
-    if hasattr(first_da, 'rio') and first_da.rio.crs:
+    if hasattr(first_da, "rio") and first_da.rio.crs:
         spatiotemporal_cube = spatiotemporal_cube.rio.write_crs(first_da.rio.crs)
         # Ensure spatial dimensions are correctly named for rio accessor
         # This depends on how the original DAs were created. Assuming they are e.g. ('y', 'x')
         # If they have names like 'latitude', 'longitude', ensure rio can find them.
         # Usually, if the coordinates are named e.g. 'y', 'x', rio works fine.
         # If not, one might need: spatiotemporal_cube.rio.set_spatial_dims(x_dim=ref_dims[1], y_dim=ref_dims[0], inplace=True)
-
 
     return spatiotemporal_cube
 
@@ -156,8 +161,10 @@ def lazy_windowed_read_zarr(
         >>> # print(data_chunk) # This will show the DataArray structure
         >>> # actual_data = data_chunk.compute() # This triggers data loading
     """
-    if not all(k in window for k in ['x', 'y', 'width', 'height']):
-        raise KeyError("Window dictionary must contain 'x', 'y', 'width', and 'height' keys.")
+    if not all(k in window for k in ["x", "y", "width", "height"]):
+        raise KeyError(
+            "Window dictionary must contain 'x', 'y', 'width', and 'height' keys."
+        )
 
     # Open the Zarr store. For multiscale stores, we need to handle the structure carefully
     # If multiscale_group_name is provided, it's used as the group path.
@@ -167,30 +174,33 @@ def lazy_windowed_read_zarr(
     import zarr as zarr_lib
 
     try:
-        zarr_store = zarr_lib.open_group(store_path_or_url, mode='r')
+        zarr_store = zarr_lib.open_group(store_path_or_url, mode="r")
         if zarr_group_path:
             zarr_store = zarr_store[zarr_group_path]
 
         # Get the multiscale metadata to understand the structure
-        multiscale_metadata = zarr_store.attrs.get('multiscales', [])
+        multiscale_metadata = zarr_store.attrs.get("multiscales", [])
         if not multiscale_metadata:
             raise ValueError("No multiscale metadata found in zarr store")
 
         # Get the datasets (levels) from the first multiscale entry
-        datasets = multiscale_metadata[0].get('datasets', [])
+        datasets = multiscale_metadata[0].get("datasets", [])
         if not datasets:
             raise ValueError("No datasets found in multiscale metadata")
 
         # Create a list of DataArrays for each level
         multi_scale_pyramid = []
         for dataset_info in datasets:
-            level_path = dataset_info['path']
+            level_path = dataset_info["path"]
             zarr_array = zarr_store[level_path]
 
             # Convert to xarray DataArray with proper dimensions and keep it lazy
-            dims = zarr_array.attrs.get('_ARRAY_DIMENSIONS', [f'dim_{i}' for i in range(zarr_array.ndim)])
+            dims = zarr_array.attrs.get(
+                "_ARRAY_DIMENSIONS", [f"dim_{i}" for i in range(zarr_array.ndim)]
+            )
             # Use dask to keep the array lazy
             import dask.array as da_dask
+
             dask_array = da_dask.from_zarr(zarr_array)
             da = xr.DataArray(dask_array, dims=dims)
             multi_scale_pyramid.append(da)
@@ -198,7 +208,10 @@ def lazy_windowed_read_zarr(
     except KeyError as e:
         # If zarr group path doesn't exist, raise PathNotFoundError as expected by tests
         import zarr.errors
-        raise zarr.errors.PathNotFoundError(f"Group '{zarr_group_path}' not found in zarr store") from e
+
+        raise zarr.errors.PathNotFoundError(
+            f"Group '{zarr_group_path}' not found in zarr store"
+        ) from e
     except Exception as e:
         # If zarr store access fails, provide more context
         raise Exception(
@@ -212,16 +225,18 @@ def lazy_windowed_read_zarr(
     # The API of xarray_multiscale.multiscale returns a list of DataArrays.
     try:
         if isinstance(level, str) and not level.isdigit():
-             # This case is tricky. xarray_multiscale returns a list of DataArrays.
-             # If levels are named like "s0", "s1", this simple indexing won't work.
-             # For OME-ZARR, levels are typically indexed 0, 1, 2...
-             # The `datasets` attribute in .zattrs lists paths like "0", "1", "2".
-             # `xarray.open_zarr` with `group=''` on an OME-Zarr root might return a Dataset
-             # where `ds.attrs['multiscales']` exists.
-             # `xarray_multiscale.multiscale(ds, ...)` then returns a list of xr.DataArrays.
-             # We will assume `level` as integer index for this list.
-             # If string "0", "1" etc are passed, convert to int.
-            raise ValueError(f"Level '{level}' is a non-integer string. Please use integer index for levels.")
+            # This case is tricky. xarray_multiscale returns a list of DataArrays.
+            # If levels are named like "s0", "s1", this simple indexing won't work.
+            # For OME-ZARR, levels are typically indexed 0, 1, 2...
+            # The `datasets` attribute in .zattrs lists paths like "0", "1", "2".
+            # `xarray.open_zarr` with `group=''` on an OME-Zarr root might return a Dataset
+            # where `ds.attrs['multiscales']` exists.
+            # `xarray_multiscale.multiscale(ds, ...)` then returns a list of xr.DataArrays.
+            # We will assume `level` as integer index for this list.
+            # If string "0", "1" etc are passed, convert to int.
+            raise ValueError(
+                f"Level '{level}' is a non-integer string. Please use integer index for levels."
+            )
 
         level_idx = int(level)
         data_at_level = multi_scale_pyramid[level_idx]
@@ -229,33 +244,44 @@ def lazy_windowed_read_zarr(
         raise IndexError(
             f"Level {level} is out of bounds. Available levels: {len(multi_scale_pyramid)} (0 to {len(multi_scale_pyramid)-1})."
         ) from None
-    except ValueError as e: # Handles non-integer string level
-        raise ValueError(f"Invalid level specified: {level}. Must be an integer or a string representing an integer. Error: {e}")
-
+    except ValueError as e:  # Handles non-integer string level
+        raise ValueError(
+            f"Invalid level specified: {level}. Must be an integer or a string representing an integer. Error: {e}"
+        )
 
     # Select the window using .isel for integer-based slicing.
     # Assumes dimensions are named 'x' and 'y' in the DataArray at the selected level.
     # This is a common convention for 2D spatial data.
     try:
-        x_slice = slice(window['x'], window['x'] + window['width'])
-        y_slice = slice(window['y'], window['y'] + window['height'])
+        x_slice = slice(window["x"], window["x"] + window["width"])
+        y_slice = slice(window["y"], window["y"] + window["height"])
 
         # Check if 'x' and 'y' are dimensions in the data_at_level
-        if 'x' not in data_at_level.dims or 'y' not in data_at_level.dims:
-            raise KeyError(f"Dimensions 'x' and/or 'y' not found in DataArray at level {level}. "
-                           f"Available dimensions: {data_at_level.dims}. "
-                           f"Ensure 'axis_order' ('{axis_order}') correctly maps to these dimensions.")
+        if "x" not in data_at_level.dims or "y" not in data_at_level.dims:
+            raise KeyError(
+                f"Dimensions 'x' and/or 'y' not found in DataArray at level {level}. "
+                f"Available dimensions: {data_at_level.dims}. "
+                f"Ensure 'axis_order' ('{axis_order}') correctly maps to these dimensions."
+            )
 
         windowed_data = data_at_level.isel(x=x_slice, y=y_slice)
-    except KeyError as e: # Handles missing 'x', 'y', 'width', 'height' from window dict (already checked) or missing dims
-        raise KeyError(f"Failed to slice window. Ensure 'x' and 'y' are valid dimension names in the selected level's DataArray. Original error: {e}")
-    except IndexError as e: # Handles slice out of bounds
-        raise IndexError(f"Window {window} is out of bounds for level {level} with shape {data_at_level.shape}. Original error: {e}")
+    except (
+        KeyError
+    ) as e:  # Handles missing 'x', 'y', 'width', 'height' from window dict (already checked) or missing dims
+        raise KeyError(
+            f"Failed to slice window. Ensure 'x' and 'y' are valid dimension names in the selected level's DataArray. Original error: {e}"
+        )
+    except IndexError as e:  # Handles slice out of bounds
+        raise IndexError(
+            f"Window {window} is out of bounds for level {level} with shape {data_at_level.shape}. Original error: {e}"
+        )
 
     return windowed_data
 
 
-def reproject(data_array: xr.DataArray, target_crs: Union[str, int], **kwargs) -> xr.DataArray:
+def reproject(
+    data_array: xr.DataArray, target_crs: Union[str, int], **kwargs
+) -> xr.DataArray:
     """Reprojects an xarray.DataArray to a new Coordinate Reference System (CRS).
 
     This function utilizes the `rio.reproject()` method from the `rioxarray` extension.
@@ -274,17 +300,20 @@ def reproject(data_array: xr.DataArray, target_crs: Union[str, int], **kwargs) -
     Returns:
         xr.DataArray: A new DataArray reprojected to the target CRS.
     """
-    if not hasattr(data_array, 'rio'):
-        raise ValueError("DataArray does not have 'rio' accessor. Ensure rioxarray is installed and the DataArray has CRS information.")
+    if not hasattr(data_array, "rio"):
+        raise ValueError(
+            "DataArray does not have 'rio' accessor. Ensure rioxarray is installed and the DataArray has CRS information."
+        )
     if data_array.rio.crs is None:
-        raise ValueError("Input DataArray must have a CRS defined to perform reprojection.")
+        raise ValueError(
+            "Input DataArray must have a CRS defined to perform reprojection."
+        )
 
     return data_array.rio.reproject(target_crs, **kwargs)
 
+
 def normalized_difference(
-    array: Union[xr.DataArray, xr.Dataset],
-    band1: Hashable,
-    band2: Hashable
+    array: Union[xr.DataArray, xr.Dataset], band1: Hashable, band2: Hashable
 ) -> xr.DataArray:
     """Computes the normalized difference between two bands of a raster.
 
@@ -325,7 +354,7 @@ def normalized_difference(
 
     if isinstance(array, xr.DataArray):
         # Try to select using 'band' coordinate, common for rioxarray outputs
-        if 'band' in array.coords:
+        if "band" in array.coords:
             try:
                 b1 = array.sel(band=band1)
                 b2 = array.sel(band=band2)
@@ -343,18 +372,26 @@ def normalized_difference(
             )
     elif isinstance(array, xr.Dataset):
         if band1 not in array.variables:
-            raise ValueError(f"Band '{band1}' not found as a variable in the input Dataset. Available variables: {list(array.variables)}")
+            raise ValueError(
+                f"Band '{band1}' not found as a variable in the input Dataset. Available variables: {list(array.variables)}"
+            )
         if band2 not in array.variables:
-            raise ValueError(f"Band '{band2}' not found as a variable in the input Dataset. Available variables: {list(array.variables)}")
+            raise ValueError(
+                f"Band '{band2}' not found as a variable in the input Dataset. Available variables: {list(array.variables)}"
+            )
 
         b1 = array[band1]
         b2 = array[band2]
 
         if not isinstance(b1, xr.DataArray) or not isinstance(b2, xr.DataArray):
-            raise ValueError(f"Selected variables '{band1}' and '{band2}' must be DataArrays.")
+            raise ValueError(
+                f"Selected variables '{band1}' and '{band2}' must be DataArrays."
+            )
 
     else:
-        raise TypeError(f"Input 'array' must be an xr.DataArray or xr.Dataset, got {type(array)}.")
+        raise TypeError(
+            f"Input 'array' must be an xr.DataArray or xr.Dataset, got {type(array)}."
+        )
 
     # Ensure selected bands are not empty or incompatible
     if b1.size == 0 or b2.size == 0:
@@ -375,4 +412,6 @@ def normalized_difference(
         return (numerator.astype(float)) / (denominator.astype(float))
 
     except Exception as e:
-        raise TypeError(f"Could not perform arithmetic on selected bands. Ensure they are numeric and compatible. Original error: {e}") from e
+        raise TypeError(
+            f"Could not perform arithmetic on selected bands. Ensure they are numeric and compatible. Original error: {e}"
+        ) from e

@@ -1,6 +1,7 @@
 __version__ = "0.0.0-dev0"
 
-from pathlib import Path # Existing import
+from pathlib import Path  # Existing import
+
 # from typing import Union # Not strictly needed for Python 3.10+ type hints like `|`
 
 from .io import read
@@ -13,10 +14,13 @@ from .plotting import choropleth
 from .vector import buffer, clip, overlay, spatial_join
 from .raster import reproject, normalized_difference
 from .viz import explore, plot_interactive
+
 # from .serve import serve # Exposing the serve function at the top level - temporarily disabled due to missing fastapi-mvt
 
 
-def set_cache(dir_: Path | str | None = None, *, ttl_days: int = 7) -> None: # Python 3.10+ type hint
+def set_cache(
+    dir_: Path | str | None = None, *, ttl_days: int = 7
+) -> None:  # Python 3.10+ type hint
     """
     Enable or disable caching at runtime.
 
@@ -33,7 +37,7 @@ def set_cache(dir_: Path | str | None = None, *, ttl_days: int = 7) -> None: # P
         # Reset the global session
         import pymapgis.cache as cache_module
 
-        cache_module._session = None # type: ignore[attr-defined]
+        cache_module._session = None  # type: ignore[attr-defined]
         _init_session(dir_, expire_after=timedelta(days=ttl_days))
 
 

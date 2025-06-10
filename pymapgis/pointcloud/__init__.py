@@ -16,12 +16,14 @@ It is highly recommended to install PDAL using Conda:
 If you have installed PDAL via Conda, ensure the Python environment running
 PyMapGIS has access to the `pdal` Python bindings installed by Conda.
 """
+
 import json
 from typing import Dict, Any, List, Optional
 
 try:
     import numpy as np
     import pdal  # Import PDAL Python bindings
+
     PDAL_AVAILABLE = True
 except ImportError:
     PDAL_AVAILABLE = False
@@ -33,8 +35,9 @@ __all__ = [
     "get_point_cloud_metadata",
     "get_point_cloud_points",
     "get_point_cloud_srs",
-    "create_las_from_numpy" # Added for testing
+    "create_las_from_numpy",  # Added for testing
 ]
+
 
 def read_point_cloud(filepath: str, **kwargs: Any) -> Any:
     """
@@ -65,9 +68,9 @@ def read_point_cloud(filepath: str, **kwargs: Any) -> Any:
         )
     pipeline_stages = [
         {
-            "type": "readers.las", # Default reader, PDAL auto-detects LAZ as well
+            "type": "readers.las",  # Default reader, PDAL auto-detects LAZ as well
             "filename": filepath,
-            **kwargs
+            **kwargs,
         }
         # Example: Add a statistics filter if always desired by default
         # {
@@ -89,6 +92,7 @@ def read_point_cloud(filepath: str, **kwargs: Any) -> Any:
         ) from e
 
     return pipeline
+
 
 def get_point_cloud_metadata(pipeline: Any) -> Dict[str, Any]:
     """
@@ -126,24 +130,29 @@ def get_point_cloud_metadata(pipeline: Any) -> Dict[str, Any]:
         # 'quickinfo' provides some of this from the primary reader.
         # 'schema' provides the dimensions and types.
         metadata = {
-            "quickinfo": pipeline.quickinfo.get(next(iter(pipeline.quickinfo))) if pipeline.quickinfo else {}, # Get first reader's quickinfo
-            "schema": pipeline.schema, # This is often a string representation, might need parsing or use pipeline.dimensions
-            "dimensions": pipeline.dimensions, # JSON string of dimensions
-            "metadata": full_metadata.get('metadata', {}) # The actual metadata section from the JSON
+            "quickinfo": (
+                pipeline.quickinfo.get(next(iter(pipeline.quickinfo)))
+                if pipeline.quickinfo
+                else {}
+            ),  # Get first reader's quickinfo
+            "schema": pipeline.schema,  # This is often a string representation, might need parsing or use pipeline.dimensions
+            "dimensions": pipeline.dimensions,  # JSON string of dimensions
+            "metadata": full_metadata.get(
+                "metadata", {}
+            ),  # The actual metadata section from the JSON
         }
-        srs_data = metadata['metadata'].get('readers.las', [{}])[0].get('srs',{})
-        if not srs_data and 'comp_spatialreference' in metadata['quickinfo']:
-             metadata['srs_wkt'] = metadata['quickinfo']['comp_spatialreference']
-        elif srs_data.get('wkt'):
-            metadata['srs_wkt'] = srs_data.get('wkt')
-
+        srs_data = metadata["metadata"].get("readers.las", [{}])[0].get("srs", {})
+        if not srs_data and "comp_spatialreference" in metadata["quickinfo"]:
+            metadata["srs_wkt"] = metadata["quickinfo"]["comp_spatialreference"]
+        elif srs_data.get("wkt"):
+            metadata["srs_wkt"] = srs_data.get("wkt")
 
     except Exception as e:
         # Fallback or simpler metadata if above fails
         return {
             "error": f"Could not parse full metadata, returning basic info. Error: {e}",
             "log": pipeline.log,
-            "points_count": len(pipeline.arrays[0]) if pipeline.arrays else 0
+            "points_count": len(pipeline.arrays[0]) if pipeline.arrays else 0,
         }
     return metadata
 
@@ -165,9 +174,10 @@ def get_point_cloud_points(pipeline: Any) -> Any:
         raise TypeError("Input must be an executed pdal.Pipeline object.")
 
     if not pipeline.arrays:
-        return np.array([]) # Return empty array if no data
+        return np.array([])  # Return empty array if no data
 
-    return pipeline.arrays[0] # PDAL pipelines typically return one array
+    return pipeline.arrays[0]  # PDAL pipelines typically return one array
+
 
 def get_point_cloud_srs(pipeline: Any) -> str:
     """
@@ -186,36 +196,44 @@ def get_point_cloud_srs(pipeline: Any) -> str:
     # Attempt to get SRS from different metadata locations PDAL might use.
     # 1. From the consolidated metadata (often contains 'comp_spatialreference')
     try:
-        meta = json.loads(pipeline.metadata) # Full pipeline metadata
+        meta = json.loads(pipeline.metadata)  # Full pipeline metadata
         # Check common places for SRS info
         # Reader specific metadata:
-        if meta.get('metadata') and meta['metadata'].get('readers.las'):
-            srs_info = meta['metadata']['readers.las'][0].get('srs', {})
-            if isinstance(srs_info, dict) and srs_info.get('wkt'):
-                return srs_info['wkt']
+        if meta.get("metadata") and meta["metadata"].get("readers.las"):
+            srs_info = meta["metadata"]["readers.las"][0].get("srs", {})
+            if isinstance(srs_info, dict) and srs_info.get("wkt"):
+                return srs_info["wkt"]
             # Sometimes it's directly 'comp_spatialreference' under the reader
-            if isinstance(srs_info, dict) and srs_info.get('compoundwkt'): # PDAL might use this
-                 return srs_info['compoundwkt']
-
+            if isinstance(srs_info, dict) and srs_info.get(
+                "compoundwkt"
+            ):  # PDAL might use this
+                return srs_info["compoundwkt"]
 
         # Quickinfo (often has compound WKT)
         # pipeline.quickinfo is a dict where keys are stage names.
         # Find the reader stage (usually the first one or 'readers.las')
-        reader_stage_key = next((k for k in pipeline.quickinfo if k.startswith("readers.")), None)
-        if reader_stage_key and 'srs' in pipeline.quickinfo[reader_stage_key]:
-            srs_dict = pipeline.quickinfo[reader_stage_key]['srs']
-            if isinstance(srs_dict, dict) and srs_dict.get('wkt'): # Newer PDAL versions
-                return srs_dict['wkt']
-            if isinstance(srs_dict, dict) and srs_dict.get('compoundwkt'):
-                return srs_dict['compoundwkt']
+        reader_stage_key = next(
+            (k for k in pipeline.quickinfo if k.startswith("readers.")), None
+        )
+        if reader_stage_key and "srs" in pipeline.quickinfo[reader_stage_key]:
+            srs_dict = pipeline.quickinfo[reader_stage_key]["srs"]
+            if isinstance(srs_dict, dict) and srs_dict.get(
+                "wkt"
+            ):  # Newer PDAL versions
+                return srs_dict["wkt"]
+            if isinstance(srs_dict, dict) and srs_dict.get("compoundwkt"):
+                return srs_dict["compoundwkt"]
 
         # Fallback to comp_spatialreference if available in quickinfo (older PDAL versions behavior)
-        if reader_stage_key and 'comp_spatialreference' in pipeline.quickinfo[reader_stage_key]:
-            return pipeline.quickinfo[reader_stage_key]['comp_spatialreference']
+        if (
+            reader_stage_key
+            and "comp_spatialreference" in pipeline.quickinfo[reader_stage_key]
+        ):
+            return pipeline.quickinfo[reader_stage_key]["comp_spatialreference"]
 
     except Exception:
         # If parsing fails or keys are not found, try to gracefully return empty or log error
-        pass # Fall through to other methods or return empty
+        pass  # Fall through to other methods or return empty
 
     # If not found in structured metadata, sometimes it's in the general log (less reliable)
     # This is a last resort and might not be standard WKT.
@@ -225,9 +243,7 @@ def get_point_cloud_srs(pipeline: Any) -> str:
 
 # Helper function for creating a dummy LAS file for testing purposes
 def create_las_from_numpy(
-    points_array: Any,
-    output_filepath: str,
-    srs_wkt: Optional[str] = None
+    points_array: Any, output_filepath: str, srs_wkt: Optional[str] = None
 ) -> None:
     """
     Creates a LAS file from a NumPy structured array using a PDAL pipeline.
@@ -248,14 +264,8 @@ def create_las_from_numpy(
         raise ValueError("output_filepath must end with .las")
 
     pipeline_stages: List[Dict[str, Any]] = [
-        {
-            "type": "readers.numpy",
-            "array": points_array
-        },
-        {
-            "type": "writers.las",
-            "filename": output_filepath
-        }
+        {"type": "readers.numpy", "array": points_array},
+        {"type": "writers.las", "filename": output_filepath},
     ]
 
     if srs_wkt:

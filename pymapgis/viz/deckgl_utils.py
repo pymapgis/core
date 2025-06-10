@@ -13,6 +13,7 @@ Ensure it's installed in your environment to use these visualization functions.
 You'll also need a compatible Jupyter environment (Jupyter Notebook or JupyterLab
 with the appropriate pydeck extension enabled) to render the maps.
 """
+
 import pydeck
 import xarray as xr
 import numpy as np
@@ -20,7 +21,7 @@ import pandas as pd
 from typing import Optional
 
 # Define a default map style for deck.gl visualizations
-DEFAULT_MAP_STYLE = 'mapbox://styles/mapbox/light-v9'
+DEFAULT_MAP_STYLE = "mapbox://styles/mapbox/light-v9"
 
 
 def view_3d_cube(
@@ -34,7 +35,7 @@ def view_3d_cube(
     latitude: Optional[float] = None,
     longitude: Optional[float] = None,
     zoom: Optional[float] = None,
-    **kwargs_pydeck_layer
+    **kwargs_pydeck_layer,
 ) -> pydeck.Deck:
     """
     Visualizes a 2D slice of a 3D (time, y, x) xarray DataArray using deck.gl.
@@ -77,71 +78,77 @@ def view_3d_cube(
     """
     if cube.ndim != 3:
         raise ValueError("Input DataArray 'cube' must be 3-dimensional (time, y, x).")
-    if 'y' not in cube.coords or 'x' not in cube.coords:
+    if "y" not in cube.coords or "x" not in cube.coords:
         raise ValueError("Cube must have 'y' and 'x' coordinates.")
 
     # Select the 2D slice for the given time index
     try:
         spatial_slice = cube.isel(time=time_index)
     except IndexError:
-        raise IndexError(f"time_index {time_index} is out of bounds for time dimension of size {cube.shape[0]}.")
+        raise IndexError(
+            f"time_index {time_index} is out of bounds for time dimension of size {cube.shape[0]}."
+        )
 
     # Convert the xarray DataArray slice to a Pandas DataFrame suitable for PyDeck
     # PyDeck layers often expect 'latitude', 'longitude' columns or specific geometry.
     # For GridLayer/HeatmapLayer, a list of [longitude, latitude, value] can be used.
-    df = spatial_slice.to_dataframe(name=variable_name if variable_name else "value").reset_index()
+    df = spatial_slice.to_dataframe(
+        name=variable_name if variable_name else "value"
+    ).reset_index()
 
     # Assuming 'y' is latitude and 'x' is longitude
-    df.rename(columns={'y': 'latitude', 'x': 'longitude'}, inplace=True)
+    df.rename(columns={"y": "latitude", "x": "longitude"}, inplace=True)
 
     # Ensure the value column is not NaN for pydeck layers that require valid numbers
     value_col = variable_name if variable_name else "value"
-    df = df.dropna(subset=['latitude', 'longitude', value_col])
+    df = df.dropna(subset=["latitude", "longitude", value_col])
     if df.empty:
-        raise ValueError("DataFrame is empty after dropping NaNs from coordinates or value column. Cannot visualize.")
+        raise ValueError(
+            "DataFrame is empty after dropping NaNs from coordinates or value column. Cannot visualize."
+        )
 
     # Determine view state if not fully provided
     if latitude is None:
-        latitude = df['latitude'].mean()
+        latitude = df["latitude"].mean()
     if longitude is None:
-        longitude = df['longitude'].mean()
+        longitude = df["longitude"].mean()
     if zoom is None:
         # Basic auto-zoom heuristic (very rough)
-        lat_span = df['latitude'].max() - df['latitude'].min()
-        lon_span = df['longitude'].max() - df['longitude'].min()
-        if lat_span == 0 and lon_span == 0: # Single point
+        lat_span = df["latitude"].max() - df["latitude"].min()
+        lon_span = df["longitude"].max() - df["longitude"].min()
+        if lat_span == 0 and lon_span == 0:  # Single point
             zoom = 12
         else:
             # This is a very simplified zoom calculation. PyDeck often does this better.
             # Based on deck.gl's WebMercatorViewport.fitBounds logic (conceptual)
             import math
+
             max_span = max(lat_span, lon_span)
             if max_span > 0:
-                 zoom = math.log2(360 / max_span) -1 # Rough global scale to span
-                 zoom = max(0, min(zoom, 18)) # Clamp zoom
-            else: # Should not happen if df is not empty and spans are zero (single point)
-                 zoom = 10
-
+                zoom = math.log2(360 / max_span) - 1  # Rough global scale to span
+                zoom = max(0, min(zoom, 18))  # Clamp zoom
+            else:  # Should not happen if df is not empty and spans are zero (single point)
+                zoom = 10
 
     initial_view_state = pydeck.ViewState(
         latitude=latitude,
         longitude=longitude,
-        zoom=zoom if zoom is not None else 6, # Default zoom if still None
-        pitch=45, # Tilt the view for a 2.5D perspective
-        bearing=0
+        zoom=zoom if zoom is not None else 6,  # Default zoom if still None
+        pitch=45,  # Tilt the view for a 2.5D perspective
+        bearing=0,
     )
 
     # Create a PyDeck GridLayer by default
     # Users can pass 'type' in kwargs_pydeck_layer to change layer type
-    layer_type = kwargs_pydeck_layer.pop('type', 'GridLayer')
+    layer_type = kwargs_pydeck_layer.pop("type", "GridLayer")
 
-    if layer_type == 'GridLayer':
+    if layer_type == "GridLayer":
         layer = pydeck.Layer(
             "GridLayer",
             data=df,
             get_position="[longitude, latitude]",
-            get_elevation=value_col, # Map data value to elevation
-            get_fill_color=f"{value_col} / {df[value_col].max()} * 255", # Example: scale color by value
+            get_elevation=value_col,  # Map data value to elevation
+            get_fill_color=f"{value_col} / {df[value_col].max()} * 255",  # Example: scale color by value
             # Colormap usage with GridLayer is more complex, often involves pre-calculating colors
             # or using deck.gl expressions if supported by pydeck for get_fill_color.
             # For simplicity, this example maps value to a shade of a single color or uses a fixed color.
@@ -162,7 +169,6 @@ def view_3d_cube(
             # df['color_b'] = 120
             # get_fill_color = '[color_r, color_g, color_b, 200]' # Use precomputed color columns
             # This is too complex for default. Let's use a fixed color or simple expression.
-
             # Simpler: use elevation for value, and a fixed color or simple ramp based on elevation
             # `color_range` is typical for HeatmapLayer, not directly for GridLayer's get_fill_color.
             # We can use an expression if values are in a known range e.g. 0-255.
@@ -171,43 +177,49 @@ def view_3d_cube(
             # A common pattern is to use `get_elevation` for the value and a fixed/simple color.
             pickable=True,
             extruded=True,
-            cell_size=cell_size, # In meters
+            cell_size=cell_size,  # In meters
             elevation_scale=elevation_scale,
             opacity=opacity,
-            **kwargs_pydeck_layer
+            **kwargs_pydeck_layer,
         )
-    elif layer_type == 'HeatmapLayer':
+    elif layer_type == "HeatmapLayer":
         layer = pydeck.Layer(
             "HeatmapLayer",
             data=df,
             get_position="[longitude, latitude]",
-            get_weight=value_col, # Map data value to heatmap intensity
+            get_weight=value_col,  # Map data value to heatmap intensity
             opacity=opacity,
             # `color_range` is a common way to specify colormap for HeatmapLayer
             # Example: color_range=[[255,255,178,25],[254,204,92,85],[253,141,60,135],[240,59,32,185],[189,0,38,255]] (YlOrRd)
-            **kwargs_pydeck_layer
+            **kwargs_pydeck_layer,
         )
     else:
-        raise ValueError(f"Unsupported layer_type: {layer_type}. Choose 'GridLayer' or 'HeatmapLayer', or implement others.")
+        raise ValueError(
+            f"Unsupported layer_type: {layer_type}. Choose 'GridLayer' or 'HeatmapLayer', or implement others."
+        )
 
     deck_view = pydeck.Deck(
         layers=[layer],
         initial_view_state=initial_view_state,
         map_style=DEFAULT_MAP_STYLE,
-        tooltip={"text": f"{value_col}: {{{value_col}}}"} if value_col in df.columns else None
+        tooltip=(
+            {"text": f"{value_col}: {{{value_col}}}"}
+            if value_col in df.columns
+            else None
+        ),
     )
     return deck_view
 
 
 def view_point_cloud_3d(
     points: np.ndarray,
-    srs: str = "EPSG:4326", # Assume WGS84 if not specified, affects map view
+    srs: str = "EPSG:4326",  # Assume WGS84 if not specified, affects map view
     point_size: int = 3,
-    color: list = [255, 0, 0, 180], # Default: Red
+    color: list = [255, 0, 0, 180],  # Default: Red
     latitude: Optional[float] = None,
     longitude: Optional[float] = None,
     zoom: Optional[float] = None,
-    **kwargs_pydeck_layer
+    **kwargs_pydeck_layer,
 ) -> pydeck.Deck:
     """
     Visualizes a point cloud using deck.gl's PointCloudLayer.
@@ -238,62 +250,73 @@ def view_point_cloud_3d(
     Raises:
         ValueError: If `points` array does not have 'X', 'Y', 'Z' fields.
     """
-    required_fields = ['X', 'Y', 'Z']
+    required_fields = ["X", "Y", "Z"]
     if not all(field in points.dtype.names for field in required_fields):
-        raise ValueError(f"Input points array must have 'X', 'Y', 'Z' fields. Found: {points.dtype.names}")
+        raise ValueError(
+            f"Input points array must have 'X', 'Y', 'Z' fields. Found: {points.dtype.names}"
+        )
 
     # Convert structured array to DataFrame for PyDeck
     df = pd.DataFrame(points)
     # PyDeck expects 'position' as [longitude, latitude, altitude]
     # Assuming input X, Y, Z map to this.
-    df['position'] = df.apply(lambda row: [row['X'], row['Y'], row['Z']], axis=1)
+    df["position"] = df.apply(lambda row: [row["X"], row["Y"], row["Z"]], axis=1)
 
     if df.empty:
         # Return an empty deck or raise error? For now, empty deck.
-        return pydeck.Deck(initial_view_state=pydeck.ViewState(latitude=0, longitude=0, zoom=1))
+        return pydeck.Deck(
+            initial_view_state=pydeck.ViewState(latitude=0, longitude=0, zoom=1)
+        )
 
     # Determine view state
     if latitude is None:
-        latitude = df['Y'].mean()
+        latitude = df["Y"].mean()
     if longitude is None:
-        longitude = df['X'].mean()
+        longitude = df["X"].mean()
     if zoom is None:
         # Basic auto-zoom heuristic (very rough)
-        x_span = df['X'].max() - df['X'].min()
-        y_span = df['Y'].max() - df['Y'].min()
-        if x_span == 0 and y_span == 0: # Single point effective
+        x_span = df["X"].max() - df["X"].min()
+        y_span = df["Y"].max() - df["Y"].min()
+        if x_span == 0 and y_span == 0:  # Single point effective
             zoom = 15
         else:
             import math
+
             max_span = max(x_span, y_span)
             if max_span > 0:
-                 zoom = math.log2(360 / max_span) -1 # Rough global scale to span (assuming degrees)
-                 zoom = max(0, min(zoom, 20)) # Clamp zoom
+                zoom = (
+                    math.log2(360 / max_span) - 1
+                )  # Rough global scale to span (assuming degrees)
+                zoom = max(0, min(zoom, 20))  # Clamp zoom
             else:
-                 zoom = 12
+                zoom = 12
 
     initial_view_state = pydeck.ViewState(
         latitude=latitude,
         longitude=longitude,
         zoom=zoom,
-        pitch=45, # Tilt for 3D view
-        bearing=0
+        pitch=45,  # Tilt for 3D view
+        bearing=0,
     )
 
     layer = pydeck.Layer(
         "PointCloudLayer",
         data=df,
-        get_position='position',
-        get_color=kwargs_pydeck_layer.pop('get_color', color), # Use custom color accessor or default
-        get_normal=kwargs_pydeck_layer.pop('get_normal', [0, 0, 1]), # Default normal for basic lighting
+        get_position="position",
+        get_color=kwargs_pydeck_layer.pop(
+            "get_color", color
+        ),  # Use custom color accessor or default
+        get_normal=kwargs_pydeck_layer.pop(
+            "get_normal", [0, 0, 1]
+        ),  # Default normal for basic lighting
         point_size=point_size,
-        **kwargs_pydeck_layer
+        **kwargs_pydeck_layer,
     )
 
     deck_view = pydeck.Deck(
         layers=[layer],
         initial_view_state=initial_view_state,
         map_style=DEFAULT_MAP_STYLE,
-        tooltip={"text": "X: {X}\nY: {Y}\nZ: {Z}"} # Basic tooltip
+        tooltip={"text": "X: {X}\nY: {Y}\nZ: {Z}"},  # Basic tooltip
     )
     return deck_view

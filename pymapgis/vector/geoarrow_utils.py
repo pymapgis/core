@@ -1,10 +1,12 @@
 """
 Utilities for converting between GeoPandas GeoDataFrames and GeoArrow-encoded PyArrow Tables.
 """
+
 import geopandas as gpd
 import pyarrow as pa
 import geoarrow.pyarrow as ga
 from typing import Optional
+
 
 def geodataframe_to_geoarrow(gdf: gpd.GeoDataFrame) -> pa.Table:
     """
@@ -45,8 +47,6 @@ def geodataframe_to_geoarrow(gdf: gpd.GeoDataFrame) -> pa.Table:
     # For the geometry column, it typically converts to WKB by default if not explicitly handled.
     # We want to leverage geoarrow-py's specific encoding which might be more type-aware.
 
-
-
     # Use the column-by-column approach since ga.to_table() doesn't exist in current geoarrow API
     # Create a list of pyarrow arrays for each column
     arrow_arrays = []
@@ -83,14 +83,15 @@ def geodataframe_to_geoarrow(gdf: gpd.GeoDataFrame) -> pa.Table:
         arrow_table = pa.Table.from_arrays(arrow_arrays, names=column_names)
     except Exception as e:
         raise RuntimeError(
-            "Failed to create PyArrow Table from arrays. "
-            f"Original error: {e}"
+            "Failed to create PyArrow Table from arrays. " f"Original error: {e}"
         ) from e
 
     return arrow_table
 
 
-def geoarrow_to_geodataframe(arrow_table: pa.Table, geometry_col_name: Optional[str] = None) -> gpd.GeoDataFrame:
+def geoarrow_to_geodataframe(
+    arrow_table: pa.Table, geometry_col_name: Optional[str] = None
+) -> gpd.GeoDataFrame:
     """
     Converts a PyArrow Table (with GeoArrow-encoded geometry) back to a GeoPandas GeoDataFrame.
 
@@ -123,9 +124,15 @@ def geoarrow_to_geodataframe(arrow_table: pa.Table, geometry_col_name: Optional[
 
     # Auto-detect geometry column if not specified
     if geometry_col_name is None:
-        geo_cols = [field.name for field in arrow_table.schema if isinstance(field.type, ga.GeometryExtensionType)]
+        geo_cols = [
+            field.name
+            for field in arrow_table.schema
+            if isinstance(field.type, ga.GeometryExtensionType)
+        ]
         if not geo_cols:
-            raise ValueError("No GeoArrow geometry column found in the Table. Please ensure one exists or specify 'geometry_col_name'.")
+            raise ValueError(
+                "No GeoArrow geometry column found in the Table. Please ensure one exists or specify 'geometry_col_name'."
+            )
         if len(geo_cols) > 1:
             raise ValueError(
                 f"Multiple GeoArrow geometry columns found: {geo_cols}. "
@@ -133,7 +140,9 @@ def geoarrow_to_geodataframe(arrow_table: pa.Table, geometry_col_name: Optional[
             )
         geometry_col_name = geo_cols[0]
     elif geometry_col_name not in arrow_table.column_names:
-        raise ValueError(f"Specified geometry_col_name '{geometry_col_name}' not found in Table columns: {arrow_table.column_names}")
+        raise ValueError(
+            f"Specified geometry_col_name '{geometry_col_name}' not found in Table columns: {arrow_table.column_names}"
+        )
 
     # Check if the specified (or detected) column is indeed a GeoArrow type
     geom_field = arrow_table.schema.field(geometry_col_name)
@@ -159,7 +168,9 @@ def geoarrow_to_geodataframe(arrow_table: pa.Table, geometry_col_name: Optional[
         # However, if there's a GeoArrow extension type, it's usually picked up.
         # We need to ensure that the column `geometry_col_name` is indeed the active geometry.
 
-        if geometry_col_name in gdf.columns and isinstance(gdf[geometry_col_name], gpd.GeoSeries):
+        if geometry_col_name in gdf.columns and isinstance(
+            gdf[geometry_col_name], gpd.GeoSeries
+        ):
             gdf = gdf.set_geometry(geometry_col_name)
         else:
             # This case should ideally not be reached if from_arrow works correctly with GeoArrow types
@@ -171,29 +182,29 @@ def geoarrow_to_geodataframe(arrow_table: pa.Table, geometry_col_name: Optional[
 
     except Exception as e:
         raise RuntimeError(
-            f"Failed to convert GeoArrow Table to GeoDataFrame. "
-            f"Original error: {e}"
+            f"Failed to convert GeoArrow Table to GeoDataFrame. " f"Original error: {e}"
         ) from e
 
     return gdf
 
+
 # Example usage (for testing/dev):
-if __name__ == '__main__':
+if __name__ == "__main__":
     from shapely.geometry import Point, LineString, Polygon
 
     # Create a sample GeoDataFrame
     data_dict = {
-        'id': [1, 2, 3, 4],
-        'name': ['Point A', 'Point B', 'Line C', 'Polygon D'],
-        'geometry': [
+        "id": [1, 2, 3, 4],
+        "name": ["Point A", "Point B", "Line C", "Polygon D"],
+        "geometry": [
             Point(0, 0),
             Point(1, 1),
             LineString([(0, 0), (1, 1), (1, 2)]),
-            Polygon([(0, 0), (1, 0), (1, 1), (0, 1)])
-        ]
+            Polygon([(0, 0), (1, 0), (1, 1), (0, 1)]),
+        ],
     }
     sample_gdf = gpd.GeoDataFrame(data_dict, crs="EPSG:4326")
-    sample_gdf.loc[1, 'geometry'] = None # Add a missing geometry
+    sample_gdf.loc[1, "geometry"] = None  # Add a missing geometry
 
     print("Original GeoDataFrame:")
     print(sample_gdf)
@@ -215,21 +226,25 @@ if __name__ == '__main__':
         print("Round-tripped GeoDataFrame:")
         print(gdf_roundtrip)
         print(f"CRS: {gdf_roundtrip.crs}")
-        print(f"Is GDF equal to original (except for potential minor differences like index type)? {sample_gdf.equals(gdf_roundtrip)}")
-        print(f"Is GDF geometrically equal? {sample_gdf.geometry.equals(gdf_roundtrip.geometry)}")
+        print(
+            f"Is GDF equal to original (except for potential minor differences like index type)? {sample_gdf.equals(gdf_roundtrip)}"
+        )
+        print(
+            f"Is GDF geometrically equal? {sample_gdf.geometry.equals(gdf_roundtrip.geometry)}"
+        )
 
         # Test CRS and attributes
         assert gdf_roundtrip.crs == sample_gdf.crs, "CRS mismatch"
-        assert 'id' in gdf_roundtrip.columns
-        assert 'name' in gdf_roundtrip.columns
-        assert gdf_roundtrip['id'].tolist() == sample_gdf['id'].tolist()
+        assert "id" in gdf_roundtrip.columns
+        assert "name" in gdf_roundtrip.columns
+        assert gdf_roundtrip["id"].tolist() == sample_gdf["id"].tolist()
 
         # More rigorous check
         # gpd.testing.assert_geodataframe_equal(sample_gdf, gdf_roundtrip, check_dtype=False, check_index_type=False)
         # print("\nGeoDataFrame roundtrip equality check passed (with type flexibility).")
 
-
     except Exception as e:
         print(f"An error occurred during the example run: {e}")
         import traceback
+
         traceback.print_exc()

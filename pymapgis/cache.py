@@ -31,6 +31,7 @@ def _get_fsspec_cache_dir() -> Path:
     """Return the fsspec cache directory."""
     return Path(settings.cache_dir).expanduser()
 
+
 _ENV_DISABLE = bool(int(os.getenv("PYMAPGIS_DISABLE_CACHE", "0")))
 _DEFAULT_DIR = Path.home() / ".pymapgis" / "cache"
 _DEFAULT_EXPIRE = timedelta(days=7)
@@ -151,7 +152,9 @@ def stats() -> dict:
                 fsspec_cache_file_count += 1
 
     return {
-        "requests_cache_path": str(requests_cache_path) if requests_cache_path else None,
+        "requests_cache_path": (
+            str(requests_cache_path) if requests_cache_path else None
+        ),
         "requests_cache_size_bytes": requests_cache_size_bytes,
         "requests_cache_total_urls": requests_cache_total_urls,
         "requests_cache_is_enabled": requests_cache_is_enabled,

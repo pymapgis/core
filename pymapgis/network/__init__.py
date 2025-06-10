@@ -9,6 +9,7 @@ For very large networks, the performance of these standard algorithms might be
 a concern. Future enhancements could explore specialized libraries or algorithms
 like Contraction Hierarchies for improved performance in such scenarios.
 """
+
 import geopandas as gpd
 import networkx as nx
 import numpy as np
@@ -20,13 +21,12 @@ __all__ = [
     "create_network_from_geodataframe",
     "find_nearest_node",
     "shortest_path",
-    "generate_isochrone"
+    "generate_isochrone",
 ]
 
+
 def create_network_from_geodataframe(
-    gdf: gpd.GeoDataFrame,
-    weight_col: Optional[str] = None,
-    simplify_graph: bool = True
+    gdf: gpd.GeoDataFrame, weight_col: Optional[str] = None, simplify_graph: bool = True
 ) -> nx.Graph:
     """
     Creates a NetworkX graph from a GeoDataFrame of LineStrings.
@@ -66,7 +66,9 @@ def create_network_from_geodataframe(
         return nx.Graph()
 
     # Ensure geometries are LineStrings
-    if not all(geom.geom_type == 'LineString' for geom in gdf.geometry if geom is not None):
+    if not all(
+        geom.geom_type == "LineString" for geom in gdf.geometry if geom is not None
+    ):
         raise ValueError("All geometries in the GeoDataFrame must be LineStrings.")
 
     graph = nx.Graph()
@@ -84,14 +86,18 @@ def create_network_from_geodataframe(
         graph.add_node(end_node, x=end_node[0], y=end_node[1])
 
         length = geom.length
-        weight = length # Default weight is length
+        weight = length  # Default weight is length
 
         if weight_col:
             if weight_col not in gdf.columns:
-                raise ValueError(f"Weight column '{weight_col}' not found in GeoDataFrame.")
+                raise ValueError(
+                    f"Weight column '{weight_col}' not found in GeoDataFrame."
+                )
             custom_weight = row[weight_col]
             if not isinstance(custom_weight, (int, float)):
-                raise ValueError(f"Weight column '{weight_col}' must contain numeric data. Found {type(custom_weight)}.")
+                raise ValueError(
+                    f"Weight column '{weight_col}' must contain numeric data. Found {type(custom_weight)}."
+                )
             weight = custom_weight
 
         # Add edge with attributes
@@ -102,10 +108,24 @@ def create_network_from_geodataframe(
             # For now, let's assume we take the first encountered or overwrite.
             # Or, if multiple edges are allowed, use MultiGraph. For now, Graph (unique edges).
             # Let's prioritize shorter weight if duplicate.
-            if weight < graph[start_node][end_node].get('weight', float('inf')):
-                 graph.add_edge(start_node, end_node, length=length, weight=weight, id=idx, geometry=geom)
+            if weight < graph[start_node][end_node].get("weight", float("inf")):
+                graph.add_edge(
+                    start_node,
+                    end_node,
+                    length=length,
+                    weight=weight,
+                    id=idx,
+                    geometry=geom,
+                )
         else:
-            graph.add_edge(start_node, end_node, length=length, weight=weight, id=idx, geometry=geom)
+            graph.add_edge(
+                start_node,
+                end_node,
+                length=length,
+                weight=weight,
+                id=idx,
+                geometry=geom,
+            )
 
     # Basic simplification: remove self-loops if any (should not occur from LineStrings)
     graph.remove_edges_from(nx.selfloop_edges(graph))
@@ -141,12 +161,12 @@ def find_nearest_node(graph: nx.Graph, point: Tuple[float, float]) -> Any:
     if not graph.nodes:
         return None
 
-    nodes_array = np.array(list(graph.nodes)) # Assumes nodes are (x,y) tuples
+    nodes_array = np.array(list(graph.nodes))  # Assumes nodes are (x,y) tuples
     if nodes_array.ndim != 2 or nodes_array.shape[1] != 2:
         raise ValueError("Graph nodes must be structured as (x,y) coordinate tuples.")
 
     point_np = np.array(point)
-    distances = np.sum((nodes_array - point_np)**2, axis=1)
+    distances = np.sum((nodes_array - point_np) ** 2, axis=1)
     nearest_idx = np.argmin(distances)
 
     # Return the actual node from the graph's node list (maintaining original type)
@@ -157,7 +177,7 @@ def shortest_path(
     graph: nx.Graph,
     source_node: Tuple[float, float],
     target_node: Tuple[float, float],
-    weight: str = 'length'
+    weight: str = "length",
 ) -> Tuple[List[Tuple[float, float]], float]:
     """
     Calculates the shortest path between two nodes in the graph.
@@ -190,13 +210,19 @@ def shortest_path(
         raise nx.NodeNotFound(f"Target node {target_node} not found in graph.")
 
     try:
-        path_nodes = nx.shortest_path(graph, source=source_node, target=target_node, weight=weight)
-        path_cost = nx.shortest_path_length(graph, source=source_node, target=target_node, weight=weight)
+        path_nodes = nx.shortest_path(
+            graph, source=source_node, target=target_node, weight=weight
+        )
+        path_cost = nx.shortest_path_length(
+            graph, source=source_node, target=target_node, weight=weight
+        )
     except nx.NetworkXNoPath:
         # Re-raise to be explicit or handle as per desired API (e.g. return [], float('inf'))
         raise
     except KeyError as e:
-        raise KeyError(f"Weight attribute '{weight}' not found on graph edges. Original error: {e}")
+        raise KeyError(
+            f"Weight attribute '{weight}' not found on graph edges. Original error: {e}"
+        )
 
     return path_nodes, path_cost
 
@@ -205,7 +231,7 @@ def generate_isochrone(
     graph: nx.Graph,
     source_node: Tuple[float, float],
     max_cost: float,
-    weight: str = 'length'
+    weight: str = "length",
 ) -> gpd.GeoDataFrame:
     """
     Generates an isochrone polygon representing reachable areas from a source node
@@ -241,27 +267,32 @@ def generate_isochrone(
 
     reachable_nodes = []
 
-    if weight is None: # Unweighted graph, max_cost is number of hops
+    if weight is None:  # Unweighted graph, max_cost is number of hops
         # ego_graph gives all nodes reachable within a certain radius (number of hops)
         # It includes the source_node itself at radius 0.
         # If max_cost is 0, only source_node is included.
-        subgraph = nx.ego_graph(graph, n=source_node, radius=int(max_cost), undirected=True)
+        subgraph = nx.ego_graph(
+            graph, n=source_node, radius=int(max_cost), undirected=True
+        )
         reachable_nodes.extend(list(subgraph.nodes()))
     else:
         # Weighted graph, use Dijkstra
         try:
-            path_lengths = nx.single_source_dijkstra_path_length(graph, source=source_node, cutoff=max_cost, weight=weight)
+            path_lengths = nx.single_source_dijkstra_path_length(
+                graph, source=source_node, cutoff=max_cost, weight=weight
+            )
             reachable_nodes.extend(path_lengths.keys())
         except KeyError as e:
-            raise KeyError(f"Weight attribute '{weight}' not found on graph edges. Original error: {e}")
-
+            raise KeyError(
+                f"Weight attribute '{weight}' not found on graph edges. Original error: {e}"
+            )
 
     if not reachable_nodes or len(reachable_nodes) < 3:
         # Convex hull needs at least 3 points.
         # If fewer than 3 nodes, return an empty GDF or a Point/LineString representation.
         # For simplicity, returning an empty GDF.
         # A common default CRS like EPSG:4326 can be set.
-        return gpd.GeoDataFrame({'geometry': []}, crs="EPSG:4326")
+        return gpd.GeoDataFrame({"geometry": []}, crs="EPSG:4326")
 
     # Create Point geometries from reachable nodes
     points = [Point(node) for node in reachable_nodes]
@@ -275,6 +306,6 @@ def generate_isochrone(
     # Create GeoDataFrame for the isochrone
     # Using a common default CRS. Ideally, the graph or input data would carry CRS.
     # For now, let's assume WGS84-like coordinates.
-    isochrone_gdf = gpd.GeoDataFrame({'geometry': [isochrone_polygon]}, crs="EPSG:4326")
+    isochrone_gdf = gpd.GeoDataFrame({"geometry": [isochrone_polygon]}, crs="EPSG:4326")
 
     return isochrone_gdf

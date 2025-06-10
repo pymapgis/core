@@ -4,8 +4,10 @@ Defines the Abstract Base Classes (ABCs) for PyMapGIS plugins.
 These interfaces ensure that plugins conform to a standard API,
 allowing PyMapGIS to discover and integrate them seamlessly.
 """
+
 from abc import ABC, abstractmethod
 from typing import Any
+
 
 class PymapgisDriver(ABC):
     """
@@ -37,6 +39,7 @@ class PymapgisDriver(ABC):
         """
         pass
 
+
 class PymapgisAlgorithm(ABC):
     """
     Abstract Base Class for algorithm plugins.
@@ -66,6 +69,7 @@ class PymapgisAlgorithm(ABC):
             Result of the algorithm execution.
         """
         pass
+
 
 class PymapgisVizBackend(ABC):
     """

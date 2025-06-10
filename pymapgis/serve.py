@@ -5,18 +5,18 @@ import uvicorn
 import geopandas as gpd
 import xarray as xr
 from typing import Union, Any, Optional, Dict
-import pymapgis # To access pymapgis.read
-from pymapgis.settings import settings # Potentially for CRS defaults or other settings
+import pymapgis  # To access pymapgis.read
+from pymapgis.settings import settings  # Potentially for CRS defaults or other settings
 
 # Raster specific imports
-from rio_tiler.io import Reader as RioTilerReader # Renamed to avoid conflict
+from rio_tiler.io import Reader as RioTilerReader  # Renamed to avoid conflict
 from rio_tiler.profiles import img_profiles
 from rio_tiler.utils import render as render_tile
 from rio_tiler.utils import get_colormap
 
 # Vector specific imports
 from fastapi_mvt.utils import gdf_to_mvt
-import mercantile # For tile bounds if needed by gdf_to_mvt or for viewer
+import mercantile  # For tile bounds if needed by gdf_to_mvt or for viewer
 
 # For HTML viewer
 import leafmap.leafmap as leafmap
@@ -28,32 +28,45 @@ import leafmap.leafmap as leafmap
 _app = FastAPI()
 _tile_server_data_source: Any = None
 _tile_server_layer_name: str = "layer"
-_service_type: Optional[str] = None # "raster" or "vector"
+_service_type: Optional[str] = None  # "raster" or "vector"
 
 
 @_app.get("/xyz/{layer_name}/{z}/{x}/{y}.png", tags=["Raster Tiles"])
-async def get_raster_tile(layer_name: str, z: int, x: int, y: int,
-                          rescale: Optional[str] = None, # e.g., "0,1000"
-                          colormap: Optional[str] = None, # e.g., "viridis"
-                          ):
+async def get_raster_tile(
+    layer_name: str,
+    z: int,
+    x: int,
+    y: int,
+    rescale: Optional[str] = None,  # e.g., "0,1000"
+    colormap: Optional[str] = None,  # e.g., "viridis"
+):
     """Serve raster tiles in PNG format."""
     global _tile_server_data_source, _tile_server_layer_name, _service_type
     if _service_type != "raster" or layer_name != _tile_server_layer_name:
-        raise HTTPException(status_code=404, detail="Raster layer not found or not configured")
+        raise HTTPException(
+            status_code=404, detail="Raster layer not found or not configured"
+        )
 
-    if not isinstance(_tile_server_data_source, (str, xr.DataArray, xr.Dataset)): # Path or xarray object
-        raise HTTPException(status_code=500, detail="Raster data source improperly configured.")
+    if not isinstance(
+        _tile_server_data_source, (str, xr.DataArray, xr.Dataset)
+    ):  # Path or xarray object
+        raise HTTPException(
+            status_code=500, detail="Raster data source improperly configured."
+        )
 
     # For Phase 1, _tile_server_data_source for raster is assumed to be a file path (COG)
     # In-memory xr.DataArray would require MemoryFile from rio_tiler.io or custom Reader
     if not isinstance(_tile_server_data_source, str):
-        raise HTTPException(status_code=501, detail="Serving in-memory xarray data not yet supported for raster. Please provide a file path (e.g., COG).")
+        raise HTTPException(
+            status_code=501,
+            detail="Serving in-memory xarray data not yet supported for raster. Please provide a file path (e.g., COG).",
+        )
 
     try:
         with RioTilerReader(_tile_server_data_source) as src:
             # rio-tiler can infer dataset parameters (min/max, etc.) or they can be passed
             # For multi-band imagery, 'indexes' or 'expression' might be needed in tile()
-            img = src.tile(x, y, z) # Returns an rio_tiler.models.ImageData object
+            img = src.tile(x, y, z)  # Returns an rio_tiler.models.ImageData object
 
             # Optional processing: rescale, colormap
             if rescale:
@@ -70,7 +83,10 @@ async def get_raster_tile(layer_name: str, z: int, x: int, y: int,
             return Response(content, media_type="image/png")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to generate raster tile for {layer_name} at {z}/{x}/{y}. Error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to generate raster tile for {layer_name} at {z}/{x}/{y}. Error: {str(e)}",
+        )
 
 
 @_app.get("/xyz/{layer_name}/{z}/{x}/{y}.mvt", tags=["Vector Tiles"])
@@ -78,10 +94,14 @@ async def get_vector_tile(layer_name: str, z: int, x: int, y: int):
     """Serve vector tiles in MVT format."""
     global _tile_server_data_source, _tile_server_layer_name, _service_type
     if _service_type != "vector" or layer_name != _tile_server_layer_name:
-        raise HTTPException(status_code=404, detail="Vector layer not found or not configured")
+        raise HTTPException(
+            status_code=404, detail="Vector layer not found or not configured"
+        )
 
     if not isinstance(_tile_server_data_source, gpd.GeoDataFrame):
-        raise HTTPException(status_code=500, detail="Vector data source is not a GeoDataFrame.")
+        raise HTTPException(
+            status_code=500, detail="Vector data source is not a GeoDataFrame."
+        )
 
     try:
         # Reproject GDF to Web Mercator (EPSG:3857) if not already, as MVT is typically in this CRS
@@ -91,11 +111,16 @@ async def get_vector_tile(layer_name: str, z: int, x: int, y: int):
         # and other options like layer_name within the MVT, properties to include, etc.
         # By default, it uses all properties.
         # The 'layer_name' here is for the endpoint, 'id_column' and 'props_columns' can be passed to gdf_to_mvt.
-        content = gdf_to_mvt(gdf_web_mercator, x, y, z, layer_name=layer_name) # Pass endpoint layer_name as MVT internal layer_name
+        content = gdf_to_mvt(
+            gdf_web_mercator, x, y, z, layer_name=layer_name
+        )  # Pass endpoint layer_name as MVT internal layer_name
         return Response(content, media_type="application/vnd.mapbox-vector-tile")
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to generate vector tile for {layer_name} at {z}/{x}/{y}. Error: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Failed to generate vector tile for {layer_name} at {z}/{x}/{y}. Error: {str(e)}",
+        )
 
 
 @_app.get("/", response_class=HTMLResponse, tags=["Viewer"])
@@ -104,14 +129,18 @@ async def root_viewer():
     global _tile_server_layer_name, _service_type, _tile_server_data_source
 
     if _service_type is None or _tile_server_layer_name is None:
-        return HTMLResponse("<html><body><h1>PyMapGIS Tile Server</h1><p>No layer configured yet. Call serve() first.</p></body></html>")
+        return HTMLResponse(
+            "<html><body><h1>PyMapGIS Tile Server</h1><p>No layer configured yet. Call serve() first.</p></body></html>"
+        )
 
-    m = leafmap.Map(center=(0,0), zoom=2) # Basic map
+    m = leafmap.Map(center=(0, 0), zoom=2)  # Basic map
     tile_url_suffix = "png" if _service_type == "raster" else "mvt"
     tile_url = f"/xyz/{_tile_server_layer_name}/{{z}}/{{x}}/{{y}}.{tile_url_suffix}"
 
     if _service_type == "raster":
-        m.add_tile_layer(tile_url, name=_tile_server_layer_name, attribution="PyMapGIS Raster")
+        m.add_tile_layer(
+            tile_url, name=_tile_server_layer_name, attribution="PyMapGIS Raster"
+        )
     elif _service_type == "vector":
         # Leafmap's add_vector_tile_layer or add_tile_layer might need specific styling options for MVT.
         # For simplicity, we use add_tile_layer which works for MVT if client like maplibre/mapbox handles styling.
@@ -146,29 +175,41 @@ async def root_viewer():
                     "fill_opacity": 0.5,
                 }
             }
-            m.add_vector_tile_layer(tile_url, name=_tile_server_layer_name, style=default_mvt_style, attribution="PyMapGIS Vector")
-        except Exception: # If add_vector_tile_layer fails or needs more complex setup
-             return HTMLResponse(f"""
+            m.add_vector_tile_layer(
+                tile_url,
+                name=_tile_server_layer_name,
+                style=default_mvt_style,
+                attribution="PyMapGIS Vector",
+            )
+        except Exception:  # If add_vector_tile_layer fails or needs more complex setup
+            return HTMLResponse(
+                f"""
                 <html><head><title>PyMapGIS Viewer</title></head><body>
                 <h1>PyMapGIS Tile Server</h1>
                 <p>Serving vector layer '<strong>{_tile_server_layer_name}</strong>' at <code>{tile_url}</code>.</p>
                 <p>To view MVT tiles, use a client like Mapbox GL JS, QGIS, or Leaflet with appropriate plugins.</p>
                 </body></html>
-            """)
-
+            """
+            )
 
     # Fit bounds if possible
-    if _service_type == "vector" and isinstance(_tile_server_data_source, gpd.GeoDataFrame):
-        bounds = _tile_server_data_source.total_bounds # [minx, miny, maxx, maxy]
+    if _service_type == "vector" and isinstance(
+        _tile_server_data_source, gpd.GeoDataFrame
+    ):
+        bounds = _tile_server_data_source.total_bounds  # [minx, miny, maxx, maxy]
         if len(bounds) == 4:
-            m.fit_bounds([[bounds[1], bounds[0]], [bounds[3], bounds[2]]]) # Leaflet format: [[lat_min, lon_min], [lat_max, lon_max]]
-    elif _service_type == "raster" and isinstance(_tile_server_data_source, str): # Path to COG
+            m.fit_bounds(
+                [[bounds[1], bounds[0]], [bounds[3], bounds[2]]]
+            )  # Leaflet format: [[lat_min, lon_min], [lat_max, lon_max]]
+    elif _service_type == "raster" and isinstance(
+        _tile_server_data_source, str
+    ):  # Path to COG
         try:
             with RioTilerReader(_tile_server_data_source) as src:
                 bounds = src.bounds
                 m.fit_bounds([[bounds[1], bounds[0]], [bounds[3], bounds[2]]])
         except Exception:
-            pass # Cannot get bounds, use default view
+            pass  # Cannot get bounds, use default view
 
     return HTMLResponse(m.to_html())
 
@@ -179,7 +220,7 @@ def serve(
     # service_type: str = "xyz", # service_type is inferred for now
     host: str = "127.0.0.1",
     port: int = 8000,
-    **kwargs: Any # Placeholder for future rio-tiler options or other server configs
+    **kwargs: Any,  # Placeholder for future rio-tiler options or other server configs
 ):
     """
     Serves geospatial data (rasters or vectors) as XYZ map tiles via a FastAPI app.
@@ -209,16 +250,23 @@ def serve(
             #  - MIME type checking if the string is a URL.
             #  - Attempting to read with multiple libraries (e.g., try rasterio, then geopandas)
             #    for ambiguous file types or files without standard suffixes.
-            file_suffix = data_source.split('.')[-1].lower()
-            if file_suffix in ['shp', 'geojson', 'gpkg', 'parquet', 'geoparquet']:
-                 _tile_server_data_source = pymapgis.read(data_source)
-                 _service_type = "vector"
-            elif file_suffix in ['tif', 'tiff', 'cog', 'nc']: # Assuming .nc is read as xr.Dataset path for now
-                 # For raster, we expect a COG path for rio-tiler
-                 if file_suffix not in ['tif', 'tiff', 'cog']:
-                     print(f"Warning: For raster tile serving, COG format is recommended. Provided: {file_suffix}")
-                 _tile_server_data_source = data_source # Keep as path for rio-tiler
-                 _service_type = "raster"
+            file_suffix = data_source.split(".")[-1].lower()
+            if file_suffix in ["shp", "geojson", "gpkg", "parquet", "geoparquet"]:
+                _tile_server_data_source = pymapgis.read(data_source)
+                _service_type = "vector"
+            elif file_suffix in [
+                "tif",
+                "tiff",
+                "cog",
+                "nc",
+            ]:  # Assuming .nc is read as xr.Dataset path for now
+                # For raster, we expect a COG path for rio-tiler
+                if file_suffix not in ["tif", "tiff", "cog"]:
+                    print(
+                        f"Warning: For raster tile serving, COG format is recommended. Provided: {file_suffix}"
+                    )
+                _tile_server_data_source = data_source  # Keep as path for rio-tiler
+                _service_type = "raster"
             else:
                 # Default try read, could be vector or other
                 print(f"Attempting to read {data_source} to infer type for serving...")
@@ -229,16 +277,22 @@ def serve(
                 # Add check for xarray if pymapgis.read can return it directly for some string inputs
                 # For now, if it's a path and not common vector, assume path for raster
                 elif isinstance(loaded_data, (xr.DataArray, xr.Dataset)):
-                     # This case implies pymapgis.read loaded it into memory.
-                     # For Phase 1 raster, we want path.
-                     print(f"Warning: Loaded {data_source} as in-memory xarray object. Raster tile server expects a file path for now.")
-                     _tile_server_data_source = data_source # Pass the original path
-                     _service_type = "raster"
+                    # This case implies pymapgis.read loaded it into memory.
+                    # For Phase 1 raster, we want path.
+                    print(
+                        f"Warning: Loaded {data_source} as in-memory xarray object. Raster tile server expects a file path for now."
+                    )
+                    _tile_server_data_source = data_source  # Pass the original path
+                    _service_type = "raster"
                 else:
-                     raise ValueError(f"Unsupported file type or unable to infer service type for: {data_source}")
+                    raise ValueError(
+                        f"Unsupported file type or unable to infer service type for: {data_source}"
+                    )
 
         except Exception as e:
-            raise ValueError(f"Could not read or infer type of data_source string '{data_source}'. Ensure it's a valid path/URL to a supported file format. Original error: {e}")
+            raise ValueError(
+                f"Could not read or infer type of data_source string '{data_source}'. Ensure it's a valid path/URL to a supported file format. Original error: {e}"
+            )
 
     elif isinstance(data_source, gpd.GeoDataFrame):
         _tile_server_data_source = data_source
@@ -247,8 +301,10 @@ def serve(
         # For Phase 1, if an in-memory xarray object is passed, we raise NotImplemented
         # Or, we could try to save it to a temporary COG, but that's more involved.
         # For now, sticking to "path-based COG for Phase 1 raster serving".
-        print("Warning: Serving in-memory xarray.DataArray/Dataset directly is not fully supported for raster tiles in this version. Please provide a file path to a COG for best results with rio-tiler.")
-        _tile_server_data_source = data_source # Storing it, but the raster endpoint might fail if it's not a path
+        print(
+            "Warning: Serving in-memory xarray.DataArray/Dataset directly is not fully supported for raster tiles in this version. Please provide a file path to a COG for best results with rio-tiler."
+        )
+        _tile_server_data_source = data_source  # Storing it, but the raster endpoint might fail if it's not a path
         _service_type = "raster"
         # The raster endpoint currently expects _tile_server_data_source to be a string path.
         # This will need adjustment if we want to serve in-memory xr.DataArray.
@@ -278,8 +334,9 @@ def serve(
         #     except Exception as e:
         #         raise NotImplementedError(f"Failed to prepare in-memory xarray for raster serving: {e}")
         # else: # Original error for non-string, non-xarray types for raster
-        raise NotImplementedError("Serving in-memory xarray objects as raster tiles is not yet fully supported. Please provide a file path (e.g., COG).")
-
+        raise NotImplementedError(
+            "Serving in-memory xarray objects as raster tiles is not yet fully supported. Please provide a file path (e.g., COG)."
+        )
 
     # Dynamically prune FastAPI routes to only expose endpoints relevant to the selected service_type.
     # This approach modifies the global _app.routes list directly.
@@ -291,29 +348,39 @@ def serve(
     active_routes = []
     for route in _app.routes:
         if isinstance(route, APIRoute):
-            if route.path == "/" or "Viewer" in route.tags: # Keep viewer
+            if route.path == "/" or "Viewer" in route.tags:  # Keep viewer
                 active_routes.append(route)
             elif _service_type == "raster" and "Raster Tiles" in route.tags:
                 active_routes.append(route)
             elif _service_type == "vector" and "Vector Tiles" in route.tags:
                 active_routes.append(route)
-    _app.routes = active_routes # Prune routes
+    _app.routes = active_routes  # Prune routes
 
-    print(f"Starting PyMapGIS server for layer '{_tile_server_layer_name}' ({_service_type}).")
+    print(
+        f"Starting PyMapGIS server for layer '{_tile_server_layer_name}' ({_service_type})."
+    )
     print(f"View at: http://{host}:{port}/")
     if _service_type == "raster":
-        print(f"Raster tiles: http://{host}:{port}/xyz/{_tile_server_layer_name}/{{z}}/{{x}}/{{y}}.png")
+        print(
+            f"Raster tiles: http://{host}:{port}/xyz/{_tile_server_layer_name}/{{z}}/{{x}}/{{y}}.png"
+        )
     elif _service_type == "vector":
-        print(f"Vector tiles: http://{host}:{port}/xyz/{_tile_server_layer_name}/{{z}}/{{x}}/{{y}}.mvt")
+        print(
+            f"Vector tiles: http://{host}:{port}/xyz/{_tile_server_layer_name}/{{z}}/{{x}}/{{y}}.mvt"
+        )
 
-    uvicorn.run(_app, host=host, port=port, log_level="info") # Or use **kwargs for uvicorn settings
+    uvicorn.run(
+        _app, host=host, port=port, log_level="info"
+    )  # Or use **kwargs for uvicorn settings
 
 
 if __name__ == "__main__":
     # Example Usage (for testing this file directly)
     # Create a dummy GeoDataFrame
-    data = {'id': [1, 2], 'geometry': ['POINT (0 0)', 'POINT (1 1)']}
-    gdf = gpd.GeoDataFrame(data, geometry=gpd.GeoSeries.from_wkt(data['geometry']), crs="EPSG:4326")
+    data = {"id": [1, 2], "geometry": ["POINT (0 0)", "POINT (1 1)"]}
+    gdf = gpd.GeoDataFrame(
+        data, geometry=gpd.GeoSeries.from_wkt(data["geometry"]), crs="EPSG:4326"
+    )
 
     # To test raster, you'd need a COG file path, e.g.:
     # serve("path/to/your/cog.tif", layer_name="my_raster", service_type="raster")

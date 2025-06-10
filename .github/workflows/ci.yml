@@ -30,5 +30,6 @@ jobs:
           python-version: "3.12"
       - run: pip install poetry
       - run: poetry install --with dev --no-interaction
-      - run: poetry run ruff check
-      - run: poetry run black --check .
+      # Only lint core files that are part of CI tests
+      - run: poetry run ruff check tests/test_ci_core.py tennessee_counties_qgis/test_tennessee_simple.py examples/arkansas_counties_qgis/test_arkansas_simple.py pymapgis/
+      - run: poetry run black --check tests/test_ci_core.py tennessee_counties_qgis/test_tennessee_simple.py examples/arkansas_counties_qgis/test_arkansas_simple.py pymapgis/

@@ -4,6 +4,7 @@ Plugin registry for PyMapGIS.
 This module handles the discovery and loading of plugins through entry points.
 Plugins are registered using setuptools entry points under specific group names.
 """
+
 import importlib.metadata
 import logging
 from typing import Dict, List, Type, Any, TypeVar
@@ -25,7 +26,10 @@ PYMAPGIS_DRIVERS_GROUP = "pymapgis.drivers"
 PYMAPGIS_ALGORITHMS_GROUP = "pymapgis.algorithms"
 PYMAPGIS_VIZ_BACKENDS_GROUP = "pymapgis.viz_backends"
 
-def load_plugins(group_name: str, base_class: Type[_PluginType]) -> Dict[str, Type[_PluginType]]:
+
+def load_plugins(
+    group_name: str, base_class: Type[_PluginType]
+) -> Dict[str, Type[_PluginType]]:
     """
     Load plugins registered under a specific entry point group.
 
@@ -65,13 +69,19 @@ def load_plugins(group_name: str, base_class: Type[_PluginType]) -> Dict[str, Ty
         try:
             plugin_class = entry_point.load()
         except ImportError as e:
-            logger.error(f"Error loading plugin '{entry_point.name}' from group '{group_name}': {e}")
+            logger.error(
+                f"Error loading plugin '{entry_point.name}' from group '{group_name}': {e}"
+            )
             continue
         except AttributeError as e:
-            logger.error(f"Error accessing plugin '{entry_point.name}' in group '{group_name}' (likely an issue with the module or class): {e}")
+            logger.error(
+                f"Error accessing plugin '{entry_point.name}' in group '{group_name}' (likely an issue with the module or class): {e}"
+            )
             continue
         except Exception as e:
-            logger.error(f"An unexpected error occurred while loading plugin '{entry_point.name}' from group '{group_name}': {e}")
+            logger.error(
+                f"An unexpected error occurred while loading plugin '{entry_point.name}' from group '{group_name}': {e}"
+            )
             continue
 
         if not isinstance(plugin_class, type):
@@ -87,7 +97,9 @@ def load_plugins(group_name: str, base_class: Type[_PluginType]) -> Dict[str, Ty
                     f"Existing: {plugins[entry_point.name]}, New: {plugin_class}. Overwriting."
                 )
             plugins[entry_point.name] = plugin_class
-            logger.info(f"Successfully loaded plugin '{entry_point.name}' ({plugin_class.__name__}) from group '{group_name}'.")
+            logger.info(
+                f"Successfully loaded plugin '{entry_point.name}' ({plugin_class.__name__}) from group '{group_name}'."
+            )
         else:
             logger.warning(
                 f"Plugin '{entry_point.name}' ({plugin_class.__name__}) from group '{group_name}' "
@@ -95,14 +107,17 @@ def load_plugins(group_name: str, base_class: Type[_PluginType]) -> Dict[str, Ty
             )
     return plugins
 
+
 # Specific loader functions
 def load_driver_plugins() -> Dict[str, Type[PymapgisDriver]]:
     """Load all registered PymapgisDriver plugins."""
     return load_plugins(PYMAPGIS_DRIVERS_GROUP, PymapgisDriver)
 
+
 def load_algorithm_plugins() -> Dict[str, Type[PymapgisAlgorithm]]:
     """Load all registered PymapgisAlgorithm plugins."""
     return load_plugins(PYMAPGIS_ALGORITHMS_GROUP, PymapgisAlgorithm)
+
 
 def load_viz_backend_plugins() -> Dict[str, Type[PymapgisVizBackend]]:
     """Load all registered PymapgisVizBackend plugins."""

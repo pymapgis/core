@@ -1,22 +1,26 @@
-import leafmap.leafmap as leafmap # Common import pattern for leafmap
+import leafmap.leafmap as leafmap  # Common import pattern for leafmap
 import geopandas as gpd
 import xarray as xr
-from typing import Union, Optional # Added Optional
-import numpy as np # Added for type hints if needed by deckgl utils
-import pydeck # Added for type hints if needed by deckgl utils
+from typing import Union, Optional  # Added Optional
+import numpy as np  # Added for type hints if needed by deckgl utils
+import pydeck  # Added for type hints if needed by deckgl utils
 
 # Import from deckgl_utils
 from .deckgl_utils import view_3d_cube, view_point_cloud_3d
 
 __all__ = [
-    "explore", "plot_interactive", "map",  # Existing
-    "view_3d_cube", "view_point_cloud_3d"  # New deck.gl utils
+    "explore",
+    "plot_interactive",
+    "map",  # Existing
+    "view_3d_cube",
+    "view_point_cloud_3d",  # New deck.gl utils
 ]
+
 
 def explore(
     data: Union[gpd.GeoDataFrame, xr.DataArray, xr.Dataset],
-    m: leafmap.Map = None, # Added optional map instance for consistency with plot_interactive
-    **kwargs
+    m: leafmap.Map = None,  # Added optional map instance for consistency with plot_interactive
+    **kwargs,
 ) -> leafmap.Map:
     """
     Interactively explore a GeoDataFrame, xarray DataArray, or xarray Dataset on a Leafmap map.
@@ -61,9 +65,11 @@ def explore(
         # Ensure data has CRS if it's a raster, leafmap might require it.
         # rioxarray typically adds a .rio accessor with crs info.
         if isinstance(data, xr.DataArray):
-            has_rio = hasattr(data, 'rio')
-            if not has_rio or getattr(data.rio, 'crs', None) is None:
-                print("Warning: xarray.DataArray does not have CRS information (e.g., via data.rio.crs). Visualization may be incorrect or map extent may not set properly.")
+            has_rio = hasattr(data, "rio")
+            if not has_rio or getattr(data.rio, "crs", None) is None:
+                print(
+                    "Warning: xarray.DataArray does not have CRS information (e.g., via data.rio.crs). Visualization may be incorrect or map extent may not set properly."
+                )
         elif isinstance(data, xr.Dataset):
             # For xarray.Dataset, CRS check is more complex as it can be per variable.
             # We rely on leafmap to handle this or the user to ensure variables being plotted have CRS.
@@ -85,7 +91,7 @@ def explore(
 def plot_interactive(
     data: Union[gpd.GeoDataFrame, xr.DataArray, xr.Dataset],
     m: leafmap.Map = None,
-    **kwargs
+    **kwargs,
 ) -> leafmap.Map:
     """
     Adds a GeoDataFrame, xarray DataArray, or xarray Dataset to an interactive Leafmap map.
@@ -115,9 +121,11 @@ def plot_interactive(
         m.add_gdf(data, **kwargs)
     elif isinstance(data, (xr.DataArray, xr.Dataset)):
         if isinstance(data, xr.DataArray):
-            has_rio = hasattr(data, 'rio')
-            if not has_rio or getattr(data.rio, 'crs', None) is None:
-                print("Warning: xarray.DataArray does not have CRS information (e.g., via data.rio.crs). Visualization may be incorrect or map extent may not set properly.")
+            has_rio = hasattr(data, "rio")
+            if not has_rio or getattr(data.rio, "crs", None) is None:
+                print(
+                    "Warning: xarray.DataArray does not have CRS information (e.g., via data.rio.crs). Visualization may be incorrect or map extent may not set properly."
+                )
         elif isinstance(data, xr.Dataset):
             # For xarray.Dataset, CRS check is more complex. See note in 'explore' function.
             pass
@@ -129,6 +137,7 @@ def plot_interactive(
         )
 
     return m
+
 
 # Alias for plot_interactive
 map = plot_interactive

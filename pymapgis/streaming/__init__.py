@@ -7,33 +7,49 @@ from typing import List, Dict, Optional, Union, Any
 try:
     from kafka import KafkaConsumer
     from kafka.errors import NoBrokersAvailable
+
     KAFKA_AVAILABLE = True
 except ImportError:
     KAFKA_AVAILABLE = False
+
     # Create dummy types for type hinting if library not installed
-    class KafkaConsumer: pass
-    class NoBrokersAvailable(Exception): pass
+    class KafkaConsumer:
+        pass
+
+    class NoBrokersAvailable(Exception):
+        pass
 
 
 try:
     import paho.mqtt.client as mqtt
+
     PAHO_MQTT_AVAILABLE = True
 except ImportError:
     PAHO_MQTT_AVAILABLE = False
+
     # Create dummy types for type hinting
     class mqtt:
         class Client:
-            def __init__(self, *args, **kwargs): pass
-            def connect(self, *args, **kwargs): pass
-            def loop_start(self): pass
-            def loop_stop(self): pass
+            def __init__(self, *args, **kwargs):
+                pass
+
+            def connect(self, *args, **kwargs):
+                pass
+
+            def loop_start(self):
+                pass
+
+            def loop_stop(self):
+                pass
+
 
 __all__ = [
-    "create_spatiotemporal_cube_from_numpy", # Renamed for clarity
-    "create_spatiotemporal_cube", # Alias for backward compatibility
+    "create_spatiotemporal_cube_from_numpy",  # Renamed for clarity
+    "create_spatiotemporal_cube",  # Alias for backward compatibility
     "connect_kafka_consumer",
-    "connect_mqtt_client"
+    "connect_mqtt_client",
 ]
+
 
 # Existing function - renamed for clarity to avoid confusion with the one in pymapgis.raster
 def create_spatiotemporal_cube_from_numpy(
@@ -42,8 +58,8 @@ def create_spatiotemporal_cube_from_numpy(
     x_coords: np.ndarray,
     y_coords: np.ndarray,
     z_coords: Optional[np.ndarray] = None,
-    variable_name: str = 'sensor_value',
-    attrs: Optional[Dict[str, Any]] = None
+    variable_name: str = "sensor_value",
+    attrs: Optional[Dict[str, Any]] = None,
 ) -> xr.DataArray:
     """
     Creates a spatiotemporal data cube (xarray.DataArray) from NumPy arrays.
@@ -55,41 +71,41 @@ def create_spatiotemporal_cube_from_numpy(
     if not isinstance(timestamps, (np.ndarray, pd.DatetimeIndex)):
         timestamps = pd.to_datetime(timestamps)
     # Ensure the time index has no name to match test expectations
-    if hasattr(timestamps, 'name'):
+    if hasattr(timestamps, "name"):
         timestamps.name = None
-    coords['time'] = timestamps
-    dims.append('time')
+    coords["time"] = timestamps
+    dims.append("time")
     expected_shape = [len(timestamps)]
 
     if z_coords is not None:
         if not isinstance(z_coords, np.ndarray):
             z_coords = np.array(z_coords)
-        coords['z'] = z_coords
-        dims.append('z')
+        coords["z"] = z_coords
+        dims.append("z")
         expected_shape.append(len(z_coords))
 
     if not isinstance(y_coords, np.ndarray):
         y_coords = np.array(y_coords)
-    coords['y'] = y_coords
-    dims.append('y')
+    coords["y"] = y_coords
+    dims.append("y")
     expected_shape.append(len(y_coords))
 
     if not isinstance(x_coords, np.ndarray):
         x_coords = np.array(x_coords)
-    coords['x'] = x_coords
-    dims.append('x')
+    coords["x"] = x_coords
+    dims.append("x")
     expected_shape.append(len(x_coords))
 
     if data.shape != tuple(expected_shape):
         # Create a more detailed error message that matches test expectations
         dim_names = []
-        if 'time' in dims:
+        if "time" in dims:
             dim_names.append(f"time: {len(timestamps)}")
-        if 'z' in dims:
+        if "z" in dims:
             dim_names.append(f"z: {len(z_coords)}")
-        if 'y' in dims:
+        if "y" in dims:
             dim_names.append(f"y: {len(y_coords)}")
-        if 'x' in dims:
+        if "x" in dims:
             dim_names.append(f"x: {len(x_coords)}")
 
         dim_str = ", ".join(dim_names)
@@ -109,11 +125,11 @@ create_spatiotemporal_cube = create_spatiotemporal_cube_from_numpy
 
 def connect_kafka_consumer(
     topic: str,
-    bootstrap_servers: Union[str, List[str]] = 'localhost:9092',
+    bootstrap_servers: Union[str, List[str]] = "localhost:9092",
     group_id: Optional[str] = None,
-    auto_offset_reset: str = 'earliest',
-    consumer_timeout_ms: float = 1000, # Default to 1s timeout for iteration
-    **kwargs: Any
+    auto_offset_reset: str = "earliest",
+    consumer_timeout_ms: float = 1000,  # Default to 1s timeout for iteration
+    **kwargs: Any,
 ) -> KafkaConsumer:
     """
     Establishes a connection to a Kafka topic and returns a KafkaConsumer.
@@ -155,7 +171,7 @@ def connect_kafka_consumer(
             group_id=group_id,
             auto_offset_reset=auto_offset_reset,
             consumer_timeout_ms=consumer_timeout_ms,
-            **kwargs
+            **kwargs,
         )
         # Quick check to see if brokers are available (can still fail later if topic doesn't exist)
         # topics() will try to connect.
@@ -163,8 +179,10 @@ def connect_kafka_consumer(
         # A better check is often to let the first poll operation handle it or use specific admin client checks.
         # For now, assume construction implies potential connectivity, errors handled by user.
     except NoBrokersAvailable as e:
-        raise RuntimeError(f"Could not connect to Kafka brokers at {bootstrap_servers}. Error: {e}")
-    except Exception as e: # Catch other Kafka-related exceptions during setup
+        raise RuntimeError(
+            f"Could not connect to Kafka brokers at {bootstrap_servers}. Error: {e}"
+        )
+    except Exception as e:  # Catch other Kafka-related exceptions during setup
         raise RuntimeError(f"Failed to create Kafka consumer. Error: {e}")
 
     return consumer
@@ -173,9 +191,9 @@ def connect_kafka_consumer(
 def connect_mqtt_client(
     broker_address: str = "localhost",
     port: int = 1883,
-    client_id: str = "", # Empty client_id for auto-generated one by broker
+    client_id: str = "",  # Empty client_id for auto-generated one by broker
     keepalive: int = 60,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> mqtt.Client:
     """
     Creates, configures, and connects an MQTT client, starting its network loop.
@@ -212,7 +230,9 @@ def connect_mqtt_client(
         )
 
     try:
-        client = mqtt.Client(client_id=client_id, protocol=mqtt.MQTTv311, transport="tcp")
+        client = mqtt.Client(
+            client_id=client_id, protocol=mqtt.MQTTv311, transport="tcp"
+        )
 
         # Example: Set username/password if provided via kwargs (though not standard for connect)
         # if 'username' in kwargs and 'password' in kwargs:
@@ -225,9 +245,13 @@ def connect_mqtt_client(
         # This handles reconnects and processes incoming/outgoing messages.
         client.loop_start()
 
-    except ConnectionRefusedError as e: # More specific error for MQTT
-        raise RuntimeError(f"MQTT connection refused by broker at {broker_address}:{port}. Error: {e}")
-    except Exception as e: # General catch for other paho-mqtt or socket errors
-        raise RuntimeError(f"Failed to connect MQTT client to {broker_address}:{port}. Error: {e}")
+    except ConnectionRefusedError as e:  # More specific error for MQTT
+        raise RuntimeError(
+            f"MQTT connection refused by broker at {broker_address}:{port}. Error: {e}"
+        )
+    except Exception as e:  # General catch for other paho-mqtt or socket errors
+        raise RuntimeError(
+            f"Failed to connect MQTT client to {broker_address}:{port}. Error: {e}"
+        )
 
     return client

@@ -5,13 +5,16 @@ import pandas as pd
 import fsspec
 from pymapgis.settings import settings
 import xarray as xr
-import rioxarray # Imported for side-effects and direct use
+import rioxarray  # Imported for side-effects and direct use
 import numpy as np
 from pymapgis.pointcloud import read_point_cloud as pmg_read_point_cloud
 from pymapgis.pointcloud import get_point_cloud_points as pmg_get_point_cloud_points
 
 # Define a more comprehensive return type for the read function
-ReadReturnType = Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset, np.ndarray]
+ReadReturnType = Union[
+    gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset, np.ndarray
+]
+
 
 def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw) -> ReadReturnType:
     """
@@ -94,14 +97,14 @@ def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw) -> ReadRet
             "filecache",
             target_protocol=protocol,
             target_options=storage_options.get(protocol, {}),
-            cache_storage=cache_fs_path
+            cache_storage=cache_fs_path,
         )
 
-        path_for_suffix = storage_options['path']
+        path_for_suffix = storage_options["path"]
         suffix = Path(path_for_suffix).suffix.lower()
 
         # Ensure file is cached and get local path
-        with fs.open(uri, "rb"): # Open and close to ensure it's cached
+        with fs.open(uri, "rb"):  # Open and close to ensure it's cached
             pass
         cached_file_path = fs.get_mapper(uri).root
 
@@ -128,10 +131,12 @@ def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw) -> ReadRet
             # Handle CSV files differently for local vs remote
             if protocol == "file":
                 # For local files, read directly
-                df = pd.read_csv(cached_file_path, encoding=kw.pop("encoding", "utf-8"), **kw)
+                df = pd.read_csv(
+                    cached_file_path, encoding=kw.pop("encoding", "utf-8"), **kw
+                )
             else:
                 # For remote files, use fs.open() to get a file-like object
-                with fs.open(uri, "rt", encoding=kw.pop("encoding", "utf-8")) as f: # type: ignore
+                with fs.open(uri, "rt", encoding=kw.pop("encoding", "utf-8")) as f:  # type: ignore
                     df = pd.read_csv(f, **kw)
 
             if {x, y}.issubset(df.columns):
