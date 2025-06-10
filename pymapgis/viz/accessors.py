@@ -135,6 +135,7 @@ class PmgVizAccessor:
         """
         # Import here to avoid circular imports
         from ..vector import buffer as _buffer
+
         return _buffer(self._obj, distance, **kwargs)
 
     def clip(
@@ -162,6 +163,7 @@ class PmgVizAccessor:
         """
         # Import here to avoid circular imports
         from ..vector import clip as _clip
+
         return _clip(self._obj, mask_geometry, **kwargs)
 
     def overlay(
@@ -192,6 +194,7 @@ class PmgVizAccessor:
         """
         # Import here to avoid circular imports
         from ..vector import overlay as _overlay
+
         return _overlay(self._obj, other, how=how, **kwargs)
 
     def spatial_join(
@@ -224,4 +227,5 @@ class PmgVizAccessor:
         """
         # Import here to avoid circular imports
         from ..vector import spatial_join as _spatial_join
+
         return _spatial_join(self._obj, other, op=op, how=how, **kwargs)
