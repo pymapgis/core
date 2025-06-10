@@ -22,10 +22,17 @@ except ImportError as e:
     print(f"Warning: FastAPI dependencies not available: {e}", file=sys.stderr)
     FASTAPI_AVAILABLE = False
     # Create dummy classes for type hints
-    class FastAPI: pass
-    class HTTPException(Exception): pass
-    class Response: pass
-    class HTMLResponse: pass
+    class FastAPI:
+        pass
+
+    class HTTPException(Exception):
+        pass
+
+    class Response:
+        pass
+
+    class HTMLResponse:
+        pass
 
 # Raster serving dependencies
 try:
@@ -37,16 +44,25 @@ except ImportError as e:
     print(f"Warning: rio-tiler not available: {e}", file=sys.stderr)
     RIO_TILER_AVAILABLE = False
     # Create dummy classes for type hints
-    class RioTilerReader: pass
+    class RioTilerReader:
+        pass
+
     img_profiles = {}
-    def get_colormap(name): return {}
+
+    def get_colormap(name):
+        return {}
+
 except Exception as e:
     print(f"Warning: rio-tiler compatibility issue: {e}", file=sys.stderr)
     RIO_TILER_AVAILABLE = False
     # Create dummy classes for type hints
-    class RioTilerReader: pass
+    class RioTilerReader:
+        pass
+
     img_profiles = {}
-    def get_colormap(name): return {}
+
+    def get_colormap(name):
+        return {}
 
 # Vector serving dependencies
 try:
