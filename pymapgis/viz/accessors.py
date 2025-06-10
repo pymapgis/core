@@ -17,17 +17,14 @@ class PmgVizAccessor:
     """
     PyMapGIS accessor for GeoDataFrame objects.
 
-    Provides convenient access to PyMapGIS visualization and vector operations
-    via the .pmg accessor.
+    Provides convenient access to PyMapGIS visualization and vector operations via the .pmg accessor.
 
     Examples:
         >>> import geopandas as gpd
         >>> import pymapgis as pmg
         >>>
         >>> # Load vector data
-        >>> gdf = pmg.read(
-        ...     "census://acs/acs5?year=2022&geography=county&variables=B01003_001E"
-        ... )
+        >>> gdf = pmg.read("census://acs/acs5?year=2022&geography=county&variables=B01003_001E")
         >>>
         >>> # Quick exploration
         >>> gdf.pmg.explore()
@@ -50,17 +47,16 @@ class PmgVizAccessor:
         Interactively explore the GeoDataFrame on a Leafmap map.
 
         This method creates a new map (or uses an existing one if provided) and adds
-        the GeoDataFrame as a vector layer. The map is optimized for quick
-        exploration with sensible defaults.
+        the GeoDataFrame as a vector layer. The map is optimized for quick exploration
+        with sensible defaults.
 
         Args:
-            m (leafmap.Map, optional): An existing leafmap.Map instance to add the
-                layer to. If None, a new map is created. Defaults to None.
-            **kwargs: Additional keyword arguments passed to leafmap's add_gdf()
-                method. Common kwargs include:
+            m (leafmap.Map, optional): An existing leafmap.Map instance to add the layer to.
+                If None, a new map is created. Defaults to None.
+            **kwargs: Additional keyword arguments passed to leafmap's add_gdf() method.
+                Common kwargs include:
                 - layer_name (str): Name for the layer
-                - style (dict): Styling for vector features, e.g.,
-                  {'color': 'red', 'fillOpacity': 0.5}
+                - style (dict): Styling for vector features, e.g., {'color': 'red', 'fillOpacity': 0.5}
                 - hover_style (dict): Styling when hovering over features
                 - popup (list): Column names to show in popup
                 - tooltip (str or list): Tooltip configuration
@@ -86,18 +82,17 @@ class PmgVizAccessor:
 
     def map(self, m: Optional[leafmap.Map] = None, **kwargs) -> leafmap.Map:
         """
-        Add the GeoDataFrame to an interactive Leafmap map for building complex
-        visualizations.
+        Add the GeoDataFrame to an interactive Leafmap map for building complex visualizations.
 
-        This method is similar to explore() but is designed for building more complex
-        maps by adding multiple layers. It does not automatically display the map,
-        allowing for further customization before display.
+        This method is similar to explore() but is designed for building more complex maps
+        by adding multiple layers. It does not automatically display the map, allowing for
+        further customization before display.
 
         Args:
-            m (leafmap.Map, optional): An existing leafmap.Map instance to add the
-                layer to. If None, a new map is created. Defaults to None.
-            **kwargs: Additional keyword arguments passed to leafmap's add_gdf()
-                method. Refer to the explore() method's docstring for common kwargs.
+            m (leafmap.Map, optional): An existing leafmap.Map instance to add the layer to.
+                If None, a new map is created. Defaults to None.
+            **kwargs: Additional keyword arguments passed to leafmap's add_gdf() method.
+                Refer to the explore() method's docstring for common kwargs.
 
         Returns:
             leafmap.Map: The leafmap.Map instance with the added layer.
@@ -125,8 +120,8 @@ class PmgVizAccessor:
         Args:
             distance (float): The buffer distance. The units of the distance
                 are assumed to be the same as the CRS of the GeoDataFrame.
-            **kwargs: Additional arguments to be passed to GeoPandas' buffer
-                method (e.g., resolution, cap_style, join_style).
+            **kwargs: Additional arguments to be passed to GeoPandas' buffer method
+                (e.g., resolution, cap_style, join_style).
 
         Returns:
             gpd.GeoDataFrame: A new GeoDataFrame with the buffered geometries.
@@ -151,14 +146,12 @@ class PmgVizAccessor:
         Clip the GeoDataFrame to the boundaries of a mask geometry.
 
         Args:
-            mask_geometry (Union[gpd.GeoDataFrame, BaseGeometry]): The geometry
-                used for clipping. This can be another GeoDataFrame or a Shapely
-                geometry object.
+            mask_geometry (Union[gpd.GeoDataFrame, BaseGeometry]): The geometry used for clipping.
+                This can be another GeoDataFrame or a Shapely geometry object.
             **kwargs: Additional arguments to be passed to GeoPandas' clip method.
 
         Returns:
-            gpd.GeoDataFrame: A new GeoDataFrame containing the geometries
-                clipped to the mask.
+            gpd.GeoDataFrame: A new GeoDataFrame containing the geometries clipped to the mask.
 
         Examples:
             >>> # Clip to a polygon boundary
@@ -185,12 +178,10 @@ class PmgVizAccessor:
             how (str): The type of overlay to perform. Supported values are:
                 'intersection', 'union', 'identity', 'symmetric_difference',
                 'difference'. Defaults to 'intersection'.
-            **kwargs: Additional arguments to be passed to GeoPandas' overlay
-                method.
+            **kwargs: Additional arguments to be passed to GeoPandas' overlay method.
 
         Returns:
-            gpd.GeoDataFrame: A new GeoDataFrame with the result of the overlay
-                operation.
+            gpd.GeoDataFrame: A new GeoDataFrame with the result of the overlay operation.
 
         Examples:
             >>> # Find intersection with another layer
@@ -215,15 +206,14 @@ class PmgVizAccessor:
 
         Args:
             other (gpd.GeoDataFrame): The other GeoDataFrame to join with.
-            op (str): The spatial predicate to use for the join. Supported values
-                are: 'intersects', 'contains', 'within'. Defaults to 'intersects'.
+            op (str): The spatial predicate to use for the join. Supported values are:
+                'intersects', 'contains', 'within'. Defaults to 'intersects'.
             how (str): The type of join to perform. Supported values are:
                 'left', 'right', 'inner'. Defaults to 'inner'.
             **kwargs: Additional arguments to be passed to geopandas.sjoin method.
 
         Returns:
-            gpd.GeoDataFrame: A new GeoDataFrame with the result of the spatial
-                join.
+            gpd.GeoDataFrame: A new GeoDataFrame with the result of the spatial join.
 
         Examples:
             >>> # Join points with polygons they intersect
