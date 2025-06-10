@@ -152,3 +152,12 @@ examples/*/data/*
 !examples/*/data/README.md
 !examples/*/data/sample_*.geojson
 !examples/*/data/small_*.gpkg
+
+# Ignore only the data subfolder
+tennessee_counties_qgis/data/
+
+# But keep everything else in that folder
+!tennessee_counties_qgis/*.md
+!tennessee_counties_qgis/*.py
+!tennessee_counties_qgis/test_*.py
+!tennessee_counties_qgis/requirements.txt
