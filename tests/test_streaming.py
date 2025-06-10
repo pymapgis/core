@@ -14,8 +14,10 @@ try:
 except ImportError:
     KAFKA_AVAILABLE = False
     # Define dummy classes if kafka-python is not installed, for tests to be skippable
-    class ActualKafkaConsumer: pass # type: ignore
-    class ActualNoBrokersAvailable(Exception): pass # type: ignore
+    class ActualKafkaConsumer:  # type: ignore
+        pass
+    class ActualNoBrokersAvailable(Exception):  # type: ignore
+        pass
 
 try:
     import paho.mqtt.client as actual_mqtt
