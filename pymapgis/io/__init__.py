@@ -132,21 +132,23 @@ def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw) -> ReadRet
 
         elif suffix == ".csv":
             # Handle CSV files differently for local vs remote
+            # Extract CRS parameter before passing to pandas
+            crs = kw.pop("crs", "EPSG:4326")
+            encoding = kw.pop("encoding", "utf-8")
+
             if protocol == "file":
                 # For local files, read directly
-                df = pd.read_csv(
-                    cached_file_path, encoding=kw.pop("encoding", "utf-8"), **kw
-                )
+                df = pd.read_csv(cached_file_path, encoding=encoding, **kw)
             else:
                 # For remote files, use fs.open() to get a file-like object
-                with fs.open(uri, "rt", encoding=kw.pop("encoding", "utf-8")) as f:  # type: ignore
+                with fs.open(uri, "rt", encoding=encoding) as f:  # type: ignore
                     df = pd.read_csv(f, **kw)
 
             if {x, y}.issubset(df.columns):
                 gdf = gpd.GeoDataFrame(
                     df,
                     geometry=gpd.points_from_xy(df[x], df[y]),
-                    crs=kw.pop("crs", "EPSG:4326"),
+                    crs=crs,
                 )
                 return gdf
             return df
@@ -163,5 +165,18 @@ def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw) -> ReadRet
 
     except FileNotFoundError:
         raise FileNotFoundError(f"File not found at URI: {uri}")
+    except ValueError:
+        # Re-raise ValueError as-is (for unsupported formats)
+        raise
     except Exception as e:
-        raise IOError(f"Failed to read {uri} with format {suffix}. Original error: {e}")
+        # Check if the error is related to file not found
+        error_msg = str(e).lower()
+        if any(
+            phrase in error_msg
+            for phrase in ["does not exist", "no such file", "not found"]
+        ):
+            raise FileNotFoundError(f"File not found at URI: {uri}")
+        else:
+            raise IOError(
+                f"Failed to read {uri} with format {suffix}. Original error: {e}"
+            )
