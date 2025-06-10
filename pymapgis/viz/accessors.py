@@ -185,10 +185,10 @@ class PmgVizAccessor:
 
         Examples:
             >>> # Find intersection with another layer
-            >>> intersection = gdf.pmg.overlay(other_gdf, how='intersection')
+            >>> intersection = gdf.pmg.overlay(other_gdf, how="intersection")
             >>>
             >>> # Find difference (areas in gdf but not in other)
-            >>> difference = gdf.pmg.overlay(other_gdf, how='difference')
+            >>> difference = gdf.pmg.overlay(other_gdf, how="difference")
         """
         # Import here to avoid circular imports
         from ..vector import overlay as _overlay
@@ -217,10 +217,10 @@ class PmgVizAccessor:
 
         Examples:
             >>> # Join points with polygons they intersect
-            >>> joined = points_gdf.pmg.spatial_join(polygons_gdf, op='intersects')
+            >>> joined = points_gdf.pmg.spatial_join(polygons_gdf, op="intersects")
             >>>
             >>> # Left join to keep all original features
-            >>> joined = gdf.pmg.spatial_join(other_gdf, how='left')
+            >>> joined = gdf.pmg.spatial_join(other_gdf, how="left")
         """
         # Import here to avoid circular imports
         from ..vector import spatial_join as _spatial_join
