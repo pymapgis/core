@@ -34,9 +34,11 @@ PYMAPGIS_VIZ_BACKENDS_GROUP = "pymapgis.viz_backends"
 # Try to import pymapgis modules
 try:
     import pymapgis as _pymapgis
+
     pymapgis_module = _pymapgis
 
     from pymapgis.settings import settings as _settings
+
     settings_obj = _settings
 
     from pymapgis.cache import (
@@ -44,6 +46,7 @@ try:
         clear as _clear_cache_api,
         purge as _purge_cache_api,
     )
+
     stats_api_func = _stats_api
     clear_cache_api_func = _clear_cache_api
     purge_cache_api_func = _purge_cache_api
@@ -57,6 +60,7 @@ try:
             PYMAPGIS_ALGORITHMS_GROUP as _PYMAPGIS_ALGORITHMS_GROUP,
             PYMAPGIS_VIZ_BACKENDS_GROUP as _PYMAPGIS_VIZ_BACKENDS_GROUP,
         )
+
         load_driver_plugins = _load_driver_plugins
         load_algorithm_plugins = _load_algorithm_plugins
         load_viz_backend_plugins = _load_viz_backend_plugins
@@ -125,9 +129,11 @@ def info():
 
     # Installation path
     try:
-        if (pymapgis_module and
-            hasattr(pymapgis_module, '__file__') and
-            pymapgis_module.__file__ != "unknown"):
+        if (
+            pymapgis_module
+            and hasattr(pymapgis_module, "__file__")
+            and pymapgis_module.__file__ != "unknown"
+        ):
             install_path = os.path.dirname(pymapgis_module.__file__)
             typer.echo(f"  Installation Path: {install_path}")
         else:
@@ -149,7 +155,7 @@ def info():
     typer.echo("\nCore Dependencies:")
     deps = [
         "geopandas",
-        "rasterio", 
+        "rasterio",
         "xarray",
         "leafmap",
         "fastapi",
@@ -232,7 +238,9 @@ def cache_info_command():
                         val_hr = f"{value} Bytes"
                     typer.echo(f"  {friendly_key}: {val_hr} ({value} bytes)")
                 else:
-                    typer.echo(f"  {friendly_key}: {value if value is not None else 'N/A'}")
+                    typer.echo(
+                        f"  {friendly_key}: {value if value is not None else 'N/A'}"
+                    )
         else:
             typer.echo("Cache statistics not available - cache module not loaded")
     except Exception as e:
@@ -250,10 +258,13 @@ def cache_clear_command():
         if clear_cache_api_func:
             clear_cache_api_func()
             typer.secho(
-                "All PyMapGIS caches have been cleared successfully.", fg=typer.colors.GREEN
+                "All PyMapGIS caches have been cleared successfully.",
+                fg=typer.colors.GREEN,
             )
         else:
-            typer.secho("Cache clear function not available", fg=typer.colors.RED, err=True)
+            typer.secho(
+                "Cache clear function not available", fg=typer.colors.RED, err=True
+            )
     except Exception as e:
         typer.secho(f"Error clearing caches: {e}", fg=typer.colors.RED, err=True)
 
@@ -271,7 +282,9 @@ def cache_purge_command():
                 fg=typer.colors.GREEN,
             )
         else:
-            typer.secho("Cache purge function not available", fg=typer.colors.RED, err=True)
+            typer.secho(
+                "Cache purge function not available", fg=typer.colors.RED, err=True
+            )
     except Exception as e:
         typer.secho(f"Error purging cache: {e}", fg=typer.colors.RED, err=True)
 
