@@ -17,10 +17,12 @@ try:
     from fastapi.routing import APIRoute
     from starlette.responses import Response, HTMLResponse
     import uvicorn
+
     FASTAPI_AVAILABLE = True
 except ImportError as e:
     print(f"Warning: FastAPI dependencies not available: {e}", file=sys.stderr)
     FASTAPI_AVAILABLE = False
+
     # Create dummy classes for type hints
     class FastAPI:
         pass
@@ -34,15 +36,18 @@ except ImportError as e:
     class HTMLResponse:
         pass
 
+
 # Raster serving dependencies
 try:
     from rio_tiler.io import Reader as RioTilerReader
     from rio_tiler.profiles import img_profiles
     from rio_tiler.utils import get_colormap
+
     RIO_TILER_AVAILABLE = True
 except ImportError as e:
     print(f"Warning: rio-tiler not available: {e}", file=sys.stderr)
     RIO_TILER_AVAILABLE = False
+
     # Create dummy classes for type hints
     class RioTilerReader:
         pass
@@ -55,6 +60,7 @@ except ImportError as e:
 except Exception as e:
     print(f"Warning: rio-tiler compatibility issue: {e}", file=sys.stderr)
     RIO_TILER_AVAILABLE = False
+
     # Create dummy classes for type hints
     class RioTilerReader:
         pass
@@ -64,10 +70,12 @@ except Exception as e:
     def get_colormap(name):
         return {}
 
+
 # Vector serving dependencies
 try:
     import mapbox_vector_tile
     import mercantile
+
     VECTOR_DEPS_AVAILABLE = True
 except ImportError as e:
     print(f"Warning: Vector tile dependencies not available: {e}", file=sys.stderr)
@@ -76,6 +84,7 @@ except ImportError as e:
 # Coordinate transformation
 try:
     from pyproj import Transformer
+
     PYPROJ_AVAILABLE = True
 except ImportError as e:
     print(f"Warning: pyproj not available: {e}", file=sys.stderr)
@@ -84,6 +93,7 @@ except ImportError as e:
 # HTML viewer
 try:
     import leafmap.leafmap as leafmap
+
     LEAFMAP_AVAILABLE = True
 except ImportError as e:
     print(f"Warning: leafmap not available: {e}", file=sys.stderr)
@@ -92,13 +102,16 @@ except ImportError as e:
 # Shapely for geometry operations
 try:
     from shapely.geometry import box
+
     SHAPELY_AVAILABLE = True
 except ImportError as e:
     print(f"Warning: shapely not available: {e}", file=sys.stderr)
     SHAPELY_AVAILABLE = False
 
 
-def gdf_to_mvt(gdf: gpd.GeoDataFrame, x: int, y: int, z: int, layer_name: str = "layer") -> bytes:
+def gdf_to_mvt(
+    gdf: gpd.GeoDataFrame, x: int, y: int, z: int, layer_name: str = "layer"
+) -> bytes:
     """
     Convert a GeoDataFrame to Mapbox Vector Tile (MVT) format for a specific tile.
 
@@ -111,7 +124,9 @@ def gdf_to_mvt(gdf: gpd.GeoDataFrame, x: int, y: int, z: int, layer_name: str = 
         MVT tile as bytes
     """
     if not VECTOR_DEPS_AVAILABLE:
-        raise ImportError("Vector tile dependencies (mapbox_vector_tile, mercantile) not available")
+        raise ImportError(
+            "Vector tile dependencies (mapbox_vector_tile, mercantile) not available"
+        )
 
     if not PYPROJ_AVAILABLE:
         raise ImportError("pyproj not available for coordinate transformation")
@@ -123,16 +138,23 @@ def gdf_to_mvt(gdf: gpd.GeoDataFrame, x: int, y: int, z: int, layer_name: str = 
     tile_bounds = mercantile.bounds(x, y, z)
 
     # Convert bounds to a bounding box for clipping
-    minx, miny, maxx, maxy = tile_bounds.west, tile_bounds.south, tile_bounds.east, tile_bounds.north
+    minx, miny, maxx, maxy = (
+        tile_bounds.west,
+        tile_bounds.south,
+        tile_bounds.east,
+        tile_bounds.north,
+    )
 
     # Convert bounds to Web Mercator for clipping
     from pyproj import Transformer
+
     transformer = Transformer.from_crs("EPSG:4326", "EPSG:3857", always_xy=True)
     minx_merc, miny_merc = transformer.transform(minx, miny)
     maxx_merc, maxy_merc = transformer.transform(maxx, maxy)
 
     # Clip GeoDataFrame to tile bounds
     from shapely.geometry import box
+
     tile_bbox = box(minx_merc, miny_merc, maxx_merc, maxy_merc)
     clipped_gdf = gdf[gdf.geometry.intersects(tile_bbox)]
 
@@ -147,24 +169,18 @@ def gdf_to_mvt(gdf: gpd.GeoDataFrame, x: int, y: int, z: int, layer_name: str = 
         geom = row.geometry
 
         # Get properties (exclude geometry column)
-        properties = {k: v for k, v in row.items() if k != 'geometry'}
+        properties = {k: v for k, v in row.items() if k != "geometry"}
 
         # Convert any non-serializable types to strings
         for key, value in properties.items():
             if not isinstance(value, (str, int, float, bool, type(None))):
                 properties[key] = str(value)
 
-        features.append({
-            "geometry": geom.__geo_interface__,
-            "properties": properties
-        })
+        features.append({"geometry": geom.__geo_interface__, "properties": properties})
 
     # Create layer data
     layer_data = {
-        layer_name: {
-            "features": features,
-            "extent": 4096  # Standard MVT extent
-        }
+        layer_name: {"features": features, "extent": 4096}  # Standard MVT extent
     }
 
     # Encode as MVT
@@ -276,7 +292,6 @@ if FASTAPI_AVAILABLE and _app is not None:
                 status_code=500,
                 detail=f"Failed to generate vector tile for {layer_name} at {z}/{x}/{y}. Error: {str(e)}",
             )
-
 
     @_app.get("/", response_class=HTMLResponse, tags=["Viewer"])
     async def root_viewer():
@@ -458,7 +473,9 @@ def serve(
         print(
             "Warning: Serving in-memory xarray.DataArray/Dataset directly is not fully supported for raster tiles in this version. Please provide a file path to a COG for best results with rio-tiler."
         )
-        _tile_server_data_source = data  # Storing it, but the raster endpoint might fail if it's not a path
+        _tile_server_data_source = (
+            data  # Storing it, but the raster endpoint might fail if it's not a path
+        )
         _service_type = "raster"
         # The raster endpoint currently expects _tile_server_data_source to be a string path.
         # This will need adjustment if we want to serve in-memory xr.DataArray.

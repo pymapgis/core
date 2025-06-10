@@ -15,7 +15,7 @@ from .vector import buffer, clip, overlay, spatial_join
 from .raster import reproject, normalized_difference
 from .viz import explore, plot_interactive
 
-from .serve import serve # Exposing the serve function at the top level
+from .serve import serve  # Exposing the serve function at the top level
 
 
 def set_cache(
