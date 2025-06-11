@@ -274,6 +274,7 @@ except ImportError:
     def profile_performance(func):
         raise ImportError("Could not import performance optimization")
 
+
 # Authentication & Security
 try:
     from .auth import (
@@ -283,7 +284,6 @@ try:
         generate_api_key,
         validate_api_key,
         rotate_api_key,
-
         # OAuth
         OAuthManager,
         OAuthProvider,
@@ -292,7 +292,6 @@ try:
         GitHubOAuthProvider,
         authenticate_oauth,
         refresh_oauth_token,
-
         # RBAC
         RBACManager,
         Role,
@@ -302,14 +301,12 @@ try:
         assign_role,
         check_permission,
         has_permission,
-
         # Session Management
         SessionManager,
         Session,
         create_session,
         validate_session,
         invalidate_session,
-
         # Security
         SecurityConfig,
         encrypt_data,
@@ -317,7 +314,6 @@ try:
         hash_password,
         verify_password,
         generate_secure_token,
-
         # Middleware
         AuthenticationMiddleware,
         RateLimitMiddleware,
@@ -325,53 +321,51 @@ try:
         require_auth,
         require_permission,
         rate_limit,
-
         # Manager instances
         get_api_key_manager,
         get_oauth_manager,
         get_rbac_manager,
         get_session_manager,
-
         # Convenience functions
         authenticate,
         authorize,
     )
 except ImportError:
 
-    def generate_api_key(name: str, scopes: List[str], expires_in_days: Optional[int] = None):
+    def generate_api_key(name: str, scopes: List[str], expires_in_days: Optional[int] = None, manager=None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def validate_api_key(raw_key: str, required_scope: Optional[str] = None):
+    def validate_api_key(raw_key: str, required_scope: Optional[str] = None, manager=None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def authenticate_oauth(provider_name: str, user_id: str):
+    def authenticate_oauth(provider_name: str, user_id: str, manager=None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def create_role(name: str, description: str, permissions: Optional[List[str]] = None):
+    def create_role(name: str, description: str, permissions: Optional[List[str]] = None, manager=None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def assign_role(user_id: str, role_name: str):
+    def assign_role(user_id: str, role_name: str, manager=None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def check_permission(user_id: str, permission_name: str, resource: str = "*"):
+    def check_permission(user_id: str, permission_name: str, resource: str = "*", manager=None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def create_session(user_id: str, timeout_seconds: Optional[int] = None):
+    def create_session(user_id: str, timeout_seconds: Optional[int] = None, ip_address: Optional[str] = None, user_agent: Optional[str] = None, metadata=None, manager=None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def validate_session(session_id: str, refresh: bool = True):
+    def validate_session(session_id: str, refresh: bool = True, manager=None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def hash_password(password: str):
+    def hash_password(password: str):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def verify_password(password: str, hashed: str):
+    def verify_password(password: str, hashed: str):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def authenticate(api_key: str = None, oauth_token: str = None, session_id: str = None):
+    def authenticate(api_key: Optional[str] = None, oauth_token: Optional[str] = None, session_id: Optional[str] = None):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
-    def authorize(user_id: str, permission: str):
+    def authorize(user_id: str, permission: str):  # type: ignore[misc]
         raise ImportError("Could not import authentication features")
 
     class APIKeyManager:  # type: ignore[no-redef]

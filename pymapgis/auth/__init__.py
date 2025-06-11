@@ -19,6 +19,8 @@ Enterprise Features:
 - Permission inheritance
 """
 
+from typing import Optional
+
 from .api_keys import (
     APIKeyManager,
     APIKey,
@@ -131,7 +133,9 @@ def get_session_manager() -> SessionManager:
 
 # Convenience functions
 def authenticate(
-    api_key: str = None, oauth_token: str = None, session_id: str = None
+    api_key: Optional[str] = None,
+    oauth_token: Optional[str] = None,
+    session_id: Optional[str] = None,
 ) -> bool:
     """
     Authenticate using any supported method.
@@ -145,12 +149,15 @@ def authenticate(
         bool: True if authentication successful
     """
     if api_key:
-        return validate_api_key(api_key)
+        api_result = validate_api_key(api_key)
+        return api_result is not None
     elif oauth_token:
         oauth_manager = get_oauth_manager()
-        return oauth_manager.validate_token(oauth_token)
+        oauth_result = oauth_manager.validate_token(oauth_token)
+        return oauth_result is not None
     elif session_id:
-        return validate_session(session_id)
+        session_result = validate_session(session_id)
+        return session_result is not None
     return False
 
 
