@@ -62,8 +62,8 @@ class PerformanceMonitor:
     
     def __init__(self, name: str = "Operation"):
         self.name = name
-        self.start_time = None
-        self.end_time = None
+        self.start_time: Optional[float] = None
+        self.end_time: Optional[float] = None
         self.memory_start = None
         self.memory_peak = 0
         self.items_processed = 0
@@ -110,9 +110,9 @@ class SmartCache:
     
     def __init__(self, max_size_mb: int = 500):
         self.max_size_mb = max_size_mb
-        self.cache = {}
-        self.access_times = {}
-        self.sizes = {}
+        self.cache: Dict[str, Any] = {}
+        self.access_times: Dict[str, float] = {}
+        self.sizes: Dict[str, float] = {}
         
     def get(self, key: str) -> Optional[Any]:
         """Get item from cache."""
@@ -161,10 +161,10 @@ class ChunkedFileReader:
         self.cache = cache or SmartCache()
         
     async def read_file_async(
-        self, 
+        self,
         filepath: Union[str, Path],
         **kwargs
-    ) -> AsyncIterator[Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray]]:
+    ) -> AsyncIterator[Union[gpd.GeoDataFrame, pd.DataFrame, xr.DataArray, xr.Dataset]]:
         """
         Read large files in chunks asynchronously.
         
@@ -233,14 +233,14 @@ class ChunkedFileReader:
         for i in range(0, len(gdf), self.chunk_size):
             yield gdf.iloc[i:i + self.chunk_size].copy()
     
-    async def _read_raster_chunks(self, filepath: Path, **kwargs) -> AsyncIterator[xr.DataArray]:
+    async def _read_raster_chunks(self, filepath: Path, **kwargs) -> AsyncIterator[Union[xr.DataArray, xr.Dataset]]:
         """Read raster files in chunks."""
         loop = asyncio.get_event_loop()
-        
+
         if filepath.suffix.lower() == '.nc':
             # NetCDF files
             ds = await loop.run_in_executor(None, xr.open_dataset, str(filepath), **kwargs)
-            
+
             # Chunk by time or other dimensions
             if 'time' in ds.dims:
                 time_chunks = max(1, len(ds.time) // 10)  # 10 time chunks
@@ -252,9 +252,9 @@ class ChunkedFileReader:
             # Raster files (GeoTIFF, etc.)
             import rioxarray
             da = await loop.run_in_executor(None, rioxarray.open_rasterio, str(filepath), **kwargs)
-            
+
             # Chunk spatially
-            if da.sizes.get('y', 0) > self.chunk_size:
+            if hasattr(da, 'sizes') and da.sizes.get('y', 0) > self.chunk_size:
                 y_chunks = max(1, da.sizes['y'] // self.chunk_size)
                 for i in range(0, da.sizes['y'], y_chunks):
                     yield da.isel(y=slice(i, i + y_chunks))
@@ -324,7 +324,7 @@ class AsyncGeoProcessor:
                     results.append(result)
                 else:
                     # Write chunk to output file
-                    await self._write_chunk_to_file(result, output_path, len(results) == 0)
+                    await self._write_chunk_to_file(result, Path(output_path), len(results) == 0)
                 
                 # Update monitoring
                 chunk_size_bytes = chunk.memory_usage(deep=True).sum() if hasattr(chunk, 'memory_usage') else 1024

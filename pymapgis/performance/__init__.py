@@ -155,15 +155,15 @@ class AdvancedCache:
         self.enable_compression = enable_compression
         
         # Memory cache (L1)
-        self.memory_cache = OrderedDict()
-        self.memory_sizes = {}
-        self.memory_access_count = defaultdict(int)
-        self.memory_access_time = {}
-        
+        self.memory_cache: OrderedDict[str, Any] = OrderedDict()
+        self.memory_sizes: Dict[str, float] = {}
+        self.memory_access_count: defaultdict[str, int] = defaultdict(int)
+        self.memory_access_time: Dict[str, float] = {}
+
         # Disk cache (L2)
         self.cache_dir = Path(cache_dir) if cache_dir else Path.home() / ".pymapgis" / "performance_cache"
         self.cache_dir.mkdir(parents=True, exist_ok=True)
-        self.disk_cache_index = {}
+        self.disk_cache_index: Dict[str, Dict[str, Any]] = {}
         
         # Performance tracking
         self.metrics = PerformanceMetrics()
@@ -422,8 +422,8 @@ class SpatialIndex:
     def __init__(self, index_type: str = "rtree"):
         self.index_type = index_type
         self.index = None
-        self.geometries = {}
-        self.bounds_cache = {}
+        self.geometries: Dict[int, Any] = {}
+        self.bounds_cache: Dict[int, Tuple[float, float, float, float]] = {}
         
         if index_type == "rtree" and RTREE_AVAILABLE:
             self.index = index.Index()
@@ -605,8 +605,8 @@ class MemoryManager:
     def __init__(self, target_memory_mb: int = 2000):
         self.target_memory_mb = target_memory_mb
         self.memory_threshold = 0.8  # Trigger cleanup at 80% of target
-        self.weak_refs = weakref.WeakSet()
-        self.cleanup_callbacks = []
+        self.weak_refs: weakref.WeakSet[Any] = weakref.WeakSet()
+        self.cleanup_callbacks: List[Callable[[], None]] = []
 
     def register_object(self, obj: Any) -> None:
         """Register object for memory management."""
@@ -749,7 +749,7 @@ class PerformanceOptimizer:
         self.profiler = PerformanceProfiler()
 
         self.enable_auto_optimization = enable_auto_optimization
-        self.optimization_thread = None
+        self.optimization_thread: Optional[threading.Thread] = None
         self.running = False
 
         if enable_auto_optimization:

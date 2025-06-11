@@ -15,9 +15,9 @@ try:
     POINTCLOUD_AVAILABLE = True
 except ImportError:
     POINTCLOUD_AVAILABLE = False
-    def pmg_read_point_cloud(*args, **kwargs):
+    def pmg_read_point_cloud(filepath: str, **kwargs):
         raise ImportError("Point cloud functionality not available. Install with: poetry install --extras pointcloud")
-    def pmg_get_point_cloud_points(*args, **kwargs):
+    def pmg_get_point_cloud_points(pipeline):
         raise ImportError("Point cloud functionality not available. Install with: poetry install --extras pointcloud")
 
 # Define a more comprehensive return type for the read function

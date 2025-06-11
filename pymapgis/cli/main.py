@@ -13,7 +13,7 @@ import importlib.metadata
 from typing_extensions import Annotated
 
 # Initialize global variables with proper typing
-from typing import Any, Callable, Optional
+from typing import Any, Callable, Optional, Dict
 import types
 
 # Type definitions for better MyPy compatibility
@@ -546,10 +546,10 @@ def plugin_info_command(plugin_name: str):
         )
 
         # Load all plugins
-        all_plugins = {}
-        all_plugins.update(load_driver_plugins())
-        all_plugins.update(load_algorithm_plugins())
-        all_plugins.update(load_viz_backend_plugins())
+        all_plugins: Dict[str, Any] = {}
+        all_plugins.update(load_driver_plugins())  # type: ignore
+        all_plugins.update(load_algorithm_plugins())  # type: ignore
+        all_plugins.update(load_viz_backend_plugins())  # type: ignore
 
         if plugin_name not in all_plugins:
             typer.secho(f"Plugin '{plugin_name}' not found.", fg=typer.colors.RED, err=True)

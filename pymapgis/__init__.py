@@ -167,23 +167,23 @@ try:
         profile_performance
     )
 except ImportError as e:
-    def optimize_performance(*args, **kwargs):
+    def optimize_performance(obj, **kwargs):
         raise ImportError(f"Could not import performance optimization: {e}")
-    def get_performance_stats(*args, **kwargs):
+    def get_performance_stats():
         raise ImportError(f"Could not import performance optimization: {e}")
-    def clear_performance_cache(*args, **kwargs):
+    def clear_performance_cache():
         raise ImportError(f"Could not import performance optimization: {e}")
-    def enable_auto_optimization(*args, **kwargs):
+    def enable_auto_optimization():
         raise ImportError(f"Could not import performance optimization: {e}")
-    def disable_auto_optimization(*args, **kwargs):
+    def disable_auto_optimization():
         raise ImportError(f"Could not import performance optimization: {e}")
     def PerformanceOptimizer(*args, **kwargs):
         raise ImportError(f"Could not import performance optimization: {e}")
-    def cache_result(*args, **kwargs):
+    def cache_result(cache_key: str = None, ttl: int = None):
         raise ImportError(f"Could not import performance optimization: {e}")
-    def lazy_load(*args, **kwargs):
+    def lazy_load(func):
         raise ImportError(f"Could not import performance optimization: {e}")
-    def profile_performance(*args, **kwargs):
+    def profile_performance(func):
         raise ImportError(f"Could not import performance optimization: {e}")
 
 

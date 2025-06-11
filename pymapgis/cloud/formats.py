@@ -154,7 +154,7 @@ class CloudOptimizedWriter:
             zarr_options['chunks'] = chunks
         
         # Write Zarr
-        data.to_zarr(output_path, **zarr_options)
+        data.to_zarr(output_path, **zarr_options)  # type: ignore
         logger.info(f"Wrote Zarr dataset: {output_path}")
     
     def write_flatgeobuf(self, data: gpd.GeoDataFrame, output_path: str, **kwargs) -> None:
