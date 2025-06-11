@@ -1,4 +1,4 @@
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 
 from pathlib import Path  # Existing import
 
@@ -154,6 +154,38 @@ except ImportError as e:
     def register_azure_provider(*args, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
 
+try:
+    from .performance import (
+        optimize_performance,
+        get_performance_stats,
+        clear_performance_cache,
+        enable_auto_optimization,
+        disable_auto_optimization,
+        PerformanceOptimizer,
+        cache_result,
+        lazy_load,
+        profile_performance
+    )
+except ImportError as e:
+    def optimize_performance(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+    def get_performance_stats(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+    def clear_performance_cache(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+    def enable_auto_optimization(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+    def disable_auto_optimization(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+    def PerformanceOptimizer(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+    def cache_result(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+    def lazy_load(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+    def profile_performance(*args, **kwargs):
+        raise ImportError(f"Could not import performance optimization: {e}")
+
 
 # Keep the set_cache function as a regular function since it's used for configuration
 def set_cache(
@@ -216,6 +248,16 @@ __all__ = [
     "register_s3_provider",
     "register_gcs_provider",
     "register_azure_provider",
+    # Phase 3: Performance optimization
+    "optimize_performance",
+    "get_performance_stats",
+    "clear_performance_cache",
+    "enable_auto_optimization",
+    "disable_auto_optimization",
+    "PerformanceOptimizer",
+    "cache_result",
+    "lazy_load",
+    "profile_performance",
     # Package version
     "__version__",
 ]
