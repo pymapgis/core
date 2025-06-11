@@ -92,7 +92,7 @@ except ImportError:
 
 try:
     from .acs import get_county_table
-except ImportError as e:
+except ImportError:
 
     def get_county_table(
         year: int,
@@ -101,74 +101,74 @@ except ImportError as e:
         state: str | None = None,
         ttl: str = "6h",
     ):
-        raise ImportError(f"Could not import ACS functions: {e}")
+        raise ImportError("Could not import ACS functions")
 
 
 try:
     from .tiger import counties
-except ImportError as e:
+except ImportError:
 
     def counties(year: int = 2022, scale: str = "500k"):
-        raise ImportError(f"Could not import TIGER functions: {e}")
+        raise ImportError("Could not import TIGER functions")
 
 
 try:
     from .plotting import choropleth
-except ImportError as e:
+except ImportError:
 
     def choropleth(
         gdf, column: str, *, cmap: str = "viridis", title: str | None = None
     ):
-        raise ImportError(f"Could not import plotting functions: {e}")
+        raise ImportError("Could not import plotting functions")
 
 
 try:
     from .vector import buffer, clip, overlay, spatial_join
-except ImportError as e:
+except ImportError:
 
     def buffer(gdf, distance: float, **kwargs):
-        raise ImportError(f"Could not import vector functions: {e}")
+        raise ImportError("Could not import vector functions")
 
     def clip(gdf, mask_geometry, **kwargs):
-        raise ImportError(f"Could not import vector functions: {e}")
+        raise ImportError("Could not import vector functions")
 
     def overlay(gdf1, gdf2, how: str = "intersection", **kwargs):
-        raise ImportError(f"Could not import vector functions: {e}")
+        raise ImportError("Could not import vector functions")
 
     def spatial_join(
         left_gdf, right_gdf, op: str = "intersects", how: str = "inner", **kwargs
     ):
-        raise ImportError(f"Could not import vector functions: {e}")
+        raise ImportError("Could not import vector functions")
 
 
 try:
     from .raster import reproject, normalized_difference
-except ImportError as e:
+except ImportError:
 
     def reproject(data_array, target_crs: Union[str, int], **kwargs):  # type: ignore[misc]
-        raise ImportError(f"Could not import raster functions: {e}")
+        raise ImportError("Could not import raster functions")
 
     def normalized_difference(array, band1: Hashable, band2: Hashable):  # type: ignore[misc]
-        raise ImportError(f"Could not import raster functions: {e}")
+        raise ImportError("Could not import raster functions")
 
 
 try:
     from .viz import explore, plot_interactive
-except ImportError as e:
+except ImportError:
 
     def explore(data, m=None, **kwargs):  # type: ignore[misc]
-        raise ImportError(f"Could not import viz functions: {e}")
+        raise ImportError("Could not import viz functions")
 
     def plot_interactive(data, m=None, **kwargs):  # type: ignore[misc]
-        raise ImportError(f"Could not import viz functions: {e}")
+        raise ImportError("Could not import viz functions")
 
 
 try:
     from .serve import serve
-except ImportError as e:
+except ImportError:
 
     def serve(data, service_type: str = "xyz", layer_name: str = "layer", host: str = "127.0.0.1", port: int = 8000, **options):  # type: ignore[misc]
-        raise ImportError(f"Could not import serve function: {e}")
+        raise ImportError("Could not import serve function")
 
 
 try:
@@ -178,19 +178,19 @@ try:
         async_process_in_chunks,
         parallel_geo_operations,
     )
-except ImportError as e:
+except ImportError:
 
     def AsyncGeoProcessor(*args, **kwargs):  # type: ignore[no-redef]
-        raise ImportError(f"Could not import async processing: {e}")
+        raise ImportError("Could not import async processing")
 
     async def async_read_large_file(filepath: Union[str, Path], chunk_size: int = 50000, **kwargs):  # type: ignore[misc]
-        raise ImportError(f"Could not import async processing: {e}")
+        raise ImportError("Could not import async processing")
 
     async def async_process_in_chunks(filepath: Union[str, Path], operation: Callable, chunk_size: int = 50000, output_path: Optional[Union[str, Path]] = None, **kwargs):  # type: ignore[misc]
-        raise ImportError(f"Could not import async processing: {e}")
+        raise ImportError("Could not import async processing")
 
     async def parallel_geo_operations(data_items: List[Any], operation: Callable, max_workers: Optional[int] = None, use_processes: bool = False):  # type: ignore[misc]
-        raise ImportError(f"Could not import async processing: {e}")
+        raise ImportError("Could not import async processing")
 
 
 try:
@@ -204,32 +204,32 @@ try:
         register_gcs_provider,
         register_azure_provider,
     )
-except ImportError as e:
+except ImportError:
 
     def cloud_read(cloud_url: str, provider_name: str = None, **kwargs):
-        raise ImportError(f"Could not import cloud integration: {e}")
+        raise ImportError("Could not import cloud integration")
 
     def cloud_write(data, cloud_url: str, provider_name: str = None, **kwargs):
-        raise ImportError(f"Could not import cloud integration: {e}")
+        raise ImportError("Could not import cloud integration")
 
     def list_cloud_files(cloud_url: str, provider_name: str = None, max_files: int = 1000):  # type: ignore[misc]
-        raise ImportError(f"Could not import cloud integration: {e}")
+        raise ImportError("Could not import cloud integration")
 
     def get_cloud_info(cloud_url: str, provider_name: str = None):  # type: ignore[misc]
-        raise ImportError(f"Could not import cloud integration: {e}")
+        raise ImportError("Could not import cloud integration")
 
     class CloudStorageManager:  # type: ignore[no-redef]
         def __init__(self, *args, **kwargs):
-            raise ImportError(f"Could not import cloud integration: {e}")
+            raise ImportError("Could not import cloud integration")
 
     def register_s3_provider(name: str, bucket: str, region: str = None, **kwargs):  # type: ignore[misc]
-        raise ImportError(f"Could not import cloud integration: {e}")
+        raise ImportError("Could not import cloud integration")
 
     def register_gcs_provider(name: str, bucket: str, project: str = None, **kwargs):  # type: ignore[misc]
-        raise ImportError(f"Could not import cloud integration: {e}")
+        raise ImportError("Could not import cloud integration")
 
     def register_azure_provider(name: str, account_name: str, container: str, account_key: str = None, **kwargs):  # type: ignore[misc]
-        raise ImportError(f"Could not import cloud integration: {e}")
+        raise ImportError("Could not import cloud integration")
 
 
 try:
@@ -244,35 +244,35 @@ try:
         lazy_load,
         profile_performance,
     )
-except ImportError as e:
+except ImportError:
 
     def optimize_performance(obj, **kwargs):
-        raise ImportError(f"Could not import performance optimization: {e}")
+        raise ImportError("Could not import performance optimization")
 
     def get_performance_stats():
-        raise ImportError(f"Could not import performance optimization: {e}")
+        raise ImportError("Could not import performance optimization")
 
     def clear_performance_cache():
-        raise ImportError(f"Could not import performance optimization: {e}")
+        raise ImportError("Could not import performance optimization")
 
     def enable_auto_optimization():
-        raise ImportError(f"Could not import performance optimization: {e}")
+        raise ImportError("Could not import performance optimization")
 
     def disable_auto_optimization():
-        raise ImportError(f"Could not import performance optimization: {e}")
+        raise ImportError("Could not import performance optimization")
 
     class PerformanceOptimizer:  # type: ignore[no-redef]
         def __init__(self, *args, **kwargs):
-            raise ImportError(f"Could not import performance optimization: {e}")
+            raise ImportError("Could not import performance optimization")
 
     def cache_result(cache_key: str = None, ttl: int = None):
-        raise ImportError(f"Could not import performance optimization: {e}")
+        raise ImportError("Could not import performance optimization")
 
     def lazy_load(func):
-        raise ImportError(f"Could not import performance optimization: {e}")
+        raise ImportError("Could not import performance optimization")
 
     def profile_performance(func):
-        raise ImportError(f"Could not import performance optimization: {e}")
+        raise ImportError("Could not import performance optimization")
 
 
 # Keep the set_cache function as a regular function since it's used for configuration
