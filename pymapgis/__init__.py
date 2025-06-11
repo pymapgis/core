@@ -1,4 +1,4 @@
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 from pathlib import Path  # Existing import
 
@@ -125,6 +125,35 @@ except ImportError as e:
     def parallel_geo_operations(*args, **kwargs):
         raise ImportError(f"Could not import async processing: {e}")
 
+try:
+    from .cloud import (
+        cloud_read,
+        cloud_write,
+        list_cloud_files,
+        get_cloud_info,
+        CloudStorageManager,
+        register_s3_provider,
+        register_gcs_provider,
+        register_azure_provider
+    )
+except ImportError as e:
+    def cloud_read(*args, **kwargs):
+        raise ImportError(f"Could not import cloud integration: {e}")
+    def cloud_write(*args, **kwargs):
+        raise ImportError(f"Could not import cloud integration: {e}")
+    def list_cloud_files(*args, **kwargs):
+        raise ImportError(f"Could not import cloud integration: {e}")
+    def get_cloud_info(*args, **kwargs):
+        raise ImportError(f"Could not import cloud integration: {e}")
+    def CloudStorageManager(*args, **kwargs):
+        raise ImportError(f"Could not import cloud integration: {e}")
+    def register_s3_provider(*args, **kwargs):
+        raise ImportError(f"Could not import cloud integration: {e}")
+    def register_gcs_provider(*args, **kwargs):
+        raise ImportError(f"Could not import cloud integration: {e}")
+    def register_azure_provider(*args, **kwargs):
+        raise ImportError(f"Could not import cloud integration: {e}")
+
 
 # Keep the set_cache function as a regular function since it's used for configuration
 def set_cache(
@@ -178,6 +207,15 @@ __all__ = [
     "async_read_large_file",
     "async_process_in_chunks",
     "parallel_geo_operations",
+    # Phase 3: Cloud integration
+    "cloud_read",
+    "cloud_write",
+    "list_cloud_files",
+    "get_cloud_info",
+    "CloudStorageManager",
+    "register_s3_provider",
+    "register_gcs_provider",
+    "register_azure_provider",
     # Package version
     "__version__",
 ]
