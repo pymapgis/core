@@ -1,6 +1,7 @@
 __version__ = "0.3.2"
 
 from pathlib import Path  # Existing import
+from typing import Union, Sequence, Hashable, Callable, Coroutine, AsyncIterator, Any, Optional, List, Dict  # For type annotations
 
 # Lazy imports to avoid circular dependencies and improve startup time
 def _lazy_import_io():
@@ -43,7 +44,7 @@ def _lazy_import_serve():
 try:
     from .io import read
 except ImportError as e:
-    def read(uri, *, x=None, y=None, **kw):
+    def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw):  # type: ignore[misc]
         raise ImportError(f"Could not import read function: {e}")
 
 try:
@@ -59,19 +60,19 @@ except ImportError as e:
 try:
     from .acs import get_county_table
 except ImportError as e:
-    def get_county_table(year, variables, *, state=None, ttl="7d"):
+    def get_county_table(year: int, variables: Sequence[str], *, state: str | None = None, ttl: str = "6h"):
         raise ImportError(f"Could not import ACS functions: {e}")
 
 try:
     from .tiger import counties
 except ImportError as e:
-    def counties(year=2023, scale="20m"):
+    def counties(year: int = 2022, scale: str = "500k"):
         raise ImportError(f"Could not import TIGER functions: {e}")
 
 try:
     from .plotting import choropleth
 except ImportError as e:
-    def choropleth(gdf, column, *, cmap="viridis", title=None):
+    def choropleth(gdf, column: str, *, cmap: str = "viridis", title: str | None = None):
         raise ImportError(f"Could not import plotting functions: {e}")
 
 try:
@@ -89,23 +90,23 @@ except ImportError as e:
 try:
     from .raster import reproject, normalized_difference
 except ImportError as e:
-    def reproject(data_array, target_crs, **kwargs):
+    def reproject(data_array, target_crs: Union[str, int], **kwargs):  # type: ignore[misc]
         raise ImportError(f"Could not import raster functions: {e}")
-    def normalized_difference(array, band1, band2):
+    def normalized_difference(array, band1: Hashable, band2: Hashable):  # type: ignore[misc]
         raise ImportError(f"Could not import raster functions: {e}")
 
 try:
     from .viz import explore, plot_interactive
 except ImportError as e:
-    def explore(data, m=None, **kwargs):
+    def explore(data, m=None, **kwargs):  # type: ignore[misc]
         raise ImportError(f"Could not import viz functions: {e}")
-    def plot_interactive(data, m=None, **kwargs):
+    def plot_interactive(data, m=None, **kwargs):  # type: ignore[misc]
         raise ImportError(f"Could not import viz functions: {e}")
 
 try:
     from .serve import serve
 except ImportError as e:
-    def serve(data, service_type="wms", layer_name="data", host="localhost", port=8080, **options):
+    def serve(data, service_type: str = "xyz", layer_name: str = "layer", host: str = "127.0.0.1", port: int = 8000, **options):  # type: ignore[misc]
         raise ImportError(f"Could not import serve function: {e}")
 
 try:
@@ -118,11 +119,11 @@ try:
 except ImportError as e:
     def AsyncGeoProcessor(*args, **kwargs):  # type: ignore[no-redef]
         raise ImportError(f"Could not import async processing: {e}")
-    async def async_read_large_file(filepath, chunk_size=50000, **kwargs):
+    async def async_read_large_file(filepath: Union[str, Path], chunk_size: int = 50000, **kwargs):  # type: ignore[misc]
         raise ImportError(f"Could not import async processing: {e}")
-    async def async_process_in_chunks(filepath, operation, chunk_size=50000, output_path=None, **kwargs):
+    async def async_process_in_chunks(filepath: Union[str, Path], operation: Callable, chunk_size: int = 50000, output_path: Optional[Union[str, Path]] = None, **kwargs):  # type: ignore[misc]
         raise ImportError(f"Could not import async processing: {e}")
-    async def parallel_geo_operations(data_items, operation, max_workers=None, use_processes=False):
+    async def parallel_geo_operations(data_items: List[Any], operation: Callable, max_workers: Optional[int] = None, use_processes: bool = False):  # type: ignore[misc]
         raise ImportError(f"Could not import async processing: {e}")
 
 try:
@@ -141,18 +142,18 @@ except ImportError as e:
         raise ImportError(f"Could not import cloud integration: {e}")
     def cloud_write(data, cloud_url: str, provider_name: str = None, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def list_cloud_files(cloud_url: str, provider_name: str = None, max_files: int = 1000):
+    def list_cloud_files(cloud_url: str, provider_name: str = None, max_files: int = 1000):  # type: ignore[misc]
         raise ImportError(f"Could not import cloud integration: {e}")
-    def get_cloud_info(cloud_url: str, provider_name: str = None):
+    def get_cloud_info(cloud_url: str, provider_name: str = None):  # type: ignore[misc]
         raise ImportError(f"Could not import cloud integration: {e}")
     class CloudStorageManager:  # type: ignore[no-redef]
         def __init__(self, *args, **kwargs):
             raise ImportError(f"Could not import cloud integration: {e}")
-    def register_s3_provider(name: str, bucket: str, region: str = None, **kwargs):
+    def register_s3_provider(name: str, bucket: str, region: str = None, **kwargs):  # type: ignore[misc]
         raise ImportError(f"Could not import cloud integration: {e}")
-    def register_gcs_provider(name: str, bucket: str, project: str = None, **kwargs):
+    def register_gcs_provider(name: str, bucket: str, project: str = None, **kwargs):  # type: ignore[misc]
         raise ImportError(f"Could not import cloud integration: {e}")
-    def register_azure_provider(name: str, account_name: str, container: str, account_key: str = None, **kwargs):
+    def register_azure_provider(name: str, account_name: str, container: str, account_key: str = None, **kwargs):  # type: ignore[misc]
         raise ImportError(f"Could not import cloud integration: {e}")
 
 try:
