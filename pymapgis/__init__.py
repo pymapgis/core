@@ -43,7 +43,7 @@ def _lazy_import_serve():
 try:
     from .io import read
 except ImportError as e:
-    def read(uri: str, *, x=None, y=None, **kw):
+    def read(uri, *, x=None, y=None, **kw):
         raise ImportError(f"Could not import read function: {e}")
 
 try:
@@ -59,19 +59,19 @@ except ImportError as e:
 try:
     from .acs import get_county_table
 except ImportError as e:
-    def get_county_table(year: int, variables, *, state=None, ttl="7d"):
+    def get_county_table(year, variables, *, state=None, ttl="7d"):
         raise ImportError(f"Could not import ACS functions: {e}")
 
 try:
     from .tiger import counties
 except ImportError as e:
-    def counties(year: int = 2023, scale: str = "20m"):
+    def counties(year=2023, scale="20m"):
         raise ImportError(f"Could not import TIGER functions: {e}")
 
 try:
     from .plotting import choropleth
 except ImportError as e:
-    def choropleth(gdf, column: str, *, cmap: str = "viridis", title=None):
+    def choropleth(gdf, column, *, cmap="viridis", title=None):
         raise ImportError(f"Could not import plotting functions: {e}")
 
 try:
@@ -89,23 +89,23 @@ except ImportError as e:
 try:
     from .raster import reproject, normalized_difference
 except ImportError as e:
-    def reproject(*args, **kwargs):
+    def reproject(data_array, target_crs, **kwargs):
         raise ImportError(f"Could not import raster functions: {e}")
-    def normalized_difference(*args, **kwargs):
+    def normalized_difference(array, band1, band2):
         raise ImportError(f"Could not import raster functions: {e}")
 
 try:
     from .viz import explore, plot_interactive
 except ImportError as e:
-    def explore(*args, **kwargs):
+    def explore(data, m=None, **kwargs):
         raise ImportError(f"Could not import viz functions: {e}")
-    def plot_interactive(*args, **kwargs):
+    def plot_interactive(data, m=None, **kwargs):
         raise ImportError(f"Could not import viz functions: {e}")
 
 try:
     from .serve import serve
 except ImportError as e:
-    def serve(*args, **kwargs):
+    def serve(data, service_type="wms", layer_name="data", host="localhost", port=8080, **options):
         raise ImportError(f"Could not import serve function: {e}")
 
 try:
@@ -116,7 +116,7 @@ try:
         parallel_geo_operations
     )
 except ImportError as e:
-    def AsyncGeoProcessor(*args, **kwargs):
+    def AsyncGeoProcessor(*args, **kwargs):  # type: ignore[no-redef]
         raise ImportError(f"Could not import async processing: {e}")
     async def async_read_large_file(filepath, chunk_size=50000, **kwargs):
         raise ImportError(f"Could not import async processing: {e}")
@@ -143,7 +143,7 @@ except ImportError as e:
         raise ImportError(f"Could not import cloud integration: {e}")
     def list_cloud_files(cloud_url: str, provider_name: str = None, max_files: int = 1000):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def get_cloud_info(cloud_url: str, provider_name: str = None) -> dict:
+    def get_cloud_info(cloud_url: str, provider_name: str = None):
         raise ImportError(f"Could not import cloud integration: {e}")
     class CloudStorageManager:  # type: ignore[no-redef]
         def __init__(self, *args, **kwargs):

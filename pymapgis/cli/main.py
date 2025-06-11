@@ -499,7 +499,7 @@ def plugin_list_command(verbose: bool = typer.Option(False, "--verbose", "-v", h
         # Display algorithms
         if algorithms:
             typer.echo(f"\n--- Algorithms ({len(algorithms)}) ---")
-            for name, plugin_class in algorithms.items():
+            for name, plugin_class in algorithms.items():  # type: ignore
                 if verbose:
                     typer.echo(f"  {name}: {plugin_class.__module__}.{plugin_class.__name__}")
                     if hasattr(plugin_class, '__doc__') and plugin_class.__doc__:
@@ -510,7 +510,7 @@ def plugin_list_command(verbose: bool = typer.Option(False, "--verbose", "-v", h
         # Display visualization backends
         if viz_backends:
             typer.echo(f"\n--- Visualization Backends ({len(viz_backends)}) ---")
-            for name, plugin_class in viz_backends.items():
+            for name, plugin_class in viz_backends.items():  # type: ignore
                 if verbose:
                     typer.echo(f"  {name}: {plugin_class.__module__}.{plugin_class.__name__}")
                     if hasattr(plugin_class, '__doc__') and plugin_class.__doc__:
