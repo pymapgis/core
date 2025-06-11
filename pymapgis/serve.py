@@ -6,7 +6,6 @@ from typing import Union, Any, Optional
 try:
     import geopandas as gpd
     import xarray as xr
-    import pymapgis
 except ImportError as e:
     print(f"Warning: Core dependencies not available: {e}", file=sys.stderr)
     raise
@@ -41,7 +40,21 @@ except ImportError as e:
 try:
     from rio_tiler.io import Reader as RioTilerReader
     from rio_tiler.profiles import img_profiles
-    from rio_tiler.utils import get_colormap
+
+    # Try different import paths for get_colormap
+    try:
+        from rio_tiler.colormap import get_colormap
+    except ImportError:
+        try:
+            from rio_tiler.utils import get_colormap
+        except ImportError:
+            # Create a fallback colormap function
+            def get_colormap(name):
+                # Basic colormap fallback
+                return {
+                    0: [0, 0, 0, 0],      # transparent
+                    255: [255, 255, 255, 255]  # white
+                }
 
     RIO_TILER_AVAILABLE = True
 except ImportError as e:
@@ -421,7 +434,9 @@ def serve(
             #    for ambiguous file types or files without standard suffixes.
             file_suffix = data.split(".")[-1].lower()
             if file_suffix in ["shp", "geojson", "gpkg", "parquet", "geoparquet"]:
-                _tile_server_data_source = pymapgis.read(data)
+                # Import read function locally to avoid circular imports
+                from .io import read
+                _tile_server_data_source = read(data)
                 _service_type = "vector"
             elif file_suffix in [
                 "tif",
@@ -439,7 +454,9 @@ def serve(
             else:
                 # Default try read, could be vector or other
                 print(f"Attempting to read {data} to infer type for serving...")
-                loaded_data = pymapgis.read(data)
+                # Import read function locally to avoid circular imports
+                from .io import read
+                loaded_data = read(data)
                 if isinstance(loaded_data, gpd.GeoDataFrame):
                     _tile_server_data_source = loaded_data
                     _service_type = "vector"
