@@ -43,7 +43,7 @@ def _lazy_import_serve():
 try:
     from .io import read
 except ImportError as e:
-    def read(uri, *, x=None, y=None, **kw):
+    def read(uri: str, *, x=None, y=None, **kw):
         raise ImportError(f"Could not import read function: {e}")
 
 try:
@@ -59,31 +59,31 @@ except ImportError as e:
 try:
     from .acs import get_county_table
 except ImportError as e:
-    def get_county_table(year, variables, *, state=None, ttl="7d"):
+    def get_county_table(year: int, variables, *, state=None, ttl="7d"):
         raise ImportError(f"Could not import ACS functions: {e}")
 
 try:
     from .tiger import counties
 except ImportError as e:
-    def counties(year=2023, scale="20m"):
+    def counties(year: int = 2023, scale: str = "20m"):
         raise ImportError(f"Could not import TIGER functions: {e}")
 
 try:
     from .plotting import choropleth
 except ImportError as e:
-    def choropleth(gdf, column, *, cmap="viridis", title=None):
+    def choropleth(gdf, column: str, *, cmap: str = "viridis", title=None):
         raise ImportError(f"Could not import plotting functions: {e}")
 
 try:
     from .vector import buffer, clip, overlay, spatial_join
 except ImportError as e:
-    def buffer(*args, **kwargs):
+    def buffer(gdf, distance: float, **kwargs):
         raise ImportError(f"Could not import vector functions: {e}")
-    def clip(*args, **kwargs):
+    def clip(gdf, mask_geometry, **kwargs):
         raise ImportError(f"Could not import vector functions: {e}")
-    def overlay(*args, **kwargs):
+    def overlay(gdf1, gdf2, how: str = "intersection", **kwargs):
         raise ImportError(f"Could not import vector functions: {e}")
-    def spatial_join(*args, **kwargs):
+    def spatial_join(left_gdf, right_gdf, op: str = "intersects", how: str = "inner", **kwargs):
         raise ImportError(f"Could not import vector functions: {e}")
 
 try:
@@ -143,9 +143,9 @@ except ImportError as e:
         raise ImportError(f"Could not import cloud integration: {e}")
     def list_cloud_files(cloud_url: str, provider_name: str = None, max_files: int = 1000):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def get_cloud_info(cloud_url: str, provider_name: str = None):
+    def get_cloud_info(cloud_url: str, provider_name: str = None) -> dict:
         raise ImportError(f"Could not import cloud integration: {e}")
-    class CloudStorageManager:
+    class CloudStorageManager:  # type: ignore[no-redef]
         def __init__(self, *args, **kwargs):
             raise ImportError(f"Could not import cloud integration: {e}")
     def register_s3_provider(name: str, bucket: str, region: str = None, **kwargs):
@@ -178,7 +178,7 @@ except ImportError as e:
         raise ImportError(f"Could not import performance optimization: {e}")
     def disable_auto_optimization():
         raise ImportError(f"Could not import performance optimization: {e}")
-    class PerformanceOptimizer:
+    class PerformanceOptimizer:  # type: ignore[no-redef]
         def __init__(self, *args, **kwargs):
             raise ImportError(f"Could not import performance optimization: {e}")
     def cache_result(cache_key: str = None, ttl: int = None):

@@ -476,8 +476,8 @@ def plugin_list_command(verbose: bool = typer.Option(False, "--verbose", "-v", h
 
         # Load plugins
         drivers = load_driver_plugins()
-        algorithms = load_algorithm_plugins()
-        viz_backends = load_viz_backend_plugins()
+        algorithms = load_algorithm_plugins()  # type: ignore
+        viz_backends = load_viz_backend_plugins()  # type: ignore
 
         total_plugins = len(drivers) + len(algorithms) + len(viz_backends)
 
