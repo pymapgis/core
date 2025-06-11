@@ -254,7 +254,7 @@ class ChunkedFileReader:
             da = await loop.run_in_executor(None, rioxarray.open_rasterio, str(filepath), **kwargs)
 
             # Chunk spatially
-            if hasattr(da, 'sizes') and da.sizes.get('y', 0) > self.chunk_size:
+            if hasattr(da, 'sizes') and hasattr(da, 'isel') and da.sizes.get('y', 0) > self.chunk_size:
                 y_chunks = max(1, da.sizes['y'] // self.chunk_size)
                 for i in range(0, da.sizes['y'], y_chunks):
                     yield da.isel(y=slice(i, i + y_chunks))

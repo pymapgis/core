@@ -49,29 +49,29 @@ except ImportError as e:
 try:
     from .cache import _init_session, clear as clear_cache, stats, purge
 except ImportError as e:
-    def clear_cache():
+    def clear_cache() -> None:
         raise ImportError(f"Could not import cache functions: {e}")
-    def stats():
+    def stats() -> dict:
         raise ImportError(f"Could not import cache functions: {e}")
-    def purge():
+    def purge() -> None:
         raise ImportError(f"Could not import cache functions: {e}")
 
 try:
     from .acs import get_county_table
 except ImportError as e:
-    def get_county_table(*args, **kwargs):
+    def get_county_table(year, variables, *, state=None, ttl="7d"):
         raise ImportError(f"Could not import ACS functions: {e}")
 
 try:
     from .tiger import counties
 except ImportError as e:
-    def counties(*args, **kwargs):
+    def counties(year=2023, scale="20m"):
         raise ImportError(f"Could not import TIGER functions: {e}")
 
 try:
     from .plotting import choropleth
 except ImportError as e:
-    def choropleth(*args, **kwargs):
+    def choropleth(gdf, column, *, cmap="viridis", title=None):
         raise ImportError(f"Could not import plotting functions: {e}")
 
 try:
@@ -118,11 +118,11 @@ try:
 except ImportError as e:
     def AsyncGeoProcessor(*args, **kwargs):
         raise ImportError(f"Could not import async processing: {e}")
-    def async_read_large_file(*args, **kwargs):
+    async def async_read_large_file(filepath, chunk_size=50000, **kwargs):
         raise ImportError(f"Could not import async processing: {e}")
-    def async_process_in_chunks(*args, **kwargs):
+    async def async_process_in_chunks(filepath, operation, chunk_size=50000, output_path=None, **kwargs):
         raise ImportError(f"Could not import async processing: {e}")
-    def parallel_geo_operations(*args, **kwargs):
+    async def parallel_geo_operations(data_items, operation, max_workers=None, use_processes=False):
         raise ImportError(f"Could not import async processing: {e}")
 
 try:
@@ -137,16 +137,17 @@ try:
         register_azure_provider
     )
 except ImportError as e:
-    def cloud_read(*args, **kwargs):
+    def cloud_read(cloud_url: str, provider_name: str = None, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def cloud_write(*args, **kwargs):
+    def cloud_write(data, cloud_url: str, provider_name: str = None, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def list_cloud_files(*args, **kwargs):
+    def list_cloud_files(cloud_url: str, provider_name: str = None, max_files: int = 1000):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def get_cloud_info(*args, **kwargs):
+    def get_cloud_info(cloud_url: str, provider_name: str = None):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def CloudStorageManager(*args, **kwargs):
-        raise ImportError(f"Could not import cloud integration: {e}")
+    class CloudStorageManager:
+        def __init__(self, *args, **kwargs):
+            raise ImportError(f"Could not import cloud integration: {e}")
     def register_s3_provider(name: str, bucket: str, region: str = None, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
     def register_gcs_provider(name: str, bucket: str, project: str = None, **kwargs):

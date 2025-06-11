@@ -205,8 +205,11 @@ class CloudOptimizedReader:
         # Open with rioxarray for efficient windowed reading
         da = rioxarray.open_rasterio(file_path, overview_level=overview_level)
         min_x, min_y, max_x, max_y = window
-        windowed = da.isel(x=slice(min_x, max_x), y=slice(min_y, max_y))
-        return windowed.load()
+        if hasattr(da, 'isel'):
+            windowed = da.isel(x=slice(min_x, max_x), y=slice(min_y, max_y))
+            return windowed.load()
+        else:
+            return da  # type: ignore
     
     def read_geoparquet_filtered(self, file_path: str, bbox: Optional[Tuple[float, float, float, float]] = None,
                                 columns: Optional[List[str]] = None) -> gpd.GeoDataFrame:
@@ -291,7 +294,7 @@ def convert_to_cog(input_path: str, output_path: str, **kwargs) -> None:
     
     # Write as COG
     writer = CloudOptimizedWriter()
-    writer.write_cog(data, output_path, **kwargs)
+    writer.write_cog(data, output_path, **kwargs)  # type: ignore
 
 
 def convert_to_geoparquet(input_path: str, output_path: str, **kwargs) -> None:
@@ -330,7 +333,11 @@ def convert_to_zarr(input_path: str, output_path: str, **kwargs) -> None:
     if input_path.endswith('.nc'):
         data = xr.open_dataset(input_path)
     else:
-        data = rioxarray.open_rasterio(input_path).to_dataset(name='data')
+        raster_data = rioxarray.open_rasterio(input_path)
+        if hasattr(raster_data, 'to_dataset'):
+            data = raster_data.to_dataset(name='data')
+        else:
+            data = raster_data  # type: ignore
     
     # Write as Zarr
     writer = CloudOptimizedWriter()
