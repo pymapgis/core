@@ -582,7 +582,7 @@ def plugin_info_command(plugin_name: str):
             module = importlib.import_module(plugin_class.__module__.split('.')[0])
             if hasattr(module, '__version__'):
                 typer.echo(f"Version: {module.__version__}")
-        except:
+        except Exception:
             pass
 
     except ImportError as e:
