@@ -93,5 +93,5 @@ class PymapgisPlugin:
                 self.pymapgis_dialog_instance.finished.disconnect(self.on_dialog_close)
             except TypeError: # Signal already disconnected
                 pass
-            # self.pymapgis_dialog_instance.deleteLater() # Recommended to allow Qt to clean up
+            self.pymapgis_dialog_instance.deleteLater() # Recommended to allow Qt to clean up
         self.pymapgis_dialog_instance = None

@@ -84,22 +84,26 @@ class PyMapGISDialog(QDialog):
 
             if isinstance(data, gpd.GeoDataFrame):
                 QgsMessageLog.logMessage(f"Data is GeoDataFrame. Processing as vector layer: {layer_name}", PLUGIN_NAME, Qgis.Info)
-                temp_dir = tempfile.mkdtemp(prefix='pymapgis_qgis_')
-                # Sanitize layer_name for use as a filename
-                safe_filename = "".join(c if c.isalnum() else "_" for c in layer_name)
-                temp_gpkg_path = os.path.join(temp_dir, safe_filename + ".gpkg")
 
-                data.to_file(temp_gpkg_path, driver="GPKG")
+                # Use context manager for automatic cleanup of temporary directory
+                with tempfile.TemporaryDirectory(prefix='pymapgis_qgis_') as temp_dir:
+                    # Sanitize layer_name for use as a filename
+                    safe_filename = "".join(c if c.isalnum() else "_" for c in layer_name)
+                    temp_gpkg_path = os.path.join(temp_dir, safe_filename + ".gpkg")
 
-                vlayer = QgsVectorLayer(temp_gpkg_path, layer_name, "ogr")
-                if not vlayer.isValid():
-                    error_detail = vlayer.error().message() if hasattr(vlayer.error(), 'message') else "Unknown error"
-                    self.iface.messageBar().pushMessage("Error", f"Failed to load GeoDataFrame as QgsVectorLayer: {error_detail}", level=Qgis.Critical, duration=5)
-                    QgsMessageLog.logMessage(f"Failed QgsVectorLayer: {temp_gpkg_path}. Error: {error_detail}", PLUGIN_NAME, Qgis.Critical)
-                    return
-                QgsProject.instance().addMapLayer(vlayer)
+                    data.to_file(temp_gpkg_path, driver="GPKG")
+
+                    vlayer = QgsVectorLayer(temp_gpkg_path, layer_name, "ogr")
+                    if not vlayer.isValid():
+                        error_detail = vlayer.error().message() if hasattr(vlayer.error(), 'message') else "Unknown error"
+                        self.iface.messageBar().pushMessage("Error", f"Failed to load GeoDataFrame as QgsVectorLayer: {error_detail}", level=Qgis.Critical, duration=5)
+                        QgsMessageLog.logMessage(f"Failed QgsVectorLayer: {temp_gpkg_path}. Error: {error_detail}", PLUGIN_NAME, Qgis.Critical)
+                        return
+                    QgsProject.instance().addMapLayer(vlayer)
+                    # Temporary directory and files are automatically cleaned up when exiting this block
+
                 self.iface.messageBar().pushMessage("Success", f"Vector layer '{layer_name}' loaded.", level=Qgis.Success, duration=3)
-                QgsMessageLog.logMessage(f"Vector layer '{layer_name}' added to project from {temp_gpkg_path}", PLUGIN_NAME, Qgis.Success)
+                QgsMessageLog.logMessage(f"Vector layer '{layer_name}' added to project (temporary files cleaned up)", PLUGIN_NAME, Qgis.Success)
                 self.accept()
 
             elif isinstance(data, xr.DataArray):
@@ -111,25 +115,28 @@ class PyMapGISDialog(QDialog):
                     self.iface.messageBar().pushMessage("Warning", "Raster data missing CRS. Cannot load.", level=Qgis.Warning, duration=5)
                     return
 
-                temp_dir = tempfile.mkdtemp(prefix='pymapgis_qgis_')
-                safe_filename = "".join(c if c.isalnum() else "_" for c in layer_name)
-                temp_tiff_path = os.path.join(temp_dir, safe_filename + ".tif")
-
                 # Ensure rioxarray is available and data has spatial dims
                 if not hasattr(data, 'rio'):
                     raise ImportError("rioxarray extension not found on xarray.DataArray. Is rioxarray installed and imported?")
 
-                data.rio.to_raster(temp_tiff_path, tiled=True)
+                # Use context manager for automatic cleanup of temporary directory
+                with tempfile.TemporaryDirectory(prefix='pymapgis_qgis_') as temp_dir:
+                    safe_filename = "".join(c if c.isalnum() else "_" for c in layer_name)
+                    temp_tiff_path = os.path.join(temp_dir, safe_filename + ".tif")
 
-                rlayer = QgsRasterLayer(temp_tiff_path, layer_name)
-                if not rlayer.isValid():
-                    error_detail = rlayer.error().message() if hasattr(rlayer.error(), 'message') else "Unknown error"
-                    self.iface.messageBar().pushMessage("Error", f"Failed to load DataArray as QgsRasterLayer: {error_detail}", level=Qgis.Critical, duration=5)
-                    QgsMessageLog.logMessage(f"Failed QgsRasterLayer: {temp_tiff_path}. Error: {error_detail}", PLUGIN_NAME, Qgis.Critical)
-                    return
-                QgsProject.instance().addMapLayer(rlayer)
+                    data.rio.to_raster(temp_tiff_path, tiled=True)
+
+                    rlayer = QgsRasterLayer(temp_tiff_path, layer_name)
+                    if not rlayer.isValid():
+                        error_detail = rlayer.error().message() if hasattr(rlayer.error(), 'message') else "Unknown error"
+                        self.iface.messageBar().pushMessage("Error", f"Failed to load DataArray as QgsRasterLayer: {error_detail}", level=Qgis.Critical, duration=5)
+                        QgsMessageLog.logMessage(f"Failed QgsRasterLayer: {temp_tiff_path}. Error: {error_detail}", PLUGIN_NAME, Qgis.Critical)
+                        return
+                    QgsProject.instance().addMapLayer(rlayer)
+                    # Temporary directory and files are automatically cleaned up when exiting this block
+
                 self.iface.messageBar().pushMessage("Success", f"Raster layer '{layer_name}' loaded.", level=Qgis.Success, duration=3)
-                QgsMessageLog.logMessage(f"Raster layer '{layer_name}' added to project from {temp_tiff_path}", PLUGIN_NAME, Qgis.Success)
+                QgsMessageLog.logMessage(f"Raster layer '{layer_name}' added to project (temporary files cleaned up)", PLUGIN_NAME, Qgis.Success)
                 self.accept()
 
             else:
