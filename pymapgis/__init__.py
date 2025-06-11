@@ -384,6 +384,151 @@ except ImportError:
         def __init__(self, *args, **kwargs):
             raise ImportError("Could not import authentication features")
 
+# ML/Analytics Integration
+try:
+    from .ml import (
+        # Feature Engineering
+        SpatialFeatureExtractor,
+        GeometricFeatures,
+        SpatialStatistics,
+        NeighborhoodAnalysis,
+        extract_geometric_features,
+        calculate_spatial_statistics,
+        analyze_neighborhoods,
+
+        # Scikit-learn Integration
+        SpatialPreprocessor,
+        SpatialPipeline,
+        SpatialKMeans,
+        SpatialDBSCAN,
+        SpatialRegression,
+        SpatialClassifier,
+        spatial_train_test_split,
+        spatial_cross_validate,
+
+        # Spatial Algorithms
+        Kriging,
+        GeographicallyWeightedRegression,
+        SpatialAutocorrelation,
+        HotspotAnalysis,
+        SpatialClustering,
+        perform_kriging,
+        calculate_gwr,
+        analyze_spatial_autocorrelation,
+        detect_hotspots,
+
+        # Evaluation & Preprocessing
+        evaluate_spatial_model,
+        spatial_accuracy_score,
+        spatial_r2_score,
+        prepare_spatial_data,
+        scale_spatial_features,
+        encode_spatial_categories,
+
+        # Pipelines
+        create_spatial_pipeline,
+        auto_spatial_analysis,
+
+        # Manager instances
+        get_feature_extractor,
+        get_spatial_preprocessor,
+        get_model_evaluator,
+
+        # Convenience functions
+        analyze_spatial_data,
+        create_spatial_ml_model,
+        run_spatial_analysis_pipeline,
+    )
+except ImportError:
+
+    def extract_geometric_features(gdf):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def calculate_spatial_statistics(gdf, values=None):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def analyze_neighborhoods(gdf, target_column=None):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def spatial_train_test_split(X, y, geometry, test_size=0.2, **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def spatial_cross_validate(estimator, X, y, geometry, cv=5, **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def perform_kriging(gdf, variable, prediction_points, **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def calculate_gwr(gdf, target, features, **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def analyze_spatial_autocorrelation(gdf, variable, **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def detect_hotspots(gdf, variable, **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def evaluate_spatial_model(model, X, y, geometry=None, cv=5):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def spatial_accuracy_score(y_true, y_pred, geometry=None):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def spatial_r2_score(y_true, y_pred, geometry=None):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def prepare_spatial_data(gdf, target_column=None):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def scale_spatial_features(X, geometry=None):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def encode_spatial_categories(X, categorical_columns=None):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def create_spatial_pipeline(model_type="regression", **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def auto_spatial_analysis(gdf, target_column=None, **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def analyze_spatial_data(gdf, target_column=None, **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def create_spatial_ml_model(model_type="regression", **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    def run_spatial_analysis_pipeline(gdf, target_column=None, model_type="auto", **kwargs):  # type: ignore[misc]
+        raise ImportError("Could not import ML/Analytics features")
+
+    class SpatialFeatureExtractor:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import ML/Analytics features")
+
+    class SpatialPreprocessor:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import ML/Analytics features")
+
+    class SpatialKMeans:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import ML/Analytics features")
+
+    class SpatialRegression:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import ML/Analytics features")
+
+    class SpatialClassifier:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import ML/Analytics features")
+
+    class Kriging:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import ML/Analytics features")
+
+    class GeographicallyWeightedRegression:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import ML/Analytics features")
+
 
 # Keep the set_cache function as a regular function since it's used for configuration
 def set_cache(
