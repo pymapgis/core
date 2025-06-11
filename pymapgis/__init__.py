@@ -274,6 +274,122 @@ except ImportError:
     def profile_performance(func):
         raise ImportError("Could not import performance optimization")
 
+# Authentication & Security
+try:
+    from .auth import (
+        # API Keys
+        APIKeyManager,
+        APIKey,
+        generate_api_key,
+        validate_api_key,
+        rotate_api_key,
+
+        # OAuth
+        OAuthManager,
+        OAuthProvider,
+        GoogleOAuthProvider,
+        MicrosoftOAuthProvider,
+        GitHubOAuthProvider,
+        authenticate_oauth,
+        refresh_oauth_token,
+
+        # RBAC
+        RBACManager,
+        Role,
+        Permission,
+        User,
+        create_role,
+        assign_role,
+        check_permission,
+        has_permission,
+
+        # Session Management
+        SessionManager,
+        Session,
+        create_session,
+        validate_session,
+        invalidate_session,
+
+        # Security
+        SecurityConfig,
+        encrypt_data,
+        decrypt_data,
+        hash_password,
+        verify_password,
+        generate_secure_token,
+
+        # Middleware
+        AuthenticationMiddleware,
+        RateLimitMiddleware,
+        SecurityMiddleware,
+        require_auth,
+        require_permission,
+        rate_limit,
+
+        # Manager instances
+        get_api_key_manager,
+        get_oauth_manager,
+        get_rbac_manager,
+        get_session_manager,
+
+        # Convenience functions
+        authenticate,
+        authorize,
+    )
+except ImportError:
+
+    def generate_api_key(name: str, scopes: List[str], expires_in_days: Optional[int] = None):
+        raise ImportError("Could not import authentication features")
+
+    def validate_api_key(raw_key: str, required_scope: Optional[str] = None):
+        raise ImportError("Could not import authentication features")
+
+    def authenticate_oauth(provider_name: str, user_id: str):
+        raise ImportError("Could not import authentication features")
+
+    def create_role(name: str, description: str, permissions: Optional[List[str]] = None):
+        raise ImportError("Could not import authentication features")
+
+    def assign_role(user_id: str, role_name: str):
+        raise ImportError("Could not import authentication features")
+
+    def check_permission(user_id: str, permission_name: str, resource: str = "*"):
+        raise ImportError("Could not import authentication features")
+
+    def create_session(user_id: str, timeout_seconds: Optional[int] = None):
+        raise ImportError("Could not import authentication features")
+
+    def validate_session(session_id: str, refresh: bool = True):
+        raise ImportError("Could not import authentication features")
+
+    def hash_password(password: str):
+        raise ImportError("Could not import authentication features")
+
+    def verify_password(password: str, hashed: str):
+        raise ImportError("Could not import authentication features")
+
+    def authenticate(api_key: str = None, oauth_token: str = None, session_id: str = None):
+        raise ImportError("Could not import authentication features")
+
+    def authorize(user_id: str, permission: str):
+        raise ImportError("Could not import authentication features")
+
+    class APIKeyManager:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import authentication features")
+
+    class OAuthManager:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import authentication features")
+
+    class RBACManager:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import authentication features")
+
+    class SessionManager:  # type: ignore[no-redef]
+        def __init__(self, *args, **kwargs):
+            raise ImportError("Could not import authentication features")
+
 
 # Keep the set_cache function as a regular function since it's used for configuration
 def set_cache(
