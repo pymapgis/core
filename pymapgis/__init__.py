@@ -1,4 +1,4 @@
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 from pathlib import Path  # Existing import
 
@@ -108,6 +108,23 @@ except ImportError as e:
     def serve(*args, **kwargs):
         raise ImportError(f"Could not import serve function: {e}")
 
+try:
+    from .async_processing import (
+        AsyncGeoProcessor,
+        async_read_large_file,
+        async_process_in_chunks,
+        parallel_geo_operations
+    )
+except ImportError as e:
+    def AsyncGeoProcessor(*args, **kwargs):
+        raise ImportError(f"Could not import async processing: {e}")
+    def async_read_large_file(*args, **kwargs):
+        raise ImportError(f"Could not import async processing: {e}")
+    def async_process_in_chunks(*args, **kwargs):
+        raise ImportError(f"Could not import async processing: {e}")
+    def parallel_geo_operations(*args, **kwargs):
+        raise ImportError(f"Could not import async processing: {e}")
+
 
 # Keep the set_cache function as a regular function since it's used for configuration
 def set_cache(
@@ -156,6 +173,11 @@ __all__ = [
     "explore",
     "plot_interactive",
     "serve",
+    # Phase 3: Async processing
+    "AsyncGeoProcessor",
+    "async_read_large_file",
+    "async_process_in_chunks",
+    "parallel_geo_operations",
     # Package version
     "__version__",
 ]
