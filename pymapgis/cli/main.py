@@ -354,7 +354,10 @@ def doctor():
     typer.echo("\n--- PyMapGIS Installation ---")
     if pymapgis_module:
         typer.secho(f"✓ PyMapGIS version: {pymapgis_module.__version__}", fg=ok_color)
-        typer.secho(f"✓ PyMapGIS location: {getattr(pymapgis_module, '__file__', 'unknown')}", fg=ok_color)
+        typer.secho(
+            f"✓ PyMapGIS location: {getattr(pymapgis_module, '__file__', 'unknown')}",
+            fg=ok_color,
+        )
     else:
         typer.secho("✗ PyMapGIS not properly installed", fg=error_color)
         issues_found += 1
@@ -362,8 +365,16 @@ def doctor():
     # Check core dependencies
     typer.echo("\n--- Core Dependencies ---")
     core_deps = [
-        "geopandas", "xarray", "rioxarray", "pandas", "numpy",
-        "fastapi", "uvicorn", "typer", "requests_cache", "fsspec"
+        "geopandas",
+        "xarray",
+        "rioxarray",
+        "pandas",
+        "numpy",
+        "fastapi",
+        "uvicorn",
+        "typer",
+        "requests_cache",
+        "fsspec",
     ]
 
     for dep in core_deps:
@@ -399,21 +410,29 @@ def doctor():
     # Check cache configuration
     typer.echo("\n--- Cache Configuration ---")
     if settings_obj:
-        cache_dir = getattr(settings_obj, 'cache_dir', 'unknown')
+        cache_dir = getattr(settings_obj, "cache_dir", "unknown")
         typer.secho(f"✓ Cache directory: {cache_dir}", fg=ok_color)
 
         # Check if cache directory exists and is writable
         try:
             from pathlib import Path
+
             cache_path = Path(cache_dir).expanduser()
             if cache_path.exists():
                 if cache_path.is_dir():
-                    typer.secho(f"✓ Cache directory exists and is accessible", fg=ok_color)
+                    typer.secho(
+                        f"✓ Cache directory exists and is accessible", fg=ok_color
+                    )
                 else:
-                    typer.secho(f"✗ Cache path exists but is not a directory", fg=error_color)
+                    typer.secho(
+                        f"✗ Cache path exists but is not a directory", fg=error_color
+                    )
                     issues_found += 1
             else:
-                typer.secho(f"- Cache directory does not exist (will be created when needed)", fg=warning_color)
+                typer.secho(
+                    f"- Cache directory does not exist (will be created when needed)",
+                    fg=warning_color,
+                )
         except Exception as e:
             typer.secho(f"? Error checking cache directory: {e}", fg=warning_color)
     else:
@@ -445,7 +464,9 @@ def doctor():
             fg=warning_color,
             bold=True,
         )
-    typer.echo("Note: Items marked with '-' are optional and may not affect functionality.")
+    typer.echo(
+        "Note: Items marked with '-' are optional and may not affect functionality."
+    )
 
 
 # --- Plugin Subcommand ---
@@ -456,7 +477,11 @@ app.add_typer(plugin_app)
 
 
 @plugin_app.command(name="list")
-def plugin_list_command(verbose: bool = typer.Option(False, "--verbose", "-v", help="Show detailed plugin information")):
+def plugin_list_command(
+    verbose: bool = typer.Option(
+        False, "--verbose", "-v", help="Show detailed plugin information"
+    )
+):
     """
     List installed PyMapGIS plugins.
     """
@@ -490,8 +515,10 @@ def plugin_list_command(verbose: bool = typer.Option(False, "--verbose", "-v", h
             typer.echo(f"\n--- Data Drivers ({len(drivers)}) ---")
             for name, plugin_class in drivers.items():
                 if verbose:
-                    typer.echo(f"  {name}: {plugin_class.__module__}.{plugin_class.__name__}")
-                    if hasattr(plugin_class, '__doc__') and plugin_class.__doc__:
+                    typer.echo(
+                        f"  {name}: {plugin_class.__module__}.{plugin_class.__name__}"
+                    )
+                    if hasattr(plugin_class, "__doc__") and plugin_class.__doc__:
                         typer.echo(f"    {plugin_class.__doc__.strip()}")
                 else:
                     typer.echo(f"  {name}")
@@ -501,8 +528,10 @@ def plugin_list_command(verbose: bool = typer.Option(False, "--verbose", "-v", h
             typer.echo(f"\n--- Algorithms ({len(algorithms)}) ---")
             for name, plugin_class in algorithms.items():  # type: ignore
                 if verbose:
-                    typer.echo(f"  {name}: {plugin_class.__module__}.{plugin_class.__name__}")
-                    if hasattr(plugin_class, '__doc__') and plugin_class.__doc__:
+                    typer.echo(
+                        f"  {name}: {plugin_class.__module__}.{plugin_class.__name__}"
+                    )
+                    if hasattr(plugin_class, "__doc__") and plugin_class.__doc__:
                         typer.echo(f"    {plugin_class.__doc__.strip()}")
                 else:
                     typer.echo(f"  {name}")
@@ -512,8 +541,10 @@ def plugin_list_command(verbose: bool = typer.Option(False, "--verbose", "-v", h
             typer.echo(f"\n--- Visualization Backends ({len(viz_backends)}) ---")
             for name, plugin_class in viz_backends.items():  # type: ignore
                 if verbose:
-                    typer.echo(f"  {name}: {plugin_class.__module__}.{plugin_class.__name__}")
-                    if hasattr(plugin_class, '__doc__') and plugin_class.__doc__:
+                    typer.echo(
+                        f"  {name}: {plugin_class.__module__}.{plugin_class.__name__}"
+                    )
+                    if hasattr(plugin_class, "__doc__") and plugin_class.__doc__:
                         typer.echo(f"    {plugin_class.__doc__.strip()}")
                 else:
                     typer.echo(f"  {name}")
@@ -521,7 +552,9 @@ def plugin_list_command(verbose: bool = typer.Option(False, "--verbose", "-v", h
         typer.echo(f"\nTotal: {total_plugins} plugin(s) found")
 
     except ImportError as e:
-        typer.secho(f"Error: Could not load plugin system: {e}", fg=typer.colors.RED, err=True)
+        typer.secho(
+            f"Error: Could not load plugin system: {e}", fg=typer.colors.RED, err=True
+        )
     except Exception as e:
         typer.secho(f"Error: {e}", fg=typer.colors.RED, err=True)
 
@@ -552,7 +585,9 @@ def plugin_info_command(plugin_name: str):
         all_plugins.update(load_viz_backend_plugins())  # type: ignore
 
         if plugin_name not in all_plugins:
-            typer.secho(f"Plugin '{plugin_name}' not found.", fg=typer.colors.RED, err=True)
+            typer.secho(
+                f"Plugin '{plugin_name}' not found.", fg=typer.colors.RED, err=True
+            )
             typer.echo("Available plugins:")
             for name in sorted(all_plugins.keys()):
                 typer.echo(f"  {name}")
@@ -563,11 +598,16 @@ def plugin_info_command(plugin_name: str):
         typer.echo(f"Name: {plugin_name}")
         typer.echo(f"Class: {plugin_class.__module__}.{plugin_class.__name__}")
 
-        if hasattr(plugin_class, '__doc__') and plugin_class.__doc__:
+        if hasattr(plugin_class, "__doc__") and plugin_class.__doc__:
             typer.echo(f"Description: {plugin_class.__doc__.strip()}")
 
         # Try to get plugin type
-        from pymapgis.plugins import PymapgisDriver, PymapgisAlgorithm, PymapgisVizBackend
+        from pymapgis.plugins import (
+            PymapgisDriver,
+            PymapgisAlgorithm,
+            PymapgisVizBackend,
+        )
+
         if issubclass(plugin_class, PymapgisDriver):
             typer.echo("Type: Data Driver")
         elif issubclass(plugin_class, PymapgisAlgorithm):
@@ -579,14 +619,16 @@ def plugin_info_command(plugin_name: str):
 
         # Try to get version info from the module
         try:
-            module = importlib.import_module(plugin_class.__module__.split('.')[0])
-            if hasattr(module, '__version__'):
+            module = importlib.import_module(plugin_class.__module__.split(".")[0])
+            if hasattr(module, "__version__"):
                 typer.echo(f"Version: {module.__version__}")
         except Exception:
             pass
 
     except ImportError as e:
-        typer.secho(f"Error: Could not load plugin system: {e}", fg=typer.colors.RED, err=True)
+        typer.secho(
+            f"Error: Could not load plugin system: {e}", fg=typer.colors.RED, err=True
+        )
     except Exception as e:
         typer.secho(f"Error: {e}", fg=typer.colors.RED, err=True)
 
@@ -616,18 +658,17 @@ def plugin_install_command(plugin_spec: str):
 
         typer.echo(f"Running: {' '.join(pip_cmd)}")
 
-        result = subprocess.run(
-            pip_cmd,
-            capture_output=True,
-            text=True,
-            check=False
-        )
+        result = subprocess.run(pip_cmd, capture_output=True, text=True, check=False)
 
         if result.returncode == 0:
-            typer.secho(f"✓ Successfully installed {plugin_spec}", fg=typer.colors.GREEN)
+            typer.secho(
+                f"✓ Successfully installed {plugin_spec}", fg=typer.colors.GREEN
+            )
             typer.echo("Run 'pymapgis plugin list' to see available plugins.")
         else:
-            typer.secho(f"✗ Failed to install {plugin_spec}", fg=typer.colors.RED, err=True)
+            typer.secho(
+                f"✗ Failed to install {plugin_spec}", fg=typer.colors.RED, err=True
+            )
             typer.echo("Error output:")
             typer.echo(result.stderr)
 
@@ -644,7 +685,9 @@ def plugin_uninstall_command(package_name: str):
     """
     typer.echo(
         typer.style(
-            f"Uninstalling plugin package: {package_name}", fg=typer.colors.BRIGHT_BLUE, bold=True
+            f"Uninstalling plugin package: {package_name}",
+            fg=typer.colors.BRIGHT_BLUE,
+            bold=True,
         )
     )
 
@@ -661,17 +704,16 @@ def plugin_uninstall_command(package_name: str):
 
         typer.echo(f"Running: {' '.join(pip_cmd)}")
 
-        result = subprocess.run(
-            pip_cmd,
-            capture_output=True,
-            text=True,
-            check=False
-        )
+        result = subprocess.run(pip_cmd, capture_output=True, text=True, check=False)
 
         if result.returncode == 0:
-            typer.secho(f"✓ Successfully uninstalled {package_name}", fg=typer.colors.GREEN)
+            typer.secho(
+                f"✓ Successfully uninstalled {package_name}", fg=typer.colors.GREEN
+            )
         else:
-            typer.secho(f"✗ Failed to uninstall {package_name}", fg=typer.colors.RED, err=True)
+            typer.secho(
+                f"✗ Failed to uninstall {package_name}", fg=typer.colors.RED, err=True
+            )
             typer.echo("Error output:")
             typer.echo(result.stderr)
 

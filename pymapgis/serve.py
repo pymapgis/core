@@ -52,8 +52,8 @@ try:
             def get_colormap(name):
                 # Basic colormap fallback
                 return {
-                    0: [0, 0, 0, 0],      # transparent
-                    255: [255, 255, 255, 255]  # white
+                    0: [0, 0, 0, 0],  # transparent
+                    255: [255, 255, 255, 255],  # white
                 }
 
     RIO_TILER_AVAILABLE = True
@@ -436,6 +436,7 @@ def serve(
             if file_suffix in ["shp", "geojson", "gpkg", "parquet", "geoparquet"]:
                 # Import read function locally to avoid circular imports
                 from .io import read
+
                 _tile_server_data_source = read(data)
                 _service_type = "vector"
             elif file_suffix in [
@@ -456,6 +457,7 @@ def serve(
                 print(f"Attempting to read {data} to infer type for serving...")
                 # Import read function locally to avoid circular imports
                 from .io import read
+
                 loaded_data = read(data)
                 if isinstance(loaded_data, gpd.GeoDataFrame):
                     _tile_server_data_source = loaded_data

@@ -12,13 +12,21 @@ import numpy as np
 try:
     from pymapgis.pointcloud import read_point_cloud as pmg_read_point_cloud
     from pymapgis.pointcloud import get_point_cloud_points as pmg_get_point_cloud_points
+
     POINTCLOUD_AVAILABLE = True
 except ImportError:
     POINTCLOUD_AVAILABLE = False
+
     def pmg_read_point_cloud(filepath: str, **kwargs):
-        raise ImportError("Point cloud functionality not available. Install with: poetry install --extras pointcloud")
+        raise ImportError(
+            "Point cloud functionality not available. Install with: poetry install --extras pointcloud"
+        )
+
     def pmg_get_point_cloud_points(pipeline):
-        raise ImportError("Point cloud functionality not available. Install with: poetry install --extras pointcloud")
+        raise ImportError(
+            "Point cloud functionality not available. Install with: poetry install --extras pointcloud"
+        )
+
 
 # Define a more comprehensive return type for the read function
 ReadReturnType = Union[
@@ -168,7 +176,9 @@ def read(uri: Union[str, Path], *, x="longitude", y="latitude", **kw) -> ReadRet
             # The cached_file_path from fsspec should provide this.
             # kwargs for read_point_cloud can be passed via **kw
             if not POINTCLOUD_AVAILABLE:
-                raise ImportError("Point cloud functionality not available. Install with: poetry install --extras pointcloud")
+                raise ImportError(
+                    "Point cloud functionality not available. Install with: poetry install --extras pointcloud"
+                )
             pdal_pipeline = pmg_read_point_cloud(cached_file_path, **kw)
             return pmg_get_point_cloud_points(pdal_pipeline)
 
