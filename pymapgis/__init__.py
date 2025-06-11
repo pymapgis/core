@@ -43,17 +43,17 @@ def _lazy_import_serve():
 try:
     from .io import read
 except ImportError as e:
-    def read(*args, **kwargs):
+    def read(uri, *, x=None, y=None, **kw):
         raise ImportError(f"Could not import read function: {e}")
 
 try:
     from .cache import _init_session, clear as clear_cache, stats, purge
 except ImportError as e:
-    def clear_cache(*args, **kwargs):
+    def clear_cache():
         raise ImportError(f"Could not import cache functions: {e}")
-    def stats(*args, **kwargs):
+    def stats():
         raise ImportError(f"Could not import cache functions: {e}")
-    def purge(*args, **kwargs):
+    def purge():
         raise ImportError(f"Could not import cache functions: {e}")
 
 try:
@@ -147,11 +147,11 @@ except ImportError as e:
         raise ImportError(f"Could not import cloud integration: {e}")
     def CloudStorageManager(*args, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def register_s3_provider(*args, **kwargs):
+    def register_s3_provider(name: str, bucket: str, region: str = None, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def register_gcs_provider(*args, **kwargs):
+    def register_gcs_provider(name: str, bucket: str, project: str = None, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
-    def register_azure_provider(*args, **kwargs):
+    def register_azure_provider(name: str, account_name: str, container: str, account_key: str = None, **kwargs):
         raise ImportError(f"Could not import cloud integration: {e}")
 
 try:
@@ -177,8 +177,9 @@ except ImportError as e:
         raise ImportError(f"Could not import performance optimization: {e}")
     def disable_auto_optimization():
         raise ImportError(f"Could not import performance optimization: {e}")
-    def PerformanceOptimizer(*args, **kwargs):
-        raise ImportError(f"Could not import performance optimization: {e}")
+    class PerformanceOptimizer:
+        def __init__(self, *args, **kwargs):
+            raise ImportError(f"Could not import performance optimization: {e}")
     def cache_result(cache_key: str = None, ttl: int = None):
         raise ImportError(f"Could not import performance optimization: {e}")
     def lazy_load(func):

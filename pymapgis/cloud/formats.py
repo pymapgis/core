@@ -186,8 +186,8 @@ class CloudOptimizedReader:
     def __init__(self, cache_chunks: bool = True):
         self.cache_chunks = cache_chunks
     
-    def read_cog_window(self, file_path: str, window: Tuple[int, int, int, int], 
-                       overview_level: int = 0) -> xr.DataArray:
+    def read_cog_window(self, file_path: str, window: Tuple[int, int, int, int],
+                       overview_level: int = 0) -> Union[xr.DataArray, xr.Dataset]:
         """
         Read a spatial window from Cloud Optimized GeoTIFF.
         
@@ -203,10 +203,10 @@ class CloudOptimizedReader:
             raise ImportError("xarray and rioxarray required for COG reading")
         
         # Open with rioxarray for efficient windowed reading
-        with rioxarray.open_rasterio(file_path, overview_level=overview_level) as da:
-            min_x, min_y, max_x, max_y = window
-            windowed = da.isel(x=slice(min_x, max_x), y=slice(min_y, max_y))
-            return windowed.load()
+        da = rioxarray.open_rasterio(file_path, overview_level=overview_level)
+        min_x, min_y, max_x, max_y = window
+        windowed = da.isel(x=slice(min_x, max_x), y=slice(min_y, max_y))
+        return windowed.load()
     
     def read_geoparquet_filtered(self, file_path: str, bbox: Optional[Tuple[float, float, float, float]] = None,
                                 columns: Optional[List[str]] = None) -> gpd.GeoDataFrame:
@@ -340,65 +340,65 @@ def convert_to_zarr(input_path: str, output_path: str, **kwargs) -> None:
 def optimize_for_cloud(input_path: str, output_dir: str, formats: List[str] = None) -> Dict[str, str]:
     """
     Convert data to multiple cloud-optimized formats.
-    
+
     Args:
         input_path: Input data file
         output_dir: Output directory
         formats: List of formats to create ('cog', 'geoparquet', 'zarr', 'flatgeobuf')
-        
+
     Returns:
         Dictionary mapping format names to output paths
     """
     if formats is None:
         formats = ['geoparquet', 'cog']  # Default formats
-    
-    input_path = Path(input_path)
-    output_dir = Path(output_dir)
-    output_dir.mkdir(exist_ok=True)
+
+    input_path_obj = Path(input_path)
+    output_dir_obj = Path(output_dir)
+    output_dir_obj.mkdir(exist_ok=True)
     
     results = {}
-    
+
     # Determine input data type
-    suffix = input_path.suffix.lower()
-    
+    suffix = input_path_obj.suffix.lower()
+
     if suffix in ['.shp', '.geojson', '.gpkg', '.gml']:
         # Vector data
         if 'geoparquet' in formats:
-            output_path = output_dir / f"{input_path.stem}.parquet"
-            convert_to_geoparquet(str(input_path), str(output_path))
+            output_path = output_dir_obj / f"{input_path_obj.stem}.parquet"
+            convert_to_geoparquet(str(input_path_obj), str(output_path))
             results['geoparquet'] = str(output_path)
-        
+
         if 'flatgeobuf' in formats:
-            output_path = output_dir / f"{input_path.stem}.fgb"
-            gdf = gpd.read_file(input_path)
+            output_path = output_dir_obj / f"{input_path_obj.stem}.fgb"
+            gdf = gpd.read_file(str(input_path_obj))
             writer = CloudOptimizedWriter()
             writer.write_flatgeobuf(gdf, str(output_path))
             results['flatgeobuf'] = str(output_path)
-    
+
     elif suffix in ['.tif', '.tiff', '.jp2']:
         # Raster data
         if 'cog' in formats:
-            output_path = output_dir / f"{input_path.stem}_cog.tif"
-            convert_to_cog(str(input_path), str(output_path))
+            output_path = output_dir_obj / f"{input_path_obj.stem}_cog.tif"
+            convert_to_cog(str(input_path_obj), str(output_path))
             results['cog'] = str(output_path)
-    
+
     elif suffix == '.nc':
         # NetCDF data
         if 'zarr' in formats:
-            output_path = output_dir / f"{input_path.stem}.zarr"
-            convert_to_zarr(str(input_path), str(output_path))
+            output_path = output_dir_obj / f"{input_path_obj.stem}.zarr"
+            convert_to_zarr(str(input_path_obj), str(output_path))
             results['zarr'] = str(output_path)
-        
+
         if 'cog' in formats:
             # Convert first variable to COG
-            ds = xr.open_dataset(input_path)
+            ds = xr.open_dataset(str(input_path_obj))
             first_var = list(ds.data_vars)[0]
             da = ds[first_var]
             if 'x' in da.dims and 'y' in da.dims:
-                output_path = output_dir / f"{input_path.stem}_{first_var}_cog.tif"
+                output_path = output_dir_obj / f"{input_path_obj.stem}_{first_var}_cog.tif"
                 writer = CloudOptimizedWriter()
-                writer.write_cog(da, str(output_path))
+                writer.write_cog(da, str(output_path))  # type: ignore
                 results['cog'] = str(output_path)
-    
-    logger.info(f"Optimized {input_path} for cloud access: {list(results.keys())}")
+
+    logger.info(f"Optimized {input_path_obj} for cloud access: {list(results.keys())}")
     return results
