@@ -385,6 +385,18 @@ except ImportError:
             raise ImportError("Could not import authentication features")
 
 
+# Real-time Streaming
+try:
+    from . import streaming
+except ImportError:
+    streaming = None  # type: ignore[assignment]
+
+# Advanced Testing
+try:
+    from . import testing
+except ImportError:
+    testing = None  # type: ignore[assignment]
+
 # ML/Analytics Integration
 try:
     from .ml import (
@@ -598,6 +610,10 @@ __all__ = [
     "cache_result",
     "lazy_load",
     "profile_performance",
+    # Phase 3: Real-time streaming
+    "streaming",
+    # Phase 3: Advanced testing
+    "testing",
     # Package version
     "__version__",
 ]
