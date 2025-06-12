@@ -384,6 +384,7 @@ except ImportError:
         def __init__(self, *args, **kwargs):
             raise ImportError("Could not import authentication features")
 
+
 # ML/Analytics Integration
 try:
     from .ml import (
@@ -395,7 +396,6 @@ try:
         extract_geometric_features,
         calculate_spatial_statistics,
         analyze_neighborhoods,
-
         # Scikit-learn Integration
         SpatialPreprocessor,
         SpatialPipeline,
@@ -405,7 +405,6 @@ try:
         SpatialClassifier,
         spatial_train_test_split,
         spatial_cross_validate,
-
         # Spatial Algorithms
         Kriging,
         GeographicallyWeightedRegression,
@@ -416,7 +415,6 @@ try:
         calculate_gwr,
         analyze_spatial_autocorrelation,
         detect_hotspots,
-
         # Evaluation & Preprocessing
         evaluate_spatial_model,
         spatial_accuracy_score,
@@ -424,16 +422,13 @@ try:
         prepare_spatial_data,
         scale_spatial_features,
         encode_spatial_categories,
-
         # Pipelines
         create_spatial_pipeline,
         auto_spatial_analysis,
-
         # Manager instances
         get_feature_extractor,
         get_spatial_preprocessor,
         get_model_evaluator,
-
         # Convenience functions
         analyze_spatial_data,
         create_spatial_ml_model,
