@@ -660,12 +660,17 @@ def calculate_gwr(
     predictions = gwr.predict(X, geometry=gdf.geometry)
     residuals = y - predictions
 
+    # Ensure bandwidth is float
+    bandwidth_value = (
+        float(gwr.bandwidth) if isinstance(gwr.bandwidth, (int, float, str)) else 1000.0
+    )
+
     return GWRResult(
         local_coefficients=gwr.local_coefficients,
         local_r2=np.zeros(len(gdf)),  # Would need proper calculation
         predictions=predictions,
         residuals=residuals,
-        bandwidth=gwr.bandwidth,
+        bandwidth=bandwidth_value,
     )
 
 

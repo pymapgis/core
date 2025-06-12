@@ -19,6 +19,7 @@ Enterprise Features:
 - Distributed spatial computing support
 """
 
+import numpy as np
 from typing import Optional
 
 from .features import (
