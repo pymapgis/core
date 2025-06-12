@@ -49,7 +49,7 @@ except ImportError:
         from .sklearn_integration import BaseEstimator, RegressorMixin
     except ImportError:
         # Create minimal fallback classes if sklearn_integration also fails
-        class BaseEstimator:
+        class BaseEstimator:  # type: ignore[no-redef]
             """Minimal fallback base estimator."""
 
             def get_params(self, deep=True):
@@ -58,7 +58,7 @@ except ImportError:
             def set_params(self, **params):
                 return self
 
-        class RegressorMixin:
+        class RegressorMixin:  # type: ignore[no-redef]
             """Minimal fallback regressor mixin."""
 
             pass
