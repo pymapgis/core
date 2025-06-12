@@ -72,9 +72,9 @@ jobs:
       with:
         context: .
         push: true
-        tags:
-        - pymapgis/pymapgis-app:latest
-        - pymapgis/pymapgis-app:${{ github.sha }}
+        tags: |
+          pymapgis/pymapgis-app:latest
+          pymapgis/pymapgis-app:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
   deploy-staging:
