@@ -397,6 +397,12 @@ try:
 except ImportError:
     testing = None  # type: ignore[assignment]
 
+# Deployment Tools & DevOps
+try:
+    from . import deployment
+except ImportError:
+    deployment = None  # type: ignore[assignment]
+
 # ML/Analytics Integration
 try:
     from .ml import (
@@ -614,6 +620,8 @@ __all__ = [
     "streaming",
     # Phase 3: Advanced testing
     "testing",
+    # Phase 3: Deployment tools
+    "deployment",
     # Package version
     "__version__",
 ]
