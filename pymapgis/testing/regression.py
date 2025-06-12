@@ -347,7 +347,7 @@ class RegressionTester:
         recent_results = self.test_history[-50:] if include_history else []
         regressions = [r for r in recent_results if r.is_regression]
 
-        report = {
+        report: Dict[str, Any] = {
             "summary": {
                 "total_tests": len(recent_results),
                 "regressions_detected": len(regressions),

@@ -80,6 +80,7 @@ from .benchmarks import (
     GeospatialBenchmark,
     IOBenchmark,
     MemoryBenchmark,
+    BenchmarkResult,
     run_benchmark_suite,
     create_benchmark_report,
 )
@@ -90,6 +91,7 @@ from .load_testing import (
     DataVolumeStressTester,
     StreamingLoadTester,
     DatabaseLoadTester,
+    LoadTestResult,
     run_load_test,
     generate_load_report,
 )
@@ -215,7 +217,7 @@ def get_integration_tester() -> Optional["IntegrationTester"]:
 # Convenience functions for quick testing
 def run_performance_benchmark(
     function: Callable, *args, iterations: int = 100, **kwargs
-) -> "BenchmarkResult":
+) -> BenchmarkResult:
     """
     Run a performance benchmark on a function.
 
@@ -252,7 +254,7 @@ def run_memory_benchmark(function: Callable, *args, **kwargs) -> Dict[str, Any]:
 
 def run_load_test_simulation(
     target_function: Callable, concurrent_users: int = 10, duration: int = 60
-) -> "LoadTestResult":
+) -> LoadTestResult:
     """
     Run a load test simulation.
 
