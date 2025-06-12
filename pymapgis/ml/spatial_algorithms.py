@@ -44,6 +44,26 @@ except ImportError:
     SKLEARN_AVAILABLE = False
     logger.warning("Scikit-learn not available - some algorithms limited")
 
+    # Import fallback classes from sklearn_integration
+    try:
+        from .sklearn_integration import BaseEstimator, RegressorMixin
+    except ImportError:
+        # Create minimal fallback classes if sklearn_integration also fails
+        class BaseEstimator:
+            """Minimal fallback base estimator."""
+
+            def get_params(self, deep=True):
+                return {}
+
+            def set_params(self, **params):
+                return self
+
+        class RegressorMixin:
+            """Minimal fallback regressor mixin."""
+
+            pass
+
+
 try:
     from scipy.spatial.distance import pdist, squareform
     from scipy.optimize import minimize

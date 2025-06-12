@@ -45,7 +45,7 @@ except ImportError:
     logger.warning("Scikit-learn not available - ML functionality disabled")
 
     # Create fallback base classes when sklearn is not available
-    class BaseEstimator:
+    class BaseEstimator:  # type: ignore[no-redef]
         """Fallback base estimator when sklearn not available."""
 
         def get_params(self, deep=True):
@@ -54,28 +54,28 @@ except ImportError:
         def set_params(self, **params):
             return self
 
-    class TransformerMixin:
+    class TransformerMixin:  # type: ignore[no-redef]
         """Fallback transformer mixin when sklearn not available."""
 
         def fit_transform(self, X, y=None, **fit_params):
             return self.fit(X, y, **fit_params).transform(X)
 
-    class ClusterMixin:
+    class ClusterMixin:  # type: ignore[no-redef]
         """Fallback cluster mixin when sklearn not available."""
 
         pass
 
-    class RegressorMixin:
+    class RegressorMixin:  # type: ignore[no-redef]
         """Fallback regressor mixin when sklearn not available."""
 
         pass
 
-    class ClassifierMixin:
+    class ClassifierMixin:  # type: ignore[no-redef]
         """Fallback classifier mixin when sklearn not available."""
 
         pass
 
-    class Pipeline:
+    class Pipeline:  # type: ignore[no-redef]
         """Fallback pipeline when sklearn not available."""
 
         def __init__(self, steps):
@@ -87,7 +87,7 @@ except ImportError:
         def predict(self, X):
             return np.zeros(len(X))
 
-    class StandardScaler:
+    class StandardScaler:  # type: ignore[no-redef]
         """Fallback scaler when sklearn not available."""
 
         def fit(self, X, y=None):
@@ -99,7 +99,7 @@ except ImportError:
         def fit_transform(self, X, y=None):
             return X
 
-    class LabelEncoder:
+    class LabelEncoder:  # type: ignore[no-redef]
         """Fallback encoder when sklearn not available."""
 
         def fit(self, y):
@@ -111,7 +111,7 @@ except ImportError:
         def fit_transform(self, y):
             return y
 
-    class KMeans:
+    class KMeans:  # type: ignore[no-redef]
         """Fallback KMeans when sklearn not available."""
 
         def __init__(self, n_clusters=8, **kwargs):
@@ -125,7 +125,7 @@ except ImportError:
         def predict(self, X):
             return np.zeros(len(X))
 
-    class DBSCAN:
+    class DBSCAN:  # type: ignore[no-redef]
         """Fallback DBSCAN when sklearn not available."""
 
         def __init__(self, eps=0.5, min_samples=5, **kwargs):
@@ -137,7 +137,7 @@ except ImportError:
             self.labels_ = np.zeros(len(X))
             return self
 
-    class RandomForestRegressor:
+    class RandomForestRegressor:  # type: ignore[no-redef]
         """Fallback RandomForestRegressor when sklearn not available."""
 
         def fit(self, X, y):
@@ -146,7 +146,7 @@ except ImportError:
         def predict(self, X):
             return np.zeros(len(X))
 
-    class RandomForestClassifier:
+    class RandomForestClassifier:  # type: ignore[no-redef]
         """Fallback RandomForestClassifier when sklearn not available."""
 
         def fit(self, X, y):
@@ -191,7 +191,7 @@ except ImportError:
         """Fallback r2_score when sklearn not available."""
         return 0.0
 
-    class KFold:
+    class KFold:  # type: ignore[no-redef]
         """Fallback KFold when sklearn not available."""
 
         def __init__(self, n_splits=5, shuffle=False, random_state=None):
