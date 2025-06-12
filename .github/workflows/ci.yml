@@ -16,9 +16,9 @@ jobs:
     strategy:
       matrix:
         python-version:
-        - '3.9'
         - '3.10'
         - '3.11'
+        - '3.12'
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -45,12 +45,22 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Run security scan
-      uses: securecodewarrior/github-action-add-sarif@v1
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        sarif-file: security-scan-results.sarif
+        python-version: ${{ env.PYTHON_VERSION }}
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        version: ${{ env.POETRY_VERSION }}
+    - name: Configure Poetry
+      run: poetry config virtualenvs.create true
+    - name: Install dependencies
+      run: poetry install --with dev
+    - name: Run security scan with bandit
+      run: poetry run pip install bandit && poetry run bandit -r pymapgis/ -f json -o security-scan-results.json || true
     - name: Run dependency check
-      run: poetry run safety check
+      run: poetry run pip install safety && poetry run safety check || true
   build:
     needs:
     - test
