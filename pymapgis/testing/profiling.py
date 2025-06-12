@@ -136,15 +136,16 @@ class PerformanceProfiler:
         cpu_time = max(cpu_after - cpu_before, 0)
 
         # Get CPU profiling stats
-        cpu_stats = {}
+        cpu_stats: Dict[str, Any] = {}
         if CPROFILE_AVAILABLE:
             stats_stream = io.StringIO()
             stats = pstats.Stats(profiler, stream=stats_stream)
             stats.sort_stats("cumulative")
+            # Access stats attributes safely
             cpu_stats = {
-                "total_calls": stats.total_calls,
-                "primitive_calls": stats.prim_calls,
-                "total_time": stats.total_tt,
+                "total_calls": getattr(stats, "total_calls", 0),
+                "primitive_calls": getattr(stats, "prim_calls", 0),
+                "total_time": getattr(stats, "total_tt", 0.0),
             }
 
         return ProfileResult(
@@ -441,7 +442,7 @@ class ResourceMonitor:
                 "packets_sent": network.packets_sent,
                 "packets_recv": network.packets_recv,
             }
-        except:
+        except (AttributeError, OSError):
             network_stats = {}
 
         return {

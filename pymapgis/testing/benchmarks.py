@@ -459,7 +459,7 @@ def create_benchmark_report(results: List[BenchmarkResult]) -> Dict[str, Any]:
     if not results:
         return {"error": "No benchmark results available"}
 
-    report = {
+    report: Dict[str, Any] = {
         "summary": {
             "total_benchmarks": len(results),
             "timestamp": datetime.now().isoformat(),

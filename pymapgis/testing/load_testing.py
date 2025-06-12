@@ -77,7 +77,7 @@ class ConcurrentUserSimulator:
     def __init__(self, max_users: int = 100):
         self.max_users = max_users
         self.active_sessions: Dict[str, UserSession] = {}
-        self.results_queue = queue.Queue()
+        self.results_queue: queue.Queue = queue.Queue()
 
     def simulate_user_behavior(
         self,
@@ -309,7 +309,7 @@ class StreamingLoadTester:
         Returns:
             LoadTestResult
         """
-        results_queue = queue.Queue()
+        results_queue: queue.Queue = queue.Queue()
 
         def stream_worker(stream_id: int):
             """Worker function for individual stream."""
@@ -488,7 +488,7 @@ def generate_load_report(results: List[LoadTestResult]) -> Dict[str, Any]:
     if not results:
         return {"error": "No load test results available"}
 
-    report = {
+    report: Dict[str, Any] = {
         "summary": {
             "total_tests": len(results),
             "timestamp": datetime.now().isoformat(),

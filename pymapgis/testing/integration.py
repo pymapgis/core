@@ -76,9 +76,9 @@ class WorkflowTester:
             IntegrationTestResult
         """
         start_time = time.time()
-        errors = []
-        warnings = []
-        details = {}
+        errors: List[str] = []
+        warnings: List[str] = []
+        details: Dict[str, Any] = {}
 
         try:
             # Simulate data pipeline steps
@@ -144,9 +144,12 @@ class WorkflowTester:
             IntegrationTestResult
         """
         start_time = time.time()
-        errors = []
-        warnings = []
-        details = {"endpoints_tested": len(api_endpoints), "endpoint_results": {}}
+        errors: List[str] = []
+        warnings: List[str] = []
+        details: Dict[str, Any] = {
+            "endpoints_tested": len(api_endpoints),
+            "endpoint_results": {},
+        }
 
         try:
             for endpoint in api_endpoints:
@@ -215,9 +218,9 @@ class EndToEndTester:
     def test_complete_geospatial_workflow(self) -> IntegrationTestResult:
         """Test complete geospatial data workflow."""
         start_time = time.time()
-        errors = []
-        warnings = []
-        details = {}
+        errors: List[str] = []
+        warnings: List[str] = []
+        details: Dict[str, Any] = {}
 
         try:
             # Test workflow steps
@@ -319,9 +322,9 @@ class CompatibilityTester:
     def test_platform_compatibility(self) -> IntegrationTestResult:
         """Test platform-specific compatibility."""
         start_time = time.time()
-        errors = []
-        warnings = []
-        details = {}
+        errors: List[str] = []
+        warnings: List[str] = []
+        details: Dict[str, Any] = {}
 
         try:
             # Get platform information
@@ -390,9 +393,12 @@ class CompatibilityTester:
     ) -> IntegrationTestResult:
         """Test dependency compatibility."""
         start_time = time.time()
-        errors = []
-        warnings = []
-        details = {"dependencies_tested": len(dependencies), "dependency_results": {}}
+        errors: List[str] = []
+        warnings: List[str] = []
+        details: Dict[str, Any] = {
+            "dependencies_tested": len(dependencies),
+            "dependency_results": {},
+        }
 
         try:
             for dependency in dependencies:

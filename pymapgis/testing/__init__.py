@@ -215,7 +215,7 @@ def get_integration_tester() -> Optional["IntegrationTester"]:
 # Convenience functions for quick testing
 def run_performance_benchmark(
     function: Callable, *args, iterations: int = 100, **kwargs
-) -> Dict[str, Any]:
+) -> "BenchmarkResult":
     """
     Run a performance benchmark on a function.
 
@@ -226,7 +226,7 @@ def run_performance_benchmark(
         **kwargs: Function keyword arguments
 
     Returns:
-        Benchmark results dictionary
+        BenchmarkResult object
     """
     benchmark_suite = get_benchmark_suite()
     return benchmark_suite.run_function_benchmark(
@@ -252,7 +252,7 @@ def run_memory_benchmark(function: Callable, *args, **kwargs) -> Dict[str, Any]:
 
 def run_load_test_simulation(
     target_function: Callable, concurrent_users: int = 10, duration: int = 60
-) -> Dict[str, Any]:
+) -> "LoadTestResult":
     """
     Run a load test simulation.
 
@@ -262,7 +262,7 @@ def run_load_test_simulation(
         duration: Test duration in seconds
 
     Returns:
-        Load test results
+        LoadTestResult object
     """
     load_tester = get_load_tester()
     return load_tester.simulate_concurrent_load(

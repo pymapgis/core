@@ -378,7 +378,7 @@ class RegressionTester:
             )
 
         # Add severity breakdown
-        severity_counts = {}
+        severity_counts: Dict[str, int] = {}
         for regression in regressions:
             severity_counts[regression.severity] = (
                 severity_counts.get(regression.severity, 0) + 1
