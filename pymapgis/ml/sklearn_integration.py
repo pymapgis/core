@@ -44,6 +44,177 @@ except ImportError:
     SKLEARN_AVAILABLE = False
     logger.warning("Scikit-learn not available - ML functionality disabled")
 
+    # Create fallback base classes when sklearn is not available
+    class BaseEstimator:
+        """Fallback base estimator when sklearn not available."""
+
+        def get_params(self, deep=True):
+            return {}
+
+        def set_params(self, **params):
+            return self
+
+    class TransformerMixin:
+        """Fallback transformer mixin when sklearn not available."""
+
+        def fit_transform(self, X, y=None, **fit_params):
+            return self.fit(X, y, **fit_params).transform(X)
+
+    class ClusterMixin:
+        """Fallback cluster mixin when sklearn not available."""
+
+        pass
+
+    class RegressorMixin:
+        """Fallback regressor mixin when sklearn not available."""
+
+        pass
+
+    class ClassifierMixin:
+        """Fallback classifier mixin when sklearn not available."""
+
+        pass
+
+    class Pipeline:
+        """Fallback pipeline when sklearn not available."""
+
+        def __init__(self, steps):
+            self.steps = steps
+
+        def fit(self, X, y=None, **fit_params):
+            return self
+
+        def predict(self, X):
+            return np.zeros(len(X))
+
+    class StandardScaler:
+        """Fallback scaler when sklearn not available."""
+
+        def fit(self, X, y=None):
+            return self
+
+        def transform(self, X):
+            return X
+
+        def fit_transform(self, X, y=None):
+            return X
+
+    class LabelEncoder:
+        """Fallback encoder when sklearn not available."""
+
+        def fit(self, y):
+            return self
+
+        def transform(self, y):
+            return y
+
+        def fit_transform(self, y):
+            return y
+
+    class KMeans:
+        """Fallback KMeans when sklearn not available."""
+
+        def __init__(self, n_clusters=8, **kwargs):
+            self.n_clusters = n_clusters
+            self.labels_ = None
+
+        def fit(self, X, y=None):
+            self.labels_ = np.zeros(len(X))
+            return self
+
+        def predict(self, X):
+            return np.zeros(len(X))
+
+    class DBSCAN:
+        """Fallback DBSCAN when sklearn not available."""
+
+        def __init__(self, eps=0.5, min_samples=5, **kwargs):
+            self.eps = eps
+            self.min_samples = min_samples
+            self.labels_ = None
+
+        def fit(self, X, y=None):
+            self.labels_ = np.zeros(len(X))
+            return self
+
+    class RandomForestRegressor:
+        """Fallback RandomForestRegressor when sklearn not available."""
+
+        def fit(self, X, y):
+            return self
+
+        def predict(self, X):
+            return np.zeros(len(X))
+
+    class RandomForestClassifier:
+        """Fallback RandomForestClassifier when sklearn not available."""
+
+        def fit(self, X, y):
+            return self
+
+        def predict(self, X):
+            return np.zeros(len(X))
+
+        def predict_proba(self, X):
+            return np.zeros((len(X), 2))
+
+    def train_test_split(*arrays, test_size=0.2, random_state=None):
+        """Fallback train_test_split when sklearn not available."""
+        n_samples = len(arrays[0])
+        n_test = int(n_samples * test_size)
+        indices = np.arange(n_samples)
+        if random_state:
+            np.random.seed(random_state)
+        np.random.shuffle(indices)
+
+        train_idx = indices[n_test:]
+        test_idx = indices[:n_test]
+
+        result = []
+        for array in arrays:
+            if hasattr(array, "iloc"):
+                result.extend([array.iloc[train_idx], array.iloc[test_idx]])
+            else:
+                result.extend([array[train_idx], array[test_idx]])
+
+        return result
+
+    def cross_val_score(estimator, X, y, cv=5, scoring=None):
+        """Fallback cross_val_score when sklearn not available."""
+        return np.zeros(cv)
+
+    def accuracy_score(y_true, y_pred):
+        """Fallback accuracy_score when sklearn not available."""
+        return 0.0
+
+    def r2_score(y_true, y_pred):
+        """Fallback r2_score when sklearn not available."""
+        return 0.0
+
+    class KFold:
+        """Fallback KFold when sklearn not available."""
+
+        def __init__(self, n_splits=5, shuffle=False, random_state=None):
+            self.n_splits = n_splits
+            self.shuffle = shuffle
+            self.random_state = random_state
+
+        def split(self, X, y=None):
+            n_samples = len(X)
+            indices = np.arange(n_samples)
+            if self.shuffle:
+                if self.random_state:
+                    np.random.seed(self.random_state)
+                np.random.shuffle(indices)
+
+            fold_size = n_samples // self.n_splits
+            for i in range(self.n_splits):
+                start = i * fold_size
+                end = start + fold_size if i < self.n_splits - 1 else n_samples
+                test_idx = indices[start:end]
+                train_idx = np.concatenate([indices[:start], indices[end:]])
+                yield train_idx, test_idx
+
 
 class SpatialPreprocessor(BaseEstimator, TransformerMixin):
     """Spatial-aware data preprocessor."""
