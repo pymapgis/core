@@ -316,18 +316,21 @@ def setup_complete_deployment(
 
     try:
         # Docker setup
+        docker_port = config["docker"]["port"]
+        docker_env = config["docker"]["environment"]
         docker_result = quick_docker_deploy(
             app_path=app_path,
-            port=int(config["docker"]["port"]),
-            environment=str(config["docker"]["environment"]),
+            port=int(docker_port) if docker_port is not None else 8000,  # type: ignore
+            environment=str(docker_env) if docker_env is not None else "production",
         )
         results["docker"] = docker_result
 
         # Kubernetes setup if Docker successful
         if "error" not in docker_result:
+            k8s_replicas = config["kubernetes"]["replicas"]
             k8s_result = quick_kubernetes_deploy(
                 image_name=docker_result.get("image_name", "pymapgis-app"),
-                replicas=int(config["kubernetes"]["replicas"]),
+                replicas=int(k8s_replicas) if k8s_replicas is not None else 3,  # type: ignore
             )
             results["kubernetes"] = k8s_result
 
