@@ -12,7 +12,7 @@ from .main import app
 
 # Import the global variables and functions that tests expect
 from .main import (
-    settings_obj as settings,
+    settings_obj,
     clear_cache_api_func as clear_cache_api,
     purge_cache_api_func as purge_cache_api,
     stats_api_func as stats_api,
@@ -21,6 +21,9 @@ from .main import (
     load_viz_backend_plugins,
     pymapgis_module as pymapgis,
 )
+
+# Create aliases for test compatibility
+settings = settings_obj
 
 # Import shutil for tests that expect it
 import shutil

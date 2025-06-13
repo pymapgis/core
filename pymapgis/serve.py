@@ -529,23 +529,10 @@ def serve(
             "Serving in-memory xarray objects as raster tiles is not yet fully supported. Please provide a file path (e.g., COG)."
         )
 
-    # Dynamically prune FastAPI routes to only expose endpoints relevant to the selected service_type.
-    # This approach modifies the global _app.routes list directly.
-    # For more complex applications or if finer-grained control is needed, alternative FastAPI patterns
-    # such as using APIRouters for different functionalities (e.g., one for raster, one for vector)
-    # and conditionally including them in the main app, or using FastAPI's dependency injection system
-    # to enable/disable routes or features, might be more conventional and maintainable.
-    # However, for the current scope (single active layer type per server instance), this direct pruning is straightforward.
-    active_routes = []
-    for route in _app.routes:
-        if isinstance(route, APIRoute):
-            if route.path == "/" or "Viewer" in route.tags:  # Keep viewer
-                active_routes.append(route)
-            elif _service_type == "raster" and "Raster Tiles" in route.tags:
-                active_routes.append(route)
-            elif _service_type == "vector" and "Vector Tiles" in route.tags:
-                active_routes.append(route)
-    _app.routes = active_routes  # Prune routes
+    # Note: Route pruning is disabled for now due to FastAPI route immutability
+    # In a production environment, you might want to use APIRouters for different service types
+    # and conditionally include them, or use dependency injection to control access
+    # For now, all routes are available but will return 404 for inactive service types
 
     print(
         f"Starting PyMapGIS server for layer '{_tile_server_layer_name}' ({_service_type})."
