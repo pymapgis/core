@@ -233,7 +233,7 @@ class UserManager:
     def search_users(self, query: str, limit: int = 50) -> List[User]:
         """Search users by username, email, or name."""
         query = query.lower()
-        results = []
+        results: List[User] = []
         
         for user in self.users.values():
             if len(results) >= limit:
@@ -254,7 +254,7 @@ class UserManager:
         verified_users = len([u for u in self.users.values() if u.is_verified])
         
         # Role distribution
-        role_counts = {}
+        role_counts: Dict[str, int] = {}
         for user in self.users.values():
             for role in user.roles:
                 role_counts[role.value] = role_counts.get(role.value, 0) + 1

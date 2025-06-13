@@ -385,7 +385,7 @@ class TenantManager:
         active_tenants = len([t for t in self.tenants.values() if t.is_active()])
         
         # Subscription distribution
-        subscription_counts = {}
+        subscription_counts: Dict[str, int] = {}
         for tenant in self.tenants.values():
             tier = tenant.subscription_tier.value
             subscription_counts[tier] = subscription_counts.get(tier, 0) + 1

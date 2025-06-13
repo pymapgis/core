@@ -5,7 +5,10 @@ Provides JWT-based authentication, API key management, and session handling
 for PyMapGIS enterprise features.
 """
 
-import jwt
+try:
+    import jwt
+except ImportError:
+    jwt = None
 import hashlib
 import secrets
 import logging
@@ -66,8 +69,10 @@ class APIKey:
 
 class JWTAuthenticator:
     """JWT-based authentication manager."""
-    
+
     def __init__(self, secret_key: str, algorithm: str = "HS256"):
+        if jwt is None:
+            raise ImportError("PyJWT is required for JWT authentication. Install with: pip install PyJWT")
         if not secret_key:
             raise ValueError("JWT secret key is required")
         self.secret_key = secret_key

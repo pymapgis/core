@@ -21,6 +21,7 @@ try:
     REQUESTS_AVAILABLE = True
 except ImportError:
     REQUESTS_AVAILABLE = False
+    requests = None
     logger.warning("requests not available, OAuth functionality limited")
 
 

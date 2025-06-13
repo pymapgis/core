@@ -11,54 +11,69 @@ This module provides enterprise-grade features including:
 Phase 3 Enterprise Features Implementation
 """
 
-from .auth import (
-    AuthenticationManager,
-    JWTAuthenticator,
-    APIKeyManager,
-    SessionManager,
-    authenticate_user,
-    require_auth,
-    require_role,
-)
+# Import core classes only to avoid circular imports
+try:
+    from .auth import (
+        AuthenticationManager,
+        JWTAuthenticator,
+        APIKeyManager,
+        SessionManager,
+    )
+except ImportError:
+    AuthenticationManager = None  # type: ignore
+    JWTAuthenticator = None  # type: ignore
+    APIKeyManager = None  # type: ignore
+    SessionManager = None  # type: ignore
 
-from .users import (
-    UserManager,
-    User,
-    UserRole,
-    UserProfile,
-    create_user,
-    get_user,
-    update_user,
-    delete_user,
-)
+try:
+    from .users import (
+        UserManager,
+        User,
+        UserRole,
+        UserProfile,
+    )
+except ImportError:
+    UserManager = None  # type: ignore
+    User = None  # type: ignore
+    UserRole = None  # type: ignore
+    UserProfile = None  # type: ignore
 
-from .rbac import (
-    RBACManager,
-    Permission,
-    Role,
-    Resource,
-    check_permission,
-    grant_permission,
-    revoke_permission,
-)
+try:
+    from .rbac import (
+        RBACManager,
+        Permission,
+        Role,
+        Resource,
+    )
+except ImportError:
+    RBACManager = None  # type: ignore
+    Permission = None  # type: ignore
+    Role = None  # type: ignore
+    Resource = None  # type: ignore
 
-from .oauth import (
-    OAuthManager,
-    GoogleOAuthProvider,
-    GitHubOAuthProvider,
-    MicrosoftOAuthProvider,
-    oauth_login,
-    oauth_callback,
-)
+try:
+    from .oauth import (
+        OAuthManager,
+        GoogleOAuthProvider,
+        GitHubOAuthProvider,
+        MicrosoftOAuthProvider,
+    )
+except ImportError:
+    OAuthManager = None  # type: ignore
+    GoogleOAuthProvider = None  # type: ignore
+    GitHubOAuthProvider = None  # type: ignore
+    MicrosoftOAuthProvider = None  # type: ignore
 
-from .tenants import (
-    TenantManager,
-    Tenant,
-    TenantUser,
-    create_tenant,
-    get_tenant,
-    switch_tenant,
-)
+try:
+    from .tenants import (
+        TenantManager,
+        Tenant,
+        TenantUser,
+    )
+except ImportError:
+    TenantManager = None  # type: ignore
+    Tenant = None  # type: ignore
+    TenantUser = None  # type: ignore
 
 # Version info
 __version__ = "0.3.0"
@@ -104,54 +119,20 @@ DEFAULT_ENTERPRISE_CONFIG = {
     },
 }
 
-# Export all components
-__all__ = [
-    # Core authentication
-    "AuthenticationManager",
-    "JWTAuthenticator", 
-    "APIKeyManager",
-    "SessionManager",
-    "authenticate_user",
-    "require_auth",
-    "require_role",
-    
-    # User management
-    "UserManager",
-    "User",
-    "UserRole",
-    "UserProfile",
-    "create_user",
-    "get_user", 
-    "update_user",
-    "delete_user",
-    
-    # RBAC
-    "RBACManager",
-    "Permission",
-    "Role",
-    "Resource",
-    "check_permission",
-    "grant_permission",
-    "revoke_permission",
-    
-    # OAuth
-    "OAuthManager",
-    "GoogleOAuthProvider",
-    "GitHubOAuthProvider", 
-    "MicrosoftOAuthProvider",
-    "oauth_login",
-    "oauth_callback",
-    
-    # Multi-tenant
-    "TenantManager",
-    "Tenant",
-    "TenantUser",
-    "create_tenant",
-    "get_tenant",
-    "switch_tenant",
-    
-    # Configuration
-    "DEFAULT_ENTERPRISE_CONFIG",
-    "__version__",
-    "__enterprise_features__",
-]
+# Export available components
+__all__ = []
+
+# Add available components to __all__
+if AuthenticationManager is not None:
+    __all__.extend(["AuthenticationManager", "JWTAuthenticator", "APIKeyManager", "SessionManager"])
+if UserManager is not None:
+    __all__.extend(["UserManager", "User", "UserRole", "UserProfile"])
+if RBACManager is not None:
+    __all__.extend(["RBACManager", "Permission", "Role", "Resource"])
+if OAuthManager is not None:
+    __all__.extend(["OAuthManager", "GoogleOAuthProvider", "GitHubOAuthProvider", "MicrosoftOAuthProvider"])
+if TenantManager is not None:
+    __all__.extend(["TenantManager", "Tenant", "TenantUser"])
+
+# Always export configuration
+__all__.extend(["DEFAULT_ENTERPRISE_CONFIG", "__version__", "__enterprise_features__"])
