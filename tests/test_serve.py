@@ -196,7 +196,7 @@ def test_serve_function_signature():
 def test_serve_geodataframe_input_validation(sample_geodataframe):
     """Test serve function input validation with GeoDataFrame."""
     # Mock uvicorn.run to prevent actual server startup
-    with patch('pymapgis.serve.uvicorn.run') as mock_run:
+    with patch('uvicorn.run') as mock_run:
         # Test that function accepts GeoDataFrame without error
         try:
             serve(sample_geodataframe, layer_name="test_vector", port=8001)
@@ -209,7 +209,7 @@ def test_serve_geodataframe_input_validation(sample_geodataframe):
 def test_serve_string_input_validation(temp_geojson_file):
     """Test serve function input validation with file path."""
     # Mock uvicorn.run to prevent actual server startup
-    with patch('pymapgis.serve.uvicorn.run') as mock_run:
+    with patch('uvicorn.run') as mock_run:
         # Test that function accepts file path without error
         try:
             serve(temp_geojson_file, layer_name="test_file", port=8002)
@@ -222,7 +222,7 @@ def test_serve_string_input_validation(temp_geojson_file):
 def test_serve_xarray_input_validation(sample_dataarray):
     """Test serve function input validation with xarray DataArray."""
     # Mock uvicorn.run to prevent actual server startup
-    with patch('pymapgis.serve.uvicorn.run') as mock_run:
+    with patch('uvicorn.run') as mock_run:
         # Test that function accepts xarray input (with warning)
         try:
             serve(sample_dataarray, layer_name="test_raster", port=8003)
@@ -235,7 +235,7 @@ def test_serve_xarray_input_validation(sample_dataarray):
 def test_serve_invalid_input():
     """Test serve function with invalid input types."""
     # Mock uvicorn.run to prevent actual server startup
-    with patch('pymapgis.serve.uvicorn.run'):
+    with patch('uvicorn.run'):
         # Test with invalid input type
         with pytest.raises(TypeError):
             serve([1, 2, 3], layer_name="invalid")  # List is not supported
@@ -245,7 +245,7 @@ def test_serve_invalid_input():
 def test_serve_invalid_file_path():
     """Test serve function with invalid file path."""
     # Mock uvicorn.run to prevent actual server startup
-    with patch('pymapgis.serve.uvicorn.run'):
+    with patch('uvicorn.run'):
         # Test with non-existent file
         with pytest.raises(ValueError):
             serve("/nonexistent/file.geojson", layer_name="invalid")
@@ -350,7 +350,7 @@ def test_root_viewer_no_layer():
 def test_service_type_inference_vector_file(temp_geojson_file):
     """Test service type inference for vector files."""
     # Mock uvicorn.run and pymapgis.read
-    with patch('pymapgis.serve.uvicorn.run') as mock_run, \
+    with patch('uvicorn.run') as mock_run, \
          patch('pymapgis.serve.pymapgis.read') as mock_read:
         
         # Mock read to return GeoDataFrame
@@ -368,7 +368,7 @@ def test_service_type_inference_vector_file(temp_geojson_file):
 def test_service_type_inference_raster_file():
     """Test service type inference for raster files."""
     # Mock uvicorn.run
-    with patch('pymapgis.serve.uvicorn.run') as mock_run:
+    with patch('uvicorn.run') as mock_run:
         
         # Test with .tif file (should be inferred as raster)
         serve("test_raster.tif", layer_name="test")
@@ -382,7 +382,7 @@ def test_service_type_inference_raster_file():
 def test_service_type_inference_geodataframe(sample_geodataframe):
     """Test service type inference for GeoDataFrame."""
     # Mock uvicorn.run
-    with patch('pymapgis.serve.uvicorn.run') as mock_run:
+    with patch('uvicorn.run') as mock_run:
         
         serve(sample_geodataframe, layer_name="test")
         
@@ -395,7 +395,7 @@ def test_service_type_inference_geodataframe(sample_geodataframe):
 def test_service_type_inference_xarray(sample_dataarray):
     """Test service type inference for xarray DataArray."""
     # Mock uvicorn.run
-    with patch('pymapgis.serve.uvicorn.run') as mock_run:
+    with patch('uvicorn.run') as mock_run:
         
         serve(sample_dataarray, layer_name="test")
         
@@ -411,7 +411,7 @@ def test_service_type_inference_xarray(sample_dataarray):
 @pytest.mark.skipif(not SERVE_AVAILABLE, reason="Serve module not available")
 def test_serve_error_handling_invalid_file():
     """Test error handling for invalid file paths."""
-    with patch('pymapgis.serve.uvicorn.run'):
+    with patch('uvicorn.run'):
         with pytest.raises(ValueError, match="Could not read or infer type"):
             serve("nonexistent_file.xyz", layer_name="test")
 
@@ -433,7 +433,7 @@ def test_gdf_to_mvt_error_handling():
 def test_serve_integration_vector(sample_geodataframe):
     """Integration test for serving vector data."""
     # Mock uvicorn.run to prevent actual server startup
-    with patch('pymapgis.serve.uvicorn.run') as mock_run:
+    with patch('uvicorn.run') as mock_run:
         
         # Test complete serve workflow
         serve(
@@ -461,7 +461,7 @@ def test_serve_integration_vector(sample_geodataframe):
 def test_serve_integration_file_path(temp_geojson_file):
     """Integration test for serving from file path."""
     # Mock uvicorn.run and pymapgis.read
-    with patch('pymapgis.serve.uvicorn.run') as mock_run, \
+    with patch('uvicorn.run') as mock_run, \
          patch('pymapgis.serve.pymapgis.read') as mock_read:
         
         # Mock read to return GeoDataFrame
@@ -521,7 +521,7 @@ def test_conceptual_usage_examples():
     """Test that conceptual usage examples from requirements work."""
     
     # Mock uvicorn.run to prevent actual server startup
-    with patch('pymapgis.serve.uvicorn.run') as mock_run:
+    with patch('uvicorn.run') as mock_run:
         
         # Example 1: Serve GeoDataFrame as vector tiles
         gdf = gpd.GeoDataFrame({
