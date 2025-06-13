@@ -64,12 +64,18 @@ Welcome to the comprehensive PyMapGIS Logistics and Supply Chain Manual! This ma
 - **[Manufacturing Supply Chains](./manufacturing-supply-chains.md)** - Production and distribution coordination
 - **[Retail Distribution](./retail-distribution.md)** - Store replenishment and inventory management
 - **[Healthcare Logistics](./healthcare-logistics.md)** - Medical supply chain and emergency response
+- **[Aerospace and Defense Logistics](./aerospace-defense-logistics.md)** - Mission-critical supply chains and security protocols
+- **[Pharmaceutical Logistics](./pharmaceutical-logistics.md)** - Advanced cold chain and regulatory compliance
+- **[Automotive Logistics](./automotive-logistics.md)** - Just-in-time manufacturing and parts logistics
+- **[Energy and Utilities Logistics](./energy-utilities-logistics.md)** - Infrastructure and resource logistics
 
 ### 🔬 Advanced Analytics and Technology
 - **[Machine Learning Applications](./machine-learning-applications.md)** - AI-powered supply chain optimization
 - **[IoT and Sensor Integration](./iot-sensor-integration.md)** - Real-time monitoring and automation
 - **[Predictive Analytics](./predictive-analytics.md)** - Forecasting and scenario planning
 - **[Optimization Algorithms](./optimization-algorithms.md)** - Mathematical optimization techniques
+- **[Blockchain Integration](./blockchain-integration.md)** - Supply chain transparency and traceability
+- **[Sustainability Analytics](./sustainability-analytics.md)** - Carbon footprint and environmental impact tracking
 
 ### 💼 Business Intelligence and Reporting
 - **[Financial Analysis](./financial-analysis.md)** - Cost analysis, profitability, and ROI assessment
