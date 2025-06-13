@@ -25,8 +25,9 @@ from .main import (
 # Create aliases for test compatibility
 settings = settings_obj
 
-# Import shutil for tests that expect it
+# Import shutil and subprocess for tests that expect them
 import shutil
+import subprocess
 
 __all__ = [
     "app",
@@ -39,4 +40,5 @@ __all__ = [
     "load_viz_backend_plugins",
     "pymapgis",
     "shutil",
+    "subprocess",
 ]

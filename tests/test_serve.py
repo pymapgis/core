@@ -361,7 +361,7 @@ def test_service_type_inference_vector_file(temp_geojson_file):
         mock_read.return_value = mock_gdf
         
         serve(temp_geojson_file, layer_name="test")
-        
+
         # Check that service type was inferred as vector
         import pymapgis.serve as serve_module
         assert serve_module._service_type == "vector"
@@ -543,7 +543,7 @@ def test_conceptual_usage_examples():
         mock_run.assert_called()
         
         # Example 2: Serve file path
-        with patch('pymapgis.serve.pymapgis.read') as mock_read:
+        with patch('pymapgis.read') as mock_read:
             mock_read.return_value = gdf
             serve("my_data.geojson", service_type='xyz', layer_name='my_layer')
             mock_read.assert_called_with("my_data.geojson")

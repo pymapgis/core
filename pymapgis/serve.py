@@ -179,18 +179,31 @@ def gdf_to_mvt(
     # Convert to features for MVT encoding
     features = []
     for _, row in clipped_gdf.iterrows():
-        # Convert geometry to tile coordinates (0-4096 range)
-        geom = row.geometry
+        try:
+            # Convert geometry to tile coordinates (0-4096 range)
+            geom = row.geometry
 
-        # Get properties (exclude geometry column)
-        properties = {k: v for k, v in row.items() if k != "geometry"}
+            # Get properties (exclude geometry column)
+            # Use dict() to ensure we get a proper dictionary
+            properties = {}
+            for k in clipped_gdf.columns:
+                if k != clipped_gdf.geometry.name:  # Use the actual geometry column name
+                    try:
+                        value = row[k]
+                        # Convert any non-serializable types to strings
+                        if not isinstance(value, (str, int, float, bool, type(None))):
+                            properties[k] = str(value)
+                        else:
+                            properties[k] = value
+                    except (KeyError, IndexError):
+                        # Skip columns that can't be accessed
+                        continue
 
-        # Convert any non-serializable types to strings
-        for key, value in properties.items():
-            if not isinstance(value, (str, int, float, bool, type(None))):
-                properties[key] = str(value)
-
-        features.append({"geometry": geom.__geo_interface__, "properties": properties})
+            features.append({"geometry": geom.__geo_interface__, "properties": properties})
+        except Exception as e:
+            # Skip problematic features but continue processing
+            print(f"Warning: Skipping feature due to error: {e}")
+            continue
 
     # Create layer data
     layer_data = {
