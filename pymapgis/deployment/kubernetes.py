@@ -506,7 +506,7 @@ class IngressManager:
         }
 
         if tls_enabled:
-            manifest["spec"]["tls"] = [
+            manifest["spec"]["tls"] = [  # type: ignore
                 {"hosts": [host], "secretName": f"{app_name}-tls"}
             ]
 

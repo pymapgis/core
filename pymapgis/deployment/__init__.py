@@ -40,10 +40,10 @@ try:
     )
 except ImportError:
     logger.warning("Docker components not available")
-    DockerManager = None
-    DockerImageBuilder = None
-    DockerComposeManager = None
-    ContainerOrchestrator = None
+    DockerManager = None  # type: ignore
+    DockerImageBuilder = None  # type: ignore
+    DockerComposeManager = None  # type: ignore
+    ContainerOrchestrator = None  # type: ignore
 
 try:
     from .kubernetes import (
@@ -58,10 +58,10 @@ try:
     )
 except ImportError:
     logger.warning("Kubernetes components not available")
-    KubernetesManager = None
-    KubernetesDeployment = None
-    ServiceManager = None
-    IngressManager = None
+    KubernetesManager = None  # type: ignore
+    KubernetesDeployment = None  # type: ignore
+    ServiceManager = None  # type: ignore
+    IngressManager = None  # type: ignore
 
 try:
     from .cloud import (
@@ -77,11 +77,11 @@ try:
     )
 except ImportError:
     logger.warning("Cloud deployment components not available")
-    CloudDeploymentManager = None
-    AWSDeployment = None
-    GCPDeployment = None
-    AzureDeployment = None
-    TerraformManager = None
+    CloudDeploymentManager = None  # type: ignore
+    AWSDeployment = None  # type: ignore
+    GCPDeployment = None  # type: ignore
+    AzureDeployment = None  # type: ignore
+    TerraformManager = None  # type: ignore
 
 try:
     from .cicd import (
@@ -96,10 +96,10 @@ try:
     )
 except ImportError:
     logger.warning("CI/CD components not available")
-    CICDManager = None
-    GitHubActionsManager = None
-    PipelineManager = None
-    DeploymentPipeline = None
+    CICDManager = None  # type: ignore
+    GitHubActionsManager = None  # type: ignore
+    PipelineManager = None  # type: ignore
+    DeploymentPipeline = None  # type: ignore
 
 try:
     from .monitoring import (
@@ -114,10 +114,10 @@ try:
     )
 except ImportError:
     logger.warning("Monitoring components not available")
-    MonitoringManager = None
-    HealthCheckManager = None
-    MetricsCollector = None
-    LoggingManager = None
+    MonitoringManager = None  # type: ignore
+    HealthCheckManager = None  # type: ignore
+    MetricsCollector = None  # type: ignore
+    LoggingManager = None  # type: ignore
 
 # Deployment configuration
 DEFAULT_DEPLOYMENT_CONFIG = {
@@ -312,14 +312,14 @@ def setup_complete_deployment(
         Complete deployment setup result
     """
     config = deployment_config or DEFAULT_DEPLOYMENT_CONFIG
-    results = {}
+    results: Dict[str, Any] = {}
 
     try:
         # Docker setup
         docker_result = quick_docker_deploy(
             app_path=app_path,
-            port=config["docker"]["port"],
-            environment=config["docker"]["environment"],
+            port=int(config["docker"]["port"]),
+            environment=str(config["docker"]["environment"]),
         )
         results["docker"] = docker_result
 
@@ -327,7 +327,7 @@ def setup_complete_deployment(
         if "error" not in docker_result:
             k8s_result = quick_kubernetes_deploy(
                 image_name=docker_result.get("image_name", "pymapgis-app"),
-                replicas=config["kubernetes"]["replicas"],
+                replicas=int(config["kubernetes"]["replicas"]),
             )
             results["kubernetes"] = k8s_result
 

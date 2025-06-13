@@ -158,7 +158,7 @@ CMD ["python", "-m", "pymapgis.serve", "--host", "0.0.0.0", "--port", "{self.con
             )
 
         start_time = datetime.now()
-        logs = []
+        logs: List[str] = []
 
         try:
             # Generate Dockerfile
@@ -309,7 +309,7 @@ class DockerComposeManager:
 
         # Add services
         for service_name, service_config in services.items():
-            compose_config["services"][service_name] = {
+            compose_config["services"][service_name] = {  # type: ignore
                 **default_service,
                 **service_config,
             }

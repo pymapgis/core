@@ -291,7 +291,7 @@ class HealthCheckManager:
             return {"status": "stale", "services": 0}
 
         # Group by service
-        services = {}
+        services: Dict[str, List[HealthStatus]] = {}
         for check in recent_checks:
             if check.service not in services:
                 services[check.service] = []
@@ -496,7 +496,7 @@ class MetricsCollector:
             return {"metrics": 0, "time_range": time_range}
 
         # Group by metric name
-        metric_groups = {}
+        metric_groups: Dict[str, List[float]] = {}
         for metric in recent_metrics:
             if metric.name not in metric_groups:
                 metric_groups[metric.name] = []
