@@ -273,7 +273,7 @@ def run_load_test_simulation(
 
 
 def detect_regression(
-    test_name: str, current_result: float, baseline_file: str = None
+    test_name: str, current_result: float, baseline_file: str = None, tolerance: float = 10.0
 ) -> bool:
     """
     Detect performance regression.
@@ -282,12 +282,13 @@ def detect_regression(
         test_name: Name of the test
         current_result: Current performance result
         baseline_file: Optional baseline file path
+        tolerance: Regression tolerance percentage
 
     Returns:
         True if regression detected, False otherwise
     """
     regression_tester = get_regression_tester()
-    return regression_tester.detect_regression(test_name, current_result, baseline_file)
+    return regression_tester.detect_regression(test_name, current_result, baseline_file, tolerance_percent=tolerance)
 
 
 def validate_system_performance() -> Dict[str, Any]:

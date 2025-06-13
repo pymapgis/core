@@ -21,6 +21,7 @@ try:
 except ImportError as e:
     print(f"Warning: FastAPI dependencies not available: {e}", file=sys.stderr)
     FASTAPI_AVAILABLE = False
+    uvicorn = None
 
     # Create dummy classes for type hints
     class FastAPI:
