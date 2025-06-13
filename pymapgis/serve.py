@@ -320,6 +320,46 @@ if FASTAPI_AVAILABLE and _app is not None:
                 detail=f"Failed to generate vector tile for {layer_name} at {z}/{x}/{y}. Error: {str(e)}",
             )
 
+    @_app.get("/health", tags=["Health"])
+    async def health_check():
+        """Health check endpoint for Docker and monitoring."""
+        try:
+            from datetime import datetime
+            health_status = {
+                "status": "healthy",
+                "timestamp": datetime.now().isoformat(),
+                "version": "0.3.2",
+                "service": "pymapgis-tile-server",
+                "checks": {
+                    "fastapi": "ok",
+                    "dependencies": "ok"
+                }
+            }
+
+            # Check if a layer is configured
+            if _service_type and _tile_server_layer_name:
+                health_status["checks"]["layer_configured"] = "ok"
+                health_status["layer_info"] = {
+                    "name": _tile_server_layer_name,
+                    "type": _service_type
+                }
+            else:
+                health_status["checks"]["layer_configured"] = "no_layer"
+                health_status["message"] = "No layer configured"
+
+            return health_status
+
+        except Exception as e:
+            from fastapi.responses import JSONResponse
+            return JSONResponse(
+                status_code=503,
+                content={
+                    "status": "unhealthy",
+                    "error": str(e),
+                    "timestamp": datetime.now().isoformat()
+                }
+            )
+
     @_app.get("/", response_class=HTMLResponse, tags=["Viewer"])
     async def root_viewer():
         """Serves a simple HTML page with Leaflet to view the tile layer."""

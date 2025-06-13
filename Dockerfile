@@ -1,4 +1,4 @@
-# PyMapGIS Docker Image
+# Simple PyMapGIS Docker Image
 FROM python:3.11-slim
 
 # Set environment variables
@@ -9,39 +9,30 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libgdal-dev \
-    libproj-dev \
-    libgeos-dev \
-    libspatialindex-dev \
-    libgdal28 \
-    libproj19 \
-    libgeos-c1v5 \
-    libspatialindex6 \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Poetry
-RUN pip install poetry==1.6.1
-
-# Create user
+# Create user first
 RUN groupadd -r pymapgis && useradd -r -g pymapgis pymapgis
 
 # Set work directory
 WORKDIR /app
 
-# Copy Poetry configuration files
-COPY pyproject.toml poetry.lock ./
+# Copy requirements and install basic dependencies
+COPY pyproject.toml ./
 
-# Install dependencies
-RUN poetry config virtualenvs.create false \
-    && poetry install --only=main --no-dev
+# Install basic Python dependencies without GDAL for now
+RUN pip install --no-cache-dir \
+    fastapi \
+    uvicorn \
+    pydantic \
+    numpy \
+    pandas \
+    requests \
+    pyjwt
 
 # Copy application code
 COPY --chown=pymapgis:pymapgis . .
-
-# Install the package
-RUN poetry install --only=main --no-dev
 
 # Switch to non-root user
 USER pymapgis
@@ -53,5 +44,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
-# Default command
-CMD ["poetry", "run", "python", "-m", "pymapgis.serve", "--host", "0.0.0.0", "--port", "8000"]
+# Default command - simple FastAPI server
+CMD ["python", "-c", "import uvicorn; uvicorn.run('pymapgis.serve:app', host='0.0.0.0', port=8000)"]
