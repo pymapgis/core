@@ -51,6 +51,13 @@ except ImportError:
     WEBSOCKETS_AVAILABLE = False
     logger.warning("WebSockets not available - install websockets package")
 
+    # Create dummy types for backward compatibility
+    class WebSocketServerProtocol:
+        pass
+
+    class WebSocketClientProtocol:
+        pass
+
 try:
     from kafka import KafkaProducer, KafkaConsumer
     from kafka.errors import KafkaError, NoBrokersAvailable
