@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pymapgis"
-version = "0.3.2"
-description = "Modern GIS toolkit for Python - Simplifying geospatial workflows with built-in data sources, intelligent caching, and fluent APIs"
+version = "1.0.0"
+description = "Enterprise-Grade Modern GIS Toolkit for Python - Revolutionizing geospatial workflows with built-in data sources, intelligent caching, cloud-native processing, and enterprise authentication"
 authors = ["Nicholas Karlson <nicholaskarlson@gmail.com>"]
 license = "MIT"
 readme = "README.md"
@@ -31,44 +31,9 @@ geopandas = "^1.1"
 fsspec = "^2025.5"
 leafmap = "^0.47.2"
 pydantic-settings = "^2.9.1"
-pydantic = "^2.0.0"
 # (add rasterio later, once the click conflict is solved)
 requests-cache = "^1.2.1"
 pandas = "^2.3.0"
-aiohttp = "^3.9.0"
-pyarrow = "^14.0.0"
-xarray = "^2023.6.0"
-rioxarray = "^0.14.0"
-netcdf4 = "^1.6.0"
-typer = {extras = ["all"], version = ">=0.9.0"}
-fastapi = ">=0.100.0"
-uvicorn = {extras = ["standard"], version = ">=0.23.0"}
-rio-tiler = ">=6.0,<7.0"
-mapbox-vector-tile = "^2.1.0"
-mercantile = "^1.2.0"
-pyproj = "^3.4.0"
-geoarrow-types = "^0.3.0" # Core GeoArrow types package
-networkx = "^3.0" # Using version 3.x for modern NetworkX features
-pdal = { version = "^3.4.0", optional = true } # Optional due to system dependencies
-pydeck = "^0.8.0" # For deck.gl visualizations
-kafka-python = { version = "^2.0.2", optional = true } # For Kafka streaming
-paho-mqtt = { version = "^1.6.1", optional = true }    # For MQTT streaming
-toml = "^0.10.2"
-geoarrow-pyarrow = "^0.2.0"
-seaborn = "^0.13.2"
-zarr = "^2.17.0"             # For Zarr array manipulation in tests
-# Enterprise features dependencies
-pyjwt = "^2.8.0"             # JWT authentication
-bcrypt = { version = "^4.0.0", optional = true }  # Secure password hashing
-redis = { version = "^5.0.0", optional = true }   # Session storage
-
-[tool.poetry.extras]
-kafka = ["kafka-python"]
-mqtt = ["paho-mqtt"]
-streaming = ["kafka-python", "paho-mqtt"]
-pointcloud = ["pdal"]
-enterprise = ["bcrypt", "redis"]
-enterprise-full = ["bcrypt", "redis"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.4"
@@ -77,57 +42,7 @@ ruff = "^0.11"
 black = "^25.1"
 mypy = "^1.16"
 pre-commit = "^4.2"
-xarray-multiscale = "^0.3.0" # For multiscale Zarr testing
-types-toml = "^0.10.8.20240310"
-types-requests = "^2.32.0.20250602"
-pytest-asyncio = "^1.0.0"
-types-pyyaml = "^6.0.12.20250516"
-
-[tool.ruff]
-# Make linting less strict for CI/CD
-line-length = 120
-target-version = "py38"
-
-[tool.ruff.lint]
-# Only check essential rules, ignore cosmetic issues
-select = [
-    "E4",   # Import errors only
-    "E7",   # Statement errors only
-    "E9",   # Runtime errors only
-    "F",    # Pyflakes errors only
-]
-ignore = [
-    "F401", # Unused imports (too strict for examples)
-    "F541", # f-string without placeholders (cosmetic)
-    "F841", # Unused variables (common in examples)
-    "E402", # Module level import not at top (too strict for examples)
-]
-
-# Exclude example directories and standalone scripts from strict linting
-exclude = [
-    "examples/",
-    "docs/",
-    "*_test.py",
-    "plugin_*.py",
-    "oklahoma_*",
-]
-
-[tool.pytest.ini_options]
-# Configure pytest to run only proper test files
-testpaths = ["tests", "examples", "tennessee_counties_qgis"]
-python_files = ["test_*.py"]
-python_functions = ["test_*"]
-# Markers for different test categories
-markers = [
-    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "integration: marks tests as integration tests",
-    "optional_deps: marks tests that require optional dependencies",
-    "ci_skip: marks tests to skip in CI environments"
-]
 
 [build-system]
 requires = ["poetry-core>=1.9.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-pymapgis = "pymapgis.cli:app"
