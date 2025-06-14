@@ -1,0 +1,72 @@
+{
+  "optimization_summary": {
+    "total_customers": 20,
+    "total_warehouses": 3,
+    "total_cost": 22078.8513605844,
+    "total_distance": 25.401963903349184,
+    "utilization_rate": 0.8333333333333334,
+    "average_cost_per_customer": 1103.94256802922,
+    "average_distance_per_customer": 1.2700981951674593
+  },
+  "warehouse_details": [
+    {
+      "name": "Optimized_Warehouse_1",
+      "location": {
+        "latitude": 43.86986389904256,
+        "longitude": -75.57664930112712
+      },
+      "capacity": 229.50545766437122,
+      "cost": 3912.545480536427,
+      "assigned_customers": 3,
+      "total_demand_served": 191.25454805364268,
+      "utilization": 0.8333333333333333
+    },
+    {
+      "name": "Optimized_Warehouse_2",
+      "location": {
+        "latitude": 42.35480984702996,
+        "longitude": -83.15951202485563
+      },
+      "capacity": 777.9756620161382,
+      "cost": 8483.130516801153,
+      "assigned_customers": 12,
+      "total_demand_served": 648.3130516801152,
+      "utilization": 0.8333333333333334
+    },
+    {
+      "name": "Optimized_Warehouse_3",
+      "location": {
+        "latitude": 41.437316674761426,
+        "longitude": -76.79239723096262
+      },
+      "capacity": 258.50541804356277,
+      "cost": 4154.21181702969,
+      "assigned_customers": 5,
+      "total_demand_served": 215.42118170296897,
+      "utilization": 0.8333333333333333
+    }
+  ],
+  "customer_assignments": {
+    "Customer_1": "Optimized_Warehouse_3",
+    "Customer_2": "Optimized_Warehouse_2",
+    "Customer_3": "Optimized_Warehouse_3",
+    "Customer_4": "Optimized_Warehouse_2",
+    "Customer_5": "Optimized_Warehouse_2",
+    "Customer_6": "Optimized_Warehouse_2",
+    "Customer_7": "Optimized_Warehouse_2",
+    "Customer_8": "Optimized_Warehouse_2",
+    "Customer_9": "Optimized_Warehouse_3",
+    "Customer_10": "Optimized_Warehouse_3",
+    "Customer_11": "Optimized_Warehouse_2",
+    "Customer_12": "Optimized_Warehouse_1",
+    "Customer_13": "Optimized_Warehouse_2",
+    "Customer_14": "Optimized_Warehouse_2",
+    "Customer_15": "Optimized_Warehouse_3",
+    "Customer_16": "Optimized_Warehouse_2",
+    "Customer_17": "Optimized_Warehouse_2",
+    "Customer_18": "Optimized_Warehouse_1",
+    "Customer_19": "Optimized_Warehouse_1",
+    "Customer_20": "Optimized_Warehouse_2"
+  },
+  "generated_at": "2025-06-13T21:24:14.528208"
+}

@@ -1,0 +1,107 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "WH_A",
+        "name": "Central LA Industrial Zone",
+        "capacity": 50000,
+        "monthly_cost": 85000,
+        "land_cost": 2500000,
+        "highway_access": "excellent",
+        "rail_access": true,
+        "labor_availability": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2337, 34.0622]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "WH_B",
+        "name": "Port Adjacent Facility",
+        "capacity": 75000,
+        "monthly_cost": 120000,
+        "land_cost": 4200000,
+        "highway_access": "good",
+        "rail_access": true,
+        "labor_availability": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4237, 33.9322]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "WH_C",
+        "name": "Valley Distribution Center",
+        "capacity": 60000,
+        "monthly_cost": 75000,
+        "land_cost": 1800000,
+        "highway_access": "excellent",
+        "rail_access": false,
+        "labor_availability": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2837, 34.1822]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "WH_D",
+        "name": "Airport Logistics Park",
+        "capacity": 45000,
+        "monthly_cost": 95000,
+        "land_cost": 3100000,
+        "highway_access": "excellent",
+        "rail_access": false,
+        "labor_availability": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3881, 33.9525]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "WH_E",
+        "name": "East LA Industrial",
+        "capacity": 40000,
+        "monthly_cost": 65000,
+        "land_cost": 1500000,
+        "highway_access": "good",
+        "rail_access": true,
+        "labor_availability": "high"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.1437, 34.0722]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "site_id": "WH_F",
+        "name": "South Bay Logistics Hub",
+        "capacity": 55000,
+        "monthly_cost": 88000,
+        "land_cost": 2200000,
+        "highway_access": "excellent",
+        "rail_access": false,
+        "labor_availability": "medium"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3437, 33.8822]
+      }
+    }
+  ]
+}

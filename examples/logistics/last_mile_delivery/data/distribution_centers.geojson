@@ -1,0 +1,56 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "center_id": "DC_CENTRAL",
+        "name": "Central LA Distribution Center",
+        "address": "1000 Industrial Blvd, Los Angeles, CA",
+        "capacity": 500,
+        "operating_hours": "06:00-22:00",
+        "vehicle_types": ["van", "truck", "bike"],
+        "staff_count": 25,
+        "avg_processing_time": 15
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2337, 34.0622]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "center_id": "DC_WEST",
+        "name": "Westside Distribution Hub",
+        "address": "2500 Pacific Coast Hwy, Santa Monica, CA",
+        "capacity": 300,
+        "operating_hours": "07:00-20:00",
+        "vehicle_types": ["van", "bike"],
+        "staff_count": 18,
+        "avg_processing_time": 12
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4500, 34.0000]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "center_id": "DC_SOUTH",
+        "name": "South Bay Logistics Center",
+        "address": "3750 Harbor Blvd, Torrance, CA",
+        "capacity": 400,
+        "operating_hours": "05:00-21:00",
+        "vehicle_types": ["van", "truck"],
+        "staff_count": 22,
+        "avg_processing_time": 18
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3200, 33.8500]
+      }
+    }
+  ]
+}

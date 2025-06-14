@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "pymapgis"
-version = "0.1.0"
-description = "Modern GIS toolkit for Python - Simplifying geospatial workflows with built-in data sources, intelligent caching, and fluent APIs"
+version = "1.0.0"
+description = "Enterprise-Grade Modern GIS Toolkit for Python - Revolutionizing geospatial workflows with built-in data sources, intelligent caching, cloud-native processing, and enterprise authentication"
 authors = ["Nicholas Karlson <nicholaskarlson@gmail.com>"]
 license = "MIT"
 readme = "README.md"

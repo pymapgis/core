@@ -1,0 +1,54 @@
+# GitHub Pages configuration for PyMapGIS documentation
+
+# Site settings
+title: "PyMapGIS Documentation"
+description: "Modern GIS toolkit for Python - Simplifying geospatial workflows with built-in data sources, intelligent caching, and fluent APIs"
+url: "https://pymapgis.github.io"
+baseurl: "/core"
+
+# Repository information
+repository: "pymapgis/core"
+github_username: "pymapgis"
+
+# Theme
+theme: minima
+remote_theme: pages-themes/minimal@v0.2.0
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Markdown settings
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Navigation
+header_pages:
+  - quickstart.md
+  - user-guide.md
+  - api-reference.md
+  - examples.md
+
+# SEO and social
+author: "Nicholas Karlson"
+twitter:
+  username: pymapgis
+  card: summary
+
+# Google Analytics (optional)
+# google_analytics: UA-XXXXXXXX-X
+
+# Exclude files from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

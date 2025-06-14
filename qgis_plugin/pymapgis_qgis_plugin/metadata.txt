@@ -1,0 +1,16 @@
+[general]
+name=PyMapGIS Layer Loader
+qgisMinimumVersion=3.10
+description=Loads layers into QGIS using PyMapGIS's pymapgis.read() function.
+version=0.1.0
+author=PyMapGIS Team
+email=development@pymapgis.org
+category=Vector
+experimental=True
+icon=icon.png
+# Specify that the plugin is not deprecated
+deprecated=False
+# Optional: homepage, repository, tracker details
+# homepage=https://github.com/geospatial-ai/PyMapGIS
+# repository=https://github.com/geospatial-ai/PyMapGIS.git
+# tracker=https://github.com/geospatial-ai/PyMapGIS/issues

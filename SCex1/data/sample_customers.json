@@ -1,0 +1,83 @@
+{
+  "description": "Sample customer data for supply chain optimization",
+  "region": "Great Lakes Region (US)",
+  "customers": [
+    {
+      "name": "Detroit Manufacturing Co.",
+      "latitude": 42.3314,
+      "longitude": -83.0458,
+      "demand": 150.5,
+      "industry": "Automotive"
+    },
+    {
+      "name": "Chicago Distribution Hub",
+      "latitude": 41.8781,
+      "longitude": -87.6298,
+      "demand": 200.0,
+      "industry": "Retail"
+    },
+    {
+      "name": "Cleveland Steel Works",
+      "latitude": 41.4993,
+      "longitude": -81.6944,
+      "demand": 175.3,
+      "industry": "Manufacturing"
+    },
+    {
+      "name": "Milwaukee Brewery",
+      "latitude": 43.0389,
+      "longitude": -87.9065,
+      "demand": 95.7,
+      "industry": "Food & Beverage"
+    },
+    {
+      "name": "Toledo Port Authority",
+      "latitude": 41.6528,
+      "longitude": -83.5379,
+      "demand": 120.8,
+      "industry": "Logistics"
+    },
+    {
+      "name": "Grand Rapids Furniture",
+      "latitude": 42.9634,
+      "longitude": -85.6681,
+      "demand": 85.2,
+      "industry": "Furniture"
+    },
+    {
+      "name": "Buffalo Tech Center",
+      "latitude": 42.8864,
+      "longitude": -78.8784,
+      "demand": 110.4,
+      "industry": "Technology"
+    },
+    {
+      "name": "Pittsburgh Energy Corp",
+      "latitude": 40.4406,
+      "longitude": -79.9959,
+      "demand": 165.9,
+      "industry": "Energy"
+    },
+    {
+      "name": "Columbus Logistics",
+      "latitude": 39.9612,
+      "longitude": -82.9988,
+      "demand": 140.6,
+      "industry": "Logistics"
+    },
+    {
+      "name": "Indianapolis Motors",
+      "latitude": 39.7684,
+      "longitude": -86.1581,
+      "demand": 130.3,
+      "industry": "Automotive"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2024-01-15T10:00:00Z",
+    "total_customers": 10,
+    "total_demand": 1374.7,
+    "average_demand": 137.47,
+    "coordinate_system": "WGS84 (EPSG:4326)"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Park A",
+        "amenity": "Park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -118.25, 34.05 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Library B",
+        "amenity": "Library"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -118.30, 34.06 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Cafe C",
+        "amenity": "Cafe"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -118.28, 34.03 ]
+      }
+    }
+  ]
+}

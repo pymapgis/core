@@ -1,0 +1,245 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_001",
+        "customer_name": "Sarah Johnson",
+        "address": "1234 Oak Street, Downtown",
+        "package_weight": 2.5,
+        "delivery_window": "09:00-12:00",
+        "priority": "standard",
+        "special_instructions": "Leave at front door"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2437, 34.0522]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_002",
+        "customer_name": "Mike Chen",
+        "address": "5678 Pine Avenue, Westside",
+        "package_weight": 1.2,
+        "delivery_window": "14:00-17:00",
+        "priority": "express",
+        "special_instructions": "Ring doorbell"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4637, 34.0222]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_003",
+        "customer_name": "Emily Rodriguez",
+        "address": "9012 Maple Drive, Valley",
+        "package_weight": 4.8,
+        "delivery_window": "10:00-14:00",
+        "priority": "standard",
+        "special_instructions": "Apartment 3B, use side entrance"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2837, 34.1822]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_004",
+        "customer_name": "David Kim",
+        "address": "3456 Cedar Lane, East LA",
+        "package_weight": 0.8,
+        "delivery_window": "08:00-11:00",
+        "priority": "express",
+        "special_instructions": "Business delivery, ask for manager"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.1437, 34.0722]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_005",
+        "customer_name": "Lisa Thompson",
+        "address": "7890 Birch Street, South Bay",
+        "package_weight": 3.2,
+        "delivery_window": "13:00-16:00",
+        "priority": "standard",
+        "special_instructions": "Gate code 1234"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3537, 33.8922]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_006",
+        "customer_name": "Robert Wilson",
+        "address": "2468 Elm Avenue, Airport Area",
+        "package_weight": 6.1,
+        "delivery_window": "11:00-15:00",
+        "priority": "standard",
+        "special_instructions": "Heavy package, use loading dock"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4081, 33.9425]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_007",
+        "customer_name": "Jennifer Lee",
+        "address": "1357 Willow Court, Beverly Hills",
+        "package_weight": 1.5,
+        "delivery_window": "15:00-18:00",
+        "priority": "premium",
+        "special_instructions": "Signature required, no substitutes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4000, 34.0736]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_008",
+        "customer_name": "Mark Davis",
+        "address": "8642 Spruce Road, Hollywood",
+        "package_weight": 2.1,
+        "delivery_window": "09:30-12:30",
+        "priority": "express",
+        "special_instructions": "Call upon arrival"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3267, 34.0928]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_009",
+        "customer_name": "Amanda Garcia",
+        "address": "9753 Poplar Street, Pasadena",
+        "package_weight": 0.9,
+        "delivery_window": "12:00-15:00",
+        "priority": "standard",
+        "special_instructions": "Leave with neighbor if not home"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.1311, 34.1478]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_010",
+        "customer_name": "Chris Martinez",
+        "address": "4681 Redwood Avenue, Santa Monica",
+        "package_weight": 3.7,
+        "delivery_window": "16:00-19:00",
+        "priority": "standard",
+        "special_instructions": "Beach house, park on street"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4912, 34.0195]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_011",
+        "customer_name": "Nicole Brown",
+        "address": "1593 Sycamore Drive, Glendale",
+        "package_weight": 2.8,
+        "delivery_window": "10:30-13:30",
+        "priority": "express",
+        "special_instructions": "Fragile items, handle with care"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2553, 34.1425]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_012",
+        "customer_name": "Kevin Taylor",
+        "address": "7531 Hickory Lane, Long Beach",
+        "package_weight": 5.3,
+        "delivery_window": "08:30-11:30",
+        "priority": "standard",
+        "special_instructions": "Industrial area, use main entrance"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.1937, 33.7701]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_013",
+        "customer_name": "Rachel Green",
+        "address": "8520 Magnolia Street, Burbank",
+        "package_weight": 1.6,
+        "delivery_window": "14:30-17:30",
+        "priority": "premium",
+        "special_instructions": "Studio lot, visitor parking required"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3089, 34.1808]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_014",
+        "customer_name": "Tom Anderson",
+        "address": "3698 Chestnut Boulevard, Torrance",
+        "package_weight": 4.2,
+        "delivery_window": "11:30-14:30",
+        "priority": "standard",
+        "special_instructions": "Office building, reception desk"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3406, 33.8358]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "delivery_id": "DEL_015",
+        "customer_name": "Stephanie White",
+        "address": "6174 Walnut Street, Culver City",
+        "package_weight": 2.3,
+        "delivery_window": "13:30-16:30",
+        "priority": "express",
+        "special_instructions": "Apartment complex, buzz unit 205"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3965, 34.0211]
+      }
+    }
+  ]
+}

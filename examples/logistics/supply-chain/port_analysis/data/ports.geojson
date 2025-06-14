@@ -1,0 +1,173 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "port_id": "PORT_LA",
+        "name": "Port of Los Angeles",
+        "country": "USA",
+        "annual_teu": 9300000,
+        "berth_count": 43,
+        "max_vessel_size": "Ultra Large Container Vessel",
+        "congestion_index": 0.75,
+        "avg_wait_time_hours": 18,
+        "rail_connections": 3,
+        "highway_connections": 2,
+        "storage_capacity_teu": 850000,
+        "operational_efficiency": 0.82
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2437, 33.7367]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "port_id": "PORT_LB",
+        "name": "Port of Long Beach",
+        "country": "USA",
+        "annual_teu": 8100000,
+        "berth_count": 62,
+        "max_vessel_size": "Ultra Large Container Vessel",
+        "congestion_index": 0.68,
+        "avg_wait_time_hours": 14,
+        "rail_connections": 2,
+        "highway_connections": 3,
+        "storage_capacity_teu": 720000,
+        "operational_efficiency": 0.85
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.1937, 33.7701]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "port_id": "PORT_OAK",
+        "name": "Port of Oakland",
+        "country": "USA",
+        "annual_teu": 2500000,
+        "berth_count": 35,
+        "max_vessel_size": "Large Container Vessel",
+        "congestion_index": 0.45,
+        "avg_wait_time_hours": 8,
+        "rail_connections": 2,
+        "highway_connections": 2,
+        "storage_capacity_teu": 320000,
+        "operational_efficiency": 0.88
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2711, 37.8044]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "port_id": "PORT_SEA",
+        "name": "Port of Seattle",
+        "country": "USA",
+        "annual_teu": 3800000,
+        "berth_count": 28,
+        "max_vessel_size": "Large Container Vessel",
+        "congestion_index": 0.52,
+        "avg_wait_time_hours": 10,
+        "rail_connections": 2,
+        "highway_connections": 1,
+        "storage_capacity_teu": 410000,
+        "operational_efficiency": 0.86
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.3328, 47.6062]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "port_id": "PORT_VAN",
+        "name": "Port of Vancouver",
+        "country": "Canada",
+        "annual_teu": 3400000,
+        "berth_count": 25,
+        "max_vessel_size": "Large Container Vessel",
+        "congestion_index": 0.38,
+        "avg_wait_time_hours": 6,
+        "rail_connections": 2,
+        "highway_connections": 2,
+        "storage_capacity_teu": 380000,
+        "operational_efficiency": 0.91
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.1207, 49.2827]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "port_id": "PORT_SD",
+        "name": "Port of San Diego",
+        "country": "USA",
+        "annual_teu": 1200000,
+        "berth_count": 18,
+        "max_vessel_size": "Medium Container Vessel",
+        "congestion_index": 0.35,
+        "avg_wait_time_hours": 5,
+        "rail_connections": 1,
+        "highway_connections": 2,
+        "storage_capacity_teu": 150000,
+        "operational_efficiency": 0.89
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.1611, 32.7157]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "port_id": "PORT_TAC",
+        "name": "Port of Tacoma",
+        "country": "USA",
+        "annual_teu": 2200000,
+        "berth_count": 22,
+        "max_vessel_size": "Large Container Vessel",
+        "congestion_index": 0.48,
+        "avg_wait_time_hours": 9,
+        "rail_connections": 2,
+        "highway_connections": 2,
+        "storage_capacity_teu": 280000,
+        "operational_efficiency": 0.87
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.4783, 47.2529]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "port_id": "PORT_HOU",
+        "name": "Port of Houston",
+        "country": "USA",
+        "annual_teu": 2900000,
+        "berth_count": 38,
+        "max_vessel_size": "Large Container Vessel",
+        "congestion_index": 0.58,
+        "avg_wait_time_hours": 12,
+        "rail_connections": 3,
+        "highway_connections": 3,
+        "storage_capacity_teu": 420000,
+        "operational_efficiency": 0.83
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-95.3698, 29.7604]
+      }
+    }
+  ]
+}

@@ -1,48 +1,44 @@
-name: Publish Python Package to PyPI
+    name: Publish Python Package to PyPI
 
-on:
-  release:
-    types: [published]
+    on:
+      release:
+        types: [published]
 
-permissions:
-  # This permission is mandatory for trusted publishing
-  id-token: write
+    permissions:
+      id-token: write
 
-jobs:
-  build:
-    name: Build distribution 📦
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-      - name: Install Poetry
-        run: pip install poetry
-      - name: Build package
-        run: poetry build
-      - name: Store the distribution packages
-        uses: actions/upload-artifact@v4
-        with:
-          name: python-package-distributions
-          path: dist/
+    jobs:
+      build:
+        name: Build distribution 📦
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v4
+          - name: Set up Python
+            uses: actions/setup-python@v4
+            with:
+              python-version: "3.11"
+          - name: Install Poetry
+            run: pip install poetry
+          - name: Build package
+            run: poetry build
+          - name: Store the distribution packages
+            uses: actions/upload-artifact@v4
+            with:
+              name: python-package-distributions
+              path: dist/
 
-  publish-to-pypi:
-    name: Publish Python 🐍 distribution 📦 to PyPI
-    needs: [build]
-    runs-on: ubuntu-latest
-    
-    # This block is required to match your PyPI trusted publisher settings.
-    environment:
-      name: pypi
-      url: https://pypi.org/p/pymapgis
-      
-    steps:
-      - name: Download all the dists
-        uses: actions/download-artifact@v4
-        with:
-          name: python-package-distributions
-          path: dist/
-      - name: Publish distribution 📦 to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+      publish-to-pypi:
+        name: Publish Python 🐍 distribution 📦 to PyPI
+        needs: [build]
+        runs-on: ubuntu-latest
+        environment:
+          name: pypi
+          url: https://pypi.org/p/pymapgis
+        steps:
+          - name: Download all the dists
+            uses: actions/download-artifact@v4
+            with:
+              name: python-package-distributions
+              path: dist/
+          - name: Publish distribution 📦 to PyPI
+            uses: pypa/gh-action-pypi-publish@release/v1
