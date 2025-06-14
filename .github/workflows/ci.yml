@@ -4,6 +4,7 @@ name: PyMapGIS CI/CD Pipeline
     branches:
     - main
     - develop
+    - dev
   pull_request:
     branches:
     - main
