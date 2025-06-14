@@ -1,3 +1,4 @@
+import os
 import geopandas as gpd
 import pandas as pd
 import numpy as np
@@ -71,6 +72,7 @@ def test_read_geopackage(tmp_path):
     assert "value" in out.columns
 
 
+@pytest.mark.skipif(os.environ.get("CI") == "true", reason="geoarrow.pandas not available in CI")
 def test_read_parquet(tmp_path):
     """Test Parquet/GeoParquet reading."""
     gdf = gpd.GeoDataFrame(
@@ -86,6 +88,7 @@ def test_read_parquet(tmp_path):
     assert "category" in out.columns
 
 
+@pytest.mark.skipif(os.environ.get("CI") == "true", reason="netCDF4 not available in CI")
 def test_read_netcdf(tmp_path):
     """Test NetCDF reading."""
     # Create sample dataset

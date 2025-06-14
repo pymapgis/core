@@ -9,6 +9,7 @@ This module tests all aspects of the pmg.read() function including:
 - Edge cases and performance scenarios
 """
 
+import os
 import pytest
 import numpy as np
 import pandas as pd
@@ -150,6 +151,7 @@ def test_read_geopackage(temp_dir, sample_geodataframe):
     assert result.crs is not None
 
 
+@pytest.mark.skipif(os.environ.get("CI") == "true", reason="geoarrow.pandas not available in CI")
 def test_read_geoparquet(temp_dir, sample_geodataframe):
     """Test reading GeoParquet format."""
     # Create test GeoParquet
@@ -263,6 +265,7 @@ def test_read_cog(temp_dir, sample_raster_data):
             pytest.skip("COG driver detection not available - this is expected for .cog extension")
 
 
+@pytest.mark.skipif(os.environ.get("CI") == "true", reason="netCDF4 not available in CI")
 def test_read_netcdf(temp_dir, sample_dataset):
     """Test reading NetCDF format."""
     # Create test NetCDF
