@@ -1,7 +1,6 @@
 import xarray as xr
 import rioxarray  # Imported for the .rio accessor, used by xarray.DataArray
 from typing import Union, Hashable, Dict, Any
-import xarray_multiscale
 import zarr  # Though not directly used in the function, good to have for context if users handle zarr.Group directly
 import numpy as np  # Added for np.datetime64 and other numpy uses
 from typing import List  # Added for List type hint
@@ -134,13 +133,11 @@ def lazy_windowed_read_zarr(
         multiscale_group_name (str, optional): The name or path of the group within
             the Zarr store that contains the multiscale metadata (e.g., 'multiscales.DTYPE_0').
             If empty (default), it assumes the root of the Zarr store is the
-            multiscale dataset or contains the necessary metadata for xarray_multiscale
-            to find the data.
-        axis_order (str, optional): The axis order convention used by xarray_multiscale
-            to interpret the dimensions of the arrays in the pyramid.
-            Defaults to "YX". Common alternatives could be "CYX", "TCYX", etc.
-            This tells `xarray_multiscale.multiscale` how to map dimension names
-            like 'x' and 'y' to array dimensions.
+            multiscale dataset or contains the necessary metadata.
+        axis_order (str, optional): The axis order convention used to interpret
+            the dimensions of the arrays in the pyramid. Defaults to "YX".
+            Common alternatives could be "CYX", "TCYX", etc. This tells the function
+            how to map dimension names like 'x' and 'y' to array dimensions.
 
     Returns:
         xr.DataArray: An xarray.DataArray representing the selected window from
@@ -152,9 +149,8 @@ def lazy_windowed_read_zarr(
             contain dimensions 'x' and 'y' for slicing.
         IndexError: If the window coordinates are outside the bounds of the data
             at the selected level.
-        Exception: Can also raise exceptions from `xarray.open_zarr` or
-            `xarray_multiscale.multiscale` if the store is invalid, not a
-            multiscale pyramid, or the level does not exist.
+        Exception: Can also raise exceptions from `zarr.open` if the store is
+            invalid, not a multiscale pyramid, or the level does not exist.
 
     Example:
         >>> # Assuming a Zarr store 'my_image.zarr' with a multiscale pyramid
@@ -223,17 +219,10 @@ def lazy_windowed_read_zarr(
 
     # Select the specified level. `level` can be an int or string.
     # `multi_scale_pyramid` is a list of xr.DataArray, one for each level.
-    # Or, if using newer xarray-multiscale with named scales, it could be a dict.
-    # The API of xarray_multiscale.multiscale returns a list of DataArrays.
     try:
         if isinstance(level, str) and not level.isdigit():
-            # This case is tricky. xarray_multiscale returns a list of DataArrays.
-            # If levels are named like "s0", "s1", this simple indexing won't work.
             # For OME-ZARR, levels are typically indexed 0, 1, 2...
             # The `datasets` attribute in .zattrs lists paths like "0", "1", "2".
-            # `xarray.open_zarr` with `group=''` on an OME-Zarr root might return a Dataset
-            # where `ds.attrs['multiscales']` exists.
-            # `xarray_multiscale.multiscale(ds, ...)` then returns a list of xr.DataArrays.
             # We will assume `level` as integer index for this list.
             # If string "0", "1" etc are passed, convert to int.
             raise ValueError(
