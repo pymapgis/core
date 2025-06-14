@@ -83,7 +83,8 @@ def test_geodataframe_to_geoarrow_conversion(sample_gdf_all_types):
     assert geom_field.type.crs is not None
     # The CRS representation might be wrapped, so check if it contains the expected EPSG code
     crs_str = str(geom_field.type.crs)
-    assert 'EPSG:4326' in crs_str  # Should contain the original GDF CRS
+    # Check for EPSG:4326 or the code 4326 in the CRS representation
+    assert ('EPSG:4326' in crs_str or '"code":4326' in crs_str)  # Should contain the original GDF CRS
 
 def test_geoarrow_to_geodataframe_conversion(sample_gdf_all_types):
     gdf_original = sample_gdf_all_types

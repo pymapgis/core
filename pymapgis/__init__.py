@@ -124,6 +124,8 @@ except ImportError:
 
 try:
     from .vector import buffer, clip, overlay, spatial_join
+    # Import the accessor to register it
+    from .vector import PyMapGISAccessor  # noqa: F401
 except ImportError:
 
     def buffer(gdf, distance: float, **kwargs):

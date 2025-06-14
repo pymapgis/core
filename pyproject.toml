@@ -25,6 +25,9 @@ classifiers = [
 ]
 packages = [{ include = "pymapgis" }]
 
+[tool.poetry.scripts]
+pymapgis = "pymapgis.cli:app"
+
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
 geopandas = "^1.1"
@@ -51,6 +54,24 @@ ruff = "^0.11"
 black = "^25.1"
 mypy = "^1.16"
 pre-commit = "^4.2"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_functions = ["test_*"]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--verbose",
+]
+asyncio_mode = "auto"
+markers = [
+    "integration: marks tests as integration tests",
+    "slow: marks tests as slow",
+    "network: marks tests that require network access",
+    "auth: marks tests that require authentication",
+    "cloud: marks tests that require cloud services",
+]
 
 [build-system]
 requires = ["poetry-core>=1.9.0"]

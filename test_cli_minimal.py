@@ -9,52 +9,43 @@ import time
 def test_cli_import():
     """Test importing CLI components."""
     print("Testing CLI imports...")
-    
-    try:
-        print("1. Importing typer...")
-        import typer
-        print("✅ typer imported")
-        
-        print("2. Importing CLI main...")
-        from pymapgis.cli.main import app
-        print("✅ CLI main imported")
-        
-        print("3. Testing basic CLI help...")
-        # Don't actually run the CLI, just test that it can be imported
-        print("✅ CLI app created successfully")
-        
-        return True
-        
-    except Exception as e:
-        print(f"❌ CLI import failed: {e}")
-        import traceback
-        traceback.print_exc()
-        return False
+
+    print("1. Importing typer...")
+    import typer
+    print("✅ typer imported")
+
+    print("2. Importing CLI main...")
+    from pymapgis.cli import app
+    print("✅ CLI main imported")
+
+    print("3. Testing basic CLI help...")
+    # Don't actually run the CLI, just test that it can be imported
+    print("✅ CLI app created successfully")
+
+    # Use assertions instead of returning values
+    assert typer is not None
+    assert app is not None
 
 def test_basic_functionality():
     """Test basic PyMapGIS functionality without CLI."""
     print("\nTesting basic functionality...")
-    
-    try:
-        print("1. Importing PyMapGIS...")
-        import pymapgis as pmg
-        print(f"✅ PyMapGIS imported, version: {pmg.__version__}")
-        
-        print("2. Testing cache stats...")
-        stats = pmg.stats()
-        print(f"✅ Cache stats: {len(stats)} items")
-        
-        print("3. Testing read function...")
-        # Just check if it's callable, don't actually read anything
-        print(f"✅ Read function available: {callable(pmg.read)}")
-        
-        return True
-        
-    except Exception as e:
-        print(f"❌ Basic functionality test failed: {e}")
-        import traceback
-        traceback.print_exc()
-        return False
+
+    print("1. Importing PyMapGIS...")
+    import pymapgis as pmg
+    print(f"✅ PyMapGIS imported, version: {pmg.__version__}")
+
+    print("2. Testing cache stats...")
+    stats = pmg.stats()
+    print(f"✅ Cache stats: {len(stats)} items")
+
+    print("3. Testing read function...")
+    # Just check if it's callable, don't actually read anything
+    print(f"✅ Read function available: {callable(pmg.read)}")
+
+    # Use assertions instead of returning values
+    assert pmg.__version__ is not None
+    assert isinstance(stats, dict)
+    assert callable(pmg.read)
 
 def main():
     print("PyMapGIS CLI Minimal Test")

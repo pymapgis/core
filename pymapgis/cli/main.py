@@ -290,44 +290,45 @@ def cache_purge_command():
 
 
 # --- Rio Command (Pass-through) ---
-@app.command(
-    name="rio",
-    help="Run Rasterio CLI commands. (Pass-through to 'rio' executable)",
-    context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
-)
-def rio_command(ctx: typer.Context):
-    """
-    Passes arguments directly to the 'rio' command-line interface.
+# Temporarily disabled due to Typer compatibility issues
+# @app.command(
+#     name="rio",
+#     help="Run Rasterio CLI commands. (Pass-through to 'rio' executable)",
+#     context_settings={"allow_extra_args": True, "ignore_unknown_options": True},
+# )
+# def rio_command(ctx: typer.Context):
+#     """
+#     Passes arguments directly to the 'rio' command-line interface.
 
-    Example: pymapgis rio info my_raster.tif
-    """
-    rio_executable = shutil.which("rio")
+#     Example: pymapgis rio info my_raster.tif
+#     """
+#     rio_executable = shutil.which("rio")
 
-    if not rio_executable:
-        typer.secho(
-            "Error: 'rio' (Rasterio CLI) not found in your system's PATH.",
-            fg=typer.colors.RED,
-            err=True,
-        )
-        typer.secho(
-            "Please ensure Rasterio is installed correctly and 'rio' is accessible.",
-            fg=typer.colors.RED,
-            err=True,
-        )
-        raise typer.Exit(code=1)
+#     if not rio_executable:
+#         typer.secho(
+#             "Error: 'rio' (Rasterio CLI) not found in your system's PATH.",
+#             fg=typer.colors.RED,
+#             err=True,
+#         )
+#         typer.secho(
+#             "Please ensure Rasterio is installed correctly and 'rio' is accessible.",
+#             fg=typer.colors.RED,
+#             err=True,
+#         )
+#         raise typer.Exit(code=1)
 
-    try:
-        # Using list addition for arguments
-        process_args = [rio_executable] + ctx.args
-        result = subprocess.run(
-            process_args, check=False
-        )  # check=False to handle rio's own errors
-        sys.exit(result.returncode)
-    except Exception as e:
-        typer.secho(
-            f"Error executing 'rio' command: {e}", fg=typer.colors.RED, err=True
-        )
-        raise typer.Exit(code=1)
+#     try:
+#         # Using list addition for arguments
+#         process_args = [rio_executable] + ctx.args
+#         result = subprocess.run(
+#             process_args, check=False
+#         )  # check=False to handle rio's own errors
+#         sys.exit(result.returncode)
+#     except Exception as e:
+#         typer.secho(
+#             f"Error executing 'rio' command: {e}", fg=typer.colors.RED, err=True
+#         )
+#         raise typer.Exit(code=1)
 
 
 # --- Doctor Command ---

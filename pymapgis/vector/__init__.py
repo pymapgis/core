@@ -13,6 +13,58 @@ __all__ = [
 ]
 
 
+# Register the accessor
+try:
+    from pandas.api.extensions import register_dataframe_accessor
+except ImportError:
+    # Fallback for older pandas versions
+    from pandas.core.accessor import CachedAccessor
+    def register_dataframe_accessor(name):
+        def decorator(accessor):
+            setattr(geopandas.GeoDataFrame, name, CachedAccessor(name, accessor))
+            return accessor
+        return decorator
+
+@register_dataframe_accessor("pmg")
+class PyMapGISAccessor:
+    """PyMapGIS accessor for GeoDataFrame operations."""
+
+    def __init__(self, gdf):
+        self._gdf = gdf
+
+    def buffer(self, distance: float, **kwargs) -> geopandas.GeoDataFrame:
+        """Creates buffer polygons around geometries."""
+        return buffer(self._gdf, distance, **kwargs)
+
+    def clip(self, mask_geometry: Union[geopandas.GeoDataFrame, BaseGeometry], **kwargs) -> geopandas.GeoDataFrame:
+        """Clips the GeoDataFrame to the boundaries of a mask geometry."""
+        return clip(self._gdf, mask_geometry, **kwargs)
+
+    def overlay(self, other: geopandas.GeoDataFrame, how: str = "intersection", **kwargs) -> geopandas.GeoDataFrame:
+        """Performs a spatial overlay with another GeoDataFrame."""
+        return overlay(self._gdf, other, how, **kwargs)
+
+    def spatial_join(self, other: geopandas.GeoDataFrame, op: str = "intersects", how: str = "inner", **kwargs) -> geopandas.GeoDataFrame:
+        """Performs a spatial join with another GeoDataFrame."""
+        return spatial_join(self._gdf, other, op, how, **kwargs)
+
+    def explore(self, **kwargs):
+        """Explore the GeoDataFrame interactively using folium."""
+        try:
+            # Try to use the built-in explore method if available
+            return self._gdf.explore(**kwargs)
+        except Exception:
+            # Fallback for older versions or missing dependencies
+            import warnings
+            warnings.warn("Interactive exploration not available. Install folium for full functionality.")
+            return self._gdf
+
+    def map(self, **kwargs):
+        """Create an interactive map of the GeoDataFrame."""
+        # Alias for explore method for compatibility
+        return self.explore(**kwargs)
+
+
 def buffer(
     gdf: geopandas.GeoDataFrame, distance: float, **kwargs
 ) -> geopandas.GeoDataFrame:
