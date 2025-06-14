@@ -1,4 +1,4 @@
-__version__ = "0.3.2"
+__version__ = "1.0.0"
 
 from pathlib import Path  # Existing import
 from typing import (
