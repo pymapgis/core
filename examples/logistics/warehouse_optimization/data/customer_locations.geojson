@@ -1,0 +1,173 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_001",
+        "name": "Metro Electronics",
+        "demand_volume": 1250,
+        "priority": "high",
+        "delivery_frequency": "daily"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2437, 34.0522]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_002",
+        "name": "Valley Retail Chain",
+        "demand_volume": 850,
+        "priority": "medium",
+        "delivery_frequency": "weekly"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.1937, 34.1522]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_003",
+        "name": "Coastal Distribution",
+        "demand_volume": 2100,
+        "priority": "high",
+        "delivery_frequency": "daily"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4937, 33.9522]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_004",
+        "name": "Downtown Supermarket",
+        "demand_volume": 1800,
+        "priority": "high",
+        "delivery_frequency": "daily"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2537, 34.0422]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_005",
+        "name": "Suburban Mall",
+        "demand_volume": 950,
+        "priority": "medium",
+        "delivery_frequency": "bi-weekly"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3437, 34.1122]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_006",
+        "name": "Industrial Park Supply",
+        "demand_volume": 1650,
+        "priority": "high",
+        "delivery_frequency": "daily"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.1237, 34.0822]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_007",
+        "name": "Airport Logistics Hub",
+        "demand_volume": 3200,
+        "priority": "critical",
+        "delivery_frequency": "multiple_daily"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4081, 33.9425]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_008",
+        "name": "Beach Cities Retail",
+        "demand_volume": 720,
+        "priority": "low",
+        "delivery_frequency": "weekly"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3948, 33.8847]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_009",
+        "name": "North Valley Distribution",
+        "demand_volume": 1400,
+        "priority": "medium",
+        "delivery_frequency": "weekly"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2837, 34.2122]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_010",
+        "name": "East LA Commercial",
+        "demand_volume": 1100,
+        "priority": "medium",
+        "delivery_frequency": "bi-weekly"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.1337, 34.0322]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_011",
+        "name": "South Bay Warehouse",
+        "demand_volume": 2800,
+        "priority": "high",
+        "delivery_frequency": "daily"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.3537, 33.8922]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "customer_id": "CUST_012",
+        "name": "Westside Premium Stores",
+        "demand_volume": 1950,
+        "priority": "high",
+        "delivery_frequency": "daily"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.4637, 34.0222]
+      }
+    }
+  ]
+}

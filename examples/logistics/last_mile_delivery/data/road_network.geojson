@@ -1,0 +1,187 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "R001",
+        "name": "Interstate 405",
+        "road_type": "highway",
+        "speed_limit": 65,
+        "traffic_factor": 1.8,
+        "length_km": 15.2
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.4500, 34.0500],
+          [-118.4200, 34.0300],
+          [-118.3900, 34.0100],
+          [-118.3600, 33.9900],
+          [-118.3300, 33.9700],
+          [-118.3000, 33.9500]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "R002",
+        "name": "Interstate 10",
+        "road_type": "highway",
+        "speed_limit": 65,
+        "traffic_factor": 1.6,
+        "length_km": 18.7
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.5000, 34.0200],
+          [-118.4500, 34.0200],
+          [-118.4000, 34.0200],
+          [-118.3500, 34.0200],
+          [-118.3000, 34.0200],
+          [-118.2500, 34.0200],
+          [-118.2000, 34.0200],
+          [-118.1500, 34.0200]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "R003",
+        "name": "US Highway 101",
+        "road_type": "highway",
+        "speed_limit": 55,
+        "traffic_factor": 1.4,
+        "length_km": 22.1
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.4800, 34.1500],
+          [-118.4400, 34.1200],
+          [-118.4000, 34.0900],
+          [-118.3600, 34.0600],
+          [-118.3200, 34.0300],
+          [-118.2800, 34.0000],
+          [-118.2400, 33.9700]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "R004",
+        "name": "Wilshire Boulevard",
+        "road_type": "arterial",
+        "speed_limit": 35,
+        "traffic_factor": 1.3,
+        "length_km": 25.6
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.5000, 34.0600],
+          [-118.4500, 34.0600],
+          [-118.4000, 34.0600],
+          [-118.3500, 34.0600],
+          [-118.3000, 34.0600],
+          [-118.2500, 34.0600],
+          [-118.2000, 34.0600]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "R005",
+        "name": "Santa Monica Boulevard",
+        "road_type": "arterial",
+        "speed_limit": 35,
+        "traffic_factor": 1.2,
+        "length_km": 20.3
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.4900, 34.0900],
+          [-118.4400, 34.0900],
+          [-118.3900, 34.0900],
+          [-118.3400, 34.0900],
+          [-118.2900, 34.0900],
+          [-118.2400, 34.0900]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "R006",
+        "name": "Sunset Boulevard",
+        "road_type": "arterial",
+        "speed_limit": 35,
+        "traffic_factor": 1.1,
+        "length_km": 28.4
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.4700, 34.1000],
+          [-118.4200, 34.1000],
+          [-118.3700, 34.1000],
+          [-118.3200, 34.1000],
+          [-118.2700, 34.1000],
+          [-118.2200, 34.1000],
+          [-118.1700, 34.1000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "R007",
+        "name": "Venice Boulevard",
+        "road_type": "arterial",
+        "speed_limit": 35,
+        "traffic_factor": 1.0,
+        "length_km": 19.8
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.4600, 34.0000],
+          [-118.4100, 34.0000],
+          [-118.3600, 34.0000],
+          [-118.3100, 34.0000],
+          [-118.2600, 34.0000],
+          [-118.2100, 34.0000]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "R008",
+        "name": "Olympic Boulevard",
+        "road_type": "arterial",
+        "speed_limit": 35,
+        "traffic_factor": 1.1,
+        "length_km": 21.7
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-118.4800, 34.0300],
+          [-118.4300, 34.0300],
+          [-118.3800, 34.0300],
+          [-118.3300, 34.0300],
+          [-118.2800, 34.0300],
+          [-118.2300, 34.0300],
+          [-118.1800, 34.0300]
+        ]
+      }
+    }
+  ]
+}

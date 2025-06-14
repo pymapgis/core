@@ -1,0 +1,15 @@
+{
+  "sample_operation_execution_time": {
+    "test_name": "sample_operation",
+    "metric_name": "execution_time",
+    "baseline_value": 0.09863943047934147,
+    "baseline_std_dev": 0.005909865823818634,
+    "sample_count": 10,
+    "created_date": "2025-06-12T09:09:04.941389",
+    "last_updated": "2025-06-12T09:09:04.941389",
+    "metadata": {
+      "version": "1.0.0",
+      "environment": "test"
+    }
+  }
+}

@@ -1,0 +1,111 @@
+site_name: PyMapGIS
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - User Guide: user-guide.md
+  - API Reference: api-reference.md
+  - Examples: examples.md
+  - Developer:
+    - Introduction: developer/index.md
+    - Architecture: developer/architecture.md
+    - Contributing Guide: developer/contributing_guide.md
+    - Extending PyMapGIS: developer/extending_pymapgis.md
+  - Phase 1 Plan: phase1/README.md
+  - Phase 2 Plan: phase2/README.md
+  - Phase 3 Plan: phase3/README.md
+  - Changelog: CHANGELOG.md
+  - Contributing: CONTRIBUTING.md
+  - License: LICENSE.md
+  - Docs Home: README.md # This is docs/README.md
+  - All Developer Docs: developer-all.md # if this is a single page
+  - All Phase Docs: phases-all.md # if this is a single page
+
+# Optional: Add a link to the repo
+repo_url: https://github.com/pymapgis/core
+repo_name: pymapgis/core
+
+# Optional: Configure markdown extensions
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - admonition
+
+# Optional: Configure plugins if needed later (e.g., for search)
+# plugins:
+#   - search
+#   - mkdocstrings:
+#       handlers:
+#         python:
+#           options:
+#             docstring_style: numpy
+
+# To make paths relative to the docs/ directory where the .md files are
+docs_dir: docs
+site_dir: site # Output directory for built static site, default is 'site'
+# Note: The 'nav' paths should be relative to the 'docs_dir' (i.e., 'docs/')
+# So, 'index.md' refers to 'docs/index.md', 'quickstart.md' to 'docs/quickstart.md', etc.
+# For files in the root like CHANGELOG.md, they might need to be moved into 'docs/'
+# or linked differently if MkDocs doesn't support linking outside 'docs_dir' easily.
+# For now, I'm assuming the main .md files referenced (index, quickstart, etc.) are in 'docs/'.
+# And files like CHANGELOG.md, CONTRIBUTING.md, LICENSE.md might need to be moved into 'docs/'
+# or we might need to adjust the 'nav' or use a plugin like 'mkdocs-static-i18n-plugin' (though that's for i18n)
+# or 'mkdocs-gen-files' to copy them over during build.
+# Let's try with them as is and see if MkDocs handles it or if we need to adjust.
+# Based on standard MkDocs behavior, files listed in 'nav' should be inside 'docs_dir'.
+#
+# Re-evaluating nav based on standard MkDocs practice:
+# All files in nav should be relative to 'docs_dir'.
+# This means CHANGELOG.md, CONTRIBUTING.md, LICENSE.md need to be moved to 'docs/'
+# or we remove them from nav for now.
+# Let's create a more standard nav first, assuming main docs are in 'docs/'.
+
+# Revised nav, assuming common files are moved or handled by a plugin later
+# For now, only include files known to be in docs/
+nav:
+  - Home: index.md # This is docs/index.md
+  - Quickstart: quickstart.md
+  - User Guide: user-guide.md
+  - API Reference: api-reference.md
+  - Examples: # This becomes a section
+    - Overview: examples.md # Main examples page
+    - TIGER/Line Visualization: examples/tiger_line_visualization/README.md
+    - Local File Interaction: examples/local_file_interaction/README.md
+    - Simulated Data: examples/simulated_data_example/README.md
+  - Cookbook:
+    - 'Site Selection': cookbook/site_selection.md
+    - 'Sentinel-2 NDVI': cookbook/sentinel2_ndvi.md
+    - 'Isochrones Calculation': cookbook/isochrones_calculation.md
+    - 'Network Analysis Example': cookbook/network_analysis_example.md
+    - 'Point Cloud Data Example': cookbook/point_cloud_example.md
+    - 'Spatio-Temporal Cubes': cookbook/spatiotemporal_cube_example.md
+    - 'Deck.gl Visualization': cookbook/deckgl_visualization_example.md
+    - 'Kafka Streaming Example': cookbook/streaming_kafka_example.md
+    - 'MQTT Streaming Example': cookbook/streaming_mqtt_example.md
+  - Developer:
+    - 'Developer Home': developer/index.md
+    - 'Architecture': developer/architecture.md
+    - 'Contributing Guide': developer/contributing_guide.md
+    - 'Extending PyMapGIS': developer/extending_pymapgis.md
+    - 'Cookiecutter Template Outline': developer/cookiecutter_template_outline.md
+  - 'Phase 1 Details': phase1/README.md
+  - 'Phase 2 Details': phase2/README.md
+  - 'Phase 3 Details': phase3/README.md
+  # Links to files outside 'docs' like CHANGELOG.md, LICENSE.md are problematic without plugins
+  # or moving the files. For now, let's focus on what's in 'docs'.
+  # The README.md in the root is usually the source for 'index.md' in 'docs' or the repo landing page.
+  # If 'docs/index.md' is the main page for docs, that's correct.
+  # The 'docs/README.md' can be linked if it's different from 'docs/index.md'.
+  # Let's assume 'docs/index.md' is the primary entry.
+  - 'Documentation README': README.md # This refers to docs/README.md
+# The files developer-all.md and phases-all.md are also assumed to be in docs/
+  - 'All Developer Docs': developer-all.md
+  - 'All Phase Docs': phases-all.md
+
+# Ensure docs_dir is set
+docs_dir: docs

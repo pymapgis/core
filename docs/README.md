@@ -74,6 +74,12 @@ Real-world examples and use cases with complete, runnable code.
 2. [API Reference](api-reference.md) - Complete technical reference
 3. [Examples: Data Integration](examples.md#-data-integration) - Custom analytics
 
+#### 🧑‍💻 **Developer**
+1. [Developer Home](developer/index.md) - Overview for contributors
+2. [Architecture](developer/architecture.md) - System architecture
+3. [Contributing Guide](developer/contributing_guide.md) - Dev setup and workflow
+4. [Extending PyMapGIS](developer/extending_pymapgis.md) - Adding new features
+
 ### By Use Case
 
 #### 📊 **Data Analysis**
@@ -120,6 +126,7 @@ Real-world examples and use cases with complete, runnable code.
 - **[PyMapGIS on PyPI](https://pypi.org/project/pymapgis/)** - Package installation
 - **[GitHub Issues](https://github.com/pymapgis/core/issues)** - Bug reports and feature requests
 - **[GitHub Discussions](https://github.com/pymapgis/core/discussions)** - Community Q&A
+- **[Developer Documentation](developer/index.md)** - Guides for contributing to and extending PyMapGIS.
 
 ### Related Projects
 - **[GeoPandas](https://geopandas.org/)** - Geospatial data manipulation

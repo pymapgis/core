@@ -1,0 +1,195 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pymapgis-deployment
+  namespace: pymapgis
+  labels:
+    app: pymapgis
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pymapgis
+  template:
+    metadata:
+      labels:
+        app: pymapgis
+        version: v1
+    spec:
+      containers:
+      - name: pymapgis
+        image: pymapgis/pymapgis-app:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PYMAPGIS_ENV
+          value: "production"
+        - name: PORT
+          value: "8000"
+        - name: REDIS_URL
+          value: "redis://pymapgis-redis:6379"
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: pymapgis-secrets
+              key: database-url
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: data-volume
+          mountPath: /app/data
+        - name: logs-volume
+          mountPath: /app/logs
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+          claimName: pymapgis-data-pvc
+      - name: logs-volume
+        persistentVolumeClaim:
+          claimName: pymapgis-logs-pvc
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pymapgis-service
+  namespace: pymapgis
+  labels:
+    app: pymapgis
+spec:
+  selector:
+    app: pymapgis
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pymapgis-loadbalancer
+  namespace: pymapgis
+  labels:
+    app: pymapgis
+spec:
+  selector:
+    app: pymapgis
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+  type: LoadBalancer
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pymapgis-hpa
+  namespace: pymapgis
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pymapgis-deployment
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pymapgis-data-pvc
+  namespace: pymapgis
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pymapgis-logs-pvc
+  namespace: pymapgis
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pymapgis-secrets
+  namespace: pymapgis
+type: Opaque
+data:
+  database-url: cG9zdGdyZXNxbDovL3B5bWFwZ2lzOnB5bWFwZ2lzX3Bhc3N3b3JkQHB5bWFwZ2lzLXBvc3RncmVzOjU0MzIvcHltYXBnaXM=  # base64 encoded
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: pymapgis-config
+  namespace: pymapgis
+data:
+  app.conf: |
+    [server]
+    host = 0.0.0.0
+    port = 8000
+    workers = 4
+    
+    [logging]
+    level = INFO
+    format = json
+    
+    [cache]
+    backend = redis
+    url = redis://pymapgis-redis:6379
+    
+    [monitoring]
+    enabled = true
+    metrics_port = 9090

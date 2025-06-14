@@ -1,0 +1,73 @@
+# Docker Compose configuration for Supply Chain Optimization Example
+version: '3.8'
+
+services:
+  # Main Supply Chain Optimization Application
+  scex1-app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: scex1-supply-chain
+    environment:
+      - PYTHONPATH=/app
+      - SC_ENV=production
+      - SC_LOG_LEVEL=INFO
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../output:/app/output
+      - ../logs:/app/logs
+      - scex1_cache:/tmp
+    networks:
+      - scex1-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Redis for caching (optional, for future enhancements)
+  scex1-cache:
+    image: redis:7-alpine
+    container_name: scex1-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - scex1_redis_data:/data
+    networks:
+      - scex1-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # Nginx reverse proxy (optional, for production deployment)
+  scex1-proxy:
+    image: nginx:alpine
+    container_name: scex1-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../output:/usr/share/nginx/html/output:ro
+    depends_on:
+      - scex1-app
+    networks:
+      - scex1-network
+    restart: unless-stopped
+    profiles:
+      - production
+
+volumes:
+  scex1_cache:
+    driver: local
+  scex1_redis_data:
+    driver: local
+
+networks:
+  scex1-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

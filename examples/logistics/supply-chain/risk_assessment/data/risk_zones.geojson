@@ -1,0 +1,141 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "risk_id": "EARTHQUAKE_PACIFIC",
+        "risk_type": "earthquake",
+        "severity": "high",
+        "probability": 0.15,
+        "impact_radius_km": 500,
+        "description": "Pacific Ring of Fire seismic activity zone"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [110, 10], [150, 10], [150, 50], [110, 50], [110, 10]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "risk_id": "TYPHOON_ASIA",
+        "risk_type": "typhoon",
+        "severity": "high",
+        "probability": 0.25,
+        "impact_radius_km": 300,
+        "description": "Western Pacific typhoon corridor"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [100, 5], [140, 5], [140, 35], [100, 35], [100, 5]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "risk_id": "HURRICANE_GULF",
+        "risk_type": "hurricane",
+        "severity": "medium",
+        "probability": 0.20,
+        "impact_radius_km": 400,
+        "description": "Gulf of Mexico hurricane zone"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-105, 18], [-80, 18], [-80, 32], [-105, 32], [-105, 18]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "risk_id": "FLOOD_MONSOON",
+        "risk_type": "flood",
+        "severity": "medium",
+        "probability": 0.30,
+        "impact_radius_km": 200,
+        "description": "Monsoon flood-prone regions"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [70, 8], [95, 8], [95, 28], [70, 28], [70, 8]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "risk_id": "WILDFIRE_CALIFORNIA",
+        "risk_type": "wildfire",
+        "severity": "medium",
+        "probability": 0.35,
+        "impact_radius_km": 150,
+        "description": "California wildfire risk zone"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-125, 32], [-114, 32], [-114, 42], [-125, 42], [-125, 32]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "risk_id": "POLITICAL_INSTABILITY",
+        "risk_type": "political",
+        "severity": "medium",
+        "probability": 0.12,
+        "impact_radius_km": 1000,
+        "description": "Regions with potential political instability"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-15, -35], [55, -35], [55, 40], [-15, 40], [-15, -35]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "risk_id": "CYBER_SECURITY",
+        "risk_type": "cyber",
+        "severity": "high",
+        "probability": 0.40,
+        "impact_radius_km": 0,
+        "description": "Global cyber security threats (location independent)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "risk_id": "SUPPLY_CHAIN_DISRUPTION",
+        "risk_type": "logistics",
+        "severity": "medium",
+        "probability": 0.18,
+        "impact_radius_km": 800,
+        "description": "Major shipping route disruption zones"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [25, 10], [65, 10], [65, 35], [25, 35], [25, 10]
+        ]]
+      }
+    }
+  ]
+}
