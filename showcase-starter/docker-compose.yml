@@ -1,0 +1,114 @@
+# PyMapGIS Showcase Demos - Docker Compose
+# Easy way to test and run showcase demos
+
+version: '3.8'
+
+services:
+  # Quake Impact Demo (reference implementation)
+  quake-demo:
+    build:
+      context: ./showcases/quake-impact
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DEMO_NAME=quake-impact
+    volumes:
+      - quake_data:/app/tiles
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  # Border Flow Demo (when implemented)
+  border-flow-demo:
+    build:
+      context: ./showcases/border-flow
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    environment:
+      - DEMO_NAME=border-flow
+    volumes:
+      - border_data:/app/tiles
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    profiles:
+      - border-flow
+
+  # Flight Delay Demo (when implemented)
+  flight-delay-demo:
+    build:
+      context: ./showcases/flight-delay
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8000"
+    environment:
+      - DEMO_NAME=flight-delay
+    volumes:
+      - flight_data:/app/tiles
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    profiles:
+      - flight-delay
+
+  # Wildfire Risk Demo (when implemented)
+  wildfire-demo:
+    build:
+      context: ./showcases/wildfire-risk
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8000"
+    environment:
+      - DEMO_NAME=wildfire-risk
+    volumes:
+      - wildfire_data:/app/tiles
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    profiles:
+      - wildfire
+
+  # Demo Gateway (nginx reverse proxy for multiple demos)
+  demo-gateway:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - quake-demo
+    restart: unless-stopped
+    profiles:
+      - gateway
+
+volumes:
+  quake_data:
+    driver: local
+  border_data:
+    driver: local
+  flight_data:
+    driver: local
+  wildfire_data:
+    driver: local
+
+networks:
+  default:
+    name: pymapgis-showcase
