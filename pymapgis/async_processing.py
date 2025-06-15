@@ -45,6 +45,13 @@ try:
 except ImportError:
     TQDM_AVAILABLE = False
 
+try:
+    import rasterstats
+
+    RASTERSTATS_AVAILABLE = True
+except ImportError:
+    RASTERSTATS_AVAILABLE = False
+
 # Set up logging
 logger = logging.getLogger(__name__)
 
@@ -471,6 +478,89 @@ class AsyncGeoProcessor:
             if progress:
                 progress.close()
             monitor.finish()
+
+    async def zonal_stats(
+        self,
+        raster_source: Union[str, Path],
+        geometries: Union[gpd.GeoSeries, List],
+        stats: Tuple[str, ...] = ("sum", "mean", "count"),
+        nodata: Optional[float] = None,
+        **kwargs,
+    ) -> pd.DataFrame:
+        """
+        Perform zonal statistics asynchronously on raster data within vector geometries.
+
+        Args:
+            raster_source: Path to raster file or URL (e.g., COG on S3)
+            geometries: Vector geometries to use as zones
+            stats: Statistics to calculate ('sum', 'mean', 'count', 'min', 'max', 'std')
+            nodata: Value to treat as nodata
+            **kwargs: Additional arguments for rasterstats
+
+        Returns:
+            DataFrame with statistics for each geometry
+        """
+        if not RASTERSTATS_AVAILABLE:
+            raise ImportError(
+                "rasterstats not available. Install with: pip install rasterstats"
+            )
+
+        monitor = PerformanceMonitor(f"Zonal stats on {len(geometries)} geometries")
+        monitor.start()
+
+        # Convert geometries to list if needed
+        if hasattr(geometries, "geometry"):
+            geom_list = geometries.geometry.tolist()
+        elif hasattr(geometries, "tolist"):
+            geom_list = geometries.tolist()
+        else:
+            geom_list = list(geometries)
+
+        # Prepare rasterstats arguments
+        raster_kwargs = {
+            "stats": stats,
+            "nodata": nodata,
+            **kwargs,
+        }
+
+        # Process in parallel chunks for better performance
+        chunk_size = min(100, max(1, len(geom_list) // self.max_workers))
+        chunks = [
+            geom_list[i : i + chunk_size] for i in range(0, len(geom_list), chunk_size)
+        ]
+
+        async def process_chunk(chunk_geoms):
+            """Process a chunk of geometries."""
+            loop = asyncio.get_event_loop()
+            return await loop.run_in_executor(
+                self.executor,
+                lambda: rasterstats.zonal_stats(
+                    chunk_geoms, str(raster_source), **raster_kwargs
+                ),
+            )
+
+        # Process all chunks in parallel
+        try:
+            chunk_results = await asyncio.gather(
+                *[process_chunk(chunk) for chunk in chunks]
+            )
+
+            # Flatten results
+            all_results = []
+            for chunk_result in chunk_results:
+                all_results.extend(chunk_result)
+
+            # Convert to DataFrame
+            result_df = pd.DataFrame(all_results)
+
+            monitor.update(len(geom_list))
+            monitor.finish()
+
+            return result_df
+
+        except Exception as e:
+            logger.error(f"Error in zonal_stats: {e}")
+            raise
 
     async def close(self):
         """Clean up resources."""

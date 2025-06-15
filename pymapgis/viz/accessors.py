@@ -8,7 +8,7 @@ enabling convenient access to PyMapGIS visualization operations.
 import geopandas as gpd
 import pandas as pd
 import leafmap.leafmap as leafmap
-from typing import Optional, Union
+from typing import Optional, Union, List
 from shapely.geometry.base import BaseGeometry
 
 
@@ -229,3 +229,35 @@ class PmgVizAccessor:
         from ..vector import spatial_join as _spatial_join
 
         return _spatial_join(self._obj, other, op=op, how=how, **kwargs)
+
+    def to_mvt(
+        self,
+        output_path: str,
+        layer: str = "layer",
+        fields: Optional[List[str]] = None,
+        **kwargs,
+    ) -> None:
+        """
+        Export GeoDataFrame to Mapbox Vector Tiles (MVT) format.
+
+        Args:
+            output_path (str): Output path pattern with {z}/{x}/{y} placeholders
+            layer (str): Layer name in the MVT. Defaults to 'layer'.
+            fields (List[str], optional): List of fields to include. If None, includes all.
+            **kwargs: Additional arguments for tile generation.
+
+        Examples:
+            >>> # Export to MVT tiles
+            >>> gdf.pmg.to_mvt("/tiles/layer/{z}/{x}/{y}.mvt", layer="earthquakes")
+            >>>
+            >>> # Export with specific fields
+            >>> gdf.pmg.to_mvt("/tiles/layer/{z}/{x}/{y}.mvt",
+            ...                 layer="earthquakes",
+            ...                 fields=["magnitude", "depth"])
+        """
+        # Import here to avoid circular imports
+        from ..serve import export_to_mvt_tiles
+
+        return export_to_mvt_tiles(
+            self._obj, output_path, layer_name=layer, fields=fields, **kwargs
+        )

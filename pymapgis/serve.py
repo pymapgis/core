@@ -1,6 +1,6 @@
 # Import dependencies with graceful fallbacks
 import sys
-from typing import Union, Any, Optional
+from typing import Union, Any, Optional, List
 
 # Core dependencies that should always be available
 try:
@@ -212,6 +212,64 @@ def gdf_to_mvt(
 
     # Encode as MVT
     return mapbox_vector_tile.encode(layer_data)
+
+
+def export_to_mvt_tiles(
+    gdf: gpd.GeoDataFrame,
+    output_path: str,
+    layer_name: str = "layer",
+    fields: Optional[List[str]] = None,
+    min_zoom: int = 0,
+    max_zoom: int = 14,
+    **kwargs,
+) -> None:
+    """
+    Export GeoDataFrame to MVT tiles on disk.
+
+    Args:
+        gdf: GeoDataFrame to export
+        output_path: Output path pattern with {z}/{x}/{y} placeholders
+        layer_name: Name for the layer in MVT
+        fields: Fields to include (None for all)
+        min_zoom: Minimum zoom level
+        max_zoom: Maximum zoom level
+        **kwargs: Additional arguments
+    """
+    if not VECTOR_DEPS_AVAILABLE:
+        raise ImportError(
+            "Vector tile dependencies (mapbox_vector_tile, mercantile) not available"
+        )
+
+    import os
+    from pathlib import Path
+
+    # Ensure GDF is in Web Mercator
+    if gdf.crs != "EPSG:3857":
+        gdf = gdf.to_crs("EPSG:3857")
+
+    # Filter fields if specified
+    if fields:
+        available_fields = [f for f in fields if f in gdf.columns]
+        gdf = gdf[["geometry"] + available_fields]
+
+    # Generate tiles for each zoom level
+    for z in range(min_zoom, max_zoom + 1):
+        # Get tiles that intersect with the data bounds
+        bounds = gdf.total_bounds
+        tiles = list(mercantile.tiles(*bounds, zooms=[z]))
+
+        for tile in tiles:
+            # Generate MVT for this tile
+            mvt_data = gdf_to_mvt(gdf, tile.x, tile.y, tile.z, layer_name)
+
+            # Create output directory and file
+            tile_path = output_path.format(z=tile.z, x=tile.x, y=tile.y)
+            tile_dir = Path(tile_path).parent
+            tile_dir.mkdir(parents=True, exist_ok=True)
+
+            # Write MVT file
+            with open(tile_path, "wb") as f:
+                f.write(mvt_data)
 
 
 # Global app instance that `serve` will configure and run
