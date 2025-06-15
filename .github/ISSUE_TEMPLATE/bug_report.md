@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report to help us improve
 title: '[BUG] '
-labels: 'bug'
+labels: ['bug', 'good-first-issue']
 assignees: ''
 
 ---
@@ -40,3 +40,22 @@ Paste the full error message and stack trace here
 
 **Additional context**
 Add any other context about the problem here.
+
+---
+
+## 🤝 **Want to Help Fix This?**
+
+This is a great opportunity to contribute to PyMapGIS! Here's how:
+
+### 🌟 **Level 2: Reporter** (You are here!)
+- ✅ You've reported the bug - thank you!
+- 🎯 **Next:** Help us reproduce and understand the issue
+
+### 🔧 **Level 3: Fixer** (Ready to code?)
+- 🎯 **Good First Issue:** This bug is perfect for new contributors
+- 📚 **Resources:** [Contributing Guide](../../CONTRIBUTING.md) | [Development Setup](../../docs/development.md)
+- 🤝 **Mentorship:** Comment "I'd like to fix this" and we'll guide you!
+
+### 🚀 **Level 4: Builder** (Want bigger challenges?)
+- 🎯 **Stretch Goals:** Turn this fix into a feature improvement
+- 🏗️ **Architecture:** Suggest systematic solutions to prevent similar bugs

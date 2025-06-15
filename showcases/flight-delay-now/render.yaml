@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: flight-delay-now
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    branch: main
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: PYTHONPATH
+        value: /app
+      - key: ENVIRONMENT
+        value: production
+    buildCommand: docker build -t flight-delay-now .
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    autoDeploy: true
+    disk:
+      name: flight-delay-data
+      mountPath: /app/data
+      sizeGB: 1

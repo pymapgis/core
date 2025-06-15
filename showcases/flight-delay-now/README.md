@@ -38,7 +38,17 @@ A real-time flight delay visualization showcasing PyMapGIS capabilities for logi
 - **Real-time processing** with FastAPI background tasks
 - **Vector tiles** for smooth web map performance
 
-## 🚀 **Quick Start**
+## 🚀 **Try It Now - Multiple Ways!**
+
+### ⚡ **Instant Demo (No Installation Required)**
+[![Open in Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/pymapgis/core?quickstart=1)
+[![Deploy to Railway](https://railway.app/button.svg)](https://railway.app/template/pymapgis-flight-delay)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/pymapgis/core)
+
+**🎯 One-Click Options:**
+- **GitHub Codespaces**: Full development environment in your browser (2 minutes)
+- **Railway**: Deploy your own live demo with custom URL (3 minutes)
+- **Render**: Free hosting with automatic SSL and domain (5 minutes)
 
 ### **Option 1: Docker (Recommended)**
 ```bash

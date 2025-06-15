@@ -8,8 +8,9 @@ assignees: ''
 
 ## 🎯 **Showcase Demo**
 Which demo is this about?
+- [ ] ✈️ Flight Delay Now
 - [ ] 🌍 Quake Impact Now
-- [ ] 📦 Border Flow Analytics  
+- [ ] 📦 Border Flow Analytics
 - [ ] 🏠 Housing Cost Burden
 - [ ] 🚛 Supply Chain Dashboard
 - [ ] 🆕 Other (specify): ___________
@@ -57,5 +58,32 @@ How would you like to see this fixed or implemented?
 
 ---
 
-**🌟 Thank you for helping improve PyMapGIS showcases!**  
+**🌟 Thank you for helping improve PyMapGIS showcases!**
 Your contribution helps potential users experience the power of PyMapGIS.
+
+## 🚀 **Perfect for New Contributors!**
+
+Showcase issues are ideal for getting started with PyMapGIS:
+
+### 🌟 **Level 2: Reporter** (You are here!)
+- ✅ You've identified an improvement opportunity!
+- 🎯 **Impact:** Direct effect on user experience
+
+### 🔧 **Level 3: Fixer** (Ready to contribute?)
+- 🎯 **Good First Issue:** Showcase fixes are beginner-friendly
+- 📚 **Learn:** Real-world PyMapGIS usage patterns
+- 🤝 **Mentorship:** Comment "I'd like to work on this" for guidance!
+
+### 🚀 **Level 4: Builder** (Want to lead?)
+- 🎯 **Create New Showcases:** Build your own demo
+- 🏗️ **Architecture:** Improve showcase infrastructure
+- 🌟 **Recognition:** Featured contributor status
+
+### 💡 **Showcase Ideas for New Contributors**
+- 🌍 **Climate Data Visualization** - NOAA weather patterns
+- 🚗 **Traffic Flow Analysis** - Real-time traffic APIs
+- 🏥 **Healthcare Access** - Hospital locations vs demographics
+- 🌱 **Environmental Monitoring** - Air quality sensors
+- 📈 **Economic Indicators** - Regional economic data
+
+**Ready to make PyMapGIS more awesome? We're here to help! 🚀**

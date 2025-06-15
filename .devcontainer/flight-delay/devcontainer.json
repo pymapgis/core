@@ -1,0 +1,39 @@
+{
+  "name": "PyMapGIS Flight Delay Now Demo",
+  "image": "mcr.microsoft.com/devcontainers/python:3.10",
+  "workspaceFolder": "/workspaces/core",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/core,type=bind",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.flake8",
+        "ms-python.black-formatter",
+        "ms-toolsai.jupyter"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.formatting.provider": "black"
+      }
+    }
+  },
+  
+  "postCreateCommand": "cd showcases/flight-delay-now && pip install -r requirements.txt",
+  "postStartCommand": "cd showcases/flight-delay-now && python flight_worker.py && uvicorn app:app --host 0.0.0.0 --port 8000 &",
+  
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Flight Delay Now Demo",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  
+  "remoteUser": "vscode"
+}

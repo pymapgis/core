@@ -19,21 +19,81 @@
 
 **🌟 New to PyMapGIS? Start here!** Experience the power of PyMapGIS through our interactive showcase demos:
 
+### ⚡ **Instant Access - No Installation Required**
+
+[![Open in Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/pymapgis/core?quickstart=1)
+[![Try Flight Delay Demo](https://img.shields.io/badge/Try%20Flight%20Delay-Live%20Demo-blue?style=for-the-badge&logo=airplane)](https://codespaces.new/pymapgis/core?quickstart=1&devcontainer_path=.devcontainer/flight-delay/devcontainer.json)
+[![Deploy Your Own](https://img.shields.io/badge/Deploy%20Your%20Own-Railway-purple?style=for-the-badge&logo=railway)](https://railway.app/template/pymapgis-flight-delay)
+
 | 🚀 **Demo** | 📊 **Description** | 🔗 **Try It** | 🛠️ **Contribute** |
 |-------------|-------------------|---------------|-------------------|
-| **🌍 Quake Impact Now** | Real-time earthquake impact assessment with USGS data | [🔴 Live Demo](https://pymapgis-quake.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/quake-impact) |
-| **📦 Border Flow Analytics** | Cross-border trade flow visualization | [🔴 Live Demo](https://pymapgis-border.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/border-flow) |
-| **✈️ Flight Delay Now** | Live departure delays at 35 busiest US airports | [🔴 Live Demo](https://pymapgis-flight.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/flight-delay) |
-| **🏠 Housing Cost Burden** | Interactive housing affordability analysis | [🔴 Live Demo](https://pymapgis-housing.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/housing) |
-| **🚛 Supply Chain Dashboard** | Enterprise logistics optimization | [🔴 Live Demo](https://pymapgis-logistics.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/logistics) |
+| **✈️ Flight Delay Now** | Live departure delays at 35 busiest US airports | [▶️ Run in Codespaces](https://codespaces.new/pymapgis/core?quickstart=1&devcontainer_path=.devcontainer/flight-delay/devcontainer.json) • [🚀 Deploy](https://railway.app/template/pymapgis-flight-delay) | [📝 Issues](https://github.com/pymapgis/core/labels/flight-delay) |
+| **🌍 Quake Impact Now** | Real-time earthquake impact assessment with USGS data | [📁 View Code](showcases/quake-impact/) • [🚀 Deploy](https://railway.app/template/pymapgis-quake) | [📝 Issues](https://github.com/pymapgis/core/labels/quake-impact) |
+| **📦 Border Flow Analytics** | Cross-border trade flow visualization | [📁 View Code](showcases/border-flow/) • [🚀 Deploy](https://railway.app/template/pymapgis-border) | [📝 Issues](https://github.com/pymapgis/core/labels/border-flow) |
+| **🏠 Housing Cost Burden** | Interactive housing affordability analysis | [📁 View Code](showcases/housing-cost-burden/) • [🚀 Deploy](https://railway.app/template/pymapgis-housing) | [📝 Issues](https://github.com/pymapgis/core/labels/housing) |
+| **🚛 Supply Chain Dashboard** | Enterprise logistics optimization | [📁 View Code](showcases/supply-chain/) • [🚀 Deploy](https://railway.app/template/pymapgis-logistics) | [📝 Issues](https://github.com/pymapgis/core/labels/logistics) |
 
-### 🤝 **Want to Contribute?**
-1. **🎮 Try the demos** - Experience PyMapGIS in action
-2. **🐛 Report issues** - Found a bug? We want to hear about it!
-3. **💡 Suggest features** - Ideas for improvements?
-4. **🔧 Fix & enhance** - Ready to contribute code?
+## 🤝 **Join the PyMapGIS Community** - Your Path to Impact
 
-👉 **[Start Contributing Guide →](CONTRIBUTING.md#contributor-funnel)**
+**🌟 From Demo User to Team Leader in 5 Levels!** We welcome developers of all skill levels and provide a clear progression path:
+
+### 🎮 **Level 1: Explorer** (5 minutes)
+**🎯 Goal:** Experience PyMapGIS power firsthand
+- [▶️ Try Flight Delay Demo](https://codespaces.new/pymapgis/core?quickstart=1&devcontainer_path=.devcontainer/flight-delay/devcontainer.json) - See real-time airport data
+- [🌍 Try Earthquake Demo](showcases/quake-impact/) - Explore emergency response
+- [📦 Try Border Flow Demo](showcases/border-flow/) - Analyze trade patterns
+- **Next Step:** Found something that could be improved? Report it! ⬇️
+
+### 🐛 **Level 2: Reporter** (15 minutes)
+**🎯 Goal:** Help improve the demos you just tried
+**Target: 20% conversion from Level 1**
+- [📝 Report a Bug](https://github.com/pymapgis/core/issues/new?template=bug_report.md&labels=bug,good-first-issue) - Fix broken features
+- [💡 Suggest Enhancement](https://github.com/pymapgis/core/issues/new?template=showcase-issue.md&labels=showcase,good-first-issue) - Improve user experience
+- [📖 Improve Documentation](https://github.com/pymapgis/core/issues/new?template=documentation.md&labels=documentation,good-first-issue) - Help others understand
+- **Next Step:** Ready to fix the issue yourself? ⬇️
+
+### 🔧 **Level 3: Fixer** (1-2 hours)
+**🎯 Goal:** Fix bugs in demos you understand
+**Target: 30% conversion from Level 2**
+- [🌟 Good First Issues](https://github.com/pymapgis/core/labels/good-first-issue) - Perfect for beginners
+- [🎯 Showcase Issues](https://github.com/pymapgis/core/labels/showcase) - Improve demos directly
+- [📚 Documentation Fixes](https://github.com/pymapgis/core/labels/documentation) - Clear explanations
+- **Mentorship:** Comment "I'd like to work on this" for guidance!
+- **Next Step:** Want to build new features? ⬇️
+
+### 🚀 **Level 4: Builder** (1-2 weeks)
+**🎯 Goal:** Create new features and showcases
+**Target: 40% conversion from Level 3**
+- [🆕 Create New Showcases](https://github.com/pymapgis/core/issues/new?template=showcase-idea.md&labels=showcase,enhancement) - Your domain expertise
+- [⚡ Performance Improvements](https://github.com/pymapgis/core/labels/performance) - Optimize existing code
+- [🏗️ Architecture Enhancements](https://github.com/pymapgis/core/labels/architecture) - Systematic improvements
+- **Recognition:** Featured contributor status and showcase ownership
+- **Next Step:** Ready to lead and mentor others? ⬇️
+
+### 👑 **Level 5: Leader** (Ongoing)
+**🎯 Goal:** Guide community growth and technical direction
+**Target: 25% conversion from Level 4**
+- **🎯 Mentorship:** Guide new contributors through their journey
+- **📋 Project Management:** Lead showcase development initiatives
+- **🏛️ Governance:** Shape PyMapGIS technical and community direction
+- **🌟 Recognition:** Core team member with commit access and decision-making authority
+
+---
+
+## 📊 **Community Impact Metrics**
+
+### 🎯 **Current Status**
+- **Active Contributors:** Growing community of geospatial developers
+- **Showcase Demos:** 5 working demos across different domains
+- **Issue Resolution:** Fast response times with mentorship support
+- **Recognition System:** Clear progression and contributor acknowledgment
+
+### 🚀 **Success Indicators**
+- **Short-term (1-3 months):** 10+ new contributors, 5+ showcase issues fixed
+- **Medium-term (3-6 months):** 2+ community-created showcases, 3+ Level 4 builders
+- **Long-term (6-12 months):** 20+ regular contributors, conference presentations
+
+👉 **[Complete Contributing Guide →](CONTRIBUTING.md#contributor-funnel)**
 
 ## 🎉 Latest Achievements
 
