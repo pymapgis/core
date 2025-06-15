@@ -23,6 +23,7 @@
 |-------------|-------------------|---------------|-------------------|
 | **🌍 Quake Impact Now** | Real-time earthquake impact assessment with USGS data | [🔴 Live Demo](https://pymapgis-quake.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/quake-impact) |
 | **📦 Border Flow Analytics** | Cross-border trade flow visualization | [🔴 Live Demo](https://pymapgis-border.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/border-flow) |
+| **✈️ Flight Delay Now** | Live departure delays at 35 busiest US airports | [🔴 Live Demo](https://pymapgis-flight.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/flight-delay) |
 | **🏠 Housing Cost Burden** | Interactive housing affordability analysis | [🔴 Live Demo](https://pymapgis-housing.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/housing) |
 | **🚛 Supply Chain Dashboard** | Enterprise logistics optimization | [🔴 Live Demo](https://pymapgis-logistics.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/logistics) |
 

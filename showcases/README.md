@@ -19,8 +19,8 @@ This directory contains **live, interactive demos** that demonstrate the power a
 - 🐳 Docker deployment ready
 
 ### 📦 **Border Flow Analytics** - Cross-Border Trade Visualization
-**📁 Directory:** `border-flow/`  
-**🔗 Live Demo:** [pymapgis-border.herokuapp.com](https://pymapgis-border.herokuapp.com)  
+**📁 Directory:** `border-flow/`
+**🔗 Live Demo:** [pymapgis-border.herokuapp.com](https://pymapgis-border.herokuapp.com)
 **📊 Description:** Interactive visualization of cross-border trade flows and economic relationships.
 
 **Key Features:**
@@ -28,6 +28,18 @@ This directory contains **live, interactive demos** that demonstrate the power a
 - 📈 Economic indicator visualization
 - 🎯 Interactive filtering and exploration
 - 📊 Real-time data processing
+
+### ✈️ **Flight Delay Now** - Live Airport Departure Delays
+**📁 Directory:** `flight-delay-now/`
+**🔗 Live Demo:** [pymapgis-flight.herokuapp.com](https://pymapgis-flight.herokuapp.com)
+**📊 Description:** Real-time departure delay monitoring at the 35 busiest U.S. airports for logistics intelligence.
+
+**Key Features:**
+- 🛫 Live FAA OIS delay data (updates every 2 minutes)
+- 🚦 Traffic light colors: Green→Yellow→Red for delay severity
+- 📊 DelayScore algorithm: log₁₊(avg_delay) × √(flights_affected)
+- 🗺️ Dark MapLibre map optimized for logistics professionals
+- 📱 Auto-refresh with real-time airport status updates
 
 ### 🏠 **Housing Cost Burden** - Affordability Analysis
 **📁 Directory:** `housing-cost-burden/`  
@@ -63,6 +75,7 @@ Start by exploring our live demos to see PyMapGIS in action:
 Found something that could be improved? We want to hear about it!
 - **Quake Impact:** [Report Issue](https://github.com/pymapgis/core/issues/new?labels=quake-impact,good-first-issue)
 - **Border Flow:** [Report Issue](https://github.com/pymapgis/core/issues/new?labels=border-flow,good-first-issue)
+- **Flight Delay:** [Report Issue](https://github.com/pymapgis/core/issues/new?labels=flight-delay,good-first-issue)
 - **Housing:** [Report Issue](https://github.com/pymapgis/core/issues/new?labels=housing,good-first-issue)
 - **Supply Chain:** [Report Issue](https://github.com/pymapgis/core/issues/new?labels=logistics,good-first-issue)
 
