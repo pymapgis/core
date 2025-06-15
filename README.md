@@ -15,6 +15,25 @@
 
 🚀 **Production Ready** | 🌐 **Enterprise Features** | ☁️ **Cloud-Native** | 🔒 **Secure** | ⚡ **High-Performance**
 
+## 🎯 **Live Showcase Demos** - Try PyMapGIS Now!
+
+**🌟 New to PyMapGIS? Start here!** Experience the power of PyMapGIS through our interactive showcase demos:
+
+| 🚀 **Demo** | 📊 **Description** | 🔗 **Try It** | 🛠️ **Contribute** |
+|-------------|-------------------|---------------|-------------------|
+| **🌍 Quake Impact Now** | Real-time earthquake impact assessment with USGS data | [🔴 Live Demo](https://pymapgis-quake.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/quake-impact) |
+| **📦 Border Flow Analytics** | Cross-border trade flow visualization | [🔴 Live Demo](https://pymapgis-border.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/border-flow) |
+| **🏠 Housing Cost Burden** | Interactive housing affordability analysis | [🔴 Live Demo](https://pymapgis-housing.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/housing) |
+| **🚛 Supply Chain Dashboard** | Enterprise logistics optimization | [🔴 Live Demo](https://pymapgis-logistics.herokuapp.com) | [📝 Issues](https://github.com/pymapgis/core/labels/logistics) |
+
+### 🤝 **Want to Contribute?**
+1. **🎮 Try the demos** - Experience PyMapGIS in action
+2. **🐛 Report issues** - Found a bug? We want to hear about it!
+3. **💡 Suggest features** - Ideas for improvements?
+4. **🔧 Fix & enhance** - Ready to contribute code?
+
+👉 **[Start Contributing Guide →](CONTRIBUTING.md#contributor-funnel)**
+
 ## 🎉 Latest Achievements
 
 ✅ **100% CI/CD Success** - All 189 tests passing with zero type errors

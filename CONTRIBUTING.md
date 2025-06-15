@@ -2,6 +2,90 @@
 
 Thank you for your interest in contributing to PyMapGIS! This document provides guidelines and information for contributors.
 
+## 🎯 **Contributor Funnel** - Your Journey to PyMapGIS Mastery
+
+**New to PyMapGIS?** Follow our proven contributor funnel designed to help you become a valuable team member:
+
+### 🎮 **Level 1: Explorer** - Try Our Showcase Demos
+**Goal:** Experience PyMapGIS in action
+**Time:** 15-30 minutes
+
+1. **🌍 [Quake Impact Now](showcases/quake-impact/)** - Real-time earthquake assessment
+2. **📦 [Border Flow Analytics](showcases/border-flow/)** - Trade flow visualization
+3. **🏠 [Housing Cost Burden](showcases/housing-cost-burden/)** - Affordability analysis
+4. **🚛 [Supply Chain Dashboard](showcases/supply-chain/)** - Logistics optimization
+
+**✅ Level Complete:** You've tried at least 2 demos and understand PyMapGIS capabilities
+
+### 🐛 **Level 2: Reporter** - Find and Report Issues
+**Goal:** Help improve existing demos
+**Time:** 30-60 minutes
+
+**Good First Issues:**
+- [🐛 Bug reports](https://github.com/pymapgis/core/labels/good-first-issue) - Found something broken?
+- [📝 Documentation gaps](https://github.com/pymapgis/core/labels/documentation) - Missing or unclear docs?
+- [✨ UI/UX improvements](https://github.com/pymapgis/core/labels/ui-ux) - Better user experience ideas?
+
+**✅ Level Complete:** You've reported 1+ issues with detailed descriptions
+
+### 🔧 **Level 3: Fixer** - Contribute Code
+**Goal:** Fix bugs and enhance existing features
+**Time:** 2-4 hours
+
+**Recommended First Contributions:**
+- Fix bugs you reported in Level 2
+- Improve documentation based on your experience
+- Enhance showcase demo features
+- Add tests for existing functionality
+
+**✅ Level Complete:** You've submitted 1+ pull request that gets merged
+
+### 🚀 **Level 4: Builder** - Create New Features
+**Goal:** Add significant new capabilities
+**Time:** 1-2 weeks
+
+**Advanced Contributions:**
+- [⚡ Performance optimizations](https://github.com/pymapgis/core/labels/performance)
+- [🌐 New data source integrations](https://github.com/pymapgis/core/labels/data-sources)
+- [🔧 Advanced features](https://github.com/pymapgis/core/labels/stretch)
+- Create new showcase demos
+
+**✅ Level Complete:** You've contributed major features and are recognized as a core contributor
+
+### 🏆 **Level 5: Leader** - Community Leadership
+**Goal:** Help guide PyMapGIS direction
+**Time:** Ongoing
+
+**Leadership Opportunities:**
+- Mentor new contributors through the funnel
+- Lead showcase demo development
+- Participate in architectural decisions
+- Represent PyMapGIS at conferences/events
+
+**✅ Level Complete:** You're a PyMapGIS team member with commit access
+
+## 🎁 **Contributor Recognition**
+
+### **🌟 Showcase Contributor Badge**
+Contribute to any showcase demo and get featured:
+- GitHub profile badge
+- Recognition in release notes
+- Showcase demo credits
+
+### **📈 Impact Tracking**
+Your contributions directly impact:
+- PyMapGIS adoption rates
+- Community growth
+- Enterprise adoption
+- Open source ecosystem
+
+### **🤝 Team Membership**
+Top contributors are invited to join the core PyMapGIS team with:
+- Commit access to repositories
+- Voice in project direction
+- Recognition as maintainer
+- Conference speaking opportunities
+
 ## 🚀 Getting Started
 
 ### Prerequisites
