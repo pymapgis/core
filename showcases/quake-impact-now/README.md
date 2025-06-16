@@ -327,6 +327,22 @@ This Docker image has been built with security best practices:
 - **Regular updates**: Image updated with security patches
 - **Scan results**: Regularly scanned for vulnerabilities
 - **Minimal layers**: Optimized layer structure for security
+- **Poetry-based**: Uses Poetry for dependency management with PyMapGIS included
+- **Complete geospatial stack**: Includes GDAL, PROJ, GEOS libraries
+- **Production-ready**: Health checks, proper logging, graceful shutdown
+
+### Docker Image Details
+
+The Docker image `nicholaskarlson/quake-impact-now:latest` includes:
+
+- **Base**: Python 3.11 slim for minimal attack surface
+- **Dependencies**: Poetry-managed with PyMapGIS development installation
+- **Geospatial**: Full GDAL/PROJ/GEOS stack for spatial operations
+- **Security**: Non-root user, updated packages, minimal runtime dependencies
+- **Size**: Optimized for production deployment
+- **Health**: Built-in health checks for container orchestration
+
+**Docker Hub Repository**: https://hub.docker.com/repository/docker/nicholaskarlson/quake-impact-now
 
 ## 📈 Performance
 

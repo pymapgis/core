@@ -461,27 +461,58 @@ poetry export -f requirements.txt --output requirements-dev.txt --with dev --wit
 
 ### Docker Integration
 
+The Quake Impact Now showcase includes a production-ready Docker image built with Poetry:
+
+#### Pre-built Docker Image (Recommended)
+
+```bash
+# Pull and run the Poetry-based Docker image
+docker run -p 8000:8000 nicholaskarlson/quake-impact-now:latest
+
+# The image includes:
+# - Poetry dependency management
+# - PyMapGIS development installation
+# - Complete geospatial stack (GDAL, PROJ, GEOS)
+# - Security hardening and health checks
+```
+
+#### Building Custom Docker Image
+
 ```dockerfile
-# Use Poetry in Docker
-FROM python:3.10-slim
+# Use Poetry in Docker (example from the actual Dockerfile)
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential curl git \
+    libgdal-dev libproj-dev libgeos-dev \
+    libgdal32 libproj25 libgeos-c1v5
 
 # Install Poetry
-RUN pip install poetry
+RUN pip install --no-cache-dir poetry==1.8.3
+
+# Configure Poetry
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VENV_IN_PROJECT=0 \
+    POETRY_VIRTUALENVS_CREATE=false
 
 # Copy Poetry files
 COPY pyproject.toml poetry.lock ./
-
-# Configure Poetry
-RUN poetry config virtualenvs.create false
+COPY pymapgis/ ./pymapgis/
 
 # Install dependencies
-RUN poetry install --no-dev
+RUN poetry install --only=main --no-root
 
 # Copy application
-COPY . .
+COPY showcases/quake-impact-now/ ./
 
 # Run application
 CMD ["poetry", "run", "python", "app.py"]
 ```
+
+#### Docker Hub Repository
+
+The official Docker image is available at:
+**https://hub.docker.com/repository/docker/nicholaskarlson/quake-impact-now**
 
 This comprehensive guide ensures smooth Poetry-based development for the Quake Impact Now showcase and PyMapGIS contributions.
