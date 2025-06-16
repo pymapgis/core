@@ -26,11 +26,14 @@
 
 | Document | Description |
 |----------|-------------|
+| **[📚 Documentation Index](DOCUMENTATION_INDEX.md)** | **Complete navigation guide for all documentation** |
 | **[Architecture Overview](ARCHITECTURE.md)** | System design, data flow, and PyMapGIS integration |
 | **[Ubuntu Setup Guide](UBUNTU_SETUP.md)** | Complete Ubuntu installation and local development |
 | **[Poetry Setup Guide](POETRY_SETUP.md)** | Poetry development environment with PyMapGIS |
 | **[PyMapGIS Integration](PYMAPGIS_INTEGRATION.md)** | How PyMapGIS powers the application |
 | **[Windows 11 Setup](#-windows-11--wsl2--docker-desktop-setup)** | Windows + WSL2 + Docker Desktop guide |
+
+> 💡 **New to the project?** Start with the [📚 Documentation Index](DOCUMENTATION_INDEX.md) for guided navigation!
 
 ## 🚀 Quick Start
 
