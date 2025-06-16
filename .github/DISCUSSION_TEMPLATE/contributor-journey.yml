@@ -1,0 +1,93 @@
+labels: ["contributor-funnel", "community"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 🤝 Contributor Journey Discussion
+        
+        Share your experience progressing through the PyMapGIS contributor funnel! This helps us improve the onboarding experience for future contributors.
+        
+  - type: dropdown
+    id: current-level
+    attributes:
+      label: What's your current contributor level?
+      description: Where are you in the PyMapGIS contributor funnel?
+      options:
+        - 🎮 Level 1: Explorer (trying demos)
+        - 🐛 Level 2: Reporter (reporting issues)
+        - 🔧 Level 3: Fixer (contributing code fixes)
+        - 🚀 Level 4: Builder (creating new features)
+        - 👑 Level 5: Leader (mentoring and governance)
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: how-started
+    attributes:
+      label: How did you first discover PyMapGIS?
+      description: What brought you to the project?
+      options:
+        - 🎯 Showcase demos
+        - 📚 Documentation
+        - 🔍 GitHub search
+        - 📦 PyPI package
+        - 👥 Recommendation from colleague
+        - 🐦 Social media
+        - 📰 Blog post or article
+        - 🎓 Academic/research context
+        - Other
+    validations:
+      required: false
+      
+  - type: textarea
+    id: progression-experience
+    attributes:
+      label: Your progression experience
+      description: How has your journey through the contributor levels been?
+      placeholder: "What motivated you to move from one level to the next? What challenges did you face? What helped you succeed?"
+    validations:
+      required: false
+      
+  - type: textarea
+    id: mentorship-experience
+    attributes:
+      label: Mentorship and support
+      description: How was the mentorship and community support?
+      placeholder: "Did you receive help when needed? Was the guidance clear? How could we improve support for new contributors?"
+    validations:
+      required: false
+      
+  - type: textarea
+    id: suggestions
+    attributes:
+      label: Suggestions for improvement
+      description: How could we improve the contributor experience?
+      placeholder: "Better documentation, clearer issue descriptions, more mentorship, recognition improvements, etc."
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: next-goals
+    attributes:
+      label: What are your next goals?
+      description: Where do you want to go next in your PyMapGIS journey?
+      options:
+        - 🎯 Try more showcase demos
+        - 🐛 Report more issues and feedback
+        - 🔧 Start contributing code fixes
+        - 🚀 Build new features or showcases
+        - 👑 Take on leadership responsibilities
+        - 🎓 Use PyMapGIS in my work/research
+        - 🤝 Help mentor other contributors
+        - Other
+    validations:
+      required: false
+      
+  - type: textarea
+    id: showcase-ideas
+    attributes:
+      label: New showcase ideas
+      description: Any ideas for new showcase demos that would be valuable?
+      placeholder: "Climate data visualization, traffic analysis, healthcare access, etc."
+    validations:
+      required: false

@@ -1,0 +1,88 @@
+labels: ["showcase", "feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 🎯 Showcase Demo Feedback
+        
+        Thank you for trying our PyMapGIS showcase demos! Your feedback helps us improve the experience for future users and contributors.
+        
+  - type: dropdown
+    id: demo
+    attributes:
+      label: Which showcase demo did you try?
+      description: Select the demo you're providing feedback about
+      options:
+        - ✈️ Flight Delay Now
+        - 🌍 Quake Impact Now
+        - 📦 Border Flow Analytics
+        - 🏠 Housing Cost Burden
+        - 🚛 Supply Chain Dashboard
+        - Multiple demos
+        - Other
+    validations:
+      required: true
+      
+  - type: dropdown
+    id: experience
+    attributes:
+      label: How was your experience?
+      description: Overall impression of the demo
+      options:
+        - 🌟 Excellent - Exceeded expectations
+        - 👍 Good - Met expectations
+        - 😐 Okay - Some issues but usable
+        - 👎 Poor - Significant problems
+        - 💥 Broken - Couldn't get it working
+    validations:
+      required: true
+      
+  - type: textarea
+    id: what-worked
+    attributes:
+      label: What worked well?
+      description: Tell us what you liked about the demo
+      placeholder: "The real-time data was impressive, the map visualization was clear, etc."
+    validations:
+      required: false
+      
+  - type: textarea
+    id: what-didnt-work
+    attributes:
+      label: What could be improved?
+      description: Tell us what didn't work or could be better
+      placeholder: "Loading was slow, unclear instructions, missing features, etc."
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: contributor-interest
+    attributes:
+      label: Are you interested in contributing?
+      description: Would you like to help improve PyMapGIS?
+      options:
+        - 🎮 Level 1: Just exploring for now
+        - 🐛 Level 2: I'd like to report issues
+        - 🔧 Level 3: I'd like to fix bugs
+        - 🚀 Level 4: I'd like to build new features
+        - 👑 Level 5: I'd like to lead initiatives
+        - Not interested in contributing
+    validations:
+      required: false
+      
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Your use case
+      description: How would you use PyMapGIS in your work or projects?
+      placeholder: "Supply chain analysis, emergency response, academic research, etc."
+    validations:
+      required: false
+      
+  - type: textarea
+    id: additional-feedback
+    attributes:
+      label: Additional feedback
+      description: Anything else you'd like to share?
+    validations:
+      required: false
