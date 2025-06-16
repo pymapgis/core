@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quake Impact Now - Live Earthquake Impact Visualization</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MapLibre GL JS -->
+    <script src="https://unpkg.com/maplibre-gl@3.6.0/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@3.6.0/dist/maplibre-gl.css" rel="stylesheet" />
+    
+    <style>
+        #map { 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            width: 100%; 
+        }
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            max-width: 300px;
+        }
+        .legend {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Info Panel -->
+    <div class="info-panel bg-gray-800 bg-opacity-90 p-4 rounded-lg shadow-lg">
+        <h1 class="text-xl font-bold text-yellow-400 mb-2">🌍 Quake Impact Now</h1>
+        <p class="text-sm text-gray-300 mb-3">Live earthquake impact visualization using USGS data and population analysis</p>
+        
+        <div class="space-y-2 text-sm">
+            <div class="flex justify-between">
+                <span class="text-gray-400">Status:</span>
+                <span id="status" class="text-green-400">Loading...</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-gray-400">Events:</span>
+                <span id="event-count" class="text-white">-</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="text-gray-400">Last Update:</span>
+                <span id="last-update" class="text-white">-</span>
+            </div>
+        </div>
+        
+        <button id="refresh-btn" class="mt-3 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded text-sm transition-colors">
+            🔄 Refresh Data
+        </button>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend bg-gray-800 bg-opacity-90 p-4 rounded-lg shadow-lg">
+        <h3 class="text-sm font-bold text-yellow-400 mb-2">Impact Scale</h3>
+        <div class="space-y-1 text-xs">
+            <div class="flex items-center">
+                <div class="w-3 h-3 bg-green-400 rounded-full mr-2"></div>
+                <span>Low (0-2)</span>
+            </div>
+            <div class="flex items-center">
+                <div class="w-3 h-3 bg-yellow-400 rounded-full mr-2"></div>
+                <span>Moderate (2-4)</span>
+            </div>
+            <div class="flex items-center">
+                <div class="w-3 h-3 bg-orange-400 rounded-full mr-2"></div>
+                <span>High (4-6)</span>
+            </div>
+            <div class="flex items-center">
+                <div class="w-3 h-3 bg-red-400 rounded-full mr-2"></div>
+                <span>Severe (6+)</span>
+            </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">Impact = log₁₀(population) × magnitude</p>
+    </div>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading" class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50">
+        <div class="bg-gray-800 p-6 rounded-lg text-center">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+            <p class="text-white">Loading earthquake data...</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize map
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: {
+                version: 8,
+                sources: {
+                    'osm': {
+                        type: 'raster',
+                        tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                        tileSize: 256,
+                        attribution: '© OpenStreetMap contributors'
+                    }
+                },
+                layers: [
+                    {
+                        id: 'osm',
+                        type: 'raster',
+                        source: 'osm'
+                    }
+                ]
+            },
+            center: [-120, 37], // Centered on California
+            zoom: 4
+        });
+
+        // Add navigation controls
+        map.addControl(new maplibregl.NavigationControl());
+
+        // Global data storage
+        let earthquakeData = null;
+
+        // Load earthquake data
+        async function loadEarthquakeData() {
+            try {
+                document.getElementById('status').textContent = 'Loading...';
+                document.getElementById('status').className = 'text-yellow-400';
+                
+                const response = await fetch('/public/latest');
+                const result = await response.json();
+                
+                if (result.status === 'success') {
+                    earthquakeData = result.data;
+                    updateMap();
+                    updateUI(result);
+                    document.getElementById('status').textContent = 'Active';
+                    document.getElementById('status').className = 'text-green-400';
+                } else {
+                    throw new Error('Failed to load data');
+                }
+            } catch (error) {
+                console.error('Error loading earthquake data:', error);
+                document.getElementById('status').textContent = 'Error';
+                document.getElementById('status').className = 'text-red-400';
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        // Update map with earthquake data
+        function updateMap() {
+            if (!earthquakeData || !earthquakeData.features) return;
+
+            // Add earthquake data as GeoJSON source
+            if (map.getSource('earthquakes')) {
+                map.getSource('earthquakes').setData(earthquakeData);
+            } else {
+                map.addSource('earthquakes', {
+                    type: 'geojson',
+                    data: earthquakeData
+                });
+
+                // Add earthquake points layer
+                map.addLayer({
+                    id: 'earthquake-points',
+                    type: 'circle',
+                    source: 'earthquakes',
+                    paint: {
+                        'circle-radius': [
+                            'interpolate',
+                            ['linear'],
+                            ['get', 'mag'],
+                            0, 3,
+                            5, 10,
+                            8, 20
+                        ],
+                        'circle-color': [
+                            'interpolate',
+                            ['linear'],
+                            ['get', 'Impact'],
+                            0, '#22c55e',  // green
+                            2, '#eab308',  // yellow
+                            4, '#f97316',  // orange
+                            6, '#ef4444'   // red
+                        ],
+                        'circle-opacity': 0.8,
+                        'circle-stroke-width': 1,
+                        'circle-stroke-color': '#ffffff'
+                    }
+                });
+
+                // Add click event for popups
+                map.on('click', 'earthquake-points', (e) => {
+                    const properties = e.features[0].properties;
+                    const coordinates = e.features[0].geometry.coordinates.slice();
+
+                    new maplibregl.Popup()
+                        .setLngLat(coordinates)
+                        .setHTML(`
+                            <div class="text-gray-900">
+                                <h3 class="font-bold text-lg">M${properties.mag} Earthquake</h3>
+                                <p><strong>Impact Score:</strong> ${properties.Impact ? properties.Impact.toFixed(1) : 'N/A'}</p>
+                                <p><strong>Population (50km):</strong> ${properties.pop50k ? properties.pop50k.toLocaleString() : 'N/A'}</p>
+                                <p><strong>Location:</strong> ${coordinates[1].toFixed(2)}°, ${coordinates[0].toFixed(2)}°</p>
+                            </div>
+                        `)
+                        .addTo(map);
+                });
+
+                // Change cursor on hover
+                map.on('mouseenter', 'earthquake-points', () => {
+                    map.getCanvas().style.cursor = 'pointer';
+                });
+
+                map.on('mouseleave', 'earthquake-points', () => {
+                    map.getCanvas().style.cursor = '';
+                });
+            }
+        }
+
+        // Update UI elements
+        function updateUI(result) {
+            document.getElementById('event-count').textContent = result.total_events || 0;
+            document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
+        }
+
+        // Refresh button handler
+        document.getElementById('refresh-btn').addEventListener('click', loadEarthquakeData);
+
+        // Load data when map is ready
+        map.on('load', loadEarthquakeData);
+    </script>
+</body>
+</html>
