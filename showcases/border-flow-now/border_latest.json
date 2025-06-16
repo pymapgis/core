@@ -17,6 +17,7 @@
           "port_status": "Open",
           "wait_minutes": 45,
           "status": "Open",
+          "port_name": "Laredo",
           "congestion_score": 30.63
         },
         "geometry": {
@@ -41,6 +42,7 @@
           "port_status": "Open",
           "wait_minutes": 30,
           "status": "Open",
+          "port_name": "El Paso",
           "congestion_score": 20.6
         },
         "geometry": {
@@ -65,6 +67,7 @@
           "port_status": "Open",
           "wait_minutes": 60,
           "status": "Open",
+          "port_name": "Otay Mesa",
           "congestion_score": 49.33
         },
         "geometry": {
@@ -89,6 +92,7 @@
           "port_status": "Open",
           "wait_minutes": 25,
           "status": "Open",
+          "port_name": "Hidalgo",
           "congestion_score": 13.03
         },
         "geometry": {
@@ -113,6 +117,7 @@
           "port_status": "Open",
           "wait_minutes": 15,
           "status": "Open",
+          "port_name": "Brownsville",
           "congestion_score": 8.32
         },
         "geometry": {
@@ -137,6 +142,7 @@
           "port_status": "Open",
           "wait_minutes": 35,
           "status": "Open",
+          "port_name": "Calexico",
           "congestion_score": 17.92
         },
         "geometry": {
@@ -161,6 +167,7 @@
           "port_status": "Open",
           "wait_minutes": 40,
           "status": "Open",
+          "port_name": "Nogales",
           "congestion_score": 26.0
         },
         "geometry": {
@@ -185,6 +192,7 @@
           "port_status": "Open",
           "wait_minutes": 55,
           "status": "Open",
+          "port_name": "San Ysidro",
           "congestion_score": 40.25
         },
         "geometry": {
@@ -209,6 +217,7 @@
           "port_status": "Open",
           "wait_minutes": 20,
           "status": "Open",
+          "port_name": "Tecate",
           "congestion_score": 6.09
         },
         "geometry": {
@@ -233,6 +242,7 @@
           "port_status": "Open",
           "wait_minutes": 10,
           "status": "Open",
+          "port_name": "Lukeville",
           "congestion_score": 2.4
         },
         "geometry": {
@@ -245,9 +255,9 @@
       }
     ]
   },
-  "last_updated": "2025-06-16T22:41:54.780548Z",
+  "last_updated": "2025-06-16T23:05:13.049326Z",
   "total_ports": 10,
   "avg_wait_time": 33.5,
   "max_wait_time": 60.0,
-  "processing_time_seconds": 1.996832
+  "processing_time_seconds": 0.269645
 }

@@ -171,6 +171,14 @@ async def main():
         merged_gdf['wait_minutes'] = merged_gdf.get('delay_minutes', 0).fillna(0)
         merged_gdf['lanes'] = merged_gdf.get('lanes', merged_gdf.get('commercial_vehicle_lanes', 4)).fillna(4)
         merged_gdf['status'] = merged_gdf.get('port_status', 'Open').fillna('Open')
+
+        # Clean up port names - use the best available name
+        if 'port_name_x' in merged_gdf.columns:
+            merged_gdf['port_name'] = merged_gdf['port_name_x']
+        elif 'port_name_y' in merged_gdf.columns:
+            merged_gdf['port_name'] = merged_gdf['port_name_y']
+        elif 'port_name' not in merged_gdf.columns:
+            merged_gdf['port_name'] = 'Unknown Port'
         
         # 5. Compute congestion scores
         merged_gdf['congestion_score'] = merged_gdf.apply(compute_congestion_score, axis=1)
