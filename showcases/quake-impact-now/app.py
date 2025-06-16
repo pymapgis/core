@@ -10,7 +10,6 @@ A 15-line FastAPI app that serves earthquake impact data with:
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse, FileResponse
-import pymapgis as pmg
 import json
 import os
 from pathlib import Path

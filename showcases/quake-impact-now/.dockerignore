@@ -1,0 +1,97 @@
+# Security: Exclude sensitive and unnecessary files from Docker context
+
+# Git and version control
+.git
+.gitignore
+.gitattributes
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Documentation and development files
+README.md
+*.md
+docs/
+.github/
+
+# Test files
+test_*
+*_test.py
+tests/
+.pytest_cache/
+.coverage
+.tox/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+/tmp/
+
+# Security: Exclude any potential secrets
+.env.*
+secrets/
+*.key
+*.pem
+*.crt
+*.p12
+
+# Development tools
+Makefile
+docker-compose*.yml
+.dockerignore
+
+# Large data files (will be generated at runtime)
+*.geojson
+*.png
+*.tif
+*.tiff
+tiles/
+
+# Backup files
+*.bak
+*.backup

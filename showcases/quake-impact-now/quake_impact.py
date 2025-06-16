@@ -10,12 +10,13 @@ Features:
 - Instant vector-tile export for browser maps
 """
 
-import pymapgis as pmg
 import pandas as pd
 import asyncio
 import math
 import datetime as dt
 import os
+import json
+import requests
 from pathlib import Path
 
 # Data sources (100% open, no API keys required)
@@ -34,36 +35,51 @@ async def main():
     try:
         # 1. Read live USGS earthquake data (≤ 1 second)
         print("📡 Fetching live USGS earthquake data...")
-        quakes = pmg.read(QUAKE_FEED)
-        
-        if quakes.empty:
+        response = requests.get(QUAKE_FEED)
+        response.raise_for_status()
+        geojson_data = response.json()
+
+        # Convert to DataFrame for processing
+        features = geojson_data.get('features', [])
+        if not features:
             print("⚠️  No earthquakes found in the last 24 hours")
             return
-            
-        # Keep only essential columns and ensure we have geometry
-        quakes = quakes[['id', 'mag', 'geometry']].copy()
+
+        # Extract earthquake data
+        quake_data = []
+        for feature in features:
+            props = feature['properties']
+            coords = feature['geometry']['coordinates']
+            quake_data.append({
+                'id': props.get('id', ''),
+                'mag': props.get('mag', 0),
+                'longitude': coords[0],
+                'latitude': coords[1],
+                'depth': coords[2] if len(coords) > 2 else 0
+            })
+
+        quakes = pd.DataFrame(quake_data)
+        
         print(f"📊 Found {len(quakes)} earthquakes in the last 24 hours")
-        
-        # 2. Buffer each earthquake epicenter to 50 km (negligible time)
+
+        # 2. Create 50km impact zones (simplified calculation)
         print("🔄 Creating 50km impact buffers...")
-        buffers = quakes.geometry.buffer(50_000)  # 50 km in meters
+        # For demo purposes, we'll calculate a simple circular area around each earthquake
         
-        # 3. Use PyMapGIS async zonal stats to sum population (~5 seconds)
-        print("🌍 Computing population impact using WorldPop data...")
-        processor = pmg.AsyncGeoProcessor(max_workers=4)
-        try:
-            # Note: For demo purposes, we'll use a simplified approach
-            # In production, you'd use the actual WorldPop COG
-            # For now, we'll simulate population data
-            pop_data = []
-            for i, buffer in enumerate(buffers):
-                # Simulate population calculation based on buffer area
-                # In real implementation: pop = await processor.zonal_stats(POP_COG, buffer, stats=("sum",))
-                area_km2 = buffer.area / 1_000_000  # Convert to km²
-                simulated_pop = int(area_km2 * 100)  # Rough population density
-                pop_data.append(simulated_pop)
-        finally:
-            await processor.close()
+        # 3. Simulate population impact calculation (~5 seconds)
+        print("🌍 Computing population impact using simulated data...")
+        # Note: For demo purposes, we'll use a simplified approach
+        # In production, you'd use PyMapGIS with actual WorldPop COG data
+        pop_data = []
+        for _, quake in quakes.iterrows():
+            # Simulate population calculation based on location and magnitude
+            # Higher magnitude and populated areas = higher impact
+            base_pop = 50000  # Base population in 50km radius
+            mag_multiplier = quake['mag'] ** 2  # Magnitude effect
+            # Simulate geographic population density (higher near populated coordinates)
+            geo_factor = abs(quake['latitude']) * abs(quake['longitude']) / 1000
+            simulated_pop = int(base_pop * mag_multiplier * max(geo_factor, 0.1))
+            pop_data.append(simulated_pop)
         
         quakes['pop50k'] = pop_data
         
@@ -73,13 +89,35 @@ async def main():
             lambda r: (math.log10(max(r.pop50k, 1)) * r.mag), axis=1
         )
         
-        # 5. Export vector tiles for MapLibre/Leaflet (~1 second)
-        print("🗺️  Generating vector tiles...")
+        # 5. Export data for web visualization (~1 second)
+        print("🗺️  Generating output files...")
         TILES_DIR.mkdir(exist_ok=True)
-        
-        # Create a simple tile structure for the demo
-        # In production, you'd use pmg's built-in MVT export
-        quakes.to_file(OUTPUT_DIR / "impact.geojson", driver="GeoJSON")
+
+        # Create GeoJSON for the web interface
+        geojson_output = {
+            "type": "FeatureCollection",
+            "features": []
+        }
+
+        for _, quake in quakes.iterrows():
+            feature = {
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [quake['longitude'], quake['latitude']]
+                },
+                "properties": {
+                    "id": quake['id'],
+                    "mag": quake['mag'],
+                    "pop50k": quake['pop50k'],
+                    "Impact": quake['Impact']
+                }
+            }
+            geojson_output["features"].append(feature)
+
+        # Save GeoJSON
+        with open(OUTPUT_DIR / "impact.geojson", 'w') as f:
+            json.dump(geojson_output, f)
         
         # 6. Generate overview PNG
         print("🖼️  Creating overview map...")
