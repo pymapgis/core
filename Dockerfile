@@ -1,41 +1,40 @@
-# Simple PyMapGIS Docker Image
+# Quake Impact Now - Docker Configuration
+# Base on PyMapGIS core for optimal geospatial processing
+
 FROM python:3.11-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV PIP_NO_CACHE_DIR=1
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
+# Set working directory
+WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies for geospatial processing
 RUN apt-get update && apt-get install -y \
+    gdal-bin \
+    libgdal-dev \
+    libproj-dev \
+    libgeos-dev \
+    build-essential \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Create user first
-RUN groupadd -r pymapgis && useradd -r -g pymapgis pymapgis
+# Set GDAL environment variables
+ENV GDAL_CONFIG=/usr/bin/gdal-config
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
 
-# Set work directory
-WORKDIR /app
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy requirements and install basic dependencies
-COPY pyproject.toml ./
+# Copy application files
+COPY quake_impact.py .
+COPY app.py .
+COPY static/ ./static/
 
-# Install basic Python dependencies without GDAL for now
-RUN pip install --no-cache-dir \
-    fastapi \
-    uvicorn \
-    pydantic \
-    numpy \
-    pandas \
-    requests \
-    pyjwt
+# Create directories for output
+RUN mkdir -p tiles
 
-# Copy application code
-COPY --chown=pymapgis:pymapgis . .
-
-# Switch to non-root user
-USER pymapgis
+# Run initial data processing during build
+RUN python quake_impact.py
 
 # Expose port
 EXPOSE 8000
@@ -44,5 +43,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
-# Default command - simple FastAPI server
-CMD ["python", "-c", "import uvicorn; uvicorn.run('pymapgis.serve:app', host='0.0.0.0', port=8000)"]
+# Start the FastAPI server
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
