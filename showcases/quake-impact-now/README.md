@@ -22,6 +22,15 @@
 
 *WorldPop is CC-BY-4.0; no key required. Streamed + windowed reads mean no full download.*
 
+## 📚 Documentation
+
+| Document | Description |
+|----------|-------------|
+| **[Architecture Overview](ARCHITECTURE.md)** | System design, data flow, and PyMapGIS integration |
+| **[Ubuntu Setup Guide](UBUNTU_SETUP.md)** | Complete Ubuntu installation and local development |
+| **[PyMapGIS Integration](PYMAPGIS_INTEGRATION.md)** | How PyMapGIS powers the application |
+| **[Windows 11 Setup](#-windows-11--wsl2--docker-desktop-setup)** | Windows + WSL2 + Docker Desktop guide |
+
 ## 🚀 Quick Start
 
 ### Option 1: Docker Hub (Recommended - One Command!)
@@ -58,7 +67,33 @@ python app.py
 # Open browser to http://localhost:8000
 ```
 
-### Option 4: Poetry (PyMapGIS Development)
+### Option 4: Ubuntu Local Development
+
+```bash
+# Install system dependencies
+sudo apt update && sudo apt install -y python3 python3-pip python3-venv git
+
+# Clone repository
+git clone https://github.com/pymapgis/core.git
+cd core/showcases/quake-impact-now
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the application
+python quake_impact.py
+python app.py
+
+# Open browser to http://localhost:8000
+```
+
+**📖 For detailed Ubuntu setup instructions, see [Ubuntu Setup Guide](UBUNTU_SETUP.md)**
+
+### Option 5: Poetry (PyMapGIS Development)
 
 ```bash
 # From the PyMapGIS core directory
