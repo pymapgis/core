@@ -29,8 +29,12 @@ def load_impact_data():
     """Load the latest impact data from the processing script."""
     global impact_data
     try:
-        if os.path.exists("impact.geojson"):
-            with open("impact.geojson", "r") as f:
+        # Get the directory where this script is located
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        data_path = os.path.join(script_dir, "impact.geojson")
+
+        if os.path.exists(data_path):
+            with open(data_path, "r") as f:
                 impact_data = json.load(f)
         return impact_data
     except Exception as e:
@@ -43,12 +47,31 @@ load_impact_data()
 @app.get("/")
 async def root():
     """Serve the main map interface."""
-    if os.path.exists("static/index.html"):
-        return FileResponse("static/index.html")
+    # Get the directory where this script is located
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    static_path = os.path.join(script_dir, "static", "index.html")
+    current_dir = os.getcwd()
+    file_exists = os.path.exists(static_path)
+
+    print(f"DEBUG: Current directory: {current_dir}")
+    print(f"DEBUG: Script directory: {script_dir}")
+    print(f"DEBUG: Looking for: {static_path}")
+    print(f"DEBUG: File exists: {file_exists}")
+
+    if file_exists:
+        print(f"DEBUG: Serving HTML file from {static_path}")
+        return FileResponse(static_path)
     else:
+        print(f"DEBUG: HTML file not found, serving JSON response")
         return JSONResponse({
             "message": "Quake Impact Now API",
             "status": "running",
+            "debug": {
+                "current_dir": current_dir,
+                "script_dir": script_dir,
+                "static_path": static_path,
+                "file_exists": file_exists
+            },
             "endpoints": {
                 "public_data": "/public/latest",
                 "tiles": "/public/tiles/{z}/{x}/{y}.pbf",
@@ -108,8 +131,10 @@ async def health_check():
     }
 
 # Mount static files if directory exists
-if os.path.exists("static"):
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+script_dir = os.path.dirname(os.path.abspath(__file__))
+static_dir = os.path.join(script_dir, "static")
+if os.path.exists(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 if __name__ == "__main__":
     import uvicorn

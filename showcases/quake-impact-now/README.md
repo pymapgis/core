@@ -28,6 +28,7 @@
 |----------|-------------|
 | **[Architecture Overview](ARCHITECTURE.md)** | System design, data flow, and PyMapGIS integration |
 | **[Ubuntu Setup Guide](UBUNTU_SETUP.md)** | Complete Ubuntu installation and local development |
+| **[Poetry Setup Guide](POETRY_SETUP.md)** | Poetry development environment with PyMapGIS |
 | **[PyMapGIS Integration](PYMAPGIS_INTEGRATION.md)** | How PyMapGIS powers the application |
 | **[Windows 11 Setup](#-windows-11--wsl2--docker-desktop-setup)** | Windows + WSL2 + Docker Desktop guide |
 
@@ -93,15 +94,24 @@ python app.py
 
 **📖 For detailed Ubuntu setup instructions, see [Ubuntu Setup Guide](UBUNTU_SETUP.md)**
 
-### Option 5: Poetry (PyMapGIS Development)
+### Option 5: Poetry (PyMapGIS Development - Recommended)
 
 ```bash
 # From the PyMapGIS core directory
+# Method A: Using poetry run (recommended)
+poetry run python showcases/quake-impact-now/quake_impact.py
+poetry run python showcases/quake-impact-now/app.py
+
+# Method B: Using Poetry environment
+source $(poetry env info --path)/bin/activate
 cd showcases/quake-impact-now
-poetry install
-poetry run python quake_impact.py
-poetry run python app.py
+python3 quake_impact.py
+python3 app.py
+
+# Open browser to http://localhost:8000
 ```
+
+**📖 For comprehensive Poetry setup and troubleshooting, see [Poetry Setup Guide](POETRY_SETUP.md)**
 
 ## 🔧 What the Service Does
 
