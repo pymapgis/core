@@ -341,6 +341,8 @@ The Docker image `nicholaskarlson/quake-impact-now:latest` includes:
 - **Security**: Non-root user, updated packages, minimal runtime dependencies
 - **Size**: Optimized for production deployment
 - **Health**: Built-in health checks for container orchestration
+- **Auto-processing**: Automatically runs data processing before starting the API server
+- **Ready-to-use**: No manual data processing required - just run and access
 
 **Docker Hub Repository**: https://hub.docker.com/repository/docker/nicholaskarlson/quake-impact-now
 

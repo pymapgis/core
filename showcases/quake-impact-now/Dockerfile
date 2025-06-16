@@ -68,5 +68,5 @@ EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:8000/health || exit 1
 
-# Security: Use production-ready server configuration
-CMD ["poetry", "run", "python", "app.py"]
+# Security: Use production-ready server configuration with data processing
+CMD ["sh", "-c", "poetry run python quake_impact.py && poetry run python app.py"]
