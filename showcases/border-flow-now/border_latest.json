@@ -1,0 +1,253 @@
+{
+  "status": "success",
+  "data": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "Laredo",
+          "port_code": "2504",
+          "state": "TX",
+          "lanes": 8,
+          "port_name_y": "Laredo",
+          "commercial_vehicle_lanes": 8,
+          "delay_minutes": 45,
+          "port_status": "Open",
+          "wait_minutes": 45,
+          "status": "Open",
+          "congestion_score": 30.63
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -99.4803,
+            27.5305
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "El Paso",
+          "port_code": "2505",
+          "state": "TX",
+          "lanes": 6,
+          "port_name_y": "El Paso",
+          "commercial_vehicle_lanes": 6,
+          "delay_minutes": 30,
+          "port_status": "Open",
+          "wait_minutes": 30,
+          "status": "Open",
+          "congestion_score": 20.6
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -106.485,
+            31.7619
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "Otay Mesa",
+          "port_code": "2506",
+          "state": "CA",
+          "lanes": 12,
+          "port_name_y": "Otay Mesa",
+          "commercial_vehicle_lanes": 12,
+          "delay_minutes": 60,
+          "port_status": "Open",
+          "wait_minutes": 60,
+          "status": "Open",
+          "congestion_score": 49.33
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -117.0297,
+            32.555
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "Hidalgo",
+          "port_code": "2507",
+          "state": "TX",
+          "lanes": 4,
+          "port_name_y": "Hidalgo",
+          "commercial_vehicle_lanes": 4,
+          "delay_minutes": 25,
+          "port_status": "Open",
+          "wait_minutes": 25,
+          "status": "Open",
+          "congestion_score": 13.03
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -98.2636,
+            26.1003
+          ]
+        }
+      },
+      {
+        "id": "4",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "Brownsville",
+          "port_code": "2508",
+          "state": "TX",
+          "lanes": 3,
+          "port_name_y": "Brownsville",
+          "commercial_vehicle_lanes": 3,
+          "delay_minutes": 15,
+          "port_status": "Open",
+          "wait_minutes": 15,
+          "status": "Open",
+          "congestion_score": 8.32
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -97.4975,
+            25.9018
+          ]
+        }
+      },
+      {
+        "id": "5",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "Calexico",
+          "port_code": "2509",
+          "state": "CA",
+          "lanes": 5,
+          "port_name_y": "Calexico",
+          "commercial_vehicle_lanes": 5,
+          "delay_minutes": 35,
+          "port_status": "Open",
+          "wait_minutes": 35,
+          "status": "Open",
+          "congestion_score": 17.92
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -115.4989,
+            32.6789
+          ]
+        }
+      },
+      {
+        "id": "6",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "Nogales",
+          "port_code": "2510",
+          "state": "AZ",
+          "lanes": 7,
+          "port_name_y": "Nogales",
+          "commercial_vehicle_lanes": 7,
+          "delay_minutes": 40,
+          "port_status": "Open",
+          "wait_minutes": 40,
+          "status": "Open",
+          "congestion_score": 26.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -110.9342,
+            31.3404
+          ]
+        }
+      },
+      {
+        "id": "7",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "San Ysidro",
+          "port_code": "2511",
+          "state": "CA",
+          "lanes": 10,
+          "port_name_y": "San Ysidro",
+          "commercial_vehicle_lanes": 10,
+          "delay_minutes": 55,
+          "port_status": "Open",
+          "wait_minutes": 55,
+          "status": "Open",
+          "congestion_score": 40.25
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -117.0308,
+            32.5422
+          ]
+        }
+      },
+      {
+        "id": "8",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "Tecate",
+          "port_code": "2512",
+          "state": "CA",
+          "lanes": 2,
+          "port_name_y": "Tecate",
+          "commercial_vehicle_lanes": 2,
+          "delay_minutes": 20,
+          "port_status": "Open",
+          "wait_minutes": 20,
+          "status": "Open",
+          "congestion_score": 6.09
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -116.6253,
+            32.5764
+          ]
+        }
+      },
+      {
+        "id": "9",
+        "type": "Feature",
+        "properties": {
+          "port_name_x": "Lukeville",
+          "port_code": "2513",
+          "state": "AZ",
+          "lanes": 1,
+          "port_name_y": "Lukeville",
+          "commercial_vehicle_lanes": 1,
+          "delay_minutes": 10,
+          "port_status": "Open",
+          "wait_minutes": 10,
+          "status": "Open",
+          "congestion_score": 2.4
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -112.8139,
+            31.8806
+          ]
+        }
+      }
+    ]
+  },
+  "last_updated": "2025-06-16T22:41:54.780548Z",
+  "total_ports": 10,
+  "avg_wait_time": 33.5,
+  "max_wait_time": 60.0,
+  "processing_time_seconds": 1.996832
+}

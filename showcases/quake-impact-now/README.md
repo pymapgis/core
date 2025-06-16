@@ -4,6 +4,11 @@
 
 ![Quake Impact Now](https://img.shields.io/badge/PyMapGIS-Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 🎬 Demo Video
+
+**Watch the Quake Impact Now showcase in action:**
+📺 **[Quake Impact Now Demo Video](https://youtu.be/-65Er0y_Xjs)**
+
 ## 🎯 Why This Showcase?
 
 - **100% Open Data**: Only two public datasets – nothing to download manually, no API keys

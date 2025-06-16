@@ -1,0 +1,38 @@
+# Border Flow Now - Python Dependencies
+# Real-time CBP border wait times analysis and visualization
+
+# Core web framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+
+# Data processing and analysis
+pandas>=2.1.0
+geopandas>=0.14.0
+numpy>=1.24.0
+
+# HTTP requests
+requests>=2.31.0
+
+# Geospatial processing
+shapely>=2.0.0
+pyproj>=3.6.0
+fiona>=1.9.0
+
+# Optional visualization
+matplotlib>=3.7.0
+
+# JSON handling (built-in, but explicit for clarity)
+# json - built-in Python module
+
+# File and path handling (built-in)
+# pathlib - built-in Python module
+# os - built-in Python module
+
+# Async support (built-in)
+# asyncio - built-in Python module
+
+# Math operations (built-in)
+# math - built-in Python module
+
+# Date and time handling (built-in)
+# datetime - built-in Python module
