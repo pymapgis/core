@@ -1,0 +1,753 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "id": "0",
+      "type": "Feature",
+      "properties": {
+        "iata": "ATL",
+        "name": "Hartsfield-Jackson Atlanta International Airport",
+        "city": "Atlanta",
+        "state": "GA",
+        "runways": 5,
+        "avg_delay": 8.1,
+        "flights_total": 24.0,
+        "status": "Normal",
+        "delay_score": 52.9985859245473
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -84.4281,
+          33.6367
+        ]
+      }
+    },
+    {
+      "id": "1",
+      "type": "Feature",
+      "properties": {
+        "iata": "LAX",
+        "name": "Los Angeles International Airport",
+        "city": "Los Angeles",
+        "state": "CA",
+        "runways": 4,
+        "avg_delay": 9.2,
+        "flights_total": 65.0,
+        "status": "Normal",
+        "delay_score": 150.95520181886465
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -118.4081,
+          33.9425
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "type": "Feature",
+      "properties": {
+        "iata": "ORD",
+        "name": "O'Hare International Airport",
+        "city": "Chicago",
+        "state": "IL",
+        "runways": 8,
+        "avg_delay": 45.6,
+        "flights_total": 99.0,
+        "status": "Delayed",
+        "delay_score": 380.31845357202843
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.9048,
+          41.9786
+        ]
+      }
+    },
+    {
+      "id": "3",
+      "type": "Feature",
+      "properties": {
+        "iata": "DFW",
+        "name": "Dallas/Fort Worth International Airport",
+        "city": "Dallas",
+        "state": "TX",
+        "runways": 7,
+        "avg_delay": 12.8,
+        "flights_total": 61.0,
+        "status": "Normal",
+        "delay_score": 160.10478412195272
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.0372,
+          32.8968
+        ]
+      }
+    },
+    {
+      "id": "4",
+      "type": "Feature",
+      "properties": {
+        "iata": "DEN",
+        "name": "Denver International Airport",
+        "city": "Denver",
+        "state": "CO",
+        "runways": 6,
+        "avg_delay": 33.9,
+        "flights_total": 60.0,
+        "status": "Delayed",
+        "delay_score": 213.14920975250288
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -104.6737,
+          39.8561
+        ]
+      }
+    },
+    {
+      "id": "5",
+      "type": "Feature",
+      "properties": {
+        "iata": "JFK",
+        "name": "John F. Kennedy International Airport",
+        "city": "New York",
+        "state": "NY",
+        "runways": 4,
+        "avg_delay": 35.7,
+        "flights_total": 23.0,
+        "status": "Delayed",
+        "delay_score": 82.86386536639208
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.7781,
+          40.6413
+        ]
+      }
+    },
+    {
+      "id": "6",
+      "type": "Feature",
+      "properties": {
+        "iata": "SFO",
+        "name": "San Francisco International Airport",
+        "city": "San Francisco",
+        "state": "CA",
+        "runways": 4,
+        "avg_delay": 21.4,
+        "flights_total": 36.0,
+        "status": "Normal",
+        "delay_score": 111.92619451899579
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3748,
+          37.6213
+        ]
+      }
+    },
+    {
+      "id": "7",
+      "type": "Feature",
+      "properties": {
+        "iata": "LAS",
+        "name": "McCarran International Airport",
+        "city": "Las Vegas",
+        "state": "NV",
+        "runways": 4,
+        "avg_delay": 5.9,
+        "flights_total": 29.0,
+        "status": "Normal",
+        "delay_score": 56.0141209364932
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -115.1522,
+          36.084
+        ]
+      }
+    },
+    {
+      "id": "8",
+      "type": "Feature",
+      "properties": {
+        "iata": "SEA",
+        "name": "Seattle-Tacoma International Airport",
+        "city": "Seattle",
+        "state": "WA",
+        "runways": 3,
+        "avg_delay": 5.1,
+        "flights_total": 57.0,
+        "status": "Normal",
+        "delay_score": 103.07245995721813
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.3088,
+          47.4502
+        ]
+      }
+    },
+    {
+      "id": "9",
+      "type": "Feature",
+      "properties": {
+        "iata": "CLT",
+        "name": "Charlotte Douglas International Airport",
+        "city": "Charlotte",
+        "state": "NC",
+        "runways": 4,
+        "avg_delay": 25.4,
+        "flights_total": 18.0,
+        "status": "Normal",
+        "delay_score": 58.92055218274087
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.9431,
+          35.2144
+        ]
+      }
+    },
+    {
+      "id": "10",
+      "type": "Feature",
+      "properties": {
+        "iata": "EWR",
+        "name": "Newark Liberty International Airport",
+        "city": "Newark",
+        "state": "NJ",
+        "runways": 3,
+        "avg_delay": 39.2,
+        "flights_total": 63.0,
+        "status": "Delayed",
+        "delay_score": 232.71362072437344
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.1745,
+          40.6895
+        ]
+      }
+    },
+    {
+      "id": "11",
+      "type": "Feature",
+      "properties": {
+        "iata": "PHX",
+        "name": "Phoenix Sky Harbor International Airport",
+        "city": "Phoenix",
+        "state": "AZ",
+        "runways": 3,
+        "avg_delay": 20.7,
+        "flights_total": 124.0,
+        "status": "Normal",
+        "delay_score": 381.5867203077553
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -112.0158,
+          33.4484
+        ]
+      }
+    },
+    {
+      "id": "12",
+      "type": "Feature",
+      "properties": {
+        "iata": "IAH",
+        "name": "George Bush Intercontinental Airport",
+        "city": "Houston",
+        "state": "TX",
+        "runways": 5,
+        "avg_delay": 10.9,
+        "flights_total": 124.0,
+        "status": "Normal",
+        "delay_score": 307.090761614568
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -95.3414,
+          29.9902
+        ]
+      }
+    },
+    {
+      "id": "13",
+      "type": "Feature",
+      "properties": {
+        "iata": "MIA",
+        "name": "Miami International Airport",
+        "city": "Miami",
+        "state": "FL",
+        "runways": 4,
+        "avg_delay": 0.2,
+        "flights_total": 64.0,
+        "status": "Normal",
+        "delay_score": 11.668579634813096
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.2906,
+          25.7959
+        ]
+      }
+    },
+    {
+      "id": "14",
+      "type": "Feature",
+      "properties": {
+        "iata": "BOS",
+        "name": "Logan International Airport",
+        "city": "Boston",
+        "state": "MA",
+        "runways": 6,
+        "avg_delay": 44.8,
+        "flights_total": 15.0,
+        "status": "Delayed",
+        "delay_score": 57.36426136680209
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.0096,
+          42.3656
+        ]
+      }
+    },
+    {
+      "id": "15",
+      "type": "Feature",
+      "properties": {
+        "iata": "MSP",
+        "name": "Minneapolis-St. Paul International Airport",
+        "city": "Minneapolis",
+        "state": "MN",
+        "runways": 4,
+        "avg_delay": 34.9,
+        "flights_total": 78.0,
+        "status": "Delayed",
+        "delay_score": 279.2975090485502
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.2218,
+          44.8848
+        ]
+      }
+    },
+    {
+      "id": "16",
+      "type": "Feature",
+      "properties": {
+        "iata": "LGA",
+        "name": "LaGuardia Airport",
+        "city": "New York",
+        "state": "NY",
+        "runways": 2,
+        "avg_delay": 30.2,
+        "flights_total": 129.0,
+        "status": "Delayed",
+        "delay_score": 443.8139342311913
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.874,
+          40.7769
+        ]
+      }
+    },
+    {
+      "id": "17",
+      "type": "Feature",
+      "properties": {
+        "iata": "DTW",
+        "name": "Detroit Metropolitan Wayne County Airport",
+        "city": "Detroit",
+        "state": "MI",
+        "runways": 6,
+        "avg_delay": 38.6,
+        "flights_total": 97.0,
+        "status": "Delayed",
+        "delay_score": 356.84642447126214
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.3534,
+          42.2162
+        ]
+      }
+    },
+    {
+      "id": "18",
+      "type": "Feature",
+      "properties": {
+        "iata": "PHL",
+        "name": "Philadelphia International Airport",
+        "city": "Philadelphia",
+        "state": "PA",
+        "runways": 4,
+        "avg_delay": 21.0,
+        "flights_total": 71.0,
+        "status": "Normal",
+        "delay_score": 219.46401418844044
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -75.2424,
+          39.8744
+        ]
+      }
+    },
+    {
+      "id": "19",
+      "type": "Feature",
+      "properties": {
+        "iata": "FLL",
+        "name": "Fort Lauderdale-Hollywood International Airport",
+        "city": "Fort Lauderdale",
+        "state": "FL",
+        "runways": 2,
+        "avg_delay": 26.3,
+        "flights_total": 130.0,
+        "status": "Normal",
+        "delay_score": 429.8952712848188
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.1506,
+          26.0742
+        ]
+      }
+    },
+    {
+      "id": "20",
+      "type": "Feature",
+      "properties": {
+        "iata": "BWI",
+        "name": "Baltimore/Washington International Thurgood Marshall Airport",
+        "city": "Baltimore",
+        "state": "MD",
+        "runways": 4,
+        "avg_delay": 14.9,
+        "flights_total": 31.0,
+        "status": "Normal",
+        "delay_score": 85.75589238601177
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -76.6692,
+          39.1754
+        ]
+      }
+    },
+    {
+      "id": "21",
+      "type": "Feature",
+      "properties": {
+        "iata": "DCA",
+        "name": "Ronald Reagan Washington National Airport",
+        "city": "Washington",
+        "state": "DC",
+        "runways": 3,
+        "avg_delay": 7.3,
+        "flights_total": 92.0,
+        "status": "Normal",
+        "delay_score": 194.6955073618348
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.0365,
+          38.8521
+        ]
+      }
+    },
+    {
+      "id": "22",
+      "type": "Feature",
+      "properties": {
+        "iata": "SLC",
+        "name": "Salt Lake City International Airport",
+        "city": "Salt Lake City",
+        "state": "UT",
+        "runways": 4,
+        "avg_delay": 14.2,
+        "flights_total": 123.0,
+        "status": "Normal",
+        "delay_score": 334.7193376258244
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -111.9778,
+          40.7899
+        ]
+      }
+    },
+    {
+      "id": "23",
+      "type": "Feature",
+      "properties": {
+        "iata": "SAN",
+        "name": "San Diego International Airport",
+        "city": "San Diego",
+        "state": "CA",
+        "runways": 1,
+        "avg_delay": 33.5,
+        "flights_total": 79.0,
+        "status": "Delayed",
+        "delay_score": 279.7357865989478
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -117.1933,
+          32.7338
+        ]
+      }
+    },
+    {
+      "id": "24",
+      "type": "Feature",
+      "properties": {
+        "iata": "IAD",
+        "name": "Washington Dulles International Airport",
+        "city": "Washington",
+        "state": "VA",
+        "runways": 4,
+        "avg_delay": 32.4,
+        "flights_total": 100.0,
+        "status": "Delayed",
+        "delay_score": 350.85558999826543
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -77.4565,
+          38.9531
+        ]
+      }
+    },
+    {
+      "id": "25",
+      "type": "Feature",
+      "properties": {
+        "iata": "TPA",
+        "name": "Tampa International Airport",
+        "city": "Tampa",
+        "state": "FL",
+        "runways": 3,
+        "avg_delay": 14.9,
+        "flights_total": 136.0,
+        "status": "Normal",
+        "delay_score": 376.2193988547613
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -82.5332,
+          27.9755
+        ]
+      }
+    },
+    {
+      "id": "26",
+      "type": "Feature",
+      "properties": {
+        "iata": "PDX",
+        "name": "Portland International Airport",
+        "city": "Portland",
+        "state": "OR",
+        "runways": 3,
+        "avg_delay": 37.6,
+        "flights_total": 56.0,
+        "status": "Delayed",
+        "delay_score": 204.58212748236397
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.5975,
+          45.5898
+        ]
+      }
+    },
+    {
+      "id": "27",
+      "type": "Feature",
+      "properties": {
+        "iata": "STL",
+        "name": "Lambert-St. Louis International Airport",
+        "city": "St. Louis",
+        "state": "MO",
+        "runways": 4,
+        "avg_delay": 31.4,
+        "flights_total": 61.0,
+        "status": "Delayed",
+        "delay_score": 212.1676637906953
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -90.37,
+          38.7487
+        ]
+      }
+    },
+    {
+      "id": "28",
+      "type": "Feature",
+      "properties": {
+        "iata": "HNL",
+        "name": "Daniel K. Inouye International Airport",
+        "city": "Honolulu",
+        "state": "HI",
+        "runways": 4,
+        "avg_delay": 40.9,
+        "flights_total": 50.0,
+        "status": "Delayed",
+        "delay_score": 186.7642913464046
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.9248,
+          21.3099
+        ]
+      }
+    },
+    {
+      "id": "29",
+      "type": "Feature",
+      "properties": {
+        "iata": "MDW",
+        "name": "Chicago Midway International Airport",
+        "city": "Chicago",
+        "state": "IL",
+        "runways": 5,
+        "avg_delay": 23.3,
+        "flights_total": 41.0,
+        "status": "Normal",
+        "delay_score": 130.8095303642066
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.7524,
+          41.7868
+        ]
+      }
+    },
+    {
+      "id": "30",
+      "type": "Feature",
+      "properties": {
+        "iata": "BNA",
+        "name": "Nashville International Airport",
+        "city": "Nashville",
+        "state": "TN",
+        "runways": 4,
+        "avg_delay": 0.0,
+        "flights_total": 20.0,
+        "status": "Normal",
+        "delay_score": 0.0
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -86.6781,
+          36.1245
+        ]
+      }
+    },
+    {
+      "id": "31",
+      "type": "Feature",
+      "properties": {
+        "iata": "AUS",
+        "name": "Austin-Bergstrom International Airport",
+        "city": "Austin",
+        "state": "TX",
+        "runways": 2,
+        "avg_delay": 40.1,
+        "flights_total": 56.0,
+        "status": "Delayed",
+        "delay_score": 208.0964548041226
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.6699,
+          30.1945
+        ]
+      }
+    },
+    {
+      "id": "32",
+      "type": "Feature",
+      "properties": {
+        "iata": "MCO",
+        "name": "Orlando International Airport",
+        "city": "Orlando",
+        "state": "FL",
+        "runways": 4,
+        "avg_delay": 40.6,
+        "flights_total": 103.0,
+        "status": "Delayed",
+        "delay_score": 383.9943172285234
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -81.3081,
+          28.4312
+        ]
+      }
+    },
+    {
+      "id": "33",
+      "type": "Feature",
+      "properties": {
+        "iata": "RDU",
+        "name": "Raleigh-Durham International Airport",
+        "city": "Raleigh",
+        "state": "NC",
+        "runways": 3,
+        "avg_delay": 13.0,
+        "flights_total": 50.0,
+        "status": "Normal",
+        "delay_score": 131.95286648076294
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -78.7875,
+          35.8776
+        ]
+      }
+    }
+  ]
+}
