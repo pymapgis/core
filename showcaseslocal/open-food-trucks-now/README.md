@@ -2,6 +2,12 @@
 
 ![Food Trucks](https://img.shields.io/badge/PyMapGIS-Local%20Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Open Food Trucks Now in Action**: https://youtu.be/7nujn5NTeu8
+
+See the enhanced lighter map styling, real-time SF food truck tracking, neighborhood density analysis, and interactive lunch planning features in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Open Food Trucks Now demonstrates **real-time food truck location intelligence** using San Francisco's open data. This showcase represents the perfect example of hyperlocal geospatial analysis by:
