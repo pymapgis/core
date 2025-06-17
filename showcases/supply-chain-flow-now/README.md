@@ -2,6 +2,12 @@
 
 ![Supply Chain Flow Now](https://img.shields.io/badge/PyMapGIS-Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Supply Chain Flow Now in Action**: https://youtu.be/ex2av2Jjqrk
+
+See the ultimate enhanced lighter map styling, real-time supply chain monitoring, multi-modal flow analysis, and interactive logistics network visualization in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Supply Chain Flow Now demonstrates **real-time supply chain visibility and logistics flow analysis** using PyMapGIS. This showcase represents the ultimate integration of multi-modal logistics intelligence by:
