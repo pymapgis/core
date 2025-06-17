@@ -2,6 +2,12 @@
 
 ![Ship Traffic Now](https://img.shields.io/badge/PyMapGIS-Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Ship Traffic Now in Action**: https://youtu.be/a9xSScrlKpw
+
+See the real-time maritime vessel tracking, port congestion analysis, and interactive map visualization in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Ship Traffic Now demonstrates **real-time maritime vessel tracking and port congestion analysis** using PyMapGIS. This showcase addresses critical supply chain visibility needs by:
