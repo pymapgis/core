@@ -30,7 +30,7 @@ COPY pyproject.toml poetry.lock* ./
 
 # Install dependencies with Poetry (if available) or fallback to pip
 RUN if [ -f "pyproject.toml" ]; then \
-        poetry install --no-dev && rm -rf $POETRY_CACHE_DIR; \
+        poetry install --only=main --no-root && rm -rf $POETRY_CACHE_DIR; \
     else \
         echo "Poetry configuration not found, using pip fallback"; \
     fi
