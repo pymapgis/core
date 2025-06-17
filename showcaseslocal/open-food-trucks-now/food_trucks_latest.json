@@ -1,0 +1,227 @@
+{
+  "neighborhoods": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "nhood": "SOMA",
+          "truck_count": 2,
+          "truck_density": 2
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -122.42,
+                37.76
+              ],
+              [
+                -122.39,
+                37.76
+              ],
+              [
+                -122.39,
+                37.79
+              ],
+              [
+                -122.42,
+                37.79
+              ],
+              [
+                -122.42,
+                37.76
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "nhood": "Mission",
+          "truck_count": 1,
+          "truck_density": 1
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -122.43,
+                37.74
+              ],
+              [
+                -122.4,
+                37.74
+              ],
+              [
+                -122.4,
+                37.77
+              ],
+              [
+                -122.43,
+                37.77
+              ],
+              [
+                -122.43,
+                37.74
+              ]
+            ]
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "nhood": "Financial District",
+          "truck_count": 1,
+          "truck_density": 1
+        },
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                -122.41,
+                37.79
+              ],
+              [
+                -122.39,
+                37.79
+              ],
+              [
+                -122.39,
+                37.81
+              ],
+              [
+                -122.41,
+                37.81
+              ],
+              [
+                -122.41,
+                37.79
+              ]
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "food_trucks": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "applicant": "Tacos El Primo",
+          "fooditems": "Tacos, Burritos, Quesadillas",
+          "latitude": 37.7749,
+          "longitude": -122.4194,
+          "starttime": "11:00",
+          "endtime": "14:00",
+          "location": "Market St & 4th St"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.4194,
+            37.7749
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "applicant": "SF Street Food",
+          "fooditems": "Sandwiches, Salads, Soup",
+          "latitude": 37.7849,
+          "longitude": -122.4094,
+          "starttime": "10:30",
+          "endtime": "15:00",
+          "location": "Mission St & 2nd St"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.4094,
+            37.7849
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "applicant": "Golden Gate Grill",
+          "fooditems": "Burgers, Fries, Shakes",
+          "latitude": 37.7649,
+          "longitude": -122.4294,
+          "starttime": "11:30",
+          "endtime": "14:30",
+          "location": "Folsom St & 3rd St"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.4294,
+            37.7649
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "type": "Feature",
+        "properties": {
+          "applicant": "Bay Area Bites",
+          "fooditems": "Asian Fusion, Rice Bowls",
+          "latitude": 37.7949,
+          "longitude": -122.3994,
+          "starttime": "11:00",
+          "endtime": "15:00",
+          "location": "Howard St & 1st St"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.3994,
+            37.7949
+          ]
+        }
+      },
+      {
+        "id": "4",
+        "type": "Feature",
+        "properties": {
+          "applicant": "Lunch Express",
+          "fooditems": "Pizza, Pasta, Italian",
+          "latitude": 37.7549,
+          "longitude": -122.4394,
+          "starttime": "10:00",
+          "endtime": "14:00",
+          "location": "Brannan St & 5th St"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.4394,
+            37.7549
+          ]
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_trucks": 5,
+    "total_neighborhoods": 3,
+    "neighborhoods_with_trucks": 3,
+    "max_density": 2,
+    "avg_density": 1.3
+  }
+}

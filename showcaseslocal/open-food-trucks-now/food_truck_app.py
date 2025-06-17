@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Open Food Trucks Now - FastAPI Web Application
+Open Food Trucks Now - Standalone FastAPI Web Application
 Serves San Francisco live lunch location heat-map
 """
 
@@ -34,7 +34,7 @@ static_dir = SCRIPT_DIR / "static"
 @app.on_event("startup")
 async def startup_event():
     """Run food truck worker on startup to ensure fresh data"""
-    print("🚀 Starting Open Food Trucks Now...")
+    print("🚚 Starting Open Food Trucks Now...")
     
     # Mount static files after ensuring directory exists
     if static_dir.exists():
@@ -177,5 +177,5 @@ if __name__ == "__main__":
     print("🏙️  Neighborhoods: http://localhost:8000/neighborhoods")
     print("🚚 Food trucks: http://localhost:8000/trucks")
     print("❤️  Health check: http://localhost:8000/health")
-
+    
     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
