@@ -1,0 +1,372 @@
+{
+  "tube_lines": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "bakerloo",
+          "line_name": "Bakerloo",
+          "status_severity": 9,
+          "status_description": "Minor Delays",
+          "status_category": "Minor Issues",
+          "status_color": "#FFD300",
+          "status_score": 9,
+          "reason": "Bakerloo Line: Minor delays due to an earlier faulty train at Stonebridge Park.  ",
+          "tube_color": "#B36305",
+          "last_updated": "2025-06-17T12:45:16.779999"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.1276,
+              51.5074
+            ],
+            [
+              -0.134,
+              51.5155
+            ],
+            [
+              -0.1553,
+              51.5226
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "central",
+          "line_name": "Central",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#E32017",
+          "last_updated": "2025-06-17T12:45:16.780030"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.0742,
+              51.5155
+            ],
+            [
+              -0.0981,
+              51.5155
+            ],
+            [
+              -0.1276,
+              51.5074
+            ],
+            [
+              -0.1553,
+              51.5226
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "circle",
+          "line_name": "Circle",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#FFD300",
+          "last_updated": "2025-06-17T12:45:16.780041"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.1276,
+              51.5074
+            ],
+            [
+              -0.134,
+              51.5155
+            ],
+            [
+              -0.1553,
+              51.5226
+            ],
+            [
+              -0.1276,
+              51.5074
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "district",
+          "line_name": "District",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#00782A",
+          "last_updated": "2025-06-17T12:45:16.780049"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.0742,
+              51.5074
+            ],
+            [
+              -0.1276,
+              51.5074
+            ],
+            [
+              -0.1553,
+              51.5155
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "hammersmith-city",
+          "line_name": "Hammersmith & City",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#F3A9BB",
+          "last_updated": "2025-06-17T12:45:16.780058"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.1553,
+              51.5155
+            ],
+            [
+              -0.134,
+              51.5155
+            ],
+            [
+              -0.1276,
+              51.5074
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "jubilee",
+          "line_name": "Jubilee",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#A0A5A9",
+          "last_updated": "2025-06-17T12:45:16.780067"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.0981,
+              51.5074
+            ],
+            [
+              -0.1276,
+              51.5074
+            ],
+            [
+              -0.1553,
+              51.5226
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "metropolitan",
+          "line_name": "Metropolitan",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#9B0056",
+          "last_updated": "2025-06-17T12:45:16.780076"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.1276,
+              51.5155
+            ],
+            [
+              -0.134,
+              51.5226
+            ],
+            [
+              -0.1553,
+              51.5297
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "northern",
+          "line_name": "Northern",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#000000",
+          "last_updated": "2025-06-17T12:45:16.780084"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.0981,
+              51.5226
+            ],
+            [
+              -0.1276,
+              51.5155
+            ],
+            [
+              -0.134,
+              51.5074
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "piccadilly",
+          "line_name": "Piccadilly",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#003688",
+          "last_updated": "2025-06-17T12:45:16.780092"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.0742,
+              51.5226
+            ],
+            [
+              -0.1276,
+              51.5155
+            ],
+            [
+              -0.1553,
+              51.5074
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "victoria",
+          "line_name": "Victoria",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#0098D4",
+          "last_updated": "2025-06-17T12:45:16.780100"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.134,
+              51.5074
+            ],
+            [
+              -0.1276,
+              51.5155
+            ],
+            [
+              -0.1553,
+              51.5226
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "line_id": "waterloo-city",
+          "line_name": "Waterloo & City",
+          "status_severity": 10,
+          "status_description": "Good Service",
+          "status_category": "Good Service",
+          "status_color": "#00782A",
+          "status_score": 10,
+          "reason": "",
+          "tube_color": "#95CDBA",
+          "last_updated": "2025-06-17T12:45:16.780108"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -0.1115,
+              51.5074
+            ],
+            [
+              -0.1276,
+              51.5074
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_lines": 11,
+    "good_service": 10,
+    "minor_issues": 1,
+    "major_issues": 0,
+    "avg_status_score": 9.9,
+    "last_updated": "2025-06-17T12:45:16.809760"
+  },
+  "last_updated": "2025-06-17T12:45:16.811417"
+}
