@@ -2,6 +2,12 @@
 
 ![Weather Impact Now](https://img.shields.io/badge/PyMapGIS-Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Weather Impact Now in Action**: https://youtu.be/MX9dv3GcF_I
+
+See the enhanced lighter map styling, real-time weather monitoring, multi-dimensional impact analysis, and interactive alert system in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Weather Impact Now demonstrates **real-time weather monitoring and supply chain impact analysis** using PyMapGIS. This showcase addresses critical infrastructure resilience needs by:

@@ -1,0 +1,1132 @@
+{
+  "grid": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Palo Verde Nuclear",
+          "latitude": 33.3881,
+          "longitude": -112.8647,
+          "facility_type": "Nuclear",
+          "capacity_mw": 3937,
+          "current_demand": 69.8,
+          "outage_status": "Normal",
+          "facility_age": 26,
+          "operator": "Southern Company",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-08-16",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 40.0,
+          "resilience_score": 62.5,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -112.8647,
+            33.3881
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Browns Ferry Nuclear",
+          "latitude": 34.7042,
+          "longitude": -87.1186,
+          "facility_type": "Nuclear",
+          "capacity_mw": 3304,
+          "current_demand": 87.8,
+          "outage_status": "Normal",
+          "facility_age": 54,
+          "operator": "Duke Energy",
+          "grid_region": "WECC",
+          "last_maintenance": "2024-02-16",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 70.0,
+          "age_score": 80.0,
+          "resilience_score": 40.0,
+          "grid_status": "Poor",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -87.1186,
+            34.7042
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "South Texas Nuclear",
+          "latitude": 28.7951,
+          "longitude": -96.0481,
+          "facility_type": "Nuclear",
+          "capacity_mw": 2700,
+          "current_demand": 53.0,
+          "outage_status": "Normal",
+          "facility_age": 47,
+          "operator": "Exelon",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-02-28",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 60.0,
+          "resilience_score": 57.5,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -96.0481,
+            28.7951
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Vogtle Nuclear",
+          "latitude": 33.1417,
+          "longitude": -81.7606,
+          "facility_type": "Nuclear",
+          "capacity_mw": 2430,
+          "current_demand": 77.8,
+          "outage_status": "Normal",
+          "facility_age": 46,
+          "operator": "Southern Company",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-03-07",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 40.0,
+          "age_score": 60.0,
+          "resilience_score": 52.5,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.7606,
+            33.1417
+          ]
+        }
+      },
+      {
+        "id": "4",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Grand Coulee Dam",
+          "latitude": 47.9548,
+          "longitude": -118.9816,
+          "facility_type": "Hydro",
+          "capacity_mw": 6809,
+          "current_demand": 57.7,
+          "outage_status": "Normal",
+          "facility_age": 18,
+          "operator": "ConEd",
+          "grid_region": "WECC",
+          "last_maintenance": "2024-07-11",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 20.0,
+          "resilience_score": 67.5,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.9816,
+            47.9548
+          ]
+        }
+      },
+      {
+        "id": "5",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Chief Joseph Dam",
+          "latitude": 47.9992,
+          "longitude": -119.6378,
+          "facility_type": "Hydro",
+          "capacity_mw": 2620,
+          "current_demand": 52.9,
+          "outage_status": "Normal",
+          "facility_age": 40,
+          "operator": "Exelon",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-10-25",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 60.0,
+          "resilience_score": 57.5,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -119.6378,
+            47.9992
+          ]
+        }
+      },
+      {
+        "id": "6",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Robert Moses Niagara",
+          "latitude": 43.0389,
+          "longitude": -79.0389,
+          "facility_type": "Hydro",
+          "capacity_mw": 2525,
+          "current_demand": 57.2,
+          "outage_status": "Normal",
+          "facility_age": 7,
+          "operator": "Duke Energy",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-11-01",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 5.0,
+          "resilience_score": 71.2,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -79.0389,
+            43.0389
+          ]
+        }
+      },
+      {
+        "id": "7",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Hoover Dam",
+          "latitude": 36.0156,
+          "longitude": -114.7378,
+          "facility_type": "Hydro",
+          "capacity_mw": 2080,
+          "current_demand": 87.0,
+          "outage_status": "Normal",
+          "facility_age": 33,
+          "operator": "Exelon",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-02-18",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 70.0,
+          "age_score": 60.0,
+          "resilience_score": 45.0,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -114.7378,
+            36.0156
+          ]
+        }
+      },
+      {
+        "id": "8",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "W.A. Parish Coal",
+          "latitude": 29.4833,
+          "longitude": -95.6333,
+          "facility_type": "Coal",
+          "capacity_mw": 3653,
+          "current_demand": 30.2,
+          "outage_status": "Reduced",
+          "facility_age": 47,
+          "operator": "NextEra",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-10-18",
+          "capacity_score": 90.0,
+          "outage_score": 25.0,
+          "demand_score": 5.0,
+          "age_score": 60.0,
+          "resilience_score": 55.0,
+          "grid_status": "Fair",
+          "economic_impact": 1826500.0,
+          "condition_category": "Low Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.6333,
+            29.4833
+          ]
+        }
+      },
+      {
+        "id": "9",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Scherer Coal Plant",
+          "latitude": 33.0167,
+          "longitude": -83.7167,
+          "facility_type": "Coal",
+          "capacity_mw": 3564,
+          "current_demand": 57.1,
+          "outage_status": "Normal",
+          "facility_age": 12,
+          "operator": "PG&E",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-08-15",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 20.0,
+          "resilience_score": 67.5,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -83.7167,
+            33.0167
+          ]
+        }
+      },
+      {
+        "id": "10",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Gibson Coal Plant",
+          "latitude": 38.35,
+          "longitude": -87.3833,
+          "facility_type": "Coal",
+          "capacity_mw": 3345,
+          "current_demand": 73.2,
+          "outage_status": "Normal",
+          "facility_age": 8,
+          "operator": "PG&E",
+          "grid_region": "WECC",
+          "last_maintenance": "2024-07-23",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 5.0,
+          "resilience_score": 71.2,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -87.3833,
+            38.35
+          ]
+        }
+      },
+      {
+        "id": "11",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Bowen Coal Plant",
+          "latitude": 34.1167,
+          "longitude": -84.7167,
+          "facility_type": "Coal",
+          "capacity_mw": 3200,
+          "current_demand": 82.0,
+          "outage_status": "Normal",
+          "facility_age": 32,
+          "operator": "Exelon",
+          "grid_region": "WECC",
+          "last_maintenance": "2024-04-04",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 40.0,
+          "age_score": 60.0,
+          "resilience_score": 52.5,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -84.7167,
+            34.1167
+          ]
+        }
+      },
+      {
+        "id": "12",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Moss Landing Gas",
+          "latitude": 36.8019,
+          "longitude": -121.7681,
+          "facility_type": "Natural Gas",
+          "capacity_mw": 2560,
+          "current_demand": 75.3,
+          "outage_status": "Normal",
+          "facility_age": 40,
+          "operator": "PG&E",
+          "grid_region": "WECC",
+          "last_maintenance": "2024-05-01",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 40.0,
+          "age_score": 60.0,
+          "resilience_score": 52.5,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -121.7681,
+            36.8019
+          ]
+        }
+      },
+      {
+        "id": "13",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Ravenswood Gas",
+          "latitude": 40.7614,
+          "longitude": -73.9389,
+          "facility_type": "Natural Gas",
+          "capacity_mw": 2480,
+          "current_demand": 92.2,
+          "outage_status": "Normal",
+          "facility_age": 15,
+          "operator": "PG&E",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-07-03",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 70.0,
+          "age_score": 20.0,
+          "resilience_score": 55.0,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "High Demand",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.9389,
+            40.7614
+          ]
+        }
+      },
+      {
+        "id": "14",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Astoria Gas",
+          "latitude": 40.7831,
+          "longitude": -73.92,
+          "facility_type": "Natural Gas",
+          "capacity_mw": 1335,
+          "current_demand": 57.6,
+          "outage_status": "Normal",
+          "facility_age": 13,
+          "operator": "ConEd",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-07-01",
+          "capacity_score": 70.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 20.0,
+          "resilience_score": 72.5,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.92,
+            40.7831
+          ]
+        }
+      },
+      {
+        "id": "15",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Altamont Pass Wind",
+          "latitude": 37.7394,
+          "longitude": -121.5581,
+          "facility_type": "Wind",
+          "capacity_mw": 576,
+          "current_demand": 91.5,
+          "outage_status": "Normal",
+          "facility_age": 29,
+          "operator": "Duke Energy",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-03-21",
+          "capacity_score": 50.0,
+          "outage_score": 0.0,
+          "demand_score": 70.0,
+          "age_score": 40.0,
+          "resilience_score": 60.0,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "High Demand",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -121.5581,
+            37.7394
+          ]
+        }
+      },
+      {
+        "id": "16",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Tehachapi Wind",
+          "latitude": 35.1319,
+          "longitude": -118.4489,
+          "facility_type": "Wind",
+          "capacity_mw": 4500,
+          "current_demand": 51.3,
+          "outage_status": "Normal",
+          "facility_age": 48,
+          "operator": "Southern Company",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-01-22",
+          "capacity_score": 90.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 60.0,
+          "resilience_score": 57.5,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.4489,
+            35.1319
+          ]
+        }
+      },
+      {
+        "id": "17",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Roscoe Wind Farm",
+          "latitude": 32.4667,
+          "longitude": -100.5333,
+          "facility_type": "Wind",
+          "capacity_mw": 781,
+          "current_demand": 88.9,
+          "outage_status": "Normal",
+          "facility_age": 55,
+          "operator": "Duke Energy",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-02-15",
+          "capacity_score": 50.0,
+          "outage_score": 0.0,
+          "demand_score": 70.0,
+          "age_score": 80.0,
+          "resilience_score": 50.0,
+          "grid_status": "Fair",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Load",
+          "alert_level": "Moderate"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -100.5333,
+            32.4667
+          ]
+        }
+      },
+      {
+        "id": "18",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Horse Hollow Wind",
+          "latitude": 32.3833,
+          "longitude": -99.8833,
+          "facility_type": "Wind",
+          "capacity_mw": 735,
+          "current_demand": 7.1,
+          "outage_status": "Maintenance",
+          "facility_age": 34,
+          "operator": "NextEra",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-01-12",
+          "capacity_score": 50.0,
+          "outage_score": 40.0,
+          "demand_score": 5.0,
+          "age_score": 60.0,
+          "resilience_score": 61.2,
+          "grid_status": "Good",
+          "economic_impact": 220500.0,
+          "condition_category": "Maintenance",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -99.8833,
+            32.3833
+          ]
+        }
+      },
+      {
+        "id": "19",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Topaz Solar",
+          "latitude": 35.3833,
+          "longitude": -120.1,
+          "facility_type": "Solar",
+          "capacity_mw": 550,
+          "current_demand": 74.6,
+          "outage_status": "Normal",
+          "facility_age": 37,
+          "operator": "ConEd",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-11-08",
+          "capacity_score": 50.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 60.0,
+          "resilience_score": 67.5,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -120.1,
+            35.3833
+          ]
+        }
+      },
+      {
+        "id": "20",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Desert Sunlight Solar",
+          "latitude": 33.8167,
+          "longitude": -115.4,
+          "facility_type": "Solar",
+          "capacity_mw": 550,
+          "current_demand": 72.4,
+          "outage_status": "Normal",
+          "facility_age": 26,
+          "operator": "ConEd",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-06-26",
+          "capacity_score": 50.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 40.0,
+          "resilience_score": 72.5,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -115.4,
+            33.8167
+          ]
+        }
+      },
+      {
+        "id": "21",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Solar Star",
+          "latitude": 34.9167,
+          "longitude": -118.3167,
+          "facility_type": "Solar",
+          "capacity_mw": 579,
+          "current_demand": 54.4,
+          "outage_status": "Normal",
+          "facility_age": 39,
+          "operator": "NextEra",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-02-23",
+          "capacity_score": 50.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 60.0,
+          "resilience_score": 67.5,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.3167,
+            34.9167
+          ]
+        }
+      },
+      {
+        "id": "22",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Copper Mountain Solar",
+          "latitude": 35.7833,
+          "longitude": -114.9167,
+          "facility_type": "Solar",
+          "capacity_mw": 802,
+          "current_demand": 59.3,
+          "outage_status": "Reduced",
+          "facility_age": 11,
+          "operator": "PG&E",
+          "grid_region": "Eastern Interconnection",
+          "last_maintenance": "2024-10-04",
+          "capacity_score": 50.0,
+          "outage_score": 25.0,
+          "demand_score": 20.0,
+          "age_score": 20.0,
+          "resilience_score": 71.2,
+          "grid_status": "Good",
+          "economic_impact": 401000.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -114.9167,
+            35.7833
+          ]
+        }
+      },
+      {
+        "id": "23",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Ivanpah Solar",
+          "latitude": 35.5556,
+          "longitude": -115.4667,
+          "facility_type": "Solar",
+          "capacity_mw": 392,
+          "current_demand": 55.3,
+          "outage_status": "Normal",
+          "facility_age": 27,
+          "operator": "Southern Company",
+          "grid_region": "ERCOT",
+          "last_maintenance": "2024-08-03",
+          "capacity_score": 30.0,
+          "outage_score": 0.0,
+          "demand_score": 20.0,
+          "age_score": 40.0,
+          "resilience_score": 77.5,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Low Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -115.4667,
+            35.5556
+          ]
+        }
+      },
+      {
+        "id": "24",
+        "type": "Feature",
+        "properties": {
+          "facility_name": "Crescent Dunes Solar",
+          "latitude": 38.2333,
+          "longitude": -117.3667,
+          "facility_type": "Solar",
+          "capacity_mw": 110,
+          "current_demand": 86.2,
+          "outage_status": "Normal",
+          "facility_age": 19,
+          "operator": "PG&E",
+          "grid_region": "WECC",
+          "last_maintenance": "2024-05-11",
+          "capacity_score": 30.0,
+          "outage_score": 0.0,
+          "demand_score": 70.0,
+          "age_score": 20.0,
+          "resilience_score": 70.0,
+          "grid_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Load",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -117.3667,
+            38.2333
+          ]
+        }
+      }
+    ]
+  },
+  "infrastructure": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "name": "Palo Verde Nuclear",
+          "type": "Nuclear",
+          "capacity_mw": 3937,
+          "state": "AZ"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -112.8647,
+            33.3881
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "name": "Browns Ferry Nuclear",
+          "type": "Nuclear",
+          "capacity_mw": 3304,
+          "state": "AL"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -87.1186,
+            34.7042
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "name": "South Texas Nuclear",
+          "type": "Nuclear",
+          "capacity_mw": 2700,
+          "state": "TX"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -96.0481,
+            28.7951
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "type": "Feature",
+        "properties": {
+          "name": "Grand Coulee Dam",
+          "type": "Hydro",
+          "capacity_mw": 6809,
+          "state": "WA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.9816,
+            47.9548
+          ]
+        }
+      },
+      {
+        "id": "4",
+        "type": "Feature",
+        "properties": {
+          "name": "Hoover Dam",
+          "type": "Hydro",
+          "capacity_mw": 2080,
+          "state": "NV"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -114.7378,
+            36.0156
+          ]
+        }
+      },
+      {
+        "id": "5",
+        "type": "Feature",
+        "properties": {
+          "name": "W.A. Parish Coal",
+          "type": "Coal",
+          "capacity_mw": 3653,
+          "state": "TX"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.6333,
+            29.4833
+          ]
+        }
+      },
+      {
+        "id": "6",
+        "type": "Feature",
+        "properties": {
+          "name": "Scherer Coal Plant",
+          "type": "Coal",
+          "capacity_mw": 3564,
+          "state": "GA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -83.7167,
+            33.0167
+          ]
+        }
+      },
+      {
+        "id": "7",
+        "type": "Feature",
+        "properties": {
+          "name": "Moss Landing Gas",
+          "type": "Natural Gas",
+          "capacity_mw": 2560,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -121.7681,
+            36.8019
+          ]
+        }
+      },
+      {
+        "id": "8",
+        "type": "Feature",
+        "properties": {
+          "name": "Tehachapi Wind",
+          "type": "Wind",
+          "capacity_mw": 4500,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.4489,
+            35.1319
+          ]
+        }
+      },
+      {
+        "id": "9",
+        "type": "Feature",
+        "properties": {
+          "name": "Roscoe Wind Farm",
+          "type": "Wind",
+          "capacity_mw": 781,
+          "state": "TX"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -100.5333,
+            32.4667
+          ]
+        }
+      },
+      {
+        "id": "10",
+        "type": "Feature",
+        "properties": {
+          "name": "Topaz Solar",
+          "type": "Solar",
+          "capacity_mw": 550,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -120.1,
+            35.3833
+          ]
+        }
+      },
+      {
+        "id": "11",
+        "type": "Feature",
+        "properties": {
+          "name": "Desert Sunlight Solar",
+          "type": "Solar",
+          "capacity_mw": 550,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -115.4,
+            33.8167
+          ]
+        }
+      },
+      {
+        "id": "12",
+        "type": "Feature",
+        "properties": {
+          "name": "Solar Star",
+          "type": "Solar",
+          "capacity_mw": 579,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.3167,
+            34.9167
+          ]
+        }
+      },
+      {
+        "id": "13",
+        "type": "Feature",
+        "properties": {
+          "name": "Copper Mountain Solar",
+          "type": "Solar",
+          "capacity_mw": 802,
+          "state": "NV"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -114.9167,
+            35.7833
+          ]
+        }
+      },
+      {
+        "id": "14",
+        "type": "Feature",
+        "properties": {
+          "name": "Ivanpah Solar",
+          "type": "Solar",
+          "capacity_mw": 392,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -115.4667,
+            35.5556
+          ]
+        }
+      }
+    ]
+  },
+  "regional_health": {
+    "Northeast": {
+      "avg_resilience": 66.2,
+      "total_capacity": 6340.0,
+      "facility_count": 3,
+      "critical_count": 0
+    },
+    "Southeast": {
+      "avg_resilience": 56.7,
+      "total_capacity": 15843.0,
+      "facility_count": 5,
+      "critical_count": 0
+    },
+    "Midwest": {
+      "avg_resilience": 71.2,
+      "total_capacity": 3345.0,
+      "facility_count": 1,
+      "critical_count": 0
+    },
+    "Southwest": {
+      "avg_resilience": 62.8,
+      "total_capacity": 17417.0,
+      "facility_count": 12,
+      "critical_count": 0
+    },
+    "West": {
+      "avg_resilience": 63.7,
+      "total_capacity": 26065.0,
+      "facility_count": 13,
+      "critical_count": 0
+    }
+  },
+  "summary": {
+    "total_facilities": 25,
+    "avg_resilience": 61.4,
+    "critical_facilities": 0,
+    "total_capacity_mw": 56117.0,
+    "facilities_with_outages": 0,
+    "high_risk_facilities": 0
+  }
+}
