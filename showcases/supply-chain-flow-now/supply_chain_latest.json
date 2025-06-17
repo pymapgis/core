@@ -1,0 +1,2584 @@
+{
+  "supply_chain": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Port of Los Angeles",
+          "latitude": 33.7361,
+          "longitude": -118.2922,
+          "node_type": "Port",
+          "capacity_units": 75000,
+          "current_delay_hours": 0,
+          "utilization_percent": 79.7,
+          "disruption_level": "None",
+          "operator": "FedEx",
+          "region": "Southwest",
+          "last_update": "2024-05-07",
+          "capacity_score": 90.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 97.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2922,
+            33.7361
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Port of Long Beach",
+          "latitude": 33.7553,
+          "longitude": -118.2111,
+          "node_type": "Port",
+          "capacity_units": 65000,
+          "current_delay_hours": 0,
+          "utilization_percent": 81.3,
+          "disruption_level": "None",
+          "operator": "Amazon",
+          "region": "East Coast",
+          "last_update": "2024-12-28",
+          "capacity_score": 90.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 97.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2111,
+            33.7553
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Port of New York/New Jersey",
+          "latitude": 40.6892,
+          "longitude": -74.0445,
+          "node_type": "Port",
+          "capacity_units": 55000,
+          "current_delay_hours": 0,
+          "utilization_percent": 86.2,
+          "disruption_level": "None",
+          "operator": "FedEx",
+          "region": "Midwest",
+          "last_update": "2024-02-07",
+          "capacity_score": 90.0,
+          "delay_score": 100.0,
+          "utilization_score": 80.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.0445,
+            40.6892
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Port of Savannah",
+          "latitude": 32.1347,
+          "longitude": -81.1888,
+          "node_type": "Port",
+          "capacity_units": 45000,
+          "current_delay_hours": 0,
+          "utilization_percent": 88.0,
+          "disruption_level": "None",
+          "operator": "FedEx",
+          "region": "West Coast",
+          "last_update": "2024-06-09",
+          "capacity_score": 80.0,
+          "delay_score": 100.0,
+          "utilization_score": 80.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 90.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.1888,
+            32.1347
+          ]
+        }
+      },
+      {
+        "id": "4",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Port of Seattle",
+          "latitude": 47.5952,
+          "longitude": -122.3316,
+          "node_type": "Port",
+          "capacity_units": 35000,
+          "current_delay_hours": 0,
+          "utilization_percent": 85.1,
+          "disruption_level": "None",
+          "operator": "UPS",
+          "region": "East Coast",
+          "last_update": "2024-10-19",
+          "capacity_score": 80.0,
+          "delay_score": 100.0,
+          "utilization_score": 80.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 90.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.3316,
+            47.5952
+          ]
+        }
+      },
+      {
+        "id": "5",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Port of Houston",
+          "latitude": 29.7372,
+          "longitude": -95.2861,
+          "node_type": "Port",
+          "capacity_units": 40000,
+          "current_delay_hours": 0,
+          "utilization_percent": 79.2,
+          "disruption_level": "None",
+          "operator": "Port Authority",
+          "region": "Southwest",
+          "last_update": "2024-12-01",
+          "capacity_score": 80.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 95.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.2861,
+            29.7372
+          ]
+        }
+      },
+      {
+        "id": "6",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Amazon Fulfillment - Phoenix",
+          "latitude": 33.4484,
+          "longitude": -112.074,
+          "node_type": "Distribution",
+          "capacity_units": 25000,
+          "current_delay_hours": 0,
+          "utilization_percent": 70.2,
+          "disruption_level": "None",
+          "operator": "Walmart",
+          "region": "East Coast",
+          "last_update": "2024-12-28",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -112.074,
+            33.4484
+          ]
+        }
+      },
+      {
+        "id": "7",
+        "type": "Feature",
+        "properties": {
+          "node_name": "FedEx Hub - Memphis",
+          "latitude": 35.0424,
+          "longitude": -89.9773,
+          "node_type": "Distribution",
+          "capacity_units": 30000,
+          "current_delay_hours": 0,
+          "utilization_percent": 72.1,
+          "disruption_level": "None",
+          "operator": "Target",
+          "region": "West Coast",
+          "last_update": "2024-10-10",
+          "capacity_score": 80.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 95.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -89.9773,
+            35.0424
+          ]
+        }
+      },
+      {
+        "id": "8",
+        "type": "Feature",
+        "properties": {
+          "node_name": "UPS Worldport - Louisville",
+          "latitude": 38.1744,
+          "longitude": -85.7361,
+          "node_type": "Distribution",
+          "capacity_units": 35000,
+          "current_delay_hours": 0,
+          "utilization_percent": 70.8,
+          "disruption_level": "None",
+          "operator": "Walmart",
+          "region": "East Coast",
+          "last_update": "2024-12-10",
+          "capacity_score": 80.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 95.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -85.7361,
+            38.1744
+          ]
+        }
+      },
+      {
+        "id": "9",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Walmart DC - Bentonville",
+          "latitude": 36.3729,
+          "longitude": -94.2088,
+          "node_type": "Distribution",
+          "capacity_units": 28000,
+          "current_delay_hours": 0,
+          "utilization_percent": 89.5,
+          "disruption_level": "None",
+          "operator": "Walmart",
+          "region": "South",
+          "last_update": "2024-01-22",
+          "capacity_score": 80.0,
+          "delay_score": 100.0,
+          "utilization_score": 80.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 90.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -94.2088,
+            36.3729
+          ]
+        }
+      },
+      {
+        "id": "10",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Amazon Fulfillment - Dallas",
+          "latitude": 32.8998,
+          "longitude": -97.0403,
+          "node_type": "Distribution",
+          "capacity_units": 22000,
+          "current_delay_hours": 0,
+          "utilization_percent": 73.9,
+          "disruption_level": "None",
+          "operator": "Costco",
+          "region": "East Coast",
+          "last_update": "2024-07-24",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -97.0403,
+            32.8998
+          ]
+        }
+      },
+      {
+        "id": "11",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Target DC - Minneapolis",
+          "latitude": 44.8848,
+          "longitude": -93.2223,
+          "node_type": "Distribution",
+          "capacity_units": 20000,
+          "current_delay_hours": 0,
+          "utilization_percent": 86.1,
+          "disruption_level": "None",
+          "operator": "Target",
+          "region": "East Coast",
+          "last_update": "2024-05-12",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 80.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 87.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -93.2223,
+            44.8848
+          ]
+        }
+      },
+      {
+        "id": "12",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Tesla Gigafactory - Austin",
+          "latitude": 30.2672,
+          "longitude": -97.7431,
+          "node_type": "Manufacturing",
+          "capacity_units": 15000,
+          "current_delay_hours": 0,
+          "utilization_percent": 94.4,
+          "disruption_level": "None",
+          "operator": "Port Authority",
+          "region": "Southwest",
+          "last_update": "2024-02-03",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 60.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 82.5,
+          "flow_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -97.7431,
+            30.2672
+          ]
+        }
+      },
+      {
+        "id": "13",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Ford Rouge Plant - Detroit",
+          "latitude": 42.3314,
+          "longitude": -83.0458,
+          "node_type": "Manufacturing",
+          "capacity_units": 18000,
+          "current_delay_hours": 0,
+          "utilization_percent": 76.8,
+          "disruption_level": "None",
+          "operator": "Port Authority",
+          "region": "Midwest",
+          "last_update": "2024-09-27",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -83.0458,
+            42.3314
+          ]
+        }
+      },
+      {
+        "id": "14",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Boeing Everett - Seattle",
+          "latitude": 47.9298,
+          "longitude": -122.2817,
+          "node_type": "Manufacturing",
+          "capacity_units": 12000,
+          "current_delay_hours": 0,
+          "utilization_percent": 77.3,
+          "disruption_level": "None",
+          "operator": "Amazon",
+          "region": "Southwest",
+          "last_update": "2024-07-03",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.2817,
+            47.9298
+          ]
+        }
+      },
+      {
+        "id": "15",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Intel Fab - Portland",
+          "latitude": 45.5152,
+          "longitude": -122.6784,
+          "node_type": "Manufacturing",
+          "capacity_units": 8000,
+          "current_delay_hours": 0,
+          "utilization_percent": 86.0,
+          "disruption_level": "None",
+          "operator": "Costco",
+          "region": "Midwest",
+          "last_update": "2024-02-20",
+          "capacity_score": 60.0,
+          "delay_score": 100.0,
+          "utilization_score": 80.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 85.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.6784,
+            45.5152
+          ]
+        }
+      },
+      {
+        "id": "16",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Apple Park - Cupertino",
+          "latitude": 37.3349,
+          "longitude": -122.009,
+          "node_type": "Manufacturing",
+          "capacity_units": 10000,
+          "current_delay_hours": 0,
+          "utilization_percent": 76.6,
+          "disruption_level": "None",
+          "operator": "FedEx",
+          "region": "East Coast",
+          "last_update": "2024-03-10",
+          "capacity_score": 60.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 90.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.009,
+            37.3349
+          ]
+        }
+      },
+      {
+        "id": "17",
+        "type": "Feature",
+        "properties": {
+          "node_name": "BNSF Intermodal - Chicago",
+          "latitude": 41.8781,
+          "longitude": -87.6298,
+          "node_type": "Rail",
+          "capacity_units": 32000,
+          "current_delay_hours": 0,
+          "utilization_percent": 74.6,
+          "disruption_level": "None",
+          "operator": "Amazon",
+          "region": "Southwest",
+          "last_update": "2024-06-06",
+          "capacity_score": 80.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 95.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -87.6298,
+            41.8781
+          ]
+        }
+      },
+      {
+        "id": "18",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Union Pacific - Kansas City",
+          "latitude": 39.0997,
+          "longitude": -94.5786,
+          "node_type": "Rail",
+          "capacity_units": 28000,
+          "current_delay_hours": 0,
+          "utilization_percent": 94.9,
+          "disruption_level": "None",
+          "operator": "UPS",
+          "region": "Midwest",
+          "last_update": "2024-06-18",
+          "capacity_score": 80.0,
+          "delay_score": 100.0,
+          "utilization_score": 60.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 85.0,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -94.5786,
+            39.0997
+          ]
+        }
+      },
+      {
+        "id": "19",
+        "type": "Feature",
+        "properties": {
+          "node_name": "CSX Terminal - Atlanta",
+          "latitude": 33.749,
+          "longitude": -84.388,
+          "node_type": "Rail",
+          "capacity_units": 25000,
+          "current_delay_hours": 0,
+          "utilization_percent": 81.3,
+          "disruption_level": "None",
+          "operator": "Walmart",
+          "region": "Midwest",
+          "last_update": "2024-07-25",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -84.388,
+            33.749
+          ]
+        }
+      },
+      {
+        "id": "20",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Norfolk Southern - Norfolk",
+          "latitude": 36.8468,
+          "longitude": -76.2852,
+          "node_type": "Rail",
+          "capacity_units": 22000,
+          "current_delay_hours": 0,
+          "utilization_percent": 75.0,
+          "disruption_level": "None",
+          "operator": "UPS",
+          "region": "West Coast",
+          "last_update": "2024-10-01",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -76.2852,
+            36.8468
+          ]
+        }
+      },
+      {
+        "id": "21",
+        "type": "Feature",
+        "properties": {
+          "node_name": "LAX Cargo - Los Angeles",
+          "latitude": 33.9425,
+          "longitude": -118.4081,
+          "node_type": "Airport",
+          "capacity_units": 18000,
+          "current_delay_hours": 0,
+          "utilization_percent": 77.9,
+          "disruption_level": "None",
+          "operator": "Costco",
+          "region": "South",
+          "last_update": "2024-03-07",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.4081,
+            33.9425
+          ]
+        }
+      },
+      {
+        "id": "22",
+        "type": "Feature",
+        "properties": {
+          "node_name": "JFK Cargo - New York",
+          "latitude": 40.6413,
+          "longitude": -73.7781,
+          "node_type": "Airport",
+          "capacity_units": 16000,
+          "current_delay_hours": 0,
+          "utilization_percent": 74.2,
+          "disruption_level": "None",
+          "operator": "Costco",
+          "region": "Southwest",
+          "last_update": "2024-04-16",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.7781,
+            40.6413
+          ]
+        }
+      },
+      {
+        "id": "23",
+        "type": "Feature",
+        "properties": {
+          "node_name": "ORD Cargo - Chicago",
+          "latitude": 41.9742,
+          "longitude": -87.9073,
+          "node_type": "Airport",
+          "capacity_units": 15000,
+          "current_delay_hours": 0,
+          "utilization_percent": 94.9,
+          "disruption_level": "None",
+          "operator": "UPS",
+          "region": "Midwest",
+          "last_update": "2024-03-24",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 60.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 82.5,
+          "flow_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -87.9073,
+            41.9742
+          ]
+        }
+      },
+      {
+        "id": "24",
+        "type": "Feature",
+        "properties": {
+          "node_name": "MIA Cargo - Miami",
+          "latitude": 25.7959,
+          "longitude": -80.287,
+          "node_type": "Airport",
+          "capacity_units": 14000,
+          "current_delay_hours": 0,
+          "utilization_percent": 76.9,
+          "disruption_level": "None",
+          "operator": "FedEx",
+          "region": "East Coast",
+          "last_update": "2024-03-27",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.287,
+            25.7959
+          ]
+        }
+      },
+      {
+        "id": "25",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Costco DC - Denver",
+          "latitude": 39.7392,
+          "longitude": -104.9903,
+          "node_type": "Distribution",
+          "capacity_units": 12000,
+          "current_delay_hours": 0,
+          "utilization_percent": 83.4,
+          "disruption_level": "None",
+          "operator": "Walmart",
+          "region": "Midwest",
+          "last_update": "2024-03-03",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -104.9903,
+            39.7392
+          ]
+        }
+      },
+      {
+        "id": "26",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Home Depot DC - Atlanta",
+          "latitude": 33.749,
+          "longitude": -84.388,
+          "node_type": "Distribution",
+          "capacity_units": 15000,
+          "current_delay_hours": 0,
+          "utilization_percent": 70.9,
+          "disruption_level": "None",
+          "operator": "Walmart",
+          "region": "West Coast",
+          "last_update": "2024-12-22",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 100.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 92.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -84.388,
+            33.749
+          ]
+        }
+      },
+      {
+        "id": "27",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Kroger DC - Cincinnati",
+          "latitude": 39.1031,
+          "longitude": -84.512,
+          "node_type": "Distribution",
+          "capacity_units": 11000,
+          "current_delay_hours": 0,
+          "utilization_percent": 93.2,
+          "disruption_level": "None",
+          "operator": "Walmart",
+          "region": "Midwest",
+          "last_update": "2024-04-27",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 60.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 82.5,
+          "flow_status": "Good",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -84.512,
+            39.1031
+          ]
+        }
+      },
+      {
+        "id": "28",
+        "type": "Feature",
+        "properties": {
+          "node_name": "Sysco DC - Houston",
+          "latitude": 29.7604,
+          "longitude": -95.3698,
+          "node_type": "Distribution",
+          "capacity_units": 13000,
+          "current_delay_hours": 0,
+          "utilization_percent": 86.7,
+          "disruption_level": "None",
+          "operator": "Costco",
+          "region": "Midwest",
+          "last_update": "2024-10-13",
+          "capacity_score": 70.0,
+          "delay_score": 100.0,
+          "utilization_score": 80.0,
+          "disruption_score": 100.0,
+          "flow_efficiency": 87.5,
+          "flow_status": "Excellent",
+          "economic_impact": 0.0,
+          "condition_category": "Normal Flow",
+          "alert_level": "Low"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.3698,
+            29.7604
+          ]
+        }
+      }
+    ]
+  },
+  "infrastructure": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Los Angeles",
+          "type": "Port",
+          "capacity": 75000,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2922,
+            33.7361
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Long Beach",
+          "type": "Port",
+          "capacity": 65000,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2111,
+            33.7553
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of New York/New Jersey",
+          "type": "Port",
+          "capacity": 55000,
+          "state": "NY"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.0445,
+            40.6892
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "type": "Feature",
+        "properties": {
+          "name": "FedEx Hub - Memphis",
+          "type": "Distribution",
+          "capacity": 30000,
+          "state": "TN"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -89.9773,
+            35.0424
+          ]
+        }
+      },
+      {
+        "id": "4",
+        "type": "Feature",
+        "properties": {
+          "name": "UPS Worldport - Louisville",
+          "type": "Distribution",
+          "capacity": 35000,
+          "state": "KY"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -85.7361,
+            38.1744
+          ]
+        }
+      },
+      {
+        "id": "5",
+        "type": "Feature",
+        "properties": {
+          "name": "Amazon Fulfillment - Phoenix",
+          "type": "Distribution",
+          "capacity": 25000,
+          "state": "AZ"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -112.074,
+            33.4484
+          ]
+        }
+      },
+      {
+        "id": "6",
+        "type": "Feature",
+        "properties": {
+          "name": "Tesla Gigafactory - Austin",
+          "type": "Manufacturing",
+          "capacity": 15000,
+          "state": "TX"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -97.7431,
+            30.2672
+          ]
+        }
+      },
+      {
+        "id": "7",
+        "type": "Feature",
+        "properties": {
+          "name": "Ford Rouge Plant - Detroit",
+          "type": "Manufacturing",
+          "capacity": 18000,
+          "state": "MI"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -83.0458,
+            42.3314
+          ]
+        }
+      },
+      {
+        "id": "8",
+        "type": "Feature",
+        "properties": {
+          "name": "BNSF Intermodal - Chicago",
+          "type": "Rail",
+          "capacity": 32000,
+          "state": "IL"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -87.6298,
+            41.8781
+          ]
+        }
+      },
+      {
+        "id": "9",
+        "type": "Feature",
+        "properties": {
+          "name": "LAX Cargo - Los Angeles",
+          "type": "Airport",
+          "capacity": 18000,
+          "state": "CA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.4081,
+            33.9425
+          ]
+        }
+      },
+      {
+        "id": "10",
+        "type": "Feature",
+        "properties": {
+          "name": "JFK Cargo - New York",
+          "type": "Airport",
+          "capacity": 16000,
+          "state": "NY"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.7781,
+            40.6413
+          ]
+        }
+      },
+      {
+        "id": "11",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Savannah",
+          "type": "Port",
+          "capacity": 45000,
+          "state": "GA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.1888,
+            32.1347
+          ]
+        }
+      },
+      {
+        "id": "12",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Seattle",
+          "type": "Port",
+          "capacity": 35000,
+          "state": "WA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.3316,
+            47.5952
+          ]
+        }
+      },
+      {
+        "id": "13",
+        "type": "Feature",
+        "properties": {
+          "name": "Boeing Everett - Seattle",
+          "type": "Manufacturing",
+          "capacity": 12000,
+          "state": "WA"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.2817,
+            47.9298
+          ]
+        }
+      },
+      {
+        "id": "14",
+        "type": "Feature",
+        "properties": {
+          "name": "Walmart DC - Bentonville",
+          "type": "Distribution",
+          "capacity": 28000,
+          "state": "AR"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -94.2088,
+            36.3729
+          ]
+        }
+      }
+    ]
+  },
+  "flow_connections": [
+    {
+      "origin_id": 0,
+      "target_id": 6,
+      "origin_coords": [
+        -118.2922,
+        33.7361
+      ],
+      "target_coords": [
+        -112.074,
+        33.4484
+      ],
+      "flow_volume": 3499.0,
+      "flow_health": 95.0,
+      "transport_mode": "Rail",
+      "estimated_time": 4
+    },
+    {
+      "origin_id": 0,
+      "target_id": 4,
+      "origin_coords": [
+        -118.2922,
+        33.7361
+      ],
+      "target_coords": [
+        -122.3316,
+        47.5952
+      ],
+      "flow_volume": 5875.0,
+      "flow_health": 93.8,
+      "transport_mode": "Truck",
+      "estimated_time": 41
+    },
+    {
+      "origin_id": 0,
+      "target_id": 28,
+      "origin_coords": [
+        -118.2922,
+        33.7361
+      ],
+      "target_coords": [
+        -95.3698,
+        29.7604
+      ],
+      "flow_volume": 3438.0,
+      "flow_health": 92.5,
+      "transport_mode": "Ship",
+      "estimated_time": 34
+    },
+    {
+      "origin_id": 1,
+      "target_id": 9,
+      "origin_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "target_coords": [
+        -94.2088,
+        36.3729
+      ],
+      "flow_volume": 7747.0,
+      "flow_health": 93.8,
+      "transport_mode": "Rail",
+      "estimated_time": 65
+    },
+    {
+      "origin_id": 1,
+      "target_id": 27,
+      "origin_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "target_coords": [
+        -84.512,
+        39.1031
+      ],
+      "flow_volume": 2787.0,
+      "flow_health": 90.0,
+      "transport_mode": "Ship",
+      "estimated_time": 6
+    },
+    {
+      "origin_id": 1,
+      "target_id": 26,
+      "origin_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "target_coords": [
+        -84.388,
+        33.749
+      ],
+      "flow_volume": 1630.0,
+      "flow_health": 95.0,
+      "transport_mode": "Air",
+      "estimated_time": 10
+    },
+    {
+      "origin_id": 1,
+      "target_id": 8,
+      "origin_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "target_coords": [
+        -85.7361,
+        38.1744
+      ],
+      "flow_volume": 3828.0,
+      "flow_health": 96.2,
+      "transport_mode": "Truck",
+      "estimated_time": 62
+    },
+    {
+      "origin_id": 2,
+      "target_id": 16,
+      "origin_coords": [
+        -74.0445,
+        40.6892
+      ],
+      "target_coords": [
+        -122.009,
+        37.3349
+      ],
+      "flow_volume": 2299.0,
+      "flow_health": 91.2,
+      "transport_mode": "Rail",
+      "estimated_time": 25
+    },
+    {
+      "origin_id": 2,
+      "target_id": 7,
+      "origin_coords": [
+        -74.0445,
+        40.6892
+      ],
+      "target_coords": [
+        -89.9773,
+        35.0424
+      ],
+      "flow_volume": 8963.0,
+      "flow_health": 93.8,
+      "transport_mode": "Truck",
+      "estimated_time": 25
+    },
+    {
+      "origin_id": 2,
+      "target_id": 12,
+      "origin_coords": [
+        -74.0445,
+        40.6892
+      ],
+      "target_coords": [
+        -97.7431,
+        30.2672
+      ],
+      "flow_volume": 1526.0,
+      "flow_health": 87.5,
+      "transport_mode": "Air",
+      "estimated_time": 71
+    },
+    {
+      "origin_id": 2,
+      "target_id": 0,
+      "origin_coords": [
+        -74.0445,
+        40.6892
+      ],
+      "target_coords": [
+        -118.2922,
+        33.7361
+      ],
+      "flow_volume": 10347.0,
+      "flow_health": 95.0,
+      "transport_mode": "Air",
+      "estimated_time": 39
+    },
+    {
+      "origin_id": 3,
+      "target_id": 5,
+      "origin_coords": [
+        -81.1888,
+        32.1347
+      ],
+      "target_coords": [
+        -95.2861,
+        29.7372
+      ],
+      "flow_volume": 7553.0,
+      "flow_health": 92.5,
+      "transport_mode": "Truck",
+      "estimated_time": 22
+    },
+    {
+      "origin_id": 3,
+      "target_id": 2,
+      "origin_coords": [
+        -81.1888,
+        32.1347
+      ],
+      "target_coords": [
+        -74.0445,
+        40.6892
+      ],
+      "flow_volume": 5115.0,
+      "flow_health": 91.2,
+      "transport_mode": "Air",
+      "estimated_time": 71
+    },
+    {
+      "origin_id": 3,
+      "target_id": 1,
+      "origin_coords": [
+        -81.1888,
+        32.1347
+      ],
+      "target_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "flow_volume": 6980.0,
+      "flow_health": 93.8,
+      "transport_mode": "Truck",
+      "estimated_time": 39
+    },
+    {
+      "origin_id": 4,
+      "target_id": 13,
+      "origin_coords": [
+        -122.3316,
+        47.5952
+      ],
+      "target_coords": [
+        -83.0458,
+        42.3314
+      ],
+      "flow_volume": 2785.0,
+      "flow_health": 91.2,
+      "transport_mode": "Air",
+      "estimated_time": 59
+    },
+    {
+      "origin_id": 4,
+      "target_id": 24,
+      "origin_coords": [
+        -122.3316,
+        47.5952
+      ],
+      "target_coords": [
+        -80.287,
+        25.7959
+      ],
+      "flow_volume": 2254.0,
+      "flow_health": 91.2,
+      "transport_mode": "Ship",
+      "estimated_time": 64
+    },
+    {
+      "origin_id": 4,
+      "target_id": 3,
+      "origin_coords": [
+        -122.3316,
+        47.5952
+      ],
+      "target_coords": [
+        -81.1888,
+        32.1347
+      ],
+      "flow_volume": 5404.0,
+      "flow_health": 90.0,
+      "transport_mode": "Rail",
+      "estimated_time": 66
+    },
+    {
+      "origin_id": 5,
+      "target_id": 12,
+      "origin_coords": [
+        -95.2861,
+        29.7372
+      ],
+      "target_coords": [
+        -97.7431,
+        30.2672
+      ],
+      "flow_volume": 3671.0,
+      "flow_health": 88.8,
+      "transport_mode": "Rail",
+      "estimated_time": 67
+    },
+    {
+      "origin_id": 5,
+      "target_id": 8,
+      "origin_coords": [
+        -95.2861,
+        29.7372
+      ],
+      "target_coords": [
+        -85.7361,
+        38.1744
+      ],
+      "flow_volume": 10407.0,
+      "flow_health": 95.0,
+      "transport_mode": "Truck",
+      "estimated_time": 55
+    },
+    {
+      "origin_id": 5,
+      "target_id": 4,
+      "origin_coords": [
+        -95.2861,
+        29.7372
+      ],
+      "target_coords": [
+        -122.3316,
+        47.5952
+      ],
+      "flow_volume": 5199.0,
+      "flow_health": 92.5,
+      "transport_mode": "Rail",
+      "estimated_time": 13
+    },
+    {
+      "origin_id": 5,
+      "target_id": 6,
+      "origin_coords": [
+        -95.2861,
+        29.7372
+      ],
+      "target_coords": [
+        -112.074,
+        33.4484
+      ],
+      "flow_volume": 3504.0,
+      "flow_health": 93.8,
+      "transport_mode": "Rail",
+      "estimated_time": 36
+    },
+    {
+      "origin_id": 6,
+      "target_id": 14,
+      "origin_coords": [
+        -112.074,
+        33.4484
+      ],
+      "target_coords": [
+        -122.2817,
+        47.9298
+      ],
+      "flow_volume": 2575.0,
+      "flow_health": 92.5,
+      "transport_mode": "Air",
+      "estimated_time": 18
+    },
+    {
+      "origin_id": 6,
+      "target_id": 5,
+      "origin_coords": [
+        -112.074,
+        33.4484
+      ],
+      "target_coords": [
+        -95.2861,
+        29.7372
+      ],
+      "flow_volume": 4029.0,
+      "flow_health": 93.8,
+      "transport_mode": "Ship",
+      "estimated_time": 36
+    },
+    {
+      "origin_id": 6,
+      "target_id": 12,
+      "origin_coords": [
+        -112.074,
+        33.4484
+      ],
+      "target_coords": [
+        -97.7431,
+        30.2672
+      ],
+      "flow_volume": 4077.0,
+      "flow_health": 87.5,
+      "transport_mode": "Truck",
+      "estimated_time": 29
+    },
+    {
+      "origin_id": 6,
+      "target_id": 20,
+      "origin_coords": [
+        -112.074,
+        33.4484
+      ],
+      "target_coords": [
+        -76.2852,
+        36.8468
+      ],
+      "flow_volume": 2394.0,
+      "flow_health": 92.5,
+      "transport_mode": "Truck",
+      "estimated_time": 17
+    },
+    {
+      "origin_id": 7,
+      "target_id": 11,
+      "origin_coords": [
+        -89.9773,
+        35.0424
+      ],
+      "target_coords": [
+        -93.2223,
+        44.8848
+      ],
+      "flow_volume": 4149.0,
+      "flow_health": 91.2,
+      "transport_mode": "Ship",
+      "estimated_time": 35
+    },
+    {
+      "origin_id": 7,
+      "target_id": 10,
+      "origin_coords": [
+        -89.9773,
+        35.0424
+      ],
+      "target_coords": [
+        -97.0403,
+        32.8998
+      ],
+      "flow_volume": 3903.0,
+      "flow_health": 93.8,
+      "transport_mode": "Rail",
+      "estimated_time": 41
+    },
+    {
+      "origin_id": 7,
+      "target_id": 2,
+      "origin_coords": [
+        -89.9773,
+        35.0424
+      ],
+      "target_coords": [
+        -74.0445,
+        40.6892
+      ],
+      "flow_volume": 4314.0,
+      "flow_health": 93.8,
+      "transport_mode": "Rail",
+      "estimated_time": 18
+    },
+    {
+      "origin_id": 7,
+      "target_id": 13,
+      "origin_coords": [
+        -89.9773,
+        35.0424
+      ],
+      "target_coords": [
+        -83.0458,
+        42.3314
+      ],
+      "flow_volume": 2072.0,
+      "flow_health": 93.8,
+      "transport_mode": "Truck",
+      "estimated_time": 23
+    },
+    {
+      "origin_id": 8,
+      "target_id": 20,
+      "origin_coords": [
+        -85.7361,
+        38.1744
+      ],
+      "target_coords": [
+        -76.2852,
+        36.8468
+      ],
+      "flow_volume": 5768.0,
+      "flow_health": 93.8,
+      "transport_mode": "Air",
+      "estimated_time": 49
+    },
+    {
+      "origin_id": 8,
+      "target_id": 3,
+      "origin_coords": [
+        -85.7361,
+        38.1744
+      ],
+      "target_coords": [
+        -81.1888,
+        32.1347
+      ],
+      "flow_volume": 9421.0,
+      "flow_health": 92.5,
+      "transport_mode": "Ship",
+      "estimated_time": 49
+    },
+    {
+      "origin_id": 8,
+      "target_id": 23,
+      "origin_coords": [
+        -85.7361,
+        38.1744
+      ],
+      "target_coords": [
+        -87.9073,
+        41.9742
+      ],
+      "flow_volume": 1595.0,
+      "flow_health": 88.8,
+      "transport_mode": "Air",
+      "estimated_time": 48
+    },
+    {
+      "origin_id": 9,
+      "target_id": 4,
+      "origin_coords": [
+        -94.2088,
+        36.3729
+      ],
+      "target_coords": [
+        -122.3316,
+        47.5952
+      ],
+      "flow_volume": 6003.0,
+      "flow_health": 90.0,
+      "transport_mode": "Rail",
+      "estimated_time": 21
+    },
+    {
+      "origin_id": 9,
+      "target_id": 22,
+      "origin_coords": [
+        -94.2088,
+        36.3729
+      ],
+      "target_coords": [
+        -73.7781,
+        40.6413
+      ],
+      "flow_volume": 3882.0,
+      "flow_health": 91.2,
+      "transport_mode": "Air",
+      "estimated_time": 43
+    },
+    {
+      "origin_id": 9,
+      "target_id": 17,
+      "origin_coords": [
+        -94.2088,
+        36.3729
+      ],
+      "target_coords": [
+        -87.6298,
+        41.8781
+      ],
+      "flow_volume": 4080.0,
+      "flow_health": 92.5,
+      "transport_mode": "Ship",
+      "estimated_time": 29
+    },
+    {
+      "origin_id": 9,
+      "target_id": 1,
+      "origin_coords": [
+        -94.2088,
+        36.3729
+      ],
+      "target_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "flow_volume": 5189.0,
+      "flow_health": 93.8,
+      "transport_mode": "Air",
+      "estimated_time": 50
+    },
+    {
+      "origin_id": 10,
+      "target_id": 3,
+      "origin_coords": [
+        -97.0403,
+        32.8998
+      ],
+      "target_coords": [
+        -81.1888,
+        32.1347
+      ],
+      "flow_volume": 4723.0,
+      "flow_health": 91.2,
+      "transport_mode": "Truck",
+      "estimated_time": 12
+    },
+    {
+      "origin_id": 10,
+      "target_id": 28,
+      "origin_coords": [
+        -97.0403,
+        32.8998
+      ],
+      "target_coords": [
+        -95.3698,
+        29.7604
+      ],
+      "flow_volume": 2053.0,
+      "flow_health": 90.0,
+      "transport_mode": "Air",
+      "estimated_time": 30
+    },
+    {
+      "origin_id": 11,
+      "target_id": 15,
+      "origin_coords": [
+        -93.2223,
+        44.8848
+      ],
+      "target_coords": [
+        -122.6784,
+        45.5152
+      ],
+      "flow_volume": 1687.0,
+      "flow_health": 86.2,
+      "transport_mode": "Ship",
+      "estimated_time": 21
+    },
+    {
+      "origin_id": 11,
+      "target_id": 16,
+      "origin_coords": [
+        -93.2223,
+        44.8848
+      ],
+      "target_coords": [
+        -122.009,
+        37.3349
+      ],
+      "flow_volume": 1922.0,
+      "flow_health": 88.8,
+      "transport_mode": "Rail",
+      "estimated_time": 43
+    },
+    {
+      "origin_id": 11,
+      "target_id": 6,
+      "origin_coords": [
+        -93.2223,
+        44.8848
+      ],
+      "target_coords": [
+        -112.074,
+        33.4484
+      ],
+      "flow_volume": 3892.0,
+      "flow_health": 90.0,
+      "transport_mode": "Ship",
+      "estimated_time": 29
+    },
+    {
+      "origin_id": 12,
+      "target_id": 15,
+      "origin_coords": [
+        -97.7431,
+        30.2672
+      ],
+      "target_coords": [
+        -122.6784,
+        45.5152
+      ],
+      "flow_volume": 914.0,
+      "flow_health": 83.8,
+      "transport_mode": "Ship",
+      "estimated_time": 8
+    },
+    {
+      "origin_id": 12,
+      "target_id": 16,
+      "origin_coords": [
+        -97.7431,
+        30.2672
+      ],
+      "target_coords": [
+        -122.009,
+        37.3349
+      ],
+      "flow_volume": 1694.0,
+      "flow_health": 86.2,
+      "transport_mode": "Ship",
+      "estimated_time": 49
+    },
+    {
+      "origin_id": 13,
+      "target_id": 26,
+      "origin_coords": [
+        -83.0458,
+        42.3314
+      ],
+      "target_coords": [
+        -84.388,
+        33.749
+      ],
+      "flow_volume": 2544.0,
+      "flow_health": 92.5,
+      "transport_mode": "Truck",
+      "estimated_time": 8
+    },
+    {
+      "origin_id": 13,
+      "target_id": 25,
+      "origin_coords": [
+        -83.0458,
+        42.3314
+      ],
+      "target_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "flow_volume": 2928.0,
+      "flow_health": 92.5,
+      "transport_mode": "Rail",
+      "estimated_time": 53
+    },
+    {
+      "origin_id": 13,
+      "target_id": 14,
+      "origin_coords": [
+        -83.0458,
+        42.3314
+      ],
+      "target_coords": [
+        -122.2817,
+        47.9298
+      ],
+      "flow_volume": 2284.0,
+      "flow_health": 92.5,
+      "transport_mode": "Ship",
+      "estimated_time": 32
+    },
+    {
+      "origin_id": 14,
+      "target_id": 1,
+      "origin_coords": [
+        -122.2817,
+        47.9298
+      ],
+      "target_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "flow_volume": 2055.0,
+      "flow_health": 95.0,
+      "transport_mode": "Air",
+      "estimated_time": 13
+    },
+    {
+      "origin_id": 14,
+      "target_id": 25,
+      "origin_coords": [
+        -122.2817,
+        47.9298
+      ],
+      "target_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "flow_volume": 3492.0,
+      "flow_health": 92.5,
+      "transport_mode": "Truck",
+      "estimated_time": 28
+    },
+    {
+      "origin_id": 14,
+      "target_id": 24,
+      "origin_coords": [
+        -122.2817,
+        47.9298
+      ],
+      "target_coords": [
+        -80.287,
+        25.7959
+      ],
+      "flow_volume": 2017.0,
+      "flow_health": 92.5,
+      "transport_mode": "Truck",
+      "estimated_time": 40
+    },
+    {
+      "origin_id": 15,
+      "target_id": 25,
+      "origin_coords": [
+        -122.6784,
+        45.5152
+      ],
+      "target_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "flow_volume": 1260.0,
+      "flow_health": 88.8,
+      "transport_mode": "Truck",
+      "estimated_time": 64
+    },
+    {
+      "origin_id": 15,
+      "target_id": 3,
+      "origin_coords": [
+        -122.6784,
+        45.5152
+      ],
+      "target_coords": [
+        -81.1888,
+        32.1347
+      ],
+      "flow_volume": 2316.0,
+      "flow_health": 87.5,
+      "transport_mode": "Rail",
+      "estimated_time": 19
+    },
+    {
+      "origin_id": 15,
+      "target_id": 28,
+      "origin_coords": [
+        -122.6784,
+        45.5152
+      ],
+      "target_coords": [
+        -95.3698,
+        29.7604
+      ],
+      "flow_volume": 1279.0,
+      "flow_health": 86.2,
+      "transport_mode": "Truck",
+      "estimated_time": 13
+    },
+    {
+      "origin_id": 16,
+      "target_id": 19,
+      "origin_coords": [
+        -122.009,
+        37.3349
+      ],
+      "target_coords": [
+        -84.388,
+        33.749
+      ],
+      "flow_volume": 1229.0,
+      "flow_health": 91.2,
+      "transport_mode": "Rail",
+      "estimated_time": 57
+    },
+    {
+      "origin_id": 16,
+      "target_id": 15,
+      "origin_coords": [
+        -122.009,
+        37.3349
+      ],
+      "target_coords": [
+        -122.6784,
+        45.5152
+      ],
+      "flow_volume": 1441.0,
+      "flow_health": 87.5,
+      "transport_mode": "Air",
+      "estimated_time": 42
+    },
+    {
+      "origin_id": 17,
+      "target_id": 9,
+      "origin_coords": [
+        -87.6298,
+        41.8781
+      ],
+      "target_coords": [
+        -94.2088,
+        36.3729
+      ],
+      "flow_volume": 3875.0,
+      "flow_health": 92.5,
+      "transport_mode": "Truck",
+      "estimated_time": 10
+    },
+    {
+      "origin_id": 17,
+      "target_id": 21,
+      "origin_coords": [
+        -87.6298,
+        41.8781
+      ],
+      "target_coords": [
+        -118.4081,
+        33.9425
+      ],
+      "flow_volume": 3404.0,
+      "flow_health": 93.8,
+      "transport_mode": "Rail",
+      "estimated_time": 63
+    },
+    {
+      "origin_id": 18,
+      "target_id": 19,
+      "origin_coords": [
+        -94.5786,
+        39.0997
+      ],
+      "target_coords": [
+        -84.388,
+        33.749
+      ],
+      "flow_volume": 3705.0,
+      "flow_health": 88.8,
+      "transport_mode": "Rail",
+      "estimated_time": 15
+    },
+    {
+      "origin_id": 18,
+      "target_id": 23,
+      "origin_coords": [
+        -94.5786,
+        39.0997
+      ],
+      "target_coords": [
+        -87.9073,
+        41.9742
+      ],
+      "flow_volume": 3379.0,
+      "flow_health": 83.8,
+      "transport_mode": "Air",
+      "estimated_time": 49
+    },
+    {
+      "origin_id": 19,
+      "target_id": 1,
+      "origin_coords": [
+        -84.388,
+        33.749
+      ],
+      "target_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "flow_volume": 4229.0,
+      "flow_health": 95.0,
+      "transport_mode": "Rail",
+      "estimated_time": 20
+    },
+    {
+      "origin_id": 19,
+      "target_id": 20,
+      "origin_coords": [
+        -84.388,
+        33.749
+      ],
+      "target_coords": [
+        -76.2852,
+        36.8468
+      ],
+      "flow_volume": 3687.0,
+      "flow_health": 92.5,
+      "transport_mode": "Truck",
+      "estimated_time": 52
+    },
+    {
+      "origin_id": 20,
+      "target_id": 26,
+      "origin_coords": [
+        -76.2852,
+        36.8468
+      ],
+      "target_coords": [
+        -84.388,
+        33.749
+      ],
+      "flow_volume": 1906.0,
+      "flow_health": 92.5,
+      "transport_mode": "Truck",
+      "estimated_time": 29
+    },
+    {
+      "origin_id": 20,
+      "target_id": 22,
+      "origin_coords": [
+        -76.2852,
+        36.8468
+      ],
+      "target_coords": [
+        -73.7781,
+        40.6413
+      ],
+      "flow_volume": 3705.0,
+      "flow_health": 92.5,
+      "transport_mode": "Ship",
+      "estimated_time": 7
+    },
+    {
+      "origin_id": 20,
+      "target_id": 18,
+      "origin_coords": [
+        -76.2852,
+        36.8468
+      ],
+      "target_coords": [
+        -94.5786,
+        39.0997
+      ],
+      "flow_volume": 3208.0,
+      "flow_health": 88.8,
+      "transport_mode": "Air",
+      "estimated_time": 5
+    },
+    {
+      "origin_id": 21,
+      "target_id": 15,
+      "origin_coords": [
+        -118.4081,
+        33.9425
+      ],
+      "target_coords": [
+        -122.6784,
+        45.5152
+      ],
+      "flow_volume": 1687.0,
+      "flow_health": 88.8,
+      "transport_mode": "Ship",
+      "estimated_time": 51
+    },
+    {
+      "origin_id": 21,
+      "target_id": 25,
+      "origin_coords": [
+        -118.4081,
+        33.9425
+      ],
+      "target_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "flow_volume": 2942.0,
+      "flow_health": 92.5,
+      "transport_mode": "Air",
+      "estimated_time": 43
+    },
+    {
+      "origin_id": 22,
+      "target_id": 16,
+      "origin_coords": [
+        -73.7781,
+        40.6413
+      ],
+      "target_coords": [
+        -122.009,
+        37.3349
+      ],
+      "flow_volume": 2078.0,
+      "flow_health": 91.2,
+      "transport_mode": "Rail",
+      "estimated_time": 61
+    },
+    {
+      "origin_id": 22,
+      "target_id": 23,
+      "origin_coords": [
+        -73.7781,
+        40.6413
+      ],
+      "target_coords": [
+        -87.9073,
+        41.9742
+      ],
+      "flow_volume": 2240.0,
+      "flow_health": 87.5,
+      "transport_mode": "Air",
+      "estimated_time": 12
+    },
+    {
+      "origin_id": 23,
+      "target_id": 12,
+      "origin_coords": [
+        -87.9073,
+        41.9742
+      ],
+      "target_coords": [
+        -97.7431,
+        30.2672
+      ],
+      "flow_volume": 3285.0,
+      "flow_health": 82.5,
+      "transport_mode": "Truck",
+      "estimated_time": 58
+    },
+    {
+      "origin_id": 23,
+      "target_id": 8,
+      "origin_coords": [
+        -87.9073,
+        41.9742
+      ],
+      "target_coords": [
+        -85.7361,
+        38.1744
+      ],
+      "flow_volume": 3219.0,
+      "flow_health": 88.8,
+      "transport_mode": "Air",
+      "estimated_time": 8
+    },
+    {
+      "origin_id": 23,
+      "target_id": 24,
+      "origin_coords": [
+        -87.9073,
+        41.9742
+      ],
+      "target_coords": [
+        -80.287,
+        25.7959
+      ],
+      "flow_volume": 1460.0,
+      "flow_health": 87.5,
+      "transport_mode": "Truck",
+      "estimated_time": 68
+    },
+    {
+      "origin_id": 24,
+      "target_id": 25,
+      "origin_coords": [
+        -80.287,
+        25.7959
+      ],
+      "target_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "flow_volume": 1979.0,
+      "flow_health": 92.5,
+      "transport_mode": "Air",
+      "estimated_time": 27
+    },
+    {
+      "origin_id": 24,
+      "target_id": 20,
+      "origin_coords": [
+        -80.287,
+        25.7959
+      ],
+      "target_coords": [
+        -76.2852,
+        36.8468
+      ],
+      "flow_volume": 3112.0,
+      "flow_health": 92.5,
+      "transport_mode": "Rail",
+      "estimated_time": 8
+    },
+    {
+      "origin_id": 25,
+      "target_id": 1,
+      "origin_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "target_coords": [
+        -118.2111,
+        33.7553
+      ],
+      "flow_volume": 3579.0,
+      "flow_health": 95.0,
+      "transport_mode": "Air",
+      "estimated_time": 58
+    },
+    {
+      "origin_id": 25,
+      "target_id": 7,
+      "origin_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "target_coords": [
+        -89.9773,
+        35.0424
+      ],
+      "flow_volume": 2226.0,
+      "flow_health": 93.8,
+      "transport_mode": "Air",
+      "estimated_time": 33
+    },
+    {
+      "origin_id": 25,
+      "target_id": 22,
+      "origin_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "target_coords": [
+        -73.7781,
+        40.6413
+      ],
+      "flow_volume": 2932.0,
+      "flow_health": 92.5,
+      "transport_mode": "Air",
+      "estimated_time": 30
+    },
+    {
+      "origin_id": 25,
+      "target_id": 2,
+      "origin_coords": [
+        -104.9903,
+        39.7392
+      ],
+      "target_coords": [
+        -74.0445,
+        40.6892
+      ],
+      "flow_volume": 1967.0,
+      "flow_health": 92.5,
+      "transport_mode": "Ship",
+      "estimated_time": 41
+    },
+    {
+      "origin_id": 26,
+      "target_id": 2,
+      "origin_coords": [
+        -84.388,
+        33.749
+      ],
+      "target_coords": [
+        -74.0445,
+        40.6892
+      ],
+      "flow_volume": 2940.0,
+      "flow_health": 92.5,
+      "transport_mode": "Rail",
+      "estimated_time": 42
+    },
+    {
+      "origin_id": 26,
+      "target_id": 6,
+      "origin_coords": [
+        -84.388,
+        33.749
+      ],
+      "target_coords": [
+        -112.074,
+        33.4484
+      ],
+      "flow_volume": 2290.0,
+      "flow_health": 92.5,
+      "transport_mode": "Air",
+      "estimated_time": 43
+    },
+    {
+      "origin_id": 27,
+      "target_id": 24,
+      "origin_coords": [
+        -84.512,
+        39.1031
+      ],
+      "target_coords": [
+        -80.287,
+        25.7959
+      ],
+      "flow_volume": 1420.0,
+      "flow_health": 87.5,
+      "transport_mode": "Rail",
+      "estimated_time": 40
+    },
+    {
+      "origin_id": 27,
+      "target_id": 22,
+      "origin_coords": [
+        -84.512,
+        39.1031
+      ],
+      "target_coords": [
+        -73.7781,
+        40.6413
+      ],
+      "flow_volume": 1352.0,
+      "flow_health": 87.5,
+      "transport_mode": "Ship",
+      "estimated_time": 33
+    },
+    {
+      "origin_id": 28,
+      "target_id": 26,
+      "origin_coords": [
+        -95.3698,
+        29.7604
+      ],
+      "target_coords": [
+        -84.388,
+        33.749
+      ],
+      "flow_volume": 3744.0,
+      "flow_health": 90.0,
+      "transport_mode": "Truck",
+      "estimated_time": 58
+    },
+    {
+      "origin_id": 28,
+      "target_id": 5,
+      "origin_coords": [
+        -95.3698,
+        29.7604
+      ],
+      "target_coords": [
+        -95.2861,
+        29.7372
+      ],
+      "flow_volume": 2232.0,
+      "flow_health": 91.2,
+      "transport_mode": "Truck",
+      "estimated_time": 7
+    }
+  ],
+  "regional_health": {
+    "Northeast": {
+      "avg_flow_efficiency": 92.5,
+      "total_capacity": 71000.0,
+      "node_count": 2,
+      "critical_count": 0,
+      "avg_delay": 0.0
+    },
+    "Southeast": {
+      "avg_flow_efficiency": 91.6,
+      "total_capacity": 197000.0,
+      "node_count": 8,
+      "critical_count": 0,
+      "avg_delay": 0.0
+    },
+    "Midwest": {
+      "avg_flow_efficiency": 89.4,
+      "total_capacity": 217000.0,
+      "node_count": 9,
+      "critical_count": 0,
+      "avg_delay": 0.0
+    },
+    "Southwest": {
+      "avg_flow_efficiency": 93.8,
+      "total_capacity": 205000.0,
+      "node_count": 6,
+      "critical_count": 0,
+      "avg_delay": 0.0
+    },
+    "West": {
+      "avg_flow_efficiency": 92.2,
+      "total_capacity": 248000.0,
+      "node_count": 8,
+      "critical_count": 0,
+      "avg_delay": 0.0
+    }
+  },
+  "summary": {
+    "total_nodes": 29,
+    "avg_flow_efficiency": 90.9,
+    "critical_nodes": 0,
+    "total_capacity": 759000.0,
+    "nodes_with_delays": 0,
+    "high_risk_nodes": 0,
+    "active_flows": 82
+  }
+}

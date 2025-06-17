@@ -2,6 +2,12 @@
 
 ![Energy Grid Now](https://img.shields.io/badge/PyMapGIS-Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Energy Grid Now in Action**: https://youtu.be/VXZm4s2nayw
+
+See the enhanced lighter map styling, real-time power grid monitoring, multi-dimensional resilience analysis, and interactive regional health tracking in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Energy Grid Now demonstrates **real-time power grid monitoring and outage impact analysis** using PyMapGIS. This showcase addresses critical infrastructure resilience needs by:

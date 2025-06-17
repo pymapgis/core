@@ -1,0 +1,17 @@
+# Supply Chain Flow Now - Minimal Dependencies
+# Most dependencies are provided by the PyMapGIS base image
+
+# All core dependencies (already in base image):
+# fastapi==0.104.1
+# uvicorn[standard]==0.24.0
+# pandas==2.1.3
+# geopandas==0.14.1
+# requests==2.31.0
+# matplotlib==3.8.2
+# fiona==1.9.5
+# shapely==2.0.2
+# pyproj==3.6.1
+# python-dotenv==1.0.0
+
+# Supply chain-specific packages (if any needed in future)
+# Add any logistics/supply chain-specific packages here
