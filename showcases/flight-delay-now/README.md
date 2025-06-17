@@ -4,6 +4,12 @@
 
 ![Flight Delay Now](https://img.shields.io/badge/PyMapGIS-Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Flight Delay Now in Action**: https://youtu.be/QUd9phGTVXY
+
+See the interactive map, real-time FAA data processing, and airport delay visualization in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 - **100% Open Data**: Only FAA OIS current delay feed - no API keys required

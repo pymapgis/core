@@ -1,0 +1,4005 @@
+{
+  "vessels": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1000,
+          "name": "VESSEL_1000",
+          "vessel_type": "Tanker",
+          "latitude": 33.89584561959397,
+          "longitude": -118.17441546710936,
+          "speed": 5.5,
+          "course": 345,
+          "length": 227,
+          "width": 25,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.17441546710936,
+            33.89584561959397
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1001,
+          "name": "VESSEL_1001",
+          "vessel_type": "Cargo",
+          "latitude": 33.83497347665829,
+          "longitude": -118.21847450736075,
+          "speed": 16.5,
+          "course": 147,
+          "length": 121,
+          "width": 42,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.21847450736075,
+            33.83497347665829
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1002,
+          "name": "VESSEL_1002",
+          "vessel_type": "Passenger",
+          "latitude": 33.58087493500392,
+          "longitude": -118.17805626941119,
+          "speed": 6.9,
+          "course": 150,
+          "length": 167,
+          "width": 52,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.17805626941119,
+            33.58087493500392
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1003,
+          "name": "VESSEL_1003",
+          "vessel_type": "Tanker",
+          "latitude": 33.646357525574,
+          "longitude": -118.2828750333026,
+          "speed": 8.0,
+          "course": 37,
+          "length": 63,
+          "width": 59,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2828750333026,
+            33.646357525574
+          ]
+        }
+      },
+      {
+        "id": "4",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1004,
+          "name": "VESSEL_1004",
+          "vessel_type": "Fishing",
+          "latitude": 33.863313477338146,
+          "longitude": -118.1815526373354,
+          "speed": 19.3,
+          "course": 300,
+          "length": 212,
+          "width": 52,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.1815526373354,
+            33.863313477338146
+          ]
+        }
+      },
+      {
+        "id": "5",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1005,
+          "name": "VESSEL_1005",
+          "vessel_type": "Other",
+          "latitude": 33.516425600921494,
+          "longitude": -118.45234410820379,
+          "speed": 9.0,
+          "course": 132,
+          "length": 322,
+          "width": 40,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.45234410820379,
+            33.516425600921494
+          ]
+        }
+      },
+      {
+        "id": "6",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1006,
+          "name": "VESSEL_1006",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 33.839847148803734,
+          "longitude": -118.47755041061977,
+          "speed": 15.6,
+          "course": 217,
+          "length": 53,
+          "width": 55,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.47755041061977,
+            33.839847148803734
+          ]
+        }
+      },
+      {
+        "id": "7",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1007,
+          "name": "VESSEL_1007",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 33.75430344682356,
+          "longitude": -118.36466540909494,
+          "speed": 11.8,
+          "course": 67,
+          "length": 332,
+          "width": 57,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.36466540909494,
+            33.75430344682356
+          ]
+        }
+      },
+      {
+        "id": "8",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1008,
+          "name": "VESSEL_1008",
+          "vessel_type": "Fishing",
+          "latitude": 33.71217781887307,
+          "longitude": -118.25995174206898,
+          "speed": 19.0,
+          "course": 316,
+          "length": 276,
+          "width": 27,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.25995174206898,
+            33.71217781887307
+          ]
+        }
+      },
+      {
+        "id": "9",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1009,
+          "name": "VESSEL_1009",
+          "vessel_type": "Cargo",
+          "latitude": 33.55027475185513,
+          "longitude": -118.45084620215707,
+          "speed": 2.6,
+          "course": 160,
+          "length": 79,
+          "width": 47,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Maneuvering",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.45084620215707,
+            33.55027475185513
+          ]
+        }
+      },
+      {
+        "id": "10",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1010,
+          "name": "VESSEL_1010",
+          "vessel_type": "Container",
+          "latitude": 33.729309979538215,
+          "longitude": -118.22975016191884,
+          "speed": 10.0,
+          "course": 343,
+          "length": 108,
+          "width": 51,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.22975016191884,
+            33.729309979538215
+          ]
+        }
+      },
+      {
+        "id": "11",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1011,
+          "name": "VESSEL_1011",
+          "vessel_type": "Other",
+          "latitude": 33.81504555644532,
+          "longitude": -118.27070125003307,
+          "speed": 8.3,
+          "course": 263,
+          "length": 108,
+          "width": 28,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.27070125003307,
+            33.81504555644532
+          ]
+        }
+      },
+      {
+        "id": "12",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1012,
+          "name": "VESSEL_1012",
+          "vessel_type": "Fishing",
+          "latitude": 33.626929613886645,
+          "longitude": -118.2744932283856,
+          "speed": 3.1,
+          "course": 131,
+          "length": 388,
+          "width": 17,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2744932283856,
+            33.626929613886645
+          ]
+        }
+      },
+      {
+        "id": "13",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1013,
+          "name": "VESSEL_1013",
+          "vessel_type": "Container",
+          "latitude": 33.6808720351051,
+          "longitude": -118.26489164471356,
+          "speed": 1.4,
+          "course": 322,
+          "length": 395,
+          "width": 26,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.26489164471356,
+            33.6808720351051
+          ]
+        }
+      },
+      {
+        "id": "14",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1014,
+          "name": "VESSEL_1014",
+          "vessel_type": "Tug",
+          "latitude": 33.59072775207734,
+          "longitude": -118.25077692761155,
+          "speed": 2.2,
+          "course": 239,
+          "length": 388,
+          "width": 14,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.25077692761155,
+            33.59072775207734
+          ]
+        }
+      },
+      {
+        "id": "15",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1015,
+          "name": "VESSEL_1015",
+          "vessel_type": "Other",
+          "latitude": 33.562412155531156,
+          "longitude": -118.30768176361933,
+          "speed": 5.6,
+          "course": 326,
+          "length": 288,
+          "width": 57,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.30768176361933,
+            33.562412155531156
+          ]
+        }
+      },
+      {
+        "id": "16",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1016,
+          "name": "VESSEL_1016",
+          "vessel_type": "Cargo",
+          "latitude": 33.658350381369196,
+          "longitude": -118.35846024123893,
+          "speed": 5.5,
+          "course": 306,
+          "length": 361,
+          "width": 14,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.35846024123893,
+            33.658350381369196
+          ]
+        }
+      },
+      {
+        "id": "17",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1017,
+          "name": "VESSEL_1017",
+          "vessel_type": "Other",
+          "latitude": 33.64482134685619,
+          "longitude": -118.24907860486589,
+          "speed": 0.5,
+          "course": 124,
+          "length": 309,
+          "width": 58,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.24907860486589,
+            33.64482134685619
+          ]
+        }
+      },
+      {
+        "id": "18",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1018,
+          "name": "VESSEL_1018",
+          "vessel_type": "Container",
+          "latitude": 33.67424320576133,
+          "longitude": -118.1386698372982,
+          "speed": 2.0,
+          "course": 342,
+          "length": 83,
+          "width": 20,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.1386698372982,
+            33.67424320576133
+          ]
+        }
+      },
+      {
+        "id": "19",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1019,
+          "name": "VESSEL_1019",
+          "vessel_type": "Tanker",
+          "latitude": 33.669640526466765,
+          "longitude": -118.33149980525671,
+          "speed": 19.3,
+          "course": 252,
+          "length": 324,
+          "width": 13,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "High Speed",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.33149980525671,
+            33.669640526466765
+          ]
+        }
+      },
+      {
+        "id": "20",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1020,
+          "name": "VESSEL_1020",
+          "vessel_type": "Tanker",
+          "latitude": 33.72456150337847,
+          "longitude": -118.42795385709465,
+          "speed": 8.7,
+          "course": 5,
+          "length": 192,
+          "width": 51,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.42795385709465,
+            33.72456150337847
+          ]
+        }
+      },
+      {
+        "id": "21",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1021,
+          "name": "VESSEL_1021",
+          "vessel_type": "Container",
+          "latitude": 33.699170270294,
+          "longitude": -118.11020080546228,
+          "speed": 4.6,
+          "course": 36,
+          "length": 337,
+          "width": 37,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.11020080546228,
+            33.699170270294
+          ]
+        }
+      },
+      {
+        "id": "22",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1022,
+          "name": "VESSEL_1022",
+          "vessel_type": "Other",
+          "latitude": 33.65159576929557,
+          "longitude": -118.4075683152442,
+          "speed": 18.7,
+          "course": 120,
+          "length": 64,
+          "width": 19,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.4075683152442,
+            33.65159576929557
+          ]
+        }
+      },
+      {
+        "id": "23",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1023,
+          "name": "VESSEL_1023",
+          "vessel_type": "Other",
+          "latitude": 33.78029138709371,
+          "longitude": -118.46756821739427,
+          "speed": 5.3,
+          "course": 194,
+          "length": 149,
+          "width": 58,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.46756821739427,
+            33.78029138709371
+          ]
+        }
+      },
+      {
+        "id": "24",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1024,
+          "name": "VESSEL_1024",
+          "vessel_type": "Passenger",
+          "latitude": 33.738743480674685,
+          "longitude": -118.49003247128971,
+          "speed": 3.0,
+          "course": 100,
+          "length": 364,
+          "width": 19,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.49003247128971,
+            33.738743480674685
+          ]
+        }
+      },
+      {
+        "id": "25",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1025,
+          "name": "VESSEL_1025",
+          "vessel_type": "Passenger",
+          "latitude": 33.852155470635026,
+          "longitude": -118.36611950843589,
+          "speed": 6.8,
+          "course": 72,
+          "length": 308,
+          "width": 27,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.36611950843589,
+            33.852155470635026
+          ]
+        }
+      },
+      {
+        "id": "26",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1026,
+          "name": "VESSEL_1026",
+          "vessel_type": "Cargo",
+          "latitude": 33.87854484106088,
+          "longitude": -118.2999694041454,
+          "speed": 7.3,
+          "course": 297,
+          "length": 104,
+          "width": 55,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2999694041454,
+            33.87854484106088
+          ]
+        }
+      },
+      {
+        "id": "27",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1027,
+          "name": "VESSEL_1027",
+          "vessel_type": "Fishing",
+          "latitude": 33.91986965962846,
+          "longitude": -118.03648019573518,
+          "speed": 19.5,
+          "course": 296,
+          "length": 92,
+          "width": 54,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.03648019573518,
+            33.91986965962846
+          ]
+        }
+      },
+      {
+        "id": "28",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1028,
+          "name": "VESSEL_1028",
+          "vessel_type": "Tug",
+          "latitude": 33.840849371495125,
+          "longitude": -118.31556624506781,
+          "speed": 8.5,
+          "course": 73,
+          "length": 92,
+          "width": 26,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.31556624506781,
+            33.840849371495125
+          ]
+        }
+      },
+      {
+        "id": "29",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1029,
+          "name": "VESSEL_1029",
+          "vessel_type": "Container",
+          "latitude": 33.74458268952785,
+          "longitude": -118.11551882735098,
+          "speed": 10.9,
+          "course": 258,
+          "length": 71,
+          "width": 51,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.11551882735098,
+            33.74458268952785
+          ]
+        }
+      },
+      {
+        "id": "30",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1030,
+          "name": "VESSEL_1030",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 33.93484014331466,
+          "longitude": -118.24239595798886,
+          "speed": 11.3,
+          "course": 279,
+          "length": 284,
+          "width": 45,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.24239595798886,
+            33.93484014331466
+          ]
+        }
+      },
+      {
+        "id": "31",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1031,
+          "name": "VESSEL_1031",
+          "vessel_type": "Container",
+          "latitude": 33.8613960865998,
+          "longitude": -118.17044997811279,
+          "speed": 0.4,
+          "course": 316,
+          "length": 72,
+          "width": 36,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Anchored",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.17044997811279,
+            33.8613960865998
+          ]
+        }
+      },
+      {
+        "id": "32",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1032,
+          "name": "VESSEL_1032",
+          "vessel_type": "Tug",
+          "latitude": 33.95213798554991,
+          "longitude": -118.39050858865482,
+          "speed": 10.6,
+          "course": 263,
+          "length": 327,
+          "width": 18,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.39050858865482,
+            33.95213798554991
+          ]
+        }
+      },
+      {
+        "id": "33",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1033,
+          "name": "VESSEL_1033",
+          "vessel_type": "Container",
+          "latitude": 33.76832734997917,
+          "longitude": -118.1022511868258,
+          "speed": 0.7,
+          "course": 334,
+          "length": 374,
+          "width": 52,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.1022511868258,
+            33.76832734997917
+          ]
+        }
+      },
+      {
+        "id": "34",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1034,
+          "name": "VESSEL_1034",
+          "vessel_type": "Other",
+          "latitude": 33.60261260605532,
+          "longitude": -118.3450179383406,
+          "speed": 11.0,
+          "course": 190,
+          "length": 316,
+          "width": 53,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.3450179383406,
+            33.60261260605532
+          ]
+        }
+      },
+      {
+        "id": "35",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1035,
+          "name": "VESSEL_1035",
+          "vessel_type": "Passenger",
+          "latitude": 33.98901886552973,
+          "longitude": -118.1234392788363,
+          "speed": 19.6,
+          "course": 9,
+          "length": 113,
+          "width": 41,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.1234392788363,
+            33.98901886552973
+          ]
+        }
+      },
+      {
+        "id": "36",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1036,
+          "name": "VESSEL_1036",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 33.693749006323756,
+          "longitude": -118.18212225671715,
+          "speed": 7.6,
+          "course": 213,
+          "length": 219,
+          "width": 22,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.18212225671715,
+            33.693749006323756
+          ]
+        }
+      },
+      {
+        "id": "37",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1037,
+          "name": "VESSEL_1037",
+          "vessel_type": "Container",
+          "latitude": 33.67023973591936,
+          "longitude": -118.15601869416933,
+          "speed": 19.2,
+          "course": 309,
+          "length": 123,
+          "width": 15,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.15601869416933,
+            33.67023973591936
+          ]
+        }
+      },
+      {
+        "id": "38",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1038,
+          "name": "VESSEL_1038",
+          "vessel_type": "Fishing",
+          "latitude": 33.74449138101988,
+          "longitude": -118.26647324319873,
+          "speed": 11.2,
+          "course": 278,
+          "length": 245,
+          "width": 47,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.26647324319873,
+            33.74449138101988
+          ]
+        }
+      },
+      {
+        "id": "39",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1039,
+          "name": "VESSEL_1039",
+          "vessel_type": "Other",
+          "latitude": 33.854494300794954,
+          "longitude": -118.3587296495662,
+          "speed": 18.3,
+          "course": 266,
+          "length": 118,
+          "width": 34,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.3587296495662,
+            33.854494300794954
+          ]
+        }
+      },
+      {
+        "id": "40",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1040,
+          "name": "VESSEL_1040",
+          "vessel_type": "Other",
+          "latitude": 33.78263752771909,
+          "longitude": -118.25955825235842,
+          "speed": 7.0,
+          "course": 141,
+          "length": 140,
+          "width": 60,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.25955825235842,
+            33.78263752771909
+          ]
+        }
+      },
+      {
+        "id": "41",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1041,
+          "name": "VESSEL_1041",
+          "vessel_type": "Passenger",
+          "latitude": 33.64153691198694,
+          "longitude": -118.14339499294292,
+          "speed": 14.3,
+          "course": 334,
+          "length": 103,
+          "width": 16,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.14339499294292,
+            33.64153691198694
+          ]
+        }
+      },
+      {
+        "id": "42",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1042,
+          "name": "VESSEL_1042",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 33.71787862715533,
+          "longitude": -118.37390970093247,
+          "speed": 3.2,
+          "course": 273,
+          "length": 63,
+          "width": 11,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Maneuvering",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.37390970093247,
+            33.71787862715533
+          ]
+        }
+      },
+      {
+        "id": "43",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1043,
+          "name": "VESSEL_1043",
+          "vessel_type": "Tug",
+          "latitude": 33.601430613527356,
+          "longitude": -118.32685311132538,
+          "speed": 14.7,
+          "course": 52,
+          "length": 295,
+          "width": 18,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.32685311132538,
+            33.601430613527356
+          ]
+        }
+      },
+      {
+        "id": "44",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1044,
+          "name": "VESSEL_1044",
+          "vessel_type": "Other",
+          "latitude": 33.62381340281538,
+          "longitude": -118.04903770769354,
+          "speed": 6.5,
+          "course": 332,
+          "length": 335,
+          "width": 14,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.04903770769354,
+            33.62381340281538
+          ]
+        }
+      },
+      {
+        "id": "45",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1045,
+          "name": "VESSEL_1045",
+          "vessel_type": "Cargo",
+          "latitude": 40.77637572843625,
+          "longitude": -74.18364620032962,
+          "speed": 13.5,
+          "course": 128,
+          "length": 146,
+          "width": 37,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.18364620032962,
+            40.77637572843625
+          ]
+        }
+      },
+      {
+        "id": "46",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1046,
+          "name": "VESSEL_1046",
+          "vessel_type": "Cargo",
+          "latitude": 40.50315729802598,
+          "longitude": -73.87030135588859,
+          "speed": 16.6,
+          "course": 8,
+          "length": 241,
+          "width": 22,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.87030135588859,
+            40.50315729802598
+          ]
+        }
+      },
+      {
+        "id": "47",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1047,
+          "name": "VESSEL_1047",
+          "vessel_type": "Tanker",
+          "latitude": 40.56073346437499,
+          "longitude": -73.93922757741446,
+          "speed": 16.7,
+          "course": 122,
+          "length": 310,
+          "width": 14,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "High Speed",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.93922757741446,
+            40.56073346437499
+          ]
+        }
+      },
+      {
+        "id": "48",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1048,
+          "name": "VESSEL_1048",
+          "vessel_type": "Tanker",
+          "latitude": 40.66395721404382,
+          "longitude": -73.9541364307248,
+          "speed": 1.9,
+          "course": 276,
+          "length": 299,
+          "width": 47,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.9541364307248,
+            40.66395721404382
+          ]
+        }
+      },
+      {
+        "id": "49",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1049,
+          "name": "VESSEL_1049",
+          "vessel_type": "Other",
+          "latitude": 40.69694318996611,
+          "longitude": -74.15259177275935,
+          "speed": 18.5,
+          "course": 339,
+          "length": 256,
+          "width": 36,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.15259177275935,
+            40.69694318996611
+          ]
+        }
+      },
+      {
+        "id": "50",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1050,
+          "name": "VESSEL_1050",
+          "vessel_type": "Fishing",
+          "latitude": 40.71299177424973,
+          "longitude": -73.82950491082461,
+          "speed": 12.5,
+          "course": 148,
+          "length": 209,
+          "width": 27,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.82950491082461,
+            40.71299177424973
+          ]
+        }
+      },
+      {
+        "id": "51",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1051,
+          "name": "VESSEL_1051",
+          "vessel_type": "Tug",
+          "latitude": 40.635725039920224,
+          "longitude": -74.15452737743058,
+          "speed": 14.6,
+          "course": 101,
+          "length": 161,
+          "width": 27,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.15452737743058,
+            40.635725039920224
+          ]
+        }
+      },
+      {
+        "id": "52",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1052,
+          "name": "VESSEL_1052",
+          "vessel_type": "Tug",
+          "latitude": 40.64965922804805,
+          "longitude": -74.19229873130706,
+          "speed": 1.1,
+          "course": 269,
+          "length": 317,
+          "width": 26,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.19229873130706,
+            40.64965922804805
+          ]
+        }
+      },
+      {
+        "id": "53",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1053,
+          "name": "VESSEL_1053",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 40.80684833305645,
+          "longitude": -73.9059049201023,
+          "speed": 18.2,
+          "course": 195,
+          "length": 131,
+          "width": 59,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.9059049201023,
+            40.80684833305645
+          ]
+        }
+      },
+      {
+        "id": "54",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1054,
+          "name": "VESSEL_1054",
+          "vessel_type": "Fishing",
+          "latitude": 40.51798895695403,
+          "longitude": -74.13320951864027,
+          "speed": 17.4,
+          "course": 155,
+          "length": 181,
+          "width": 14,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.13320951864027,
+            40.51798895695403
+          ]
+        }
+      },
+      {
+        "id": "55",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1055,
+          "name": "VESSEL_1055",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 40.738350569872196,
+          "longitude": -74.04485824875563,
+          "speed": 11.6,
+          "course": 238,
+          "length": 187,
+          "width": 25,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.04485824875563,
+            40.738350569872196
+          ]
+        }
+      },
+      {
+        "id": "56",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1056,
+          "name": "VESSEL_1056",
+          "vessel_type": "Tanker",
+          "latitude": 40.85969177914498,
+          "longitude": -73.92677191973014,
+          "speed": 0.7,
+          "course": 324,
+          "length": 162,
+          "width": 58,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.92677191973014,
+            40.85969177914498
+          ]
+        }
+      },
+      {
+        "id": "57",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1057,
+          "name": "VESSEL_1057",
+          "vessel_type": "Container",
+          "latitude": 40.588566080054875,
+          "longitude": -73.80547255233733,
+          "speed": 19.4,
+          "course": 316,
+          "length": 296,
+          "width": 19,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.80547255233733,
+            40.588566080054875
+          ]
+        }
+      },
+      {
+        "id": "58",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1058,
+          "name": "VESSEL_1058",
+          "vessel_type": "Container",
+          "latitude": 40.758024768672115,
+          "longitude": -74.13002215682457,
+          "speed": 16.2,
+          "course": 40,
+          "length": 53,
+          "width": 17,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.13002215682457,
+            40.758024768672115
+          ]
+        }
+      },
+      {
+        "id": "59",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1059,
+          "name": "VESSEL_1059",
+          "vessel_type": "Container",
+          "latitude": 40.85022219854185,
+          "longitude": -73.89237930004202,
+          "speed": 12.8,
+          "course": 271,
+          "length": 243,
+          "width": 46,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.89237930004202,
+            40.85022219854185
+          ]
+        }
+      },
+      {
+        "id": "60",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1060,
+          "name": "VESSEL_1060",
+          "vessel_type": "Passenger",
+          "latitude": 40.65690980539851,
+          "longitude": -74.14885932908584,
+          "speed": 10.8,
+          "course": 38,
+          "length": 198,
+          "width": 60,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.14885932908584,
+            40.65690980539851
+          ]
+        }
+      },
+      {
+        "id": "61",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1061,
+          "name": "VESSEL_1061",
+          "vessel_type": "Other",
+          "latitude": 40.71416641790651,
+          "longitude": -74.17030430404202,
+          "speed": 2.4,
+          "course": 216,
+          "length": 212,
+          "width": 50,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.17030430404202,
+            40.71416641790651
+          ]
+        }
+      },
+      {
+        "id": "62",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1062,
+          "name": "VESSEL_1062",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 40.52999467345056,
+          "longitude": -73.89420036933825,
+          "speed": 1.7,
+          "course": 74,
+          "length": 299,
+          "width": 12,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -73.89420036933825,
+            40.52999467345056
+          ]
+        }
+      },
+      {
+        "id": "63",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1063,
+          "name": "VESSEL_1063",
+          "vessel_type": "Fishing",
+          "latitude": 32.20799944980692,
+          "longitude": -81.18925838967542,
+          "speed": 1.8,
+          "course": 26,
+          "length": 140,
+          "width": 54,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.18925838967542,
+            32.20799944980692
+          ]
+        }
+      },
+      {
+        "id": "64",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1064,
+          "name": "VESSEL_1064",
+          "vessel_type": "Cargo",
+          "latitude": 32.14336510589102,
+          "longitude": -81.10344083918163,
+          "speed": 17.6,
+          "course": 157,
+          "length": 115,
+          "width": 18,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.10344083918163,
+            32.14336510589102
+          ]
+        }
+      },
+      {
+        "id": "65",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1065,
+          "name": "VESSEL_1065",
+          "vessel_type": "Passenger",
+          "latitude": 32.03739181932881,
+          "longitude": -80.97926694077942,
+          "speed": 5.6,
+          "course": 16,
+          "length": 110,
+          "width": 59,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.97926694077942,
+            32.03739181932881
+          ]
+        }
+      },
+      {
+        "id": "66",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1066,
+          "name": "VESSEL_1066",
+          "vessel_type": "Other",
+          "latitude": 32.19852992279175,
+          "longitude": -81.0448608467799,
+          "speed": 17.9,
+          "course": 293,
+          "length": 256,
+          "width": 19,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.0448608467799,
+            32.19852992279175
+          ]
+        }
+      },
+      {
+        "id": "67",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1067,
+          "name": "VESSEL_1067",
+          "vessel_type": "Passenger",
+          "latitude": 32.06248774667992,
+          "longitude": -80.99567331566291,
+          "speed": 19.9,
+          "course": 305,
+          "length": 176,
+          "width": 51,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.99567331566291,
+            32.06248774667992
+          ]
+        }
+      },
+      {
+        "id": "68",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1068,
+          "name": "VESSEL_1068",
+          "vessel_type": "Cargo",
+          "latitude": 31.936080510924278,
+          "longitude": -81.27988845912417,
+          "speed": 13.3,
+          "course": 264,
+          "length": 379,
+          "width": 51,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.27988845912417,
+            31.936080510924278
+          ]
+        }
+      },
+      {
+        "id": "69",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1069,
+          "name": "VESSEL_1069",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 32.21308673433887,
+          "longitude": -81.0553375845723,
+          "speed": 3.1,
+          "course": 267,
+          "length": 304,
+          "width": 51,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.0553375845723,
+            32.21308673433887
+          ]
+        }
+      },
+      {
+        "id": "70",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1070,
+          "name": "VESSEL_1070",
+          "vessel_type": "Other",
+          "latitude": 31.966421168865647,
+          "longitude": -80.93481546465729,
+          "speed": 5.3,
+          "course": 20,
+          "length": 112,
+          "width": 27,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.93481546465729,
+            31.966421168865647
+          ]
+        }
+      },
+      {
+        "id": "71",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1071,
+          "name": "VESSEL_1071",
+          "vessel_type": "Other",
+          "latitude": 32.0337647401198,
+          "longitude": -80.915244295096,
+          "speed": 15.3,
+          "course": 132,
+          "length": 148,
+          "width": 36,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.915244295096,
+            32.0337647401198
+          ]
+        }
+      },
+      {
+        "id": "72",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1072,
+          "name": "VESSEL_1072",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 32.19389569591396,
+          "longitude": -81.14158862716225,
+          "speed": 14.7,
+          "course": 30,
+          "length": 106,
+          "width": 43,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.14158862716225,
+            32.19389569591396
+          ]
+        }
+      },
+      {
+        "id": "73",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1073,
+          "name": "VESSEL_1073",
+          "vessel_type": "Passenger",
+          "latitude": 32.21709507675249,
+          "longitude": -81.24206203694037,
+          "speed": 15.4,
+          "course": 31,
+          "length": 116,
+          "width": 20,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.24206203694037,
+            32.21709507675249
+          ]
+        }
+      },
+      {
+        "id": "74",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1074,
+          "name": "VESSEL_1074",
+          "vessel_type": "Tanker",
+          "latitude": 31.953869959908484,
+          "longitude": -81.09097517888574,
+          "speed": 8.7,
+          "course": 55,
+          "length": 192,
+          "width": 49,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.09097517888574,
+            31.953869959908484
+          ]
+        }
+      },
+      {
+        "id": "75",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1075,
+          "name": "VESSEL_1075",
+          "vessel_type": "Other",
+          "latitude": 31.964301987447893,
+          "longitude": -81.01266929094437,
+          "speed": 10.1,
+          "course": 351,
+          "length": 176,
+          "width": 42,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.01266929094437,
+            31.964301987447893
+          ]
+        }
+      },
+      {
+        "id": "76",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1076,
+          "name": "VESSEL_1076",
+          "vessel_type": "Fishing",
+          "latitude": 32.29193154043426,
+          "longitude": -81.09919419932677,
+          "speed": 16.7,
+          "course": 258,
+          "length": 203,
+          "width": 52,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.09919419932677,
+            32.29193154043426
+          ]
+        }
+      },
+      {
+        "id": "77",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1077,
+          "name": "VESSEL_1077",
+          "vessel_type": "Tanker",
+          "latitude": 32.164894381760924,
+          "longitude": -80.91879017796036,
+          "speed": 11.6,
+          "course": 307,
+          "length": 247,
+          "width": 20,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.91879017796036,
+            32.164894381760924
+          ]
+        }
+      },
+      {
+        "id": "78",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1078,
+          "name": "VESSEL_1078",
+          "vessel_type": "Cargo",
+          "latitude": 47.78804578109614,
+          "longitude": -122.30173247994273,
+          "speed": 2.8,
+          "course": 331,
+          "length": 164,
+          "width": 41,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.30173247994273,
+            47.78804578109614
+          ]
+        }
+      },
+      {
+        "id": "79",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1079,
+          "name": "VESSEL_1079",
+          "vessel_type": "Tug",
+          "latitude": 47.707145703056796,
+          "longitude": -122.22111837083034,
+          "speed": 15.4,
+          "course": 345,
+          "length": 313,
+          "width": 28,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "High Speed",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.22111837083034,
+            47.707145703056796
+          ]
+        }
+      },
+      {
+        "id": "80",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1080,
+          "name": "VESSEL_1080",
+          "vessel_type": "Cargo",
+          "latitude": 47.46752996183671,
+          "longitude": -122.24704727085748,
+          "speed": 17.3,
+          "course": 332,
+          "length": 161,
+          "width": 35,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.24704727085748,
+            47.46752996183671
+          ]
+        }
+      },
+      {
+        "id": "81",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1081,
+          "name": "VESSEL_1081",
+          "vessel_type": "Other",
+          "latitude": 47.79761441859167,
+          "longitude": -122.41433784583955,
+          "speed": 3.6,
+          "course": 189,
+          "length": 127,
+          "width": 31,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Maneuvering",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.41433784583955,
+            47.79761441859167
+          ]
+        }
+      },
+      {
+        "id": "82",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1082,
+          "name": "VESSEL_1082",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 47.453162723296145,
+          "longitude": -122.34370240729554,
+          "speed": 0.7,
+          "course": 137,
+          "length": 205,
+          "width": 39,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.34370240729554,
+            47.453162723296145
+          ]
+        }
+      },
+      {
+        "id": "83",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1083,
+          "name": "VESSEL_1083",
+          "vessel_type": "Tug",
+          "latitude": 47.74150297966679,
+          "longitude": -122.37224218948728,
+          "speed": 3.0,
+          "course": 89,
+          "length": 238,
+          "width": 55,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.37224218948728,
+            47.74150297966679
+          ]
+        }
+      },
+      {
+        "id": "84",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1084,
+          "name": "VESSEL_1084",
+          "vessel_type": "Other",
+          "latitude": 47.579777425723506,
+          "longitude": -122.38009970765386,
+          "speed": 12.9,
+          "course": 30,
+          "length": 311,
+          "width": 47,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.38009970765386,
+            47.579777425723506
+          ]
+        }
+      },
+      {
+        "id": "85",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1085,
+          "name": "VESSEL_1085",
+          "vessel_type": "Other",
+          "latitude": 47.58581686996589,
+          "longitude": -122.4869548811398,
+          "speed": 16.9,
+          "course": 265,
+          "length": 79,
+          "width": 52,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.4869548811398,
+            47.58581686996589
+          ]
+        }
+      },
+      {
+        "id": "86",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1086,
+          "name": "VESSEL_1086",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 47.78891986732975,
+          "longitude": -122.29141781206441,
+          "speed": 10.5,
+          "course": 345,
+          "length": 275,
+          "width": 59,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.29141781206441,
+            47.78891986732975
+          ]
+        }
+      },
+      {
+        "id": "87",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1087,
+          "name": "VESSEL_1087",
+          "vessel_type": "Fishing",
+          "latitude": 47.60707434858317,
+          "longitude": -122.4609271310811,
+          "speed": 20.0,
+          "course": 234,
+          "length": 304,
+          "width": 31,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "High Speed",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.4609271310811,
+            47.60707434858317
+          ]
+        }
+      },
+      {
+        "id": "88",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1088,
+          "name": "VESSEL_1088",
+          "vessel_type": "Tanker",
+          "latitude": 47.59794873533361,
+          "longitude": -122.15661770299819,
+          "speed": 5.1,
+          "course": 248,
+          "length": 79,
+          "width": 15,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.15661770299819,
+            47.59794873533361
+          ]
+        }
+      },
+      {
+        "id": "89",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1089,
+          "name": "VESSEL_1089",
+          "vessel_type": "Tug",
+          "latitude": 47.4092649255164,
+          "longitude": -122.1392081385511,
+          "speed": 14.9,
+          "course": 251,
+          "length": 96,
+          "width": 31,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.1392081385511,
+            47.4092649255164
+          ]
+        }
+      },
+      {
+        "id": "90",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1090,
+          "name": "VESSEL_1090",
+          "vessel_type": "Passenger",
+          "latitude": 29.52026781268145,
+          "longitude": -95.12556520013493,
+          "speed": 13.6,
+          "course": 346,
+          "length": 178,
+          "width": 13,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.12556520013493,
+            29.52026781268145
+          ]
+        }
+      },
+      {
+        "id": "91",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1091,
+          "name": "VESSEL_1091",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 29.576029189798305,
+          "longitude": -95.41721224575849,
+          "speed": 0.7,
+          "course": 55,
+          "length": 338,
+          "width": 51,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.41721224575849,
+            29.576029189798305
+          ]
+        }
+      },
+      {
+        "id": "92",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1092,
+          "name": "VESSEL_1092",
+          "vessel_type": "Fishing",
+          "latitude": 29.8079516994447,
+          "longitude": -95.3770599107112,
+          "speed": 13.2,
+          "course": 87,
+          "length": 112,
+          "width": 59,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.3770599107112,
+            29.8079516994447
+          ]
+        }
+      },
+      {
+        "id": "93",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1093,
+          "name": "VESSEL_1093",
+          "vessel_type": "Passenger",
+          "latitude": 29.824669174465253,
+          "longitude": -95.32606610897001,
+          "speed": 12.0,
+          "course": 329,
+          "length": 78,
+          "width": 41,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.32606610897001,
+            29.824669174465253
+          ]
+        }
+      },
+      {
+        "id": "94",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1094,
+          "name": "VESSEL_1094",
+          "vessel_type": "Cargo",
+          "latitude": 29.879019051269147,
+          "longitude": -95.39801375059022,
+          "speed": 12.3,
+          "course": 153,
+          "length": 224,
+          "width": 15,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.39801375059022,
+            29.879019051269147
+          ]
+        }
+      },
+      {
+        "id": "95",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1095,
+          "name": "VESSEL_1095",
+          "vessel_type": "Container",
+          "latitude": 29.5194574437408,
+          "longitude": -95.36024393693775,
+          "speed": 13.7,
+          "course": 218,
+          "length": 344,
+          "width": 45,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.36024393693775,
+            29.5194574437408
+          ]
+        }
+      },
+      {
+        "id": "96",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1096,
+          "name": "VESSEL_1096",
+          "vessel_type": "Cargo",
+          "latitude": 29.535975669942665,
+          "longitude": -95.16002445901577,
+          "speed": 4.3,
+          "course": 70,
+          "length": 378,
+          "width": 19,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.16002445901577,
+            29.535975669942665
+          ]
+        }
+      },
+      {
+        "id": "97",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1097,
+          "name": "VESSEL_1097",
+          "vessel_type": "Container",
+          "latitude": 29.837334691838212,
+          "longitude": -95.43976871396798,
+          "speed": 14.5,
+          "course": 269,
+          "length": 351,
+          "width": 51,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.43976871396798,
+            29.837334691838212
+          ]
+        }
+      },
+      {
+        "id": "98",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1098,
+          "name": "VESSEL_1098",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 29.703868250854498,
+          "longitude": -95.22771189193794,
+          "speed": 17.8,
+          "course": 319,
+          "length": 340,
+          "width": 42,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "High Speed",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.22771189193794,
+            29.703868250854498
+          ]
+        }
+      },
+      {
+        "id": "99",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1099,
+          "name": "VESSEL_1099",
+          "vessel_type": "Cargo",
+          "latitude": 29.84972990666523,
+          "longitude": -95.38933804170783,
+          "speed": 14.6,
+          "course": 244,
+          "length": 117,
+          "width": 14,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.38933804170783,
+            29.84972990666523
+          ]
+        }
+      },
+      {
+        "id": "100",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1100,
+          "name": "VESSEL_1100",
+          "vessel_type": "Passenger",
+          "latitude": 29.651595507972203,
+          "longitude": -95.13374486045906,
+          "speed": 16.1,
+          "course": 157,
+          "length": 387,
+          "width": 57,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.13374486045906,
+            29.651595507972203
+          ]
+        }
+      },
+      {
+        "id": "101",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1101,
+          "name": "VESSEL_1101",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 29.688175446709916,
+          "longitude": -95.43281963024089,
+          "speed": 11.6,
+          "course": 357,
+          "length": 128,
+          "width": 51,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.43281963024089,
+            29.688175446709916
+          ]
+        }
+      },
+      {
+        "id": "102",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1102,
+          "name": "VESSEL_1102",
+          "vessel_type": "Other",
+          "latitude": 29.53397050530014,
+          "longitude": -95.44535377156505,
+          "speed": 14.0,
+          "course": 125,
+          "length": 57,
+          "width": 45,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.44535377156505,
+            29.53397050530014
+          ]
+        }
+      },
+      {
+        "id": "103",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1103,
+          "name": "VESSEL_1103",
+          "vessel_type": "Tug",
+          "latitude": 29.794246100587245,
+          "longitude": -95.18711422084964,
+          "speed": 0.0,
+          "course": 156,
+          "length": 321,
+          "width": 30,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Anchored",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.18711422084964,
+            29.794246100587245
+          ]
+        }
+      },
+      {
+        "id": "104",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1104,
+          "name": "VESSEL_1104",
+          "vessel_type": "Tug",
+          "latitude": 29.596708759114456,
+          "longitude": -95.4766537589731,
+          "speed": 11.0,
+          "course": 58,
+          "length": 322,
+          "width": 51,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.4766537589731,
+            29.596708759114456
+          ]
+        }
+      },
+      {
+        "id": "105",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1105,
+          "name": "VESSEL_1105",
+          "vessel_type": "Tug",
+          "latitude": 29.65383848307975,
+          "longitude": -95.33531404079588,
+          "speed": 7.4,
+          "course": 277,
+          "length": 135,
+          "width": 60,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.33531404079588,
+            29.65383848307975
+          ]
+        }
+      },
+      {
+        "id": "106",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1106,
+          "name": "VESSEL_1106",
+          "vessel_type": "Cargo",
+          "latitude": 29.884743183459356,
+          "longitude": -95.43787146047838,
+          "speed": 0.2,
+          "course": 243,
+          "length": 377,
+          "width": 23,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Anchored",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.43787146047838,
+            29.884743183459356
+          ]
+        }
+      },
+      {
+        "id": "107",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1107,
+          "name": "VESSEL_1107",
+          "vessel_type": "Other",
+          "latitude": 29.783436997202116,
+          "longitude": -95.38593778228632,
+          "speed": 3.4,
+          "course": 237,
+          "length": 273,
+          "width": 37,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.38593778228632,
+            29.783436997202116
+          ]
+        }
+      },
+      {
+        "id": "108",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1108,
+          "name": "VESSEL_1108",
+          "vessel_type": "Tanker",
+          "latitude": 29.685903758792822,
+          "longitude": -95.2077351579804,
+          "speed": 0.2,
+          "course": 130,
+          "length": 273,
+          "width": 46,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Anchored",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.2077351579804,
+            29.685903758792822
+          ]
+        }
+      },
+      {
+        "id": "109",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1109,
+          "name": "VESSEL_1109",
+          "vessel_type": "Other",
+          "latitude": 29.846505926191316,
+          "longitude": -95.33082160454971,
+          "speed": 17.0,
+          "course": 348,
+          "length": 352,
+          "width": 23,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "High Speed",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.33082160454971,
+            29.846505926191316
+          ]
+        }
+      },
+      {
+        "id": "110",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1110,
+          "name": "VESSEL_1110",
+          "vessel_type": "Tug",
+          "latitude": 29.74759722241472,
+          "longitude": -95.18147007789698,
+          "speed": 3.1,
+          "course": 198,
+          "length": 259,
+          "width": 59,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.18147007789698,
+            29.74759722241472
+          ]
+        }
+      },
+      {
+        "id": "111",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1111,
+          "name": "VESSEL_1111",
+          "vessel_type": "Container",
+          "latitude": 29.621541769285308,
+          "longitude": -95.40490505497161,
+          "speed": 1.2,
+          "course": 219,
+          "length": 216,
+          "width": 15,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.40490505497161,
+            29.621541769285308
+          ]
+        }
+      },
+      {
+        "id": "112",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1112,
+          "name": "VESSEL_1112",
+          "vessel_type": "Passenger",
+          "latitude": 25.973991246585534,
+          "longitude": -80.1745960164567,
+          "speed": 6.0,
+          "course": 21,
+          "length": 217,
+          "width": 59,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.1745960164567,
+            25.973991246585534
+          ]
+        }
+      },
+      {
+        "id": "113",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1113,
+          "name": "VESSEL_1113",
+          "vessel_type": "Cargo",
+          "latitude": 25.835655657704766,
+          "longitude": -80.38932116236342,
+          "speed": 10.0,
+          "course": 358,
+          "length": 345,
+          "width": 40,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.38932116236342,
+            25.835655657704766
+          ]
+        }
+      },
+      {
+        "id": "114",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1114,
+          "name": "VESSEL_1114",
+          "vessel_type": "Cargo",
+          "latitude": 25.871865058531327,
+          "longitude": -80.28041547317683,
+          "speed": 8.3,
+          "course": 350,
+          "length": 262,
+          "width": 41,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.28041547317683,
+            25.871865058531327
+          ]
+        }
+      },
+      {
+        "id": "115",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1115,
+          "name": "VESSEL_1115",
+          "vessel_type": "Container",
+          "latitude": 25.698135452662598,
+          "longitude": -80.18030986156064,
+          "speed": 3.5,
+          "course": 69,
+          "length": 105,
+          "width": 40,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Maneuvering",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.18030986156064,
+            25.698135452662598
+          ]
+        }
+      },
+      {
+        "id": "116",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1116,
+          "name": "VESSEL_1116",
+          "vessel_type": "Tug",
+          "latitude": 25.943167228071577,
+          "longitude": -80.12382688002732,
+          "speed": 11.6,
+          "course": 61,
+          "length": 190,
+          "width": 17,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.12382688002732,
+            25.943167228071577
+          ]
+        }
+      },
+      {
+        "id": "117",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1117,
+          "name": "VESSEL_1117",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 25.678577778815004,
+          "longitude": -80.12021699244295,
+          "speed": 1.2,
+          "course": 346,
+          "length": 129,
+          "width": 60,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.12021699244295,
+            25.678577778815004
+          ]
+        }
+      },
+      {
+        "id": "118",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1118,
+          "name": "VESSEL_1118",
+          "vessel_type": "Tug",
+          "latitude": 25.890952000903532,
+          "longitude": -80.30331605374354,
+          "speed": 2.0,
+          "course": 259,
+          "length": 213,
+          "width": 24,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.30331605374354,
+            25.890952000903532
+          ]
+        }
+      },
+      {
+        "id": "119",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1119,
+          "name": "VESSEL_1119",
+          "vessel_type": "Passenger",
+          "latitude": 25.879014075395535,
+          "longitude": -80.24002526847721,
+          "speed": 10.0,
+          "course": 37,
+          "length": 335,
+          "width": 28,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.24002526847721,
+            25.879014075395535
+          ]
+        }
+      },
+      {
+        "id": "120",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1120,
+          "name": "VESSEL_1120",
+          "vessel_type": "Container",
+          "latitude": 25.751526325830845,
+          "longitude": -80.01340482373448,
+          "speed": 5.1,
+          "course": 258,
+          "length": 364,
+          "width": 24,
+          "destination": "Port A",
+          "eta": "2024-01-15 12:00",
+          "flag": "PA",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.01340482373448,
+            25.751526325830845
+          ]
+        }
+      },
+      {
+        "id": "121",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1121,
+          "name": "VESSEL_1121",
+          "vessel_type": "Tanker",
+          "latitude": 25.87636382670707,
+          "longitude": -80.21295499040744,
+          "speed": 3.9,
+          "course": 8,
+          "length": 54,
+          "width": 30,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.21295499040744,
+            25.87636382670707
+          ]
+        }
+      },
+      {
+        "id": "122",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1122,
+          "name": "VESSEL_1122",
+          "vessel_type": "Passenger",
+          "latitude": 37.60028513777663,
+          "longitude": -122.33626731638758,
+          "speed": 5.7,
+          "course": 109,
+          "length": 359,
+          "width": 36,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "SG",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.33626731638758,
+            37.60028513777663
+          ]
+        }
+      },
+      {
+        "id": "123",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1123,
+          "name": "VESSEL_1123",
+          "vessel_type": "Cargo",
+          "latitude": 37.68171481414153,
+          "longitude": -122.35695636851874,
+          "speed": 9.2,
+          "course": 180,
+          "length": 214,
+          "width": 26,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.35695636851874,
+            37.68171481414153
+          ]
+        }
+      },
+      {
+        "id": "124",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1124,
+          "name": "VESSEL_1124",
+          "vessel_type": "Container",
+          "latitude": 37.61312754574897,
+          "longitude": -122.35440196289976,
+          "speed": 3.3,
+          "course": 322,
+          "length": 371,
+          "width": 41,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Maneuvering",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.35440196289976,
+            37.61312754574897
+          ]
+        }
+      },
+      {
+        "id": "125",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1125,
+          "name": "VESSEL_1125",
+          "vessel_type": "Bulk Carrier",
+          "latitude": 37.6756947980232,
+          "longitude": -122.44397173143423,
+          "speed": 8.8,
+          "course": 355,
+          "length": 304,
+          "width": 30,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.44397173143423,
+            37.6756947980232
+          ]
+        }
+      },
+      {
+        "id": "126",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1126,
+          "name": "VESSEL_1126",
+          "vessel_type": "Passenger",
+          "latitude": 37.982192990154196,
+          "longitude": -122.41684555647196,
+          "speed": 16.1,
+          "course": 286,
+          "length": 164,
+          "width": 55,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.41684555647196,
+            37.982192990154196
+          ]
+        }
+      },
+      {
+        "id": "127",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1127,
+          "name": "VESSEL_1127",
+          "vessel_type": "Tanker",
+          "latitude": 37.716475423008454,
+          "longitude": -122.44447425091357,
+          "speed": 17.1,
+          "course": 313,
+          "length": 74,
+          "width": 25,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.44447425091357,
+            37.716475423008454
+          ]
+        }
+      },
+      {
+        "id": "128",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1128,
+          "name": "VESSEL_1128",
+          "vessel_type": "Other",
+          "latitude": 37.707271035154285,
+          "longitude": -122.15955078061121,
+          "speed": 8.3,
+          "course": 237,
+          "length": 79,
+          "width": 21,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "Transit",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.15955078061121,
+            37.707271035154285
+          ]
+        }
+      },
+      {
+        "id": "129",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1129,
+          "name": "VESSEL_1129",
+          "vessel_type": "Cargo",
+          "latitude": 37.76355473290979,
+          "longitude": -122.10256204289776,
+          "speed": 17.5,
+          "course": 67,
+          "length": 142,
+          "width": 11,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "High Speed",
+          "size_category": "Medium"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.10256204289776,
+            37.76355473290979
+          ]
+        }
+      },
+      {
+        "id": "130",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1130,
+          "name": "VESSEL_1130",
+          "vessel_type": "Container",
+          "latitude": 37.62440659662348,
+          "longitude": -122.45952526348151,
+          "speed": 6.8,
+          "course": 248,
+          "length": 247,
+          "width": 20,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Transit",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.45952526348151,
+            37.62440659662348
+          ]
+        }
+      },
+      {
+        "id": "131",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1131,
+          "name": "VESSEL_1131",
+          "vessel_type": "Fishing",
+          "latitude": 37.897117422591585,
+          "longitude": -122.39166789451404,
+          "speed": 16.4,
+          "course": 322,
+          "length": 291,
+          "width": 34,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "HK",
+          "status": "High Speed",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.39166789451404,
+            37.897117422591585
+          ]
+        }
+      },
+      {
+        "id": "132",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1132,
+          "name": "VESSEL_1132",
+          "vessel_type": "Tug",
+          "latitude": 37.987127400531534,
+          "longitude": -122.2097895964331,
+          "speed": 3.7,
+          "course": 52,
+          "length": 293,
+          "width": 60,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.2097895964331,
+            37.987127400531534
+          ]
+        }
+      },
+      {
+        "id": "133",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1133,
+          "name": "VESSEL_1133",
+          "vessel_type": "Fishing",
+          "latitude": 37.82094643989198,
+          "longitude": -122.38201772755707,
+          "speed": 4.4,
+          "course": 45,
+          "length": 207,
+          "width": 17,
+          "destination": "Port C",
+          "eta": "2024-01-15 12:00",
+          "flag": "MH",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.38201772755707,
+            37.82094643989198
+          ]
+        }
+      },
+      {
+        "id": "134",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1134,
+          "name": "VESSEL_1134",
+          "vessel_type": "Tanker",
+          "latitude": 37.99297839165178,
+          "longitude": -122.2605440255384,
+          "speed": 10.6,
+          "course": 351,
+          "length": 315,
+          "width": 41,
+          "destination": "Anchorage",
+          "eta": "2024-01-15 12:00",
+          "flag": "US",
+          "status": "Transit",
+          "size_category": "Very Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.2605440255384,
+            37.99297839165178
+          ]
+        }
+      },
+      {
+        "id": "135",
+        "type": "Feature",
+        "properties": {
+          "mmsi": 1135,
+          "name": "VESSEL_1135",
+          "vessel_type": "Tug",
+          "latitude": 37.62543810376065,
+          "longitude": -122.41238732563428,
+          "speed": 2.9,
+          "course": 248,
+          "length": 290,
+          "width": 40,
+          "destination": "Port B",
+          "eta": "2024-01-15 12:00",
+          "flag": "LR",
+          "status": "Maneuvering",
+          "size_category": "Large"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.41238732563428,
+            37.62543810376065
+          ]
+        }
+      }
+    ]
+  },
+  "ports": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "0",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Los Angeles",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 9213395,
+          "vessel_count": 9.0,
+          "cargo_vessels": 3.0,
+          "avg_speed": 8.1,
+          "congestion_score": 10.7
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2437,
+            33.7365
+          ]
+        }
+      },
+      {
+        "id": "1",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Long Beach",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 8113576,
+          "vessel_count": 8.0,
+          "cargo_vessels": 2.0,
+          "avg_speed": 12.4,
+          "congestion_score": 8.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -118.2164,
+            33.7701
+          ]
+        }
+      },
+      {
+        "id": "2",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of New York/New Jersey",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 7410819,
+          "vessel_count": 2.0,
+          "cargo_vessels": 1.0,
+          "avg_speed": 6.8,
+          "congestion_score": 2.65
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -74.0445,
+            40.6892
+          ]
+        }
+      },
+      {
+        "id": "3",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Savannah",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 4599177,
+          "vessel_count": 3.0,
+          "cargo_vessels": 1.0,
+          "avg_speed": 16.7,
+          "congestion_score": 3.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -81.0912,
+            32.1157
+          ]
+        }
+      },
+      {
+        "id": "4",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Seattle",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 3775303,
+          "vessel_count": 1.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 12.9,
+          "congestion_score": 1.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.3328,
+            47.5952
+          ]
+        }
+      },
+      {
+        "id": "5",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Houston",
+          "country": "USA",
+          "type": "Bulk/Energy",
+          "annual_teu": 2987291,
+          "vessel_count": 4.0,
+          "cargo_vessels": 1.0,
+          "avg_speed": 5.3,
+          "congestion_score": 5.89
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -95.2591,
+            29.7355
+          ]
+        }
+      },
+      {
+        "id": "6",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Tacoma",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 2935570,
+          "vessel_count": 0.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 0.0,
+          "congestion_score": 0.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.4598,
+            47.2529
+          ]
+        }
+      },
+      {
+        "id": "7",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Oakland",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 2507027,
+          "vessel_count": 1.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 4.4,
+          "congestion_score": 1.56
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -122.3255,
+            37.7955
+          ]
+        }
+      },
+      {
+        "id": "8",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Miami",
+          "country": "USA",
+          "type": "Container/Cruise",
+          "annual_teu": 1150540,
+          "vessel_count": 1.0,
+          "cargo_vessels": 1.0,
+          "avg_speed": 3.5,
+          "congestion_score": 1.65
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -80.1918,
+            25.7617
+          ]
+        }
+      },
+      {
+        "id": "9",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Charleston",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 2436185,
+          "vessel_count": 0.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 0.0,
+          "congestion_score": 0.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -79.9311,
+            32.7765
+          ]
+        }
+      },
+      {
+        "id": "10",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Norfolk",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 2944174,
+          "vessel_count": 0.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 0.0,
+          "congestion_score": 0.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -76.3018,
+            36.8468
+          ]
+        }
+      },
+      {
+        "id": "11",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Baltimore",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 843158,
+          "vessel_count": 0.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 0.0,
+          "congestion_score": 0.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -76.6122,
+            39.2904
+          ]
+        }
+      },
+      {
+        "id": "12",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Boston",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 234000,
+          "vessel_count": 0.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 0.0,
+          "congestion_score": 0.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -71.0275,
+            42.3188
+          ]
+        }
+      },
+      {
+        "id": "13",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of Philadelphia",
+          "country": "USA",
+          "type": "Container",
+          "annual_teu": 134000,
+          "vessel_count": 0.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 0.0,
+          "congestion_score": 0.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -75.1652,
+            39.9526
+          ]
+        }
+      },
+      {
+        "id": "14",
+        "type": "Feature",
+        "properties": {
+          "name": "Port of New Orleans",
+          "country": "USA",
+          "type": "Bulk",
+          "annual_teu": 570000,
+          "vessel_count": 0.0,
+          "cargo_vessels": 0.0,
+          "avg_speed": 0.0,
+          "congestion_score": 0.0
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -90.0715,
+            29.9511
+          ]
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_vessels": 136,
+    "total_ports": 15,
+    "avg_congestion": 2.3,
+    "busiest_port": "Port of Los Angeles"
+  }
+}
