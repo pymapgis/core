@@ -1,0 +1,290 @@
+{
+  "transit_routes": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "line_1",
+          "route_name": "Yonge-University Line",
+          "route_type": "subway",
+          "status": "Normal Service",
+          "delay_minutes": 0,
+          "vehicles_active": 45,
+          "crowding_level": 7,
+          "performance_score": 7.9,
+          "status_category": "Good",
+          "status_color": "#FFD320",
+          "route_color": "#FFD320",
+          "last_updated": "2025-06-17T13:09:56.247097"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -79.3832,
+              43.6532
+            ],
+            [
+              -79.3832,
+              43.7532
+            ],
+            [
+              -79.4832,
+              43.8032
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "line_2",
+          "route_name": "Bloor-Danforth Line",
+          "route_type": "subway",
+          "status": "Minor Delays",
+          "delay_minutes": 3,
+          "vehicles_active": 38,
+          "crowding_level": 8,
+          "performance_score": 6.1,
+          "status_category": "Fair",
+          "status_color": "#FF8C00",
+          "route_color": "#00B04F",
+          "last_updated": "2025-06-17T13:09:56.247105"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -79.2832,
+              43.6532
+            ],
+            [
+              -79.3832,
+              43.6532
+            ],
+            [
+              -79.4832,
+              43.6532
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "line_4",
+          "route_name": "Sheppard Line",
+          "route_type": "subway",
+          "status": "Normal Service",
+          "delay_minutes": 0,
+          "vehicles_active": 8,
+          "crowding_level": 4,
+          "performance_score": 8.8,
+          "status_category": "Excellent",
+          "status_color": "#00B04F",
+          "route_color": "#9639A7",
+          "last_updated": "2025-06-17T13:09:56.247111"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -79.3332,
+              43.7532
+            ],
+            [
+              -79.3832,
+              43.7532
+            ],
+            [
+              -79.4332,
+              43.7532
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "501",
+          "route_name": "Queen Streetcar",
+          "route_type": "streetcar",
+          "status": "Normal Service",
+          "delay_minutes": 2,
+          "vehicles_active": 25,
+          "crowding_level": 6,
+          "performance_score": 7.2,
+          "status_category": "Good",
+          "status_color": "#FFD320",
+          "route_color": "#DA020E",
+          "last_updated": "2025-06-17T13:09:56.247118"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -79.2832,
+              43.6432
+            ],
+            [
+              -79.3832,
+              43.6432
+            ],
+            [
+              -79.4832,
+              43.6432
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "504",
+          "route_name": "King Streetcar",
+          "route_type": "streetcar",
+          "status": "Normal Service",
+          "delay_minutes": 1,
+          "vehicles_active": 22,
+          "crowding_level": 7,
+          "performance_score": 7.4,
+          "status_category": "Good",
+          "status_color": "#FFD320",
+          "route_color": "#DA020E",
+          "last_updated": "2025-06-17T13:09:56.247136"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -79.2832,
+              43.6332
+            ],
+            [
+              -79.3832,
+              43.6332
+            ],
+            [
+              -79.4832,
+              43.6332
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "510",
+          "route_name": "Spadina Streetcar",
+          "route_type": "streetcar",
+          "status": "Normal Service",
+          "delay_minutes": 0,
+          "vehicles_active": 18,
+          "crowding_level": 5,
+          "performance_score": 8.5,
+          "status_category": "Excellent",
+          "status_color": "#00B04F",
+          "route_color": "#DA020E",
+          "last_updated": "2025-06-17T13:09:56.247147"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -79.4032,
+              43.6232
+            ],
+            [
+              -79.4032,
+              43.6532
+            ],
+            [
+              -79.4032,
+              43.6832
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "36",
+          "route_name": "Finch West Bus",
+          "route_type": "bus",
+          "status": "Normal Service",
+          "delay_minutes": 4,
+          "vehicles_active": 15,
+          "crowding_level": 6,
+          "performance_score": 6.2,
+          "status_category": "Fair",
+          "status_color": "#FF8C00",
+          "route_color": "#1C4F9C",
+          "last_updated": "2025-06-17T13:09:56.247154"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -79.5032,
+              43.7732
+            ],
+            [
+              -79.4532,
+              43.7732
+            ],
+            [
+              -79.4032,
+              43.7732
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "96",
+          "route_name": "Wilson Bus",
+          "route_type": "bus",
+          "status": "Normal Service",
+          "delay_minutes": 2,
+          "vehicles_active": 12,
+          "crowding_level": 5,
+          "performance_score": 7.5,
+          "status_category": "Good",
+          "status_color": "#FFD320",
+          "route_color": "#1C4F9C",
+          "last_updated": "2025-06-17T13:09:56.247159"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              -79.5032,
+              43.7332
+            ],
+            [
+              -79.4532,
+              43.7332
+            ],
+            [
+              -79.4032,
+              43.7332
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_routes": 8,
+    "excellent_service": 2,
+    "good_service": 4,
+    "issues": 2,
+    "avg_performance_score": 7.5,
+    "avg_delay_minutes": 1.5,
+    "total_vehicles_active": 183,
+    "last_updated": "2025-06-17T13:09:56.252830"
+  },
+  "last_updated": "2025-06-17T13:09:56.253666"
+}
