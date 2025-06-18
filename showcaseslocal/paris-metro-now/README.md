@@ -2,6 +2,12 @@
 
 ![Transit Status](https://img.shields.io/badge/PyMapGIS-Local%20Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow) ![Paris](https://img.shields.io/badge/City-Paris-blue) ![France](https://img.shields.io/badge/Country-France-blue)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Paris Metro Now in Action**: https://youtu.be/sBfiKZOTtS4
+
+See the enhanced lighter map styling, real-time French Metro/RER/bus tracking, elegance and sophistication analytics, and interactive Parisian transit features in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Paris Metro Now demonstrates real-time French public transport monitoring using RATP API integration. This showcase provides comprehensive visibility into Metro, RER, and bus operations across the world's most elegant transit system in the City of Light.

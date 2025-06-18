@@ -2,6 +2,12 @@
 
 ![Transit Status](https://img.shields.io/badge/PyMapGIS-Local%20Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow) ![Berlin](https://img.shields.io/badge/City-Berlin-red) ![Germany](https://img.shields.io/badge/Country-Germany-black)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Berlin U-Bahn Now in Action**: https://youtu.be/CU7eOkxbhHM
+
+See the enhanced lighter map styling, real-time German U-Bahn/S-Bahn/bus tracking, engineering precision analytics, and interactive German transit features in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Berlin U-Bahn Now demonstrates real-time German public transport monitoring using VBB API integration. This showcase provides comprehensive visibility into U-Bahn, S-Bahn, and bus operations across Germany's capital and largest transit system.

@@ -2,6 +2,12 @@
 
 ![Transit Status](https://img.shields.io/badge/PyMapGIS-Local%20Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow) ![Copenhagen](https://img.shields.io/badge/City-Copenhagen-red) ![Denmark](https://img.shields.io/badge/Country-Denmark-red)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Copenhagen Transit Now in Action**: https://youtu.be/hXnGPLOWHZY
+
+See the enhanced lighter map styling, real-time Danish S-train/Metro/bus tracking, Nordic efficiency analytics, and interactive Danish transit features in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Copenhagen Transit Now demonstrates real-time Danish public transport monitoring using Rejseplanen API integration. This showcase provides comprehensive visibility into S-train, Metro, and bus operations across Denmark's most efficient transit system.

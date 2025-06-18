@@ -40,6 +40,39 @@ Complete API documentation with function signatures, parameters, and examples.
 
 **Perfect for:** Developers who need detailed technical reference while coding.
 
+### [🌐 Real-Time Data Guide](real-time-data-guide.md)
+Comprehensive guide for working with real-time APIs and handling connectivity challenges.
+
+**Covers:**
+- API authentication and rate limiting
+- Network troubleshooting and fallback strategies
+- GTFS-RT processing and mock data systems
+- Production deployment and monitoring
+
+**Perfect for:** Developers working with PyMapGIS showcases and real-time data sources.
+
+### [🔑 API Setup Guide](api-setup-guide.md)
+Step-by-step instructions for setting up real-time API access for PyMapGIS showcases.
+
+**Includes:**
+- API key registration for TfL, MTA, and other transit agencies
+- Environment configuration and Docker setup
+- Testing connectivity and troubleshooting
+- Best practices for production deployment
+
+**Perfect for:** Users who want to connect showcases to live data sources.
+
+### [🔧 Troubleshooting Guide](troubleshooting-guide.md)
+Solutions for common issues when running PyMapGIS showcases and applications.
+
+**Covers:**
+- Docker and container issues
+- Network connectivity problems
+- API rate limiting and authentication
+- Windows/WSL2 specific solutions
+
+**Perfect for:** Users experiencing technical difficulties or deployment issues.
+
 ### [💡 Examples](examples.md)
 Real-world examples and use cases with complete, runnable code.
 
