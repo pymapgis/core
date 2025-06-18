@@ -1,0 +1,290 @@
+{
+  "transit_routes": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "metro_1",
+          "route_name": "Metro 1 Ch\u00e2teau de Vincennes \u2194 Pont de Neuilly",
+          "route_type": "metro",
+          "status": "Excellent Service",
+          "delay_minutes": 0,
+          "frequency_minutes": 2,
+          "punctuality_percent": 98,
+          "elegance_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A88F",
+          "route_color": "#FFCD00",
+          "last_updated": "2025-06-17T22:42:03.180609"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              2.3522,
+              48.8566
+            ],
+            [
+              2.3622,
+              48.8666
+            ],
+            [
+              2.3722,
+              48.8766
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "metro_4",
+          "route_name": "Metro 4 Porte de Clignancourt \u2194 Porte d'Orl\u00e9ans",
+          "route_type": "metro",
+          "status": "Normal Service",
+          "delay_minutes": 1,
+          "frequency_minutes": 3,
+          "punctuality_percent": 95,
+          "elegance_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A88F",
+          "route_color": "#A0006E",
+          "last_updated": "2025-06-17T22:42:03.180627"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              2.3422,
+              48.8466
+            ],
+            [
+              2.3522,
+              48.8566
+            ],
+            [
+              2.3622,
+              48.8666
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "metro_6",
+          "route_name": "Metro 6 Charles de Gaulle-\u00c9toile \u2194 Nation",
+          "route_type": "metro",
+          "status": "Normal Service",
+          "delay_minutes": 1,
+          "frequency_minutes": 3,
+          "punctuality_percent": 94,
+          "elegance_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A88F",
+          "route_color": "#6ECA97",
+          "last_updated": "2025-06-17T22:42:03.180643"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              2.3322,
+              48.8366
+            ],
+            [
+              2.3522,
+              48.8566
+            ],
+            [
+              2.3722,
+              48.8766
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "metro_14",
+          "route_name": "Metro 14 Saint-Lazare \u2194 Olympiades",
+          "route_type": "metro",
+          "status": "Excellent Service",
+          "delay_minutes": 0,
+          "frequency_minutes": 2,
+          "punctuality_percent": 99,
+          "elegance_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A88F",
+          "route_color": "#62259D",
+          "last_updated": "2025-06-17T22:42:03.180656"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              2.3522,
+              48.8566
+            ],
+            [
+              2.3622,
+              48.8666
+            ],
+            [
+              2.3722,
+              48.8766
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "rer_a",
+          "route_name": "RER A Cergy \u2194 Boissy-Saint-L\u00e9ger",
+          "route_type": "rer",
+          "status": "Minor Delays",
+          "delay_minutes": 3,
+          "frequency_minutes": 6,
+          "punctuality_percent": 89,
+          "elegance_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A88F",
+          "route_color": "#E2231A",
+          "last_updated": "2025-06-17T22:42:03.180669"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              2.3222,
+              48.8266
+            ],
+            [
+              2.3522,
+              48.8566
+            ],
+            [
+              2.3822,
+              48.8866
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "rer_b",
+          "route_name": "RER B Robinson \u2194 A\u00e9roport Charles de Gaulle",
+          "route_type": "rer",
+          "status": "Normal Service",
+          "delay_minutes": 2,
+          "frequency_minutes": 8,
+          "punctuality_percent": 91,
+          "elegance_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A88F",
+          "route_color": "#7BA3DC",
+          "last_updated": "2025-06-17T22:42:03.180682"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              2.3422,
+              48.8466
+            ],
+            [
+              2.3522,
+              48.8566
+            ],
+            [
+              2.3622,
+              48.8666
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "bus_21",
+          "route_name": "Bus 21 Gare Saint-Lazare \u2194 Porte de Gentilly",
+          "route_type": "bus",
+          "status": "Normal Service",
+          "delay_minutes": 4,
+          "frequency_minutes": 12,
+          "punctuality_percent": 87,
+          "elegance_score": 8.5,
+          "status_category": "Good",
+          "status_color": "#FFCD00",
+          "route_color": "#E2231A",
+          "last_updated": "2025-06-17T22:42:03.180696"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              2.3422,
+              48.8466
+            ],
+            [
+              2.3522,
+              48.8566
+            ],
+            [
+              2.3622,
+              48.8666
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "bus_38",
+          "route_name": "Bus 38 Porte d'Orl\u00e9ans \u2194 Biblioth\u00e8que F. Mitterrand",
+          "route_type": "bus",
+          "status": "Normal Service",
+          "delay_minutes": 3,
+          "frequency_minutes": 10,
+          "punctuality_percent": 85,
+          "elegance_score": 8.8,
+          "status_category": "Good",
+          "status_color": "#FFCD00",
+          "route_color": "#E2231A",
+          "last_updated": "2025-06-17T22:42:03.180710"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              2.3322,
+              48.8366
+            ],
+            [
+              2.3422,
+              48.8466
+            ],
+            [
+              2.3522,
+              48.8566
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_routes": 8,
+    "excellent_service": 6,
+    "good_service": 2,
+    "issues": 0,
+    "avg_elegance_score": 9.7,
+    "avg_delay_minutes": 1.8,
+    "avg_punctuality_percent": 92.2,
+    "last_updated": "2025-06-17T22:42:03.189055"
+  },
+  "last_updated": "2025-06-17T22:42:03.190408"
+}
