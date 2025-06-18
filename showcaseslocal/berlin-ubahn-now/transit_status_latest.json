@@ -1,0 +1,290 @@
+{
+  "transit_routes": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "u1",
+          "route_name": "U1 Warschauer Str. \u2194 Uhlandstr.",
+          "route_type": "u_bahn",
+          "status": "Normal Service",
+          "delay_minutes": 0,
+          "frequency_minutes": 5,
+          "reliability_percent": 96,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#16683D",
+          "route_color": "#55A3D9",
+          "last_updated": "2025-06-17T22:26:42.759056"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              13.405,
+              52.52
+            ],
+            [
+              13.415,
+              52.53
+            ],
+            [
+              13.425,
+              52.54
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "u2",
+          "route_name": "U2 Pankow \u2194 Ruhleben",
+          "route_type": "u_bahn",
+          "status": "Minor Delays",
+          "delay_minutes": 2,
+          "frequency_minutes": 5,
+          "reliability_percent": 91,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#16683D",
+          "route_color": "#DA421E",
+          "last_updated": "2025-06-17T22:26:42.759064"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              13.395,
+              52.51
+            ],
+            [
+              13.405,
+              52.52
+            ],
+            [
+              13.415,
+              52.53
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "u6",
+          "route_name": "U6 Alt-Tegel \u2194 Alt-Mariendorf",
+          "route_type": "u_bahn",
+          "status": "Normal Service",
+          "delay_minutes": 1,
+          "frequency_minutes": 5,
+          "reliability_percent": 94,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#16683D",
+          "route_color": "#8C6DAB",
+          "last_updated": "2025-06-17T22:26:42.759070"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              13.405,
+              52.52
+            ],
+            [
+              13.405,
+              52.53
+            ],
+            [
+              13.405,
+              52.54
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "s1",
+          "route_name": "S1 Wannsee \u2194 Oranienburg",
+          "route_type": "s_bahn",
+          "status": "Excellent Service",
+          "delay_minutes": 0,
+          "frequency_minutes": 10,
+          "reliability_percent": 98,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#16683D",
+          "route_color": "#E4B5D3",
+          "last_updated": "2025-06-17T22:26:42.759076"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              13.385,
+              52.5
+            ],
+            [
+              13.405,
+              52.52
+            ],
+            [
+              13.425,
+              52.54
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "s3",
+          "route_name": "S3 Erkner \u2194 Spandau",
+          "route_type": "s_bahn",
+          "status": "Normal Service",
+          "delay_minutes": 1,
+          "frequency_minutes": 10,
+          "reliability_percent": 93,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#16683D",
+          "route_color": "#224F86",
+          "last_updated": "2025-06-17T22:26:42.759082"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              13.375,
+              52.49
+            ],
+            [
+              13.405,
+              52.52
+            ],
+            [
+              13.435,
+              52.55
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "s41",
+          "route_name": "S41 Ringbahn (clockwise)",
+          "route_type": "s_bahn",
+          "status": "Normal Service",
+          "delay_minutes": 2,
+          "frequency_minutes": 10,
+          "reliability_percent": 89,
+          "efficiency_score": 9.6,
+          "status_category": "Excellent",
+          "status_color": "#16683D",
+          "route_color": "#A23B1E",
+          "last_updated": "2025-06-17T22:26:42.759091"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              13.405,
+              52.52
+            ],
+            [
+              13.415,
+              52.52
+            ],
+            [
+              13.425,
+              52.52
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "bus_100",
+          "route_name": "Bus 100 Zoologischer Garten \u2194 Alexanderplatz",
+          "route_type": "bus",
+          "status": "Normal Service",
+          "delay_minutes": 3,
+          "frequency_minutes": 15,
+          "reliability_percent": 87,
+          "efficiency_score": 8.5,
+          "status_category": "Good",
+          "status_color": "#F0D722",
+          "route_color": "#F0D722",
+          "last_updated": "2025-06-17T22:26:42.759097"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              13.395,
+              52.51
+            ],
+            [
+              13.405,
+              52.52
+            ],
+            [
+              13.415,
+              52.53
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "bus_m41",
+          "route_name": "MetroBus M41 Hauptbahnhof \u2194 Sonnenallee",
+          "route_type": "bus",
+          "status": "Normal Service",
+          "delay_minutes": 2,
+          "frequency_minutes": 12,
+          "reliability_percent": 85,
+          "efficiency_score": 8.9,
+          "status_category": "Good",
+          "status_color": "#F0D722",
+          "route_color": "#E4007C",
+          "last_updated": "2025-06-17T22:26:42.759106"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              13.385,
+              52.5
+            ],
+            [
+              13.395,
+              52.51
+            ],
+            [
+              13.405,
+              52.52
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_routes": 8,
+    "excellent_service": 6,
+    "good_service": 2,
+    "issues": 0,
+    "avg_efficiency_score": 9.6,
+    "avg_delay_minutes": 1.4,
+    "avg_reliability_percent": 91.6,
+    "last_updated": "2025-06-17T22:26:42.763533"
+  },
+  "last_updated": "2025-06-17T22:26:42.764299"
+}
