@@ -1,0 +1,290 @@
+{
+  "transit_routes": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "s_a",
+          "route_name": "S-train A",
+          "route_type": "s_train",
+          "status": "Normal Service",
+          "delay_minutes": 0,
+          "frequency_minutes": 10,
+          "punctuality_percent": 95,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A86B",
+          "route_color": "#00A86B",
+          "last_updated": "2025-06-17T21:33:10.572312"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              12.5683,
+              55.6761
+            ],
+            [
+              12.5783,
+              55.6861
+            ],
+            [
+              12.5883,
+              55.6961
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "s_b",
+          "route_name": "S-train B",
+          "route_type": "s_train",
+          "status": "Minor Delays",
+          "delay_minutes": 2,
+          "frequency_minutes": 10,
+          "punctuality_percent": 88,
+          "efficiency_score": 9.2,
+          "status_category": "Excellent",
+          "status_color": "#00A86B",
+          "route_color": "#0066CC",
+          "last_updated": "2025-06-17T21:33:10.572330"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              12.5583,
+              55.6661
+            ],
+            [
+              12.5683,
+              55.6761
+            ],
+            [
+              12.5783,
+              55.6861
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "s_c",
+          "route_name": "S-train C",
+          "route_type": "s_train",
+          "status": "Normal Service",
+          "delay_minutes": 1,
+          "frequency_minutes": 10,
+          "punctuality_percent": 92,
+          "efficiency_score": 9.9,
+          "status_category": "Excellent",
+          "status_color": "#00A86B",
+          "route_color": "#FF6600",
+          "last_updated": "2025-06-17T21:33:10.572344"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              12.5483,
+              55.6561
+            ],
+            [
+              12.5683,
+              55.6761
+            ],
+            [
+              12.5883,
+              55.6961
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "metro_m1",
+          "route_name": "Metro M1",
+          "route_type": "metro",
+          "status": "Excellent Service",
+          "delay_minutes": 0,
+          "frequency_minutes": 4,
+          "punctuality_percent": 98,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A86B",
+          "route_color": "#00A86B",
+          "last_updated": "2025-06-17T21:33:10.572357"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              12.5683,
+              55.6761
+            ],
+            [
+              12.5783,
+              55.6861
+            ],
+            [
+              12.5883,
+              55.6961
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "metro_m2",
+          "route_name": "Metro M2",
+          "route_type": "metro",
+          "status": "Excellent Service",
+          "delay_minutes": 0,
+          "frequency_minutes": 4,
+          "punctuality_percent": 97,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A86B",
+          "route_color": "#FFCC00",
+          "last_updated": "2025-06-17T21:33:10.572370"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              12.5583,
+              55.6661
+            ],
+            [
+              12.5683,
+              55.6761
+            ],
+            [
+              12.5783,
+              55.6861
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "metro_m3",
+          "route_name": "Metro M3 (Cityringen)",
+          "route_type": "metro",
+          "status": "Normal Service",
+          "delay_minutes": 1,
+          "frequency_minutes": 6,
+          "punctuality_percent": 94,
+          "efficiency_score": 10.0,
+          "status_category": "Excellent",
+          "status_color": "#00A86B",
+          "route_color": "#0066CC",
+          "last_updated": "2025-06-17T21:33:10.572383"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              12.5683,
+              55.6761
+            ],
+            [
+              12.5783,
+              55.6761
+            ],
+            [
+              12.5883,
+              55.6761
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "bus_1a",
+          "route_name": "Bus 1A",
+          "route_type": "bus",
+          "status": "Normal Service",
+          "delay_minutes": 3,
+          "frequency_minutes": 15,
+          "punctuality_percent": 85,
+          "efficiency_score": 8.3,
+          "status_category": "Good",
+          "status_color": "#FFCC00",
+          "route_color": "#E60026",
+          "last_updated": "2025-06-17T21:33:10.572396"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              12.5583,
+              55.6661
+            ],
+            [
+              12.5683,
+              55.6761
+            ],
+            [
+              12.5783,
+              55.6861
+            ]
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "route_id": "bus_2a",
+          "route_name": "Bus 2A",
+          "route_type": "bus",
+          "status": "Normal Service",
+          "delay_minutes": 2,
+          "frequency_minutes": 12,
+          "punctuality_percent": 87,
+          "efficiency_score": 8.9,
+          "status_category": "Good",
+          "status_color": "#FFCC00",
+          "route_color": "#E60026",
+          "last_updated": "2025-06-17T21:33:10.572408"
+        },
+        "geometry": {
+          "type": "LineString",
+          "coordinates": [
+            [
+              12.5483,
+              55.6561
+            ],
+            [
+              12.5583,
+              55.6661
+            ],
+            [
+              12.5683,
+              55.6761
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total_routes": 8,
+    "excellent_service": 6,
+    "good_service": 2,
+    "issues": 0,
+    "avg_efficiency_score": 9.5,
+    "avg_delay_minutes": 1.1,
+    "avg_punctuality_percent": 92.0,
+    "last_updated": "2025-06-17T21:33:10.580707"
+  },
+  "last_updated": "2025-06-17T21:33:10.582083"
+}

@@ -2,6 +2,12 @@
 
 ![Tube Status](https://img.shields.io/badge/PyMapGIS-Local%20Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow) ![London](https://img.shields.io/badge/City-London-red)
 
+## 📺 **Demo Video**
+
+🎬 **Watch London Tube Status Now in Action**: https://youtu.be/HL-xlLP8Jko
+
+See the enhanced lighter map styling, real-time TfL API integration, authentic London Underground branding, and interactive tube line status features in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 London Tube Status Now demonstrates real-time London Underground service monitoring using Transport for London (TfL) APIs. This showcase provides instant visibility into tube line status, disruptions, and travel recommendations for the world's most iconic metro system.

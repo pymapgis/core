@@ -2,6 +2,12 @@
 
 ![Transit Status](https://img.shields.io/badge/PyMapGIS-Local%20Showcase-blue) ![Status](https://img.shields.io/badge/Status-Active-green) ![License](https://img.shields.io/badge/License-MIT-yellow) ![Toronto](https://img.shields.io/badge/City-Toronto-red) ![Canada](https://img.shields.io/badge/Country-Canada-red)
 
+## 📺 **Demo Video**
+
+🎬 **Watch Toronto Transit Now in Action**: https://youtu.be/ZS2zC-3wOQM
+
+See the enhanced lighter map styling, real-time TTC multi-modal tracking (subway, streetcar, bus), performance analytics, and interactive Canadian transit features in this comprehensive demo video.
+
 ## 🎯 Why This Showcase?
 
 Toronto Transit Now demonstrates real-time Toronto Transit Commission (TTC) monitoring using GTFS-RT integration. This showcase provides comprehensive visibility into subway, streetcar, and bus operations across Canada's largest transit system.
